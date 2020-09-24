@@ -41,8 +41,10 @@
             "database/factories"
         ],
         "files": [
-
+         "bootstrap/helpers.php",
          "app/helpers.php"
+
+
 
         ]
     },

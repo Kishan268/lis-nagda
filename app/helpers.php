@@ -1,7 +1,7 @@
 <?php
 
  class Helpers{
-
+ 
  	public static function schoolClasses(){
 
  		$array = array([

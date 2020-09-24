@@ -162,4 +162,36 @@ Route::post('passout_student', 'Admin\students\studentManageController@passoutSt
 Route::post('dropout_student', 'Admin\students\studentManageController@dropoutStudent')->name('dropout_student');
 Route::post('forward_transfer_student', 'Admin\students\studentManageController@forwardTranferStudent')->name('forward_transfer_student');
 
+// Route::group(['prefix' => 'attendance', 'namespace' => 'LawSchools'], function ()  {
 
+        Route::get('attendance/dashboard', 'Admin\AttendanceController@index')->name('dashboard');
+        Route::get('attendance/student', 'Admin\AttendanceController@studentAttendance')->name('attendance.student');
+        Route::post('attendance/student_fetch', 'Admin\AttendanceController@studentFetch')->name('attendance.student_fetch');
+        Route::post('attendance/attendance_submit', 'Admin\AttendanceController@attendanceSubmit')->name('attendance.submit');
+        Route::get('attendance/staff', 'Admin\AttendanceController@staffAttendance')->name('attendance.staff');
+
+        Route::get('attendance/manage/student', 'Admin\AttendanceController@manageStudentAttendance')->name('attendance.manage_student');
+        Route::post('attendance/manage_student_filter', 'Admin\AttendanceController@manageStudentFilter')->name('attendance.manage_student_filter');
+
+
+        Route::get('attendance/manage/staff', 'Admin\AttendanceController@manageStaffAttendance')->name('attendance.manage_staff');
+        // Route::post('/staff_filter', 'AttendanceController@staff_filter')->name('attendance.staff_filter');
+        // Route::post('/attendance_staff_update', 'AttendanceController@attendance_staff_update')->name('attendance.staff_update');
+
+        // Route::get('/manage/show_attendance/{id}', 'AttendanceController@show_attendance')->name('attendance.show_attendance');
+        // Route::post('/attendance_list', 'AttendanceController@attendance_list')->name('attendance.list');
+        Route::post('attendance/attendance_update', 'Admin\AttendanceController@attendanceUpdate')->name('attendance.update');
+        Route::get('attendance/upload','Admin\AttendanceController@attendanceUpload')->name('attendance.upload');
+        
+        Route::get('attendance/report/student','Admin\AttendanceController@attendanceStudentReport')->name('attendance.student_report');
+
+        // Route::get('/report/staff','AttendanceController@attendance_staff_report')->name('attendance.staff_report');
+
+        // Route::post('/report_generate','AttendanceController@report_generate')->name('attendance.report_generate');
+
+        // Route::post('/staff_report_generate','AttendanceController@staff_report_generate')->name('attendance.staff_report_generate');
+
+        // Route::post('/attendance-staff-submit','AttendanceController@attendanceStaffSubmit')->name('attendance-staff.submit');
+
+        // Route::post('/import','AttendanceController@importAttendence')->name('attendance.import');
+    // });

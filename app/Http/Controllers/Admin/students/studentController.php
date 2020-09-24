@@ -58,9 +58,10 @@ class studentController extends Controller
          $studentNationalites   = stdNationality::get();
          $studentBloodGroups    = stdBloodGroup::get();
          $studentMothertongues  = mothetongueMast::get();
-         $professtionType  = professtionType::get();
-         $guardianDesignation  = guardianDesignation::get();
+         $professtionType       = professtionType::get();
+         $guardianDesignation   = guardianDesignation::get();
          $studentGenders = Helpers::studentGender();
+         // return student_gender();
         return view('admin.students.create',compact('classes','batches','sections','studentGenders','castCategores','studentReligions',
             'studentNationalites','studentBloodGroups','studentMothertongues','country','state','city','professtionType','guardianDesignation'));
         
@@ -368,7 +369,7 @@ class studentController extends Controller
          $batches = studentBatch::get();
          $sections = studentSectionMast::get();
          $studentData = studentsMast::get();
-        $students = studentsMast::where('batch_id',$request->batch_id)
+         $students = studentsMast::where('batch_id',$request->batch_id)
                                 ->where('std_class_id',$request->std_class_id)
                                 ->where('section_id',$request->section_id)
                                 ->where('user_id',Auth::user()->id)
