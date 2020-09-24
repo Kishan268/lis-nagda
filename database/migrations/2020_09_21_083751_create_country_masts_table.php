@@ -15,6 +15,7 @@ class CreateCountryMastsTable extends Migration
     {
         Schema::create('country_masts', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('user_id',11);
              $table->string('country_name', 30)->nullable();
              $table->string('country_code', 10)->nullable();
             $table->softDeletes();

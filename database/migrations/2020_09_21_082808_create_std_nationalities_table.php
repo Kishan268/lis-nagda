@@ -15,6 +15,7 @@ class CreateStdNationalitiesTable extends Migration
     {
         Schema::create('std_nationalities', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('user_id',11);
             $table->string('nationality_name', 10)->nullable();
             $table->softDeletes();
             $table->timestamps();

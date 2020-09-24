@@ -32,17 +32,17 @@
 
 						</select>
 					</div>								
-					<div class="col-md-3">
+					<div class="col-md-2">
 						<select class="form-control" name="batch_id">
 							<option value="">Select Batch</option>
 							@foreach($batches as $key=>$batch)
-							<option value="{{$batch->id}}">{{$batch->batch_from}}-{{$batch->batch_to}}</option>
+							<option value="{{$batch->id}}">{{$batch->batch_name}}</option>
 						@endforeach
 							 
 						</select>
 					</div>
 					
-					<div class="col-md-3">
+					<div class="col-md-2">
 						<select class="form-control" name="section_id"> 
 							<option value="">Select Section</option>
 							@foreach($sections as $key=>$section)
@@ -50,7 +50,14 @@
 							@endforeach
 						</select>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-2">
+						<select class="form-control" name="status">
+							<option value="">Select Status</option>
+							<option value="P">Passout</option>
+							<option value="D">Dropout</option>
+						</select>
+					</div>
+					<div class="col-md-2">
 						<button class="btn btn-sm btn-primary" id="btnFilter">Search</button>
 						<a href="{{ URL::previous() }}" class="btn btn-sm btn-success pull-right">Back</a>
 					</div>
@@ -114,7 +121,8 @@
 			var batch_id = $('select[name="batch_id"] option:selected').val();
 			var std_class_id = $('select[name="std_class_id"] option:selected').val();
 			var section_id = $('select[name="section_id"] option:selected').val();
-			var status = 'R';
+			var status = $('select[name="status"] option:selected').val();
+			// var status = 'R';
 			var user_id = 'user_id';
 
 			var page = 'student_detail';

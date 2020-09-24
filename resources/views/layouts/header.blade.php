@@ -40,6 +40,9 @@
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> --}}
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.common.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.js"></script>
     <style type="text/css">
   
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600');
@@ -71,7 +74,7 @@ p {
   border-radius: 0;
   margin-right: .5em;
   color: #fff !important;
-  width: 100px;
+  /*width: 100px;*/
 }
 
 /*.nav-tabs,
@@ -155,7 +158,6 @@ p {
             <a class="collapse-item" href="{{url('student_detail')}}">Student Details</a>
             <a class="collapse-item" href="{{route('previous-record')}}">Previous Record</a>
             <a class="collapse-item" href="{{route('student_manage')}}">Manage Students</a>
-            <a class="collapse-item" href="#">Arrange Student</a>
             <a class="collapse-item" href="{{route('student_uploads')}}">Upload Students</a>
             <a class="collapse-item" href="#">ID Card</a>
             <a class="collapse-item" href="#">Records</a>
@@ -181,6 +183,19 @@ p {
           </div>
         </div>
       </li>
+ <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#manage_classes" aria-expanded="true" aria-controls="manage_classes">
+          <i class="fa fa-graduation-cap sidebar-nav-icon"></i>
+          <span>Classes</span>
+        </a>
+        <div id="manage_classes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{route('classes')}}">Manage Class</a>
+            <a class="collapse-item" href="{{route('batch')}}">Manage Batch</a>
+          </div>
+        </div>
+      </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
@@ -191,9 +206,9 @@ p {
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="{{route('classes')}}">Class</a>
-            <a class="collapse-item" href="{{route('batch')}}">Batch</a>
-            <a class="collapse-item" href="{{route('section')}}">Section</a>
+            <a class="collapse-item" href="{{route('classes')}}">Manage Class</a>
+            <a class="collapse-item" href="{{route('batch')}}">Manage Batch</a>
+            <a class="collapse-item" href="{{route('section')}}">Manage Section</a>
             <a class="collapse-item" href="{{route('cast-category')}}">Category</a>
             <a class="collapse-item" href="{{route('religions')}}">Religion </a>
             <a class="collapse-item" href="{{route('blood-group')}}">Blood Group  </a>

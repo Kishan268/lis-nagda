@@ -66,7 +66,6 @@
 												<strong>{{$message}}</strong>
 											</span>
 										@enderror
-									
 									</div>
 								</div>
 								<div class="row form-group">
@@ -89,7 +88,7 @@
 										<select class="form-control required" name="batch_id">
 											<option value="">Select Batch</option>
 											@foreach($batches as $batch)
-												<option value="{{$batch->id}}">{{$batch->batch_from}}-{{$batch->batch_to}}</option>
+												<option value="{{$batch->id}}">{{$batch->batch_name}}</option>
 											@endforeach
 										</select>
 										@error('batch_id')

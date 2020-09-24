@@ -15,6 +15,7 @@ class CreateCastCategoriesTable extends Migration
     {
         Schema::create('cast_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('user_id',11);
             $table->string('caste_category_name', 100)->nullable();
             $table->softDeletes();
             $table->timestamps();

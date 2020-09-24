@@ -15,8 +15,11 @@ class CreateStudentBatchesTable extends Migration
     {
         Schema::create('student_batches', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('batch_from', 10)->nullable();
-            $table->string('batch_to', 10)->nullable();
+            $table->string('user_id',11);
+            
+            $table->string('batch_from', 11)->nullable();
+            $table->string('batch_to', 11)->nullable();
+            $table->string('batch_name', 11)->nullable();
             $table->softDeletes();
             
             $table->timestamps();

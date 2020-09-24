@@ -15,6 +15,7 @@ class CreateGuardianDesignationsTable extends Migration
     {
         Schema::create('guardian_designations', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('user_id',11);
             $table->string('guardian_designations_name', 100)->nullable();
             $table->softDeletes();
             $table->timestamps();

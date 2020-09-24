@@ -27,7 +27,9 @@ class CreateStudentsMastsTable extends Migration
             $table->string('s_mobile',12)->nullable();
             $table->string('dob',20)->nullable();
             $table->string('birth_place',100)->nullable();
-            $table->string('passout_date',100)->nullable();
+            $table->string('passout_date',20)->nullable();
+            $table->string('dropout_date',20)->nullable();
+            $table->string('forward_date',20)->nullable();
             $table->string('email',30)->nullable();
             $table->string('gender',10)->nullable();
             $table->string('reservation_class_id',11)->nullable();

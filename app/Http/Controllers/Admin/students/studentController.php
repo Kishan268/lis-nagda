@@ -310,9 +310,11 @@ class studentController extends Controller
 
     public function student_filter(Request $request){
 
+// dd($request);
         $students = studentsMast::where('batch_id',$request->batch_id)
                                 ->where('std_class_id',$request->std_class_id)
                                 ->where('section_id',$request->section_id)
+                                ->where('status',$request->status)
                                 ->where('user_id',Auth::user()->id)
                                 ->get();
         $page = request()->page; 
@@ -362,13 +364,17 @@ class studentController extends Controller
 
     //  students Manage Get Data student details......................
     public function studentsManageGetData(Request $request){
+         $classes = studentClass::get();
+         $batches = studentBatch::get();
+         $sections = studentSectionMast::get();
+         $studentData = studentsMast::get();
         $students = studentsMast::where('batch_id',$request->batch_id)
                                 ->where('std_class_id',$request->std_class_id)
                                 ->where('section_id',$request->section_id)
                                 ->where('user_id',Auth::user()->id)
                                 ->get();
         $page = request()->page; 
-          return view('admin.students.student-manage.table',compact('students','page'));
+          return view('admin.students.student-manage.table',compact('students','page','studentData','classes','sections','batches'));
     }
 
      // get previous student details......................
@@ -376,4 +382,6 @@ class studentController extends Controller
         
             return view('admin.students.student_uploads.index');
     }
+
+
 }

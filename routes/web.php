@@ -155,6 +155,11 @@ Route::get('student_previous-detail', 'Admin\students\studentController@previous
 Route::get('student_manage', 'Admin\students\studentController@studentsManage')->name('student_manage');
 
 Route::post('student_manage_get_data', 'Admin\students\studentController@studentsManageGetData')->name('student_manage_get_data');
+
 Route::get('student_uploads', 'Admin\students\studentController@studentUploads')->name('student_uploads');
+// route for passoute student
+Route::post('passout_student', 'Admin\students\studentManageController@passoutStudent')->name('passout_student');
+Route::post('dropout_student', 'Admin\students\studentManageController@dropoutStudent')->name('dropout_student');
+Route::post('forward_transfer_student', 'Admin\students\studentManageController@forwardTranferStudent')->name('forward_transfer_student');
 
 

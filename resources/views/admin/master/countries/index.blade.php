@@ -1,24 +1,15 @@
  @extends('layouts.main')
  @section('content')
-
 <div class="container">
-      <div class="app-title">
-    <div>
-          {{-- Message show --}}
-          
-      <p>
-            @if($message = Session::get('success'))
-              
-        <div class="alert alert-success">
-          <p>{{ $message }}</p>
-        </div>
-            @endif
-          
-          </p>
-        </div>
-        <ul class="app-breadcrumb breadcrumb side">
-        </ul>
+    <div class="app-title">
+     @if($message = Session::get('success'))
+            
+      <div class="alert alert-success">
+        <p>{{ $message }}</p>
       </div>
+          @endif
+    </div>
+</div>
 {{-- =================================== --}}
   {{-- START INSERT MODEL BOX --}}
       
@@ -86,7 +77,8 @@
 
     {{-- ================================ --}}
         <br>
-          <div class="row">
+        <div class="container">
+            <div class="row">
             <div class="col-md-12">
               <div class="tile">
                 <div class="tile-body">
@@ -197,6 +189,7 @@
               </div>
             </div>
 
+        </div>
 </div>
  @endsection('content')
 

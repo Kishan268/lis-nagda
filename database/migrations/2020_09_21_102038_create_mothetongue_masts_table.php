@@ -15,6 +15,7 @@ class CreateMothetongueMastsTable extends Migration
     {
         Schema::create('mothetongue_masts', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('user_id',11);
              $table->string('mothetongue_name', 30)->nullable();
             $table->softDeletes();
             $table->timestamps();

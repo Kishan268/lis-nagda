@@ -1,30 +1,21 @@
  @extends('layouts.main')
  @section('content')
 
-
- <div class="container">
-     <div class="app-title">
-    <div>
-          {{-- Message show --}}
-          
-      <p>
-            @if($message = Session::get('success'))
-              
-        <div class="alert alert-success">
-          <p>{{ $message }}</p>
-        </div>
-            @endif
-          
-          </p>
-        </div>
-        <ul class="app-breadcrumb breadcrumb side">
-        </ul>
+<div class="container">
+    <div class="app-title">
+     @if($message = Session::get('success'))
+            
+      <div class="alert alert-success">
+        <p>{{ $message }}</p>
       </div>
+          @endif
+    </div>
+</div>
 {{-- =================================== --}}
   {{-- START INSERT MODEL BOX --}}
       
 <div class="container">
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#addGrade">Add Class</button>
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addGrade">Add Class</button>
   <!-- Modal -->
   <div class="modal fade" id="addGrade" role="dialog">
     <div class="modal-dialog">
@@ -53,7 +44,15 @@
                           </span>
                           @enderror
                      </div>
-                      
+                       <div class="form-group col-md-6" >
+                          <label for="class_description">Class Details </label>
+                            <textarea name="class_description" id="class_desceiption" class="form-control"></textarea>
+                            @error('class_description')
+                              <span class="text-danger" role="alert">
+                              <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                         </div>
                       <div class="form-group col-md-4 align-self-end">
                         <button id="addGrade" class="btn btn-primary" type="submit">
                           <i class="fa fa-fw fa-lg fa-check-circle"></i>ADD
@@ -78,7 +77,8 @@
 
 {{-- ================================ --}}
   <br>
-    <div class="row">
+    <div class="container">
+        <div class="row">
       <div class="col-md-12">
         <div class="tile">
           <div class="tile-body">
@@ -88,6 +88,7 @@
                   <tr>
                     <th>S.No</th>
                     <th>Class Name</th>
+                    <th>Class Details </th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -99,6 +100,7 @@
                   <tr>
                     <td>{{ $i++}}</td>
                     <td>{{ $studentClasse->class_name}}</td>
+                    <td>{{ $studentClasse->class_description}}</td>
                     <td> <button type="button" data-toggle="modal" data-target="#editGrad{{ $studentClasse->id }}" class="fa fa-pencil-square-o btn btn-primary">
                              </button></td>
                     {{-- <td>
@@ -144,6 +146,15 @@
                                       <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
+                                 </div>  
+                                  <div class="form-group col-md-6" >
+                                  <label for="Grade">Class Details </label>
+                                    <textarea name="class_description" id="class_description" class="form-control" value="{{$studentClasse->class_description}}"></textarea>
+                                    @error('class_description')
+                                      <span class="text-danger" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                  </div>
                                    <input type="hidden" name="id" id="id" class="form-control" value="{{$studentClasse->id}}">
                                   <div class="form-group col-md-4 align-self-end">
@@ -173,6 +184,7 @@
         </div>
       </div>
     </div>
+     </div>
   </div>
  </div>
 

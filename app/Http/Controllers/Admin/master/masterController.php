@@ -18,6 +18,10 @@ use App\Models\master\mothetongueMast;
 use App\Models\master\professtionType;
 use App\Models\master\guardianDesignation;
 use Validator;
+use App\User;
+use Auth;
+
+
 class masterController extends Controller
 {
     public function __construct()
@@ -33,14 +37,24 @@ class masterController extends Controller
     } 
     public function addClasses(Request $request)
     {
-        $data = $request->validate(['class_name'=>'required']);
+        $data = $request->validate([
+                'class_name'=>'required',
+                'class_description'=>'required'
+        ]);
+        $data['user_id']    = Auth::user()->id;
+
     	studentClass::create($data);
     		return redirect('master/classes');
 
     }
     public function updateClasses(Request $request, $id)
     {
-        $data =$request->validate(['class_name'=>'required']);
+        // dd($request);
+        $data =$request->validate([
+            'class_name'=>'required',
+            'class_description'=>'required'
+        ]);
+        $data['user_id']    = Auth::user()->id;
     	
     	 studentClass::where('id',$id)->update($data);
     		return redirect('master/classes');
@@ -59,21 +73,29 @@ class masterController extends Controller
     } 
     public function addBatch(Request $request)
     {
-    	// dd($request);
+    
         $data = $request->validate([
         		'batch_from'=>'required',
-        		'batch_to'=>'required'
+        		'batch_to'=>'required',
+                'batch_name' =>'required'
         ]);
+        $data['user_id']    = Auth::user()->id;
+
+        
+        
     	 studentBatch::create($data);
 
     		return redirect('master/batches');
     }
     public function updateBatch(Request $request, $id)
     {
-        $data = $request->validate([
-        		'batch_from'=>'required',
-        		'batch_to'=>'required'
+         $data = $request->validate([
+                'batch_from' =>'required',
+                'batch_to'   =>'required',
+                'batch_name' =>'required'
         ]);
+        $data['user_id']    = Auth::user()->id;
+
     	studentBatch::where('id',$id)->update($data);
     	return redirect('master/batches');
     }
@@ -93,13 +115,19 @@ class masterController extends Controller
         $data = $request->validate([
         	'section_name'=>'required'
         ]);
+        $data['user_id']    = Auth::user()->id;
+
     	 studentSectionMast::create($data);
 
     		return redirect('master/section');
     }
     public function updateSection(Request $request, $id)
     {
-        $data = $request->validate(['section_name'=>'required']);
+        $data = $request->validate([
+            'section_name'=>'required'
+            ]);
+        $data['user_id']    = Auth::user()->id;
+
     	 studentSectionMast::where('id',$id)->update($data);
     	return redirect('master/section');
     }
@@ -113,7 +141,11 @@ class masterController extends Controller
     } 
     public function addcastCategory(Request $request)
     {
-        $data = $request->validate(['caste_category_name'=>'required']);
+        $data = $request->validate([
+            'caste_category_name'=>'required'
+        ]);
+        $data['user_id']    = Auth::user()->id;
+
     	castCategory::create($data);
     		return redirect('master/cast-category');
     }
@@ -132,13 +164,19 @@ class masterController extends Controller
     } 
     public function addStdReligion(Request $request)
     {
-        $data = $request->validate(['religion_name'=>'required']);
+        $data = $request->validate([
+            'religion_name'=>'required'
+        ]);
+        $data['user_id']    = Auth::user()->id;
+
     	stdReligions::create($data);
     		return redirect('master/religions');
     }
     public function updateStdReligion(Request $request, $id)
     {
         $data =  $request->validate(['religion_name'=>'required']);
+        $data['user_id']    = Auth::user()->id;
+
     	stdReligions::where('id',$id)->update($data);
     	return redirect('master/religions');
     }
@@ -151,13 +189,22 @@ class masterController extends Controller
     } 
     public function addStdBloodGroup(Request $request)
     {
-        $data =  $request->validate(['blood_group_name'=>'required']);
+        $data =  $request->validate([
+            'blood_group_name'=>'required'
+        ]);
+        $data['user_id']    = Auth::user()->id;
+
     	 stdBloodGroup::create($data);
     		return redirect('master/blood-group');
     }
     public function updateStdBloodGroup(Request $request, $id)
     {
-        $data =  $request->validate(['blood_group_name'=>'required']);
+        $data =  $request->validate([
+
+            'blood_group_name'=>'required'
+        ]);
+        $data['user_id']    = Auth::user()->id;
+
     	 stdBloodGroup::where('id',$id)->update($data);
     	return redirect('master/blood-group');
     } 
@@ -170,13 +217,19 @@ class masterController extends Controller
     } 
     public function addStdNationalities(Request $request)
     {
-        $data =  $request->validate(['nationality_name'=>'required']);
+        $data =  $request->validate([
+            'nationality_name'=>'required'
+        ]);
+        $data['user_id']    = Auth::user()->id;
+
     	 stdNationality::create($data);
     		return redirect('master/nationality');
     }
     public function updateStdNationalities(Request $request, $id)
     {
         $data = $request->validate(['nationality_name'=>'required']);
+        $data['user_id']    = Auth::user()->id;
+
     	 stdNationality::where('id',$id)->update($data);
     	return redirect('master/nationality');
     }
@@ -189,13 +242,19 @@ class masterController extends Controller
     } 
     public function addStdMothetongue(Request $request)
     {
-        $data =  $request->validate(['mothetongue_name'=>'required']);
+        $data =  $request->validate([
+            'mothetongue_name'=>'required'
+        ]);
+        $data['user_id']    = Auth::user()->id;
+
          mothetongueMast::create($data);
             return redirect('master/mothetongue');
     }
     public function updateStdMothetongue(Request $request, $id)
     {
         $data = $request->validate(['mothetongue_name'=>'required']);
+        $data['user_id']    = Auth::user()->id;
+
          mothetongueMast::where('id',$id)->update($data);
         return redirect('master/mothetongue');
     }
@@ -209,13 +268,19 @@ class masterController extends Controller
     public function addProfesstionType(Request $request)
     {
 
-        $data =  $request->validate(['professtion_types_name'=>'required']);
+        $data =  $request->validate([
+            'professtion_types_name'=>'required'
+        ]);
+        $data['user_id']    = Auth::user()->id;
+
          professtionType::create($data);
             return redirect('master/professtiontype');
     }
     public function updateProfesstionType(Request $request, $id)
     {
         $data = $request->validate(['professtion_types_name'=>'required']);
+        $data['user_id']    = Auth::user()->id;
+
          professtionType::where('id',$id)->update($data);
         return redirect('master/professtiontype');
     }
@@ -228,13 +293,19 @@ class masterController extends Controller
     public function addGaurdianDesignation(Request $request)
     {
         
-        $data =  $request->validate(['guardian_designations_name'=>'required']);
+        $data =  $request->validate([
+            'guardian_designations_name'=>'required'
+        ]);
+        $data['user_id']    = Auth::user()->id;
+
          guardianDesignation::create($data);
             return redirect('master/gaurdian_designation');
     }
     public function updateGaurdianDesignation(Request $request, $id)
     {
         $data = $request->validate(['guardian_designations_name'=>'required']);
+        $data['user_id']    = Auth::user()->id;
+        
          guardianDesignation::where('id',$id)->update($data);
         return redirect('master/gaurdian_designation');
     }
@@ -248,9 +319,12 @@ class masterController extends Controller
     public function addCounty(Request $request)
     {
         $data = $request->validate([
+            
         	'country_name'=>'required',
         	'country_code'=>'required'
         ]);
+        $data['user_id']    = Auth::user()->id;
+
     	 countryMast::create($data);
     		return redirect('master/countries');
     }
@@ -260,6 +334,8 @@ class masterController extends Controller
         	'country_name'=>'required',
         	'country_code'=>'required'
         ]);
+        $data['user_id']    = Auth::user()->id;
+
     	 countryMast::where('id',$id)->update($data);
     	return redirect('master/countries');
     }
@@ -270,9 +346,6 @@ class masterController extends Controller
     {
     	$state = stateMast::get();
     	$county = countryMast::get();
-    	
-    	// $countyName = countryMast::where('country_name',$county->id)->first();
-    	// dd($countyName);
     		return view('admin.master.states.index',compact('state','county'));
     } 
     public function addState(Request $request)
@@ -281,7 +354,8 @@ class masterController extends Controller
         	'state_name'=>'required',
         	'country_id'=>'required'
         ]);
-        // dd($data);
+        $data['user_id']    = Auth::user()->id;
+
     	 stateMast::create($data);
     		return redirect('master/state');
     }
@@ -291,6 +365,8 @@ class masterController extends Controller
         	'state_name'=>'required',
         	'country_id'=>'required'
         ]);
+        $data['user_id']    = Auth::user()->id;
+
     	 stateMast::where('id',$id)->update($data);
     	return redirect('master/state');
     }
@@ -300,9 +376,6 @@ class masterController extends Controller
     {
     	$state = stateMast::get();
     	$city = cityMast::get();
-    	
-    	// $countyName = countryMast::where('country_name',$county->id)->first();
-    	// dd($countyName);
     		return view('admin.master.cities.index',compact('state','city'));
     } 
     public function addCity(Request $request)
@@ -311,6 +384,8 @@ class masterController extends Controller
         	'city_name'=>'required',
         	'state_id'=>'required'
         ]);
+        $data['user_id']    = Auth::user()->id;
+
     	 cityMast::create($data);
     		return redirect('master/cities');
     }
@@ -320,6 +395,8 @@ class masterController extends Controller
         	'city_name'=>'required',
         	'state_id'=>'required'
         ]);
+        $data['user_id']    = Auth::user()->id;
+
     	 cityMast::where('id',$id)->update($data);
     	return redirect('master/cities');
     }

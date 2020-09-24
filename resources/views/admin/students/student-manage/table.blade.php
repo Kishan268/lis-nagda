@@ -45,10 +45,10 @@
 					<span class="mr">
 					<a href="{{route('student_detail.edit', $student->id)}}" ><i class="  fa fa-edit text-green" style="font-size: 16px;"></i></a></span>
 				@endif
-				{{-- @if($page == 'student_detail') <span class="mr" >
+				@if($page == 'student_detail') <span class="mr" >
 					<a href="javascript:$('#delform_{{$student->id}}').submit();"  onclick="return confirm('Are you sure?')" ><i class=" fa fa-trash text-red" style="font-size: 16px;" ></i></a>
 				</span>
-				@endif --}}
+				@endif
 				<span class="mr">
 					<a href="{{route('student_detail.show', $student->id )}}" ><i class=" fa fa-eye text-primary" style="font-size: 16px;"></i></a>
 					
@@ -64,17 +64,8 @@
 	</tbody>
 </table>
 
-<div class="widget-content padded" id="actionButtons" style="display: block;">
-    <a class="btn btn-primary pull-right" data-toggle="modal" href="#myModal" onclick="javascript:buttonClick('Transfer');">Transfer</a>
-    <a class="btn btn-primary pull-right" data-toggle="modal" href="#myModal" onclick="javascript:buttonClick('Nso');">NSO</a>
-
-    <a class="btn btn-primary pull-right" data-toggle="modal" href="#myModal" onclick="javascript:buttonClick('Retained');">Retained</a>
-
-<!-- <a class="btn btn-primary pull-right" onclick="javascript:buttonClick('Edit');"> Edit</a> -->
-    
-    <a class="btn btn-primary pull-right" onclick="javascript:buttonClick('Forward');">Forward</a>                                
-  
-</div> 
+ 
+</div>
 <style >
 	.mr{
 		margin-right: 10px;
@@ -87,3 +78,4 @@
 		scrolling:true,
 	});
 </script>
+

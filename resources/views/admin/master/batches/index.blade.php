@@ -2,23 +2,16 @@
  @section('content')
 
 <div class="container">
-      <div class="app-title">
-    <div>
-          {{-- Message show --}}
-          
-      <p>
-            @if($message = Session::get('success'))
-              
-        <div class="alert alert-success">
-          <p>{{ $message }}</p>
-        </div>
-            @endif
-          
-          </p>
-        </div>
-        <ul class="app-breadcrumb breadcrumb side">
-        </ul>
+    <div class="app-title">
+     @if($message = Session::get('success'))
+            
+      <div class="alert alert-success">
+        <p>{{ $message }}</p>
       </div>
+          @endif
+    </div>
+</div>
+
 {{-- =================================== --}}
   {{-- START INSERT MODEL BOX --}}
       
@@ -44,8 +37,8 @@
                         <form class="row" action="{{route('batches_add')}}" method="post">
                        @csrf
                           <div class="form-group col-md-6" >
-                              <label for="batch_from"> Batch From</label>
-                                <input type="text" name="batch_from" id="batch_from" class="form-control" placeholder="2020">
+                              <label for="batch_from"> Start Date</label>
+                                <input type="text" name="batch_from" id="batch_from" class="form-control datepicker" placeholder="dd/mm/yyyy" >
                                 @error('batch_from')
                                   <span class="text-danger" role="alert">
                                   <strong>{{ $message }}</strong>
@@ -53,9 +46,18 @@
                                 @enderror
                            </div>
                             <div class="form-group col-md-6" >
-                              <label for="batch_to"> Batch To</label>
-                                <input type="text" name="batch_to" id="batch_to" class="form-control" placeholder="2021">
+                              <label for="batch_to"> End Date</label>
+                                <input type="text" name="batch_to" id="batch_to" class="form-control datepicker" placeholder="dd/mm/yyyy" >
                                 @error('batch_to')
+                                  <span class="text-danger" role="alert">
+                                  <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                           </div>  
+                           <div class="form-group col-md-6" >
+                              <label for="batch_name"> Batch Name</label>
+                                <input type="text" name="batch_name" id="batch_name" class="form-control" readonly="true" placeholder="Batch name">
+                                @error('batch_name')
                                   <span class="text-danger" role="alert">
                                   <strong>{{ $message }}</strong>
                                 </span>
@@ -86,7 +88,8 @@
 
     {{-- ================================ --}}
         <br>
-          <div class="row">
+          <div class="container">
+            <div class="row">
             <div class="col-md-12">
               <div class="tile">
                 <div class="tile-body">
@@ -96,6 +99,8 @@
                         <tr>
                           <th>S.No</th>
                           <th>Batch Name</th>
+                          <th>start Date</th>
+                          <th>End Date</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -106,7 +111,9 @@
                     
                         <tr>
                           <td>{{ $i++}}</td>
-                          <td>{{ $data->batch_from}}-{{ $data->batch_to}}</td>
+                          <td>{{ $data->batch_name}}</td>
+                          <td>{{ $data->batch_from}}</td>
+                          <td>{{ $data->batch_to}}</td>
                           <td> <button type="button" data-toggle="modal" data-target="#editGrad{{ $data->id }}" class="fa fa-pencil-square-o btn btn-primary">
                                    </button></td>
                           {{-- <td>
@@ -139,14 +146,14 @@
                                         <div class="tile-body">
                                         {{-- Update FORM --}}
                                
-                                          <form class="row" action="{{route('batches_add',$data->id)}}" method="post">
+                                          <form class="row" action="{{route('batches_update',$data->id)}}" method="post">
                                             @csrf
                                             @method('PUT')
                                  
                                           
                                             <div class="form-group col-md-6" >
-                                              <label for="batch_from">Batch From</label>
-                                                <input type="text" name="batch_from" id="batch_from" class="form-control" value="{{$data->batch_from}}">
+                                              <label for="batch_from">Start Date</label>
+                                                <input type="text" name="batch_from" id="batch_from_update" class="form-control datepicker" value="{{$data->batch_from}}">
                                                 @error('batch_from')
                                                   <span class="text-danger" role="alert">
                                                   <strong>{{ $message }}</strong>
@@ -154,14 +161,23 @@
                                                 @enderror
                                              </div> 
                                              <div class="form-group col-md-6" >
-                                              <label for="batch_to">Batch To</label>
-                                                <input type="text" name="batch_to" id="batch_to" class="form-control" value="{{$data->batch_to}}">
+                                              <label for="batch_to">End Date</label>
+                                                <input type="text" name="batch_to" id="batch_to_update" class="form-control datepicker" value="{{$data->batch_to}}">
                                                 @error('batch_to')
                                                   <span class="text-danger" role="alert">
                                                   <strong>{{ $message }}</strong>
                                                 </span>
                                                 @enderror
                                              </div>
+                                              <div class="form-group col-md-6" >
+                                              <label for="batch_name"> Batch Name</label>
+                                                <input type="text" name="batch_name" id="batch_name_update" class="form-control " readonly="true" placeholder="Batch name" value="{{$data->batch_name}}">
+                                                @error('batch_name')
+                                                  <span class="text-danger" role="alert">
+                                                  <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                           </div>
                                                <input type="hidden" name="id" id="id" class="form-control" value="{{$data->id}}">
                                               <div class="form-group col-md-4 align-self-end">
                                                 <button type="submit" class="btn btn-primary">
@@ -192,8 +208,35 @@
                 </div>
               </div>
             </div>
+          </div>
 
 </div>
+<script>
+$(function () {
+  $(".datepicker").datepicker({ 
+    singleDatePicker: true,
+    showDropdowns: true,
+  });
+});
+
+$(document).ready(function(){
+  $(document).on('blur', '#batch_to', function(){
+    var batch_from = $('#batch_from').val();
+    var batch_to = $('#batch_to').val();
+    var lastDigitbatch_from = batch_from.toString().slice(-4);
+    var lastDigitbatch_to = batch_to.toString().slice(-4);
+    var batch_name = $('#batch_name').val(lastDigitbatch_from+'-'+lastDigitbatch_to);
+
+  }); 
+  $(document).on('blur', '#batch_to_update', function(){
+    var batch_from = $('#batch_from_update').val();
+    var batch_to = $('#batch_to_update').val();
+    var lastDigitbatch_from = batch_from.toString().slice(-4);
+    var lastDigitbatch_to = batch_to.toString().slice(-4);
+    var batch_name = $('#batch_name_update').val(lastDigitbatch_from+'-'+lastDigitbatch_to);
+  });
+});
+</script>
  @endsection('content')
 
 

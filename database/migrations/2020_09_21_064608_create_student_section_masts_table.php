@@ -15,6 +15,7 @@ class CreateStudentSectionMastsTable extends Migration
     {
         Schema::create('student_section_masts', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('user_id',11);
             $table->string('section_name', 100)->nullable();
             $table->softDeletes();
 

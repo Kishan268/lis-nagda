@@ -15,6 +15,7 @@ class CreateStdBloodGroupsTable extends Migration
     {
         Schema::create('std_blood_groups', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('user_id',11);
             $table->string('blood_group_name', 10)->nullable();
             $table->softDeletes();
             $table->timestamps();

@@ -15,6 +15,7 @@ class CreateProfesstionTypesTable extends Migration
     {
         Schema::create('professtion_types', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('user_id',11);
             $table->string('professtion_types_name', 100)->nullable();
             $table->softDeletes();
             $table->timestamps();

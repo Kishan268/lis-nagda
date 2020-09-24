@@ -15,7 +15,9 @@ class CreateStudentClassesTable extends Migration
     {
         Schema::create('student_classes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('class_name', 250)->nullable();
+            $table->string('user_id',11);
+            $table->string('class_name', 20)->nullable();
+            $table->text('class_description')->nullable();
             $table->softDeletes();
             
             $table->timestamps();

@@ -15,6 +15,7 @@ class CreateStdReligionsTable extends Migration
     {
         Schema::create('std_religions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('user_id',11);
             $table->string('religion_name', 100)->nullable();
             $table->softDeletes();
             $table->timestamps();
