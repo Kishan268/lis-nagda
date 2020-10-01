@@ -3,7 +3,9 @@
 
 <div class="container">
 <div class="col-lg-12">
-@include('layouts.comman')
+{{-- @include('layouts.comman') --}}
+@include('admin.students.header')
+
 
 <div class="container">
 	<div class="row mt-2">

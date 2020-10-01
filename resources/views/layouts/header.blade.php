@@ -23,6 +23,7 @@
  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
@@ -38,11 +39,12 @@
 
 {{-- 
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> --}}
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css' />
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.common.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.js"></script>
+  
+    
     <style type="text/css">
   
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600');
@@ -73,7 +75,7 @@ p {
 .btn {
   border-radius: 0;
   margin-right: .5em;
-  color: #fff !important;
+  /*color: #fff !important;*/
   /*width: 100px;*/
 }
 
@@ -108,6 +110,24 @@ p {
   color: #a94442;
   font-size: 15px;
 }
+/*.col-auto {
+    display: inline-block;
+    line-height: 60px;
+    text-align: center;
+    font-size: 30px;
+    color: #ffffff;
+    border-radius: 35px;
+    background-color: #27ae60 !important;
+    
+}*/
+/*.fa.fa-graduation-cap.fa-2x.text-gray-300{
+  line-height: 64px;
+    text-align: center;
+    font-size: 28px;
+    color: #ffffff;
+    border-radius: 32px;
+    background-color: #27ae60 !important;
+}*/
  </style>
 </head>
 
@@ -120,7 +140,7 @@ p {
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('home')}}">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -132,7 +152,7 @@ p {
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="{{url('student')}}">
+        <a class="nav-link" href="{{url('home')}}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -141,6 +161,7 @@ p {
       <hr class="sidebar-divider">
 
       <!-- Heading -->
+
       <div class="sidebar-heading">
         Interface
       </div>
@@ -152,10 +173,10 @@ p {
           <span>Manage Student</span>
         </a>
         <div id="student_details" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
+          <div class="bg-white py-2 collapse-inner rounded siderbar1">
             {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-            <a class="collapse-item" href="{{url('student')}}">Student Dasboard</a>
-            <a class="collapse-item" href="{{url('student_detail')}}">Student Details</a>
+            <a class="collapse-item " href="{{url('student')}}" >Student Dasboard</a>
+            <a class="collapse-item" href="{{url('student_detail')}}" >Student Details</a>
             <a class="collapse-item" href="{{route('previous-record')}}">Previous Record</a>
             <a class="collapse-item" href="{{route('student_manage')}}">Manage Students</a>
             <a class="collapse-item" href="{{route('student_uploads')}}">Upload Students</a>
@@ -163,11 +184,28 @@ p {
             <a class="collapse-item" href="#">Records</a>
           </div>
         </div>
+
+      </li> 
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#teachers_details" aria-expanded="true" aria-controls="teachers_details">
+          <i class="fa fa-users sidebar-nav-icon"></i>
+          <span>Manage Teachers</span>
+        </a>
+        <div id="teachers_details" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
+            <a class="collapse-item" href="{{url('teachers')}}">Teacher Dasboard</a>
+            
+           
+          </div>
+          
+        </div>
       </li> 
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#manage_attendance" aria-expanded="true" aria-controls="manage_attendance">
+        <a class="nav-link collapsed {{Request()->segment(2) == 'attendance.student' ? 'active-li' : ''}}" href="#" data-toggle="collapse" data-target="#manage_attendance" aria-expanded="true" aria-controls="manage_attendance">
           <i class="fa fa-clock-o sidebar-nav-icon"></i>
           <span>Manage Attendance</span>
         </a>
@@ -175,12 +213,11 @@ p {
           <div class="bg-white py-2 collapse-inner rounded">
             {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
             <a class="collapse-item" href="{{route('dashboard')}}">Dashboard</a>
-            <a class="collapse-item" href="#">Student Attendance</a>
-            <a class="collapse-item" href="#">Staff Attendance</a>
-            <a class="collapse-item" href="#">Upload Attendance</a>
-            <a class="collapse-item" href="#">Manage Attendance</a>
-            <a class="collapse-item" href="#">Reports Attendance</a>
-            <a class="collapse-item" href="#">Upload Students</a>
+            <a class="collapse-item" href="{{route('attendance.student')}}">Student Attendance</a>
+            <a class="collapse-item" href="{{route('attendance.staff')}}">Staff Attendance</a>
+            <a class="collapse-item" href="{{route('attendance.upload')}}">Upload Attendance</a>
+            <a class="collapse-item" href="{{route('attendance.manage_student')}}">Manage Attendance</a>
+            <a class="collapse-item" href="{{route('attendance.student_report')}}">Reports Attendance</a>
           </div>
         </div>
       </li>
@@ -194,6 +231,12 @@ p {
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="{{route('classes')}}">Manage Class</a>
             <a class="collapse-item" href="{{route('batch')}}">Manage Batch</a>
+            <a class="collapse-item" href="{{route('section')}}">Manage Section</a>
+            <a class="collapse-item" href="{{route('subject.index')}}">Subject Details</a>
+            <a class="collapse-item" href="{{url('subject_assign')}}">Assign Subject</a>
+            <a class="collapse-item" href="{{route('subject_assign_to_student')}}">Subject Assign to Student</a>
+            <a class="collapse-item" href="{{route('batch')}}">Report</a>
+            <a class="collapse-item" href="{{route('batch')}}">Co Subject</a>
           </div>
         </div>
       </li>
@@ -464,3 +507,15 @@ p {
 
         </nav>
         <!-- End of Topbar -->
+<style type="text/css">
+  #menunew:active {background-color: #07c;color: #fff;}
+</style>
+<script type="text/javascript">
+   $('li a').click(function() {
+        var $this = $(this);
+        // e.preventDefault();
+        $('a').removeClass('active');
+        $(this).addClass('active');
+    });
+  
+</script>

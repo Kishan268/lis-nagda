@@ -2,6 +2,12 @@
  @section('content')
 
 <div class="container">
+   <div class="col-lg-12">
+    @include('admin.master.header')
+      <div class="container">
+        <div class="row mt-2">
+          <div class="col-lg-12">
+<div class="container">
     <div class="app-title">
      @if($message = Session::get('success'))
             

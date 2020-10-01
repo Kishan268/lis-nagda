@@ -17,13 +17,13 @@
 	        <div class="card-body">
 	          <div class="row">
 		        <!-- Earnings (Monthly) Card Example -->
-		        <div class="col-md-2 col-sm-6 col-xs-11  col-div-mar col-div-nav active-li">
+		        <div class="col-md-2 col-sm-6 col-xs-11  col-div-mar col-div-nav active-li ">
 		         <a href="{{route('dashboard')}}">
 		          <div class="card border-left-primary shadow h-100 py-2 bg-color">
-		            <div class="card-body">
+		            <div class="{{ Request::url() == route('dashboard') ? 'card-body btn-primary' : '' }}">
 		              <div class="row no-gutters align-items-center">
 		                <div class="col mr-2">
-		                  <div class="text-xs font-weight-bold text text-uppercase mb-1 col-div-mar col-div-nav {{Request()->segment(2) == 'dashboard' ? 'active-li' : ''}}">Dashboard</div>
+		                  <div class="text-xs font-weight-bold text text-uppercase mb-1 col-div-mar col-div-nav ">Dashboard</div>
 		                </div>
 		                <div class="col-auto">
 		                  <i class="fas fa-fw fa-tachometer-alt fa-2x text-gray-300"></i>
@@ -38,7 +38,7 @@
 		        <a href="{{route('attendance.student')}}">
 		          <div class="card border-left-success shadow h-100 py-2 bg-color">
 		            
-			            <div class="card-body">
+			            <div class="{{ Request::url() == route('attendance.student') ? 'card-body btn-primary' : '' }}">
 			              	<div class="row no-gutters align-items-center">
 			                <div class="col mr-2">
 			                  <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Student Attendance</div>
@@ -55,7 +55,7 @@
 		        <div class="col-md-2 col-sm-6 col-xs-11  col-div-mar col-div-nav active-li">
 		        <a href="{{route('attendance.staff')}}" >
 		          <div class="card border-left-info shadow h-100 py-2 bg-color">
-		            <div class="card-body">
+		            <div class="{{ Request::url() == route('attendance.staff') ? 'card-body btn-primary' : '' }}">
 		              <div class="row no-gutters align-items-center">
 		                <div class="col mr-2">
 		                  <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Staff Attendance</div>
@@ -81,7 +81,7 @@
 		          <div class="col-md-2 col-sm-6 col-xs-11  col-div-mar col-div-nav active-li">
 		          	<a href="{{route('attendance.upload')}}" >
 		            <div class="card border-left-warning shadow h-100 py-2 bg-color">
-		              <div class="card-body">
+		              <div class="{{ Request::url() == route('attendance.upload') ? 'card-body btn-primary' : '' }}">
 		                <div class="row no-gutters align-items-center">
 		                  <div class="col mr-2">
 		                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Upload Attendance</div>
@@ -98,7 +98,7 @@
 		          <div class="col-md-2 col-sm-6 col-xs-11  col-div-mar col-div-nav active-li">
 		          <a href="{{route('attendance.manage_student')}}" >
 		            <div class="card border-left-warning shadow h-100 py-2 bg-color">
-		              <div class="card-body">
+		              <div class="{{ Request::url() == route('attendance.manage_student') ? 'card-body btn-primary' : '' }}">
 		                <div class="row no-gutters align-items-center">
 		                  <div class="col mr-2">
 		                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Manage Student Attendance</div>
@@ -115,7 +115,7 @@
 		        <div class="col-md-2 col-sm-6 col-xs-11  col-div-mar col-div-nav active-li">
 		          <a href="{{route('attendance.student_report')}}" >
 		            <div class="card border-left-warning shadow h-100 py-2 bg-color">
-		              <div class="card-body">
+		              <div class="{{ Request::url() == route('attendance.student_report') ? 'card-body btn-primary' : '' }}">
 		                <div class="row no-gutters align-items-center">
 		                  <div class="col mr-2">
 		                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Student Report</div>

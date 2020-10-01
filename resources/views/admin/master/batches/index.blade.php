@@ -2,21 +2,28 @@
  @section('content')
 
 <div class="container">
-    <div class="app-title">
-     @if($message = Session::get('success'))
-            
-      <div class="alert alert-success">
-        <p>{{ $message }}</p>
-      </div>
-          @endif
-    </div>
-</div>
+   <div class="col-lg-12">
+    @include('admin.master.header')
+      <div class="container">
+        <div class="row mt-2">
+          <div class="col-lg-12">
+
+                <div class="container">
+                    <div class="app-title">
+                     @if($message = Session::get('success'))
+                            
+                      <div class="alert alert-success">
+                        <p>{{ $message }}</p>
+                      </div>
+                          @endif
+                    </div>
+                </div>
 
 {{-- =================================== --}}
   {{-- START INSERT MODEL BOX --}}
       
       <div class="container">
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#addGrade">Add Batches</button>
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addGrade">Add Batches</button>
         <!-- Modal -->
         <div class="modal fade" id="addGrade" role="dialog">
           <div class="modal-dialog">

@@ -47,7 +47,7 @@ class AttendanceController extends Controller
     }
 
     public function attendanceSubmit(Request $request){
-
+// dd($request);
     	if(Carbon::now()->dayName != 'Sunday'){
             $present_students = $request->present_student;
             $total_students = $request->total_student;
@@ -104,7 +104,7 @@ class AttendanceController extends Controller
                         'url' => 'attendance/dashboard',
                         'message' => 'Students attendance submitted' 
                     ];
-                    $user->notify(new attendanceNotifications($message));
+                    // $user->notify(new attendanceNotifications($message));
                 return 'success';
             }else{
                 return "warning";
@@ -116,9 +116,9 @@ class AttendanceController extends Controller
 
      public function staffAttendance(){
 
-        $data = User::with(['attendances' => function($query){
-            $query->where('attendance_date',date('Y-m-d'));
-        }])->whereRoleIs('teacher');
+        // $data = User::with(['attendances' => function($query){
+        // $query->where('attendance_date',date('Y-m-d'));
+        // }])->whereRoleIs('teacher');
 
         // if(Auth::user()->hasRole('lawcollege')){
             $users = $data->where('parent_id',Auth::user()->id)->get();

@@ -27,7 +27,9 @@
 				<td>{{++$count}}</td>				
 			@endif
 			<td>{{ $student->roll_no }}</td>
-			<td class="text-center sorting_1 odd"><img class="img-circle" alt="avatar" src="res/images/photo_not_available.png" width="30px" height="30px"></td>
+			<td class="text-center sorting_1 odd">
+				<img src="{{asset($student->photo !=null ? 'storage/'.$student->photo : 'storage/admin/student_demo.png')}}" style="width: 30px; height: 30px;">
+			</td>
 			<td>{{ $student->f_name .' '. $student->l_name }}</td>
 			<td>{{ $student->std_class }}</td>
 			<td>

@@ -3,7 +3,9 @@
 
 <div class="container">
 <div class="col-lg-12">
-@include('layouts.comman')
+{{-- @include('layouts.comman') --}}
+@include('admin.students.header')
+
  
 <div class="container">
 	<div class="row mt-2">
@@ -59,7 +61,7 @@
 					<div class="col-md-12 table-responsive" id="tableFilter">
 						<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
 
-					<table class="table table-striped table-bordered mytable dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+					<table class="table table-striped table-bordered mytable dataTable no-footer" id="mytable" role="grid" aria-describedby="sampleTable">
 						<thead>
 							<tr role="row">
 								<th class="sorting_asc">#</th>
@@ -89,11 +91,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="row" style="margin-top: 20px; display: none" id="tableFooter">
+	<div class="row" style="margin-top: 20px; display: none;" id="tableFooter">
 		<div class="col-md-12" >
 			<button class="btn btn-sm btn-info pull-right" style="margin-left: 5px;" id="btnTransfer">Transfer</button>
 			<button class="btn btn-sm btn-info pull-right" style="margin-left: 5px;" id="btnDropOut">Drop Out</button>
-			{{-- <button class="btn btn-sm btn-info pull-right" style="margin-left: 5px;" id="btnForward">Forward</button> --}}
+			<button class="btn btn-sm btn-info pull-right" style="margin-left: 5px;" id="btnForward">Forward</button>
 		</div>
 		<div class="col-md-12 text-right" style="margin-top: 20px;">
 			<label>After Complete Qualification Running Student Transfer to Passout Student List. </label> 
@@ -164,6 +166,8 @@
   </div>
 </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script>
 	$(document).ready(function(){
 		
@@ -190,6 +194,7 @@
 					url: "{{route('student_manage_get_data')}}",
 					data: {batch_id:batch_id,std_class_id: std_class_id, section_id:section_id,user_id:user_id,page:page,status:status, "_token": "{{ csrf_token() }}",},
 					success:function(res){
+						// alert();
 						$('#tableFilter').empty().html(res);
 						$('#tableFooter').show();
 

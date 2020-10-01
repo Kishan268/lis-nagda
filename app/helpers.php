@@ -49,9 +49,9 @@
  	// }
  	public static function studentGender(){
  		$array = array([
-				 'male'=>'Male',
-				 'female'=>'Female',
-				 'othe'=>'Other'
+				 '1'=>'Male',
+				 '2'=>'Female',
+				 '3'=>'Other'
 		 ]);
    		return $array;    
  	}

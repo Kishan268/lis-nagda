@@ -4,7 +4,9 @@
 
 <div class="container">
 	 <div class="col-lg-12">
-@include('layouts.comman')
+{{-- @include('layouts.comman') --}}
+@include('admin.students.header')
+
   
 <div class="container">
 	<div class="row mt-2">
@@ -15,7 +17,11 @@
 	        <!-- Card Header - Dropdown -->
 	        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 	          <h6 class="m-0 font-weight-bold text-primary">Add Student</h6>
-	          
+	           <div class="app-title full-right">
+			     @if($message = Session::get('success'))   
+			      	<div class="alert alert-success">{{ $message }}</div>
+			     @endif
+			  </div>
 	        </div>
 	        <!-- Card Body -->
 <div class="card-body">

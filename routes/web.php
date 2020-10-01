@@ -80,22 +80,45 @@ Route::post('get_academic_state/', 'Admin\students\studentController@getAcadmicS
 // get city academic details....................
 Route::post('get_academic_country/', 'Admin\students\studentController@getAcadmicCountry')->name('get_academic_country');
 
+Route::Resource('subject','Admin\classes\SubjectController');
+Route::get('subject_assign','Admin\classes\SubjectController@assignSubject')->name('subject_assign');
+
+Route::post('subject_assign_add','Admin\classes\SubjectController@assignSubjectAdd')->name('subject_assign_add');
+
+Route::get('subject_assign_to_student','Admin\classes\SubjectController@subjectAssignToStudent')->name('subject_assign_to_student');
+
+Route::post('student_get_for_assign_subject','Admin\classes\SubjectController@studentGetForAssignSubject')->name('student_get_for_assign_subject');
+
+Route::post('assign_student_to_section','Admin\classes\ClassesController@assignSubjectToSection')->name('assign_student_to_section');
+
+Route::post('student_add_to_assign_subject','Admin\classes\SubjectController@studentAddForAssignSubject')->name('student_add_to_assign_subject');
 
 
 // Student classes route....................
-Route::get('master/classes', 'Admin\master\masterController@studentClasses')->name('classes');
-Route::post('master/classes/add', 'Admin\master\masterController@addClasses')->name('classes-add');
-Route::put('master/classes/{id}/update', 'Admin\master\masterController@updateClasses')->name('classes-update');
+Route::get('classes', 'Admin\classes\ClassesController@studentClasses')->name('classes');
+Route::post('master/classes/add', 'Admin\classes\ClassesController@addClasses')->name('classes-add');
+Route::put('classes/{id}/update', 'Admin\classes\ClassesController@updateClasses')->name('classes-update');
 
 // Student batches route....................
-Route::get('master/batches', 'Admin\master\masterController@studentBatches')->name('batch');
-Route::post('master/batches/batches_add', 'Admin\master\masterController@addBatch')->name('batches_add');
-Route::put('master/batches/{id}/batches_update', 'Admin\master\masterController@updateBatch')->name('batches_update');
+Route::get('class/batches', 'Admin\master\masterController@studentBatches')->name('batch');
+Route::post('class/batches/batches_add', 'Admin\master\masterController@addBatch')->name('batches_add');
+Route::put('class/batches/{id}/batches_update', 'Admin\master\masterController@updateBatch')->name('batches_update');
 
 // Student section route....................
-Route::get('master/section', 'Admin\master\masterController@studentSection')->name('section');
-Route::post('master/section/section_add', 'Admin\master\masterController@addSection')->name('section_add');
-Route::put('master/section/{id}/section_update', 'Admin\master\masterController@updateSection')->name('section_update');
+Route::get('class/section', 'Admin\master\masterController@studentSection')->name('section');
+Route::post('class/section/section_add', 'Admin\master\masterController@addSection')->name('section_add');
+Route::put('class/section/{id}/section_update', 'Admin\master\masterController@updateSection')->name('section_update');
+
+Route::get('class/section/assign', 'Admin\classes\ClassesController@assignSectionList')->name('section_assign');
+
+Route::delete('class/section/delete/{id}', 'Admin\classes\ClassesController@assignSectionListDelete')->name('delete_section_list');
+// Route::post('class/section/assign/dd', 'Admin\master\masterController@assignSectionAdd')->name('student_add_for_assign_subject');
+
+Route::post('add_section_list','Admin\classes\ClassesController@addSectionList')->name('add_section_list');
+
+Route::get('class/section/assign_student','Admin\classes\ClassesController@studentAssignsection')->name('assign_section_student');
+
+Route::post('class/section/assign_get_students_list','Admin\classes\ClassesController@getStudentList')->name('get_students_list');
 
 // Student cast-category route....................
 Route::get('master/cast-category', 'Admin\master\masterController@castCategory')->name('cast-category');
@@ -161,6 +184,10 @@ Route::get('student_uploads', 'Admin\students\studentController@studentUploads')
 Route::post('passout_student', 'Admin\students\studentManageController@passoutStudent')->name('passout_student');
 Route::post('dropout_student', 'Admin\students\studentManageController@dropoutStudent')->name('dropout_student');
 Route::post('forward_transfer_student', 'Admin\students\studentManageController@forwardTranferStudent')->name('forward_transfer_student');
+
+//Teachers route .......................
+Route::Resource('teachers', 'Admin\teachers\TeacherController');
+Route::Resource('teams', 'Admin\teachers\TeamsController');
 
 // Route::group(['prefix' => 'attendance', 'namespace' => 'LawSchools'], function ()  {
 

@@ -20,6 +20,7 @@ use App\Models\master\guardianDesignation;
 use Validator;
 use App\User;
 use Auth;
+use App\Models\master\Subject;
 
 
 class masterController extends Controller
@@ -29,39 +30,7 @@ class masterController extends Controller
         $this->middleware('auth');
     }
 
-	// student class add code.............................
-    public function studentClasses()
-    {
-    	$studentclassdata = studentClass::get();
-    		return view('admin.master.classes.index',compact('studentclassdata'));
-    } 
-    public function addClasses(Request $request)
-    {
-        $data = $request->validate([
-                'class_name'=>'required',
-                'class_description'=>'required'
-        ]);
-        $data['user_id']    = Auth::user()->id;
-
-    	studentClass::create($data);
-    		return redirect('master/classes');
-
-    }
-    public function updateClasses(Request $request, $id)
-    {
-        // dd($request);
-        $data =$request->validate([
-            'class_name'=>'required',
-            'class_description'=>'required'
-        ]);
-        $data['user_id']    = Auth::user()->id;
-    	
-    	 studentClass::where('id',$id)->update($data);
-    		return redirect('master/classes');
-    		
-    }
-
-	// end student class add code.............................
+	
 
 	//  student batch add code.............................
 
@@ -107,7 +76,7 @@ class masterController extends Controller
     {
     	$studentSection = studentSectionMast::get();
 
-    		return view('admin.master.sections.index',compact('studentSection'));
+    		return view('admin.class.section.index',compact('studentSection'));
     } 
     public function addSection(Request $request)
     {
@@ -115,23 +84,35 @@ class masterController extends Controller
         $data = $request->validate([
         	'section_name'=>'required'
         ]);
+        $data['section_details'] = $request->section_details;
+
         $data['user_id']    = Auth::user()->id;
 
     	 studentSectionMast::create($data);
 
-    		return redirect('master/section');
+    	return redirect()->back()->with('success','Section added successfully');
     }
     public function updateSection(Request $request, $id)
     {
         $data = $request->validate([
-            'section_name'=>'required'
+            'section_name'=>'required',
             ]);
+        $data['section_details'] = $request->section_details;
         $data['user_id']    = Auth::user()->id;
 
     	 studentSectionMast::where('id',$id)->update($data);
-    	return redirect('master/section');
+        return redirect()->back()->with('success','Section updated successfully');
+    	
     }
 	
+    // public function assignSection(){
+    //      $classes = studentClass::get();
+    //      $batches = studentBatch::get();
+    //      $sections = studentSectionMast::get();
+    //      $subject = Subject::get();
+    //     return view('admin.class.section.assign-section',compact('classes','sections','batches','subject'));
+
+    // }
 
 	//  cast categories add code.............................
     public function castCategory()

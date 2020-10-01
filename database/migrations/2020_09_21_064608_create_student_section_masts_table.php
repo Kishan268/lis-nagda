@@ -17,8 +17,9 @@ class CreateStudentSectionMastsTable extends Migration
             $table->bigIncrements('id');
             $table->string('user_id',11);
             $table->string('section_name', 100)->nullable();
+            $table->string('section_details', 100)->nullable();
+            $table->text('assigned_students')->nullable();
             $table->softDeletes();
-
             $table->timestamps();
         });
     }

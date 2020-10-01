@@ -76,6 +76,8 @@ class CreateStudentsMastsTable extends Migration
             $table->string('account_no',20)->nullable();
             $table->string('ifsc_code',20)->nullable();
             $table->string('status',10)->nullable();
+            $table->string('user_status',3)->nullable();
+            $table->string('mobile_no',12)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

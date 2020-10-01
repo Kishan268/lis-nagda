@@ -4,8 +4,8 @@
 
   <div class="container">
    <div class="col-lg-12">
-@include('layouts.comman')
 {{-- </div> --}}
+@include('admin.students.header')
 
   <div class="container">
     <div class="row mt-2">
