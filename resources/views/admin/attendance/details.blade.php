@@ -26,10 +26,7 @@
 							@endforeach
 						</select>
 					</div>
-					<div class="col-md-3">
-						<button class="btn btn-sm btn-primary" id="btnFilter">Search</button>
-						<a href="{{ URL::previous() }}" class="btn btn-sm btn-success pull-right">Back</a>
-					</div>
+					
 
 				</div>
 

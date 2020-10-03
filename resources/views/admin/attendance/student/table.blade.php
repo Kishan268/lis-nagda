@@ -13,6 +13,9 @@
 	<tbody>
 		@foreach($students as $student)
 			<tr>
+				@if(empty($attendance_students))
+				<td colspan="10">No Data found</td>
+				@endif
 				<td>
 					<input type="checkbox" name="s_id[]"  class="check" value="{{$student->id}}" 
 						@if(!empty($attendance_students))

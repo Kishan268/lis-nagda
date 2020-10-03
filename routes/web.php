@@ -202,23 +202,25 @@ Route::Resource('teams', 'Admin\teachers\TeamsController');
 
 
         Route::get('attendance/manage/staff', 'Admin\AttendanceController@manageStaffAttendance')->name('attendance.manage_staff');
-        // Route::post('/staff_filter', 'AttendanceController@staff_filter')->name('attendance.staff_filter');
-        // Route::post('/attendance_staff_update', 'AttendanceController@attendance_staff_update')->name('attendance.staff_update');
+
+        Route::post('/staff_filter', 'Admin\AttendanceController@staff_filter')->name('attendance.staff_filter');
+        Route::post('/attendance_staff_update', 'Admin\AttendanceController@attendance_staff_update')->name('attendance.staff_update');
 
         // Route::get('/manage/show_attendance/{id}', 'AttendanceController@show_attendance')->name('attendance.show_attendance');
         // Route::post('/attendance_list', 'AttendanceController@attendance_list')->name('attendance.list');
         Route::post('attendance/attendance_update', 'Admin\AttendanceController@attendanceUpdate')->name('attendance.update');
+        
         Route::get('attendance/upload','Admin\AttendanceController@attendanceUpload')->name('attendance.upload');
         
-        Route::get('attendance/report/student','Admin\AttendanceController@attendanceStudentReport')->name('attendance.student_report');
+        Route::get('attendance/student_report','Admin\AttendanceController@attendanceStudentReport')->name('attendance.student_report');
 
-        // Route::get('/report/staff','AttendanceController@attendance_staff_report')->name('attendance.staff_report');
+        Route::get('attendance/staff_report','Admin\AttendanceController@attendance_staff_report')->name('attendance.staff_report');
 
-        // Route::post('/report_generate','AttendanceController@report_generate')->name('attendance.report_generate');
+        Route::post('attendance/student_report_generate','Admin\AttendanceController@report_generate')->name('attendance.report_generate');
 
-        // Route::post('/staff_report_generate','AttendanceController@staff_report_generate')->name('attendance.staff_report_generate');
+        Route::post('attendance/staff_report_generate','Admin\AttendanceController@staff_report_generate')->name('attendance.staff_report_generate');
 
-        // Route::post('/attendance-staff-submit','AttendanceController@attendanceStaffSubmit')->name('attendance-staff.submit');
+        Route::post('attendance/staff_submit','Admin\AttendanceController@attendanceStaffSubmit')->name('attendance-staff_submit');
 
         // Route::post('/import','AttendanceController@importAttendence')->name('attendance.import');
     // });

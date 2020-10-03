@@ -3,13 +3,17 @@
 @section('content')
 <section class="content">
 @include('admin.attendance.header')
-<div class="row">
-	<div class="col-md-12 m-auto">
+<div class="container">
+ 	<div class="card shadow mb-4">
+	        <!-- Card Header - Dropdown -->
+	    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+	          <h6 class="m-0 font-weight-bold text-primary">Staff Attendance</h6>
+	          <h4 class="panel-title pull-right"> Today Date :- {{date('d-m-Y')}} | Time: {{date('h:i A')}}</h4>
+	    </div>
+	        <!-- Card Body -->
+	<div class="card-body">
+		<div class="col-md-12 m-auto">
 		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">Manage Attendance <p class="pull-right">Today Date :- {{date('d-m-Y')}} | Time: {{date('h:i A')}}</p></h4>
-
-			</div>
 			<div class="panel-body">
 				<div class="row mb-4">
 					<div class="col-md-12">
@@ -40,6 +44,15 @@
 </section>
 	<script >
 		$(document).ready(function(){
+			$(document).on('click','.selectAll' ,function(){	
+			 console.log('select');
+			 if ($(this).is( ":checked" )) {
+				$('body .check').prop('checked',true);
+
+			 }else{
+				$('body .check').prop('checked',false);
+			 }
+			});
 			$(function () {
 				$(".datepicker").datepicker({
 					format: 'yyyy-mm-dd'
@@ -56,8 +69,8 @@
 		function filter_staff(attendance_date){
 			$.ajax({
 					type:'post',
-					url:'',
-					data:{attendance_date:attendance_date},
+					url:'{{route('attendance.staff_filter')}}',
+					data:{attendance_date:attendance_date, "_token": "{{ csrf_token() }}"},
 					success:function(res){
 						 $('#tableBody').empty().html(res);
 						// console.log(res);
@@ -69,12 +82,12 @@
 			// console.log("adsasd")
 			var presents = [];
 			var i = 0;
-			$('input[name="emp_id[]"]:checked').each(function() {
+			$('input[name="staff_id[]"]:checked').each(function() {
 				presents[i++] = $(this).val();
 			});
 			var j =0;
 			var totals = [];
-			$('input[name="emp_id[]"]').each(function() {
+			$('input[name="staff_id[]"]').each(function() {
 				totals[j++] = $(this).val();
 			});
 			
@@ -82,13 +95,14 @@
 			
 				$.ajax({
 					type:'post',
-					url:'',
-					data:{presents:presents,totals:totals,attendance_date:attendance_date},
+					url:'{{route('attendance.staff_update')}}',
+					data:{presents:presents,totals:totals,attendance_date:attendance_date ,"_token": "{{ csrf_token() }}"},
 					success:function(res){
 						if(res == 'success'){
 							$.notify('Staff attendance updated successfully','success');
 						}
-						filter_staff(attendance_date);	
+						filter_staff(attendance_date);
+
 					}
 				});
 

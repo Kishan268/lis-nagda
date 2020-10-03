@@ -42,4 +42,7 @@ class User extends Authenticatable
      public function usersId(){
         return $this->hasMany('App\Models\team\TeachersTeam','id','users_id');
     }
+     public function attendances(){
+        return $this->hasMany('App\Models\StaffAttendance','staff_id');
+    }
 }

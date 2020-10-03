@@ -3,19 +3,18 @@
 <section class="content">
 @include('admin.attendance.header')
 
-<div class="row">
-	<div class="col-md-12 m-auto">
+<div class="container">
+ 	<div class="card shadow mb-4">
+	        <!-- Card Header - Dropdown -->
+	    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+	          <h6 class="m-0 font-weight-bold text-primary">Staff Attendance</h6>
+	          <h4 class="panel-title pull-right"> Today Date :- {{date('d-m-Y')}} | Time: {{date('h:i A')}}</h4>
+	    </div>
+	        <!-- Card Body -->
+	<div class="card-body">
+		<div class="col-md-12 m-auto">
 		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">Staff Attendance <p class="pull-right">Today Date :- {{date('d-m-Y')}} | Time: {{date('h:i A')}}</p></h4>
-			</div>
 			<div class="panel-body">
-				<div class="row">
-					<div class="col-md-2 form-group">
-						{{-- <input type="text" name="attendance_date" readonly="readonly" class="datepicker form-control" value="{{date('Y-m-d')}}">  --}}
-					</div>
-					<div class="col-md-2"></div>
-				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<table class="table table-striped table-bordered">
@@ -30,11 +29,26 @@
 								@foreach($users as $user)
 								<tr>
 									<td>
-										<input type="checkbox" name="s_id[]"  class="check" value="{{$user->id}}" {{count($user->attendances) !=0 ? 'checked="checked"' :''}}>
+										<input type="checkbox" name="staff_id[]"  class="check" value="{{$user->id}}" 
+											@if(!empty($attendance_staffs))
+											@foreach($attendance_staffs as $attendance_staff)
+												@if($attendance_staff->staff_id == $user->id)
+													checked="checked" 
+												@endif
+											@endforeach
+										@endif
+
+										>
 									</td>
 									<td>{{$user->name}}</td>
 									<td>
-										{{count($user->attendances) !=0 ? ($user->attendances[0]->present) :''}}
+										@if(!empty($attendance_staffs))
+										@foreach($attendance_staffs as $attendance_staff)
+											@if($attendance_staff->staff_id == $user->id)
+												{{$attendance_staff->present}}
+											@endif
+										@endforeach
+									@endif
 									</td>
 								</tr>
 								@endforeach
@@ -70,18 +84,18 @@
 			console.log("adsasd")
 			var present = [];
 			var i = 0;
-			$('input[name="s_id[]"]:checked').each(function() {
+			$('input[name="staff_id[]"]:checked').each(function() {
 				present[i++] = $(this).val();
 			});
 			var j =0;
 			var total = [];
-			$('input[name="s_id[]"]').each(function() {
+			$('input[name="staff_id[]"]').each(function() {
 				total[j++] = $(this).val();
 			});
 			$.ajax({
 				type: 'post',
-				url: '{{route('attendance-staff.submit')}}',
-				data:{present:present,total:total},
+				url: '{{route('attendance-staff_submit')}}',
+				data:{present:present,total:total,"_token": "{{ csrf_token() }}"},
 				success:function(res){
 					if(res == 'success'){
 						$.notify("Staff today attendance successfully submitted",'success');

@@ -74,5 +74,8 @@ class studentsMast extends Model
     public function studenst_doc(){
     	 return $this->hasMany('App\Models\student\StudenstDoc', 's_id');
     }
+    public function attendances(){
+        return $this->hasMany('App\Models\StudentAttendance','s_id');
+    }
 
 }

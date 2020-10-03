@@ -25,6 +25,7 @@ use App\Models\master\guardianDesignation;
 use Illuminate\Support\Facades\Hash;
 use File;
 use App\User;
+use Illuminate\Support\Facades\Storage;
 
 
 class studentController extends Controller
@@ -329,7 +330,7 @@ class studentController extends Controller
          $studentsMast   = studentsMast::where('id',$id)->with('student_batch','student_section','student_class','acadmic_country_mast','acadmic_stateMast','acadmic_cityMast','castCategory','stdReligions','stdNationality','stdBloodGroup','mothetongueMast','guardianDesignation','studentsGuardiantMast','p_country','p_state','p_city','l_country','l_state','l_city','studenst_doc')->first();
 
          // $studentDoc = StudenstDoc::
-         // dd($studentsMast);
+         // dd($guardiantDetails);
          // return student_gender();
         return view('admin.students.edit',compact('classes','batches','sections','studentGenders','castCategores','studentReligions',
             'studentNationalites','studentBloodGroups','studentMothertongues','country','state','city','professtionType','guardianDesignation','studentsMast','studentsGuardiantDetails','guardiantDetails'));
@@ -412,7 +413,8 @@ class studentController extends Controller
 
         if($id !=''){
             $student = studentsMast::find($id);
-            // $guardians = GuardianMast::where('s_id',$id)->get();
+             $guardians = studentsGuardiantMast::where('s_id',$id)->get();
+             $studentDocs = StudenstDoc::where('s_id',$id)->get();
         }else{
             $student = array();
         }
@@ -448,9 +450,11 @@ class studentController extends Controller
         $insertDatainUsrTbl = User::where('id',$id)->update($studentAsUser); 
 
 // end insert data in user table..........................
-        
+        // dd();
         for($i= 0 ; $i < count($request->relation); $i++) {
             $guardian = [
+                'user_id'       => Auth::user()->id,
+                's_id'          => !empty($student) ? $id : $updateStud->id,
                 'relation_id'   => $request->relation[$i],
                 'g_name'        => $request->g_name[$i],
                 'g_mobile'      => $request->g_mobile[$i],
@@ -463,8 +467,7 @@ class studentController extends Controller
             if($request->g_id[$i] != null){
                 $g_ids[] = $request->g_id[$i] ;
             }
-            
-            if($request->g_check[$i] == '0'){    //photo not upload
+            // if($request->g_check[$i] == '0'){    //photo not upload
                 if($request->g_id[$i]!=null){   //previous photo check
                     foreach ($guardians as $guard) {
                         if($guard->id == $request->g_id[$i]){
@@ -475,8 +478,8 @@ class studentController extends Controller
                 }else{
                     $guardian['photo'] = null;
                 }              
-            }
-            
+            // }
+            // dd($request->g_photo);
             if($request->g_photo !=null){
 
                $filename = $guardian['g_name'].'_'.$i.'_'.time().'.'.$request->g_photo[$i]->getClientOriginalName();
@@ -499,25 +502,97 @@ class studentController extends Controller
                 $guardian['photo'] = 'admin/students_'.Auth::user()->id.'/parents/'.'/'.$filename;
 
             }else{
-                $data['photo'] = !empty($student) ? $student->g_photo : null ;
+                // dd('asds');
+                // $data['photo'] = !empty($student) ? $student->g_photo : null ;
             }
+            // dd($guardian);
+
             if(!empty($student)){
-                if($request->g_id[$i]!=null){
+                // dd($request->g_id[$i]);
+                if($request->g_id[$i]!=null ){
                     studentsGuardiantMast::find($request->g_id[$i])->update($guardian);
                 }else{
-                    studentsGuardiantMast::where('s_id',$id)->update($guardian);;
+                   // $data= studentsGuardiantMast::where('s_id',$id)->update($guardian);
+                   // dd($data);
+                    if($request->relation[$i] != null)
+                   studentsGuardiantMast::create($guardian);
                 }
             }else{
-
-                studentsGuardiantMast::where('s_id',$id)->update($guardian);;
+                studentsGuardiantMast::create($guardian);
+                // studentsGuardiantMast::where('s_id',$id)->update($guardian);;
             }
         }
+   
 
+
+    for($i= 0 ; $i < count($request->doc_title); $i++) {
+            $stdDoc = [
+               'doc_title'         => $request->doc_title[$i],
+               'doc_description'   => $request->doc_description[$i]
+            ]; 
+            if($request->doc_id[$i] != null){
+                $doc_ids[] = $request->doc_id[$i] ;
+            }
+            // if($request->g_check[$i] == '0'){    //photo not upload
+                if($request->doc_id[$i]!=null){   //previous photo check
+                    foreach ($studentDocs as $studentDoc) {
+                        if($studentDoc->id == $request->doc_id[$i]){
+                            $stdDoc['student_doc'] =$studentDoc->student_doc;
+                        }
+                        
+                    }
+                }else{
+                    $stdDoc['student_doc'] = null;
+                }              
+            // }
+            // dd($request->g_photo);
+            if($request->student_doc !=null){
+
+               $filename = $stdDoc['doc_title'].'_'.$i.'_'.time().'.'.$request->student_doc[$i]->getClientOriginalName();
+
+               $year = date('Y');
+                if($request->doc_id[$i]!=null){  //old photo delete 
+                    foreach ($studentDocs as $studentDoc) {
+                        if($studentDoc->id == $request->doc_id[$i]){
+                            $old_photo =$studentDoc->student_doc;
+                        }                     
+                    }
+                    if($old_photo !=null ){
+                        Storage::delete('public/'.$old_photo);   
+                    }
+
+                }
+               
+                $image = $request->student_doc[$i]->storeAs('public/admin/students_'.Auth::user()->id.'/parents/', $filename);
+
+                $stdDoc['student_doc'] = 'admin/students_'.Auth::user()->id.'/parents/'.'/'.$filename;
+
+            }else{
+                // dd('asds');
+                // $data['photo'] = !empty($student) ? $student->g_photo : null ;
+            }
+            // dd($guardian);
+
+            if(!empty($student)){
+                // dd($request->g_id[$i]);
+                if($request->doc_id[$i]!=null ){
+                    StudenstDoc::find($request->doc_id[$i])->update($stdDoc);
+                }else{
+                   // $data= studentsGuardiantMast::where('s_id',$id)->update($guardian);
+                   // dd($data);
+                    if($request->doc_title[$i] != null)
+                   StudenstDoc::create($stdDoc);
+                }
+            }else{
+                StudenstDoc::create($stdDoc);
+                // studentsGuardiantMast::where('s_id',$id)->update($guardian);;
+            }
+        }
 // dd($request->doc_id);
-        $count = count($request->doc_id);
-        $doc_title = count($request->doc_title); 
-        // dd($doc_title); 
-        if($count != 0 && $count == $doc_title){
+       /* $count = count($request->doc_title);
+        // $doc_title = count($request->doc_title); 
+        dd($count); 
+        if($count != 0){
             $x = 0;
             while($x <= $count){
                 if($request->doc_id[$x] !=''){
@@ -543,35 +618,7 @@ class studentController extends Controller
                 }             
                 $x++; 
             }
-        }else{
-
-            $y = $count;
-            while($y < $doc_title){
-                if($request->doc_title[$y] !=''){
-                     $request->doc_title[$y];
-                      $stdDocNew = array(
-                        'user_id'           => Auth::user()->id,
-                        's_id'              => $id,
-                        'doc_title'         => $request->doc_title[$y],
-                        'doc_description'   => $request->doc_description[$y]
-                    );
-
-                    if($request->student_doc !=null){
-                       $filename = $stdDocNew['doc_title'].'_'.$y.'_'.time().'.'.$request->student_doc[$y]->getClientOriginalName();
-                       $year = date('Y');
-                       
-                        $image = $request->student_doc[$y]->storeAs('public/admin/students_doc'.Auth::user()->id.'/student_doc/', $filename);
-
-                        $stdDocNew['student_doc'] = 'admin/students_doc'.Auth::user()->id.'/student_doc/'.'/'.$filename;
-                    }else{
-                        
-                    }   
-                   StudenstDoc::create($stdDocNew);
-
-                }             
-                $y++; 
-            }
-        }
+        }*/
 
         return redirect()->back()->with('success','Student Updated successfully');
 

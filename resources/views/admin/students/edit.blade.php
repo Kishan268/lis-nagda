@@ -244,7 +244,7 @@
 										<div class="col-md-4 col-sm-6 col-xs-6 error-div">
 											<label class="required">Cast Category</label>
 											<select class="form-control required" name="reservation_class_id">
-												<option value="{{$studentsMast->castCategory->id}}">{{$studentsMast->castCategory->caste_category_name}}</option>
+												<option value="{{$studentsMast->castCategory ? $studentsMast->castCategory->id : '' }}">{{$studentsMast->castCategory ? $studentsMast->castCategory->caste_category_name : ''}}</option>
 												@foreach($castCategores as $castCategore)
 													<option value="{{$castCategore->id}}">{{$castCategore->caste_category_name}}</option>
 												@endforeach
@@ -258,9 +258,9 @@
 										<div class="col-md-4 col-sm-6 col-xs-6 error-div">
 											<label>Religion</label>
 											<select class="form-control" name="religion_id">
-												<option value="{{$studentsMast->stdReligions->id}}">{{$studentsMast->stdReligions->religion_name}}</option>
+												<option value="{{$studentsMast->stdReligions ? $studentsMast->stdReligions->id : ''}}">{{$studentsMast->stdReligions ? $studentsMast->stdReligions->religion_name : ''}}</option>
 												@foreach($studentReligions as $key =>$studentReligion)
-														<option value="{{$studentReligion->id}}">{{$studentReligion->religion_name}}</option>
+													<option value="{{$studentReligion->id}}">{{$studentReligion->religion_name}}</option>
 												@endforeach
 											</select>
 											@error('religion_name')
@@ -273,8 +273,8 @@
 									<div class="row form-group">
 										<div class="col-md-3 col-sm-6 col-xs-6 error-div">
 											<label>Blood Group</label>
-											<select class="form-control" name="blood_group_id" value="{{$studentsMast->stdBloodGroup->id}}">
-												<option value="{{$studentsMast->stdBloodGroup->id}}">{{$studentsMast->stdBloodGroup->blood_group_name}}</option>
+											<select class="form-control" name="blood_group_id" value="{{$studentsMast->stdBloodGroup ? $studentsMast->stdBloodGroup->id : ''}}">
+												<option value="{{$studentsMast->stdBloodGroup ? $studentsMast->stdBloodGroup->id : ''}}">{{$studentsMast->stdBloodGroup ? $studentsMast->stdBloodGroup->blood_group_name : '' }}</option>
 												@foreach($studentBloodGroups as$studentBloodGroup)
 														<option value="{{$studentBloodGroup->id}}">{{$studentBloodGroup->blood_group_name}}</option>
 												@endforeach
@@ -306,7 +306,7 @@
 										<div class="col-md-3 col-sm-6 col-xs-6">
 											<label>Nationality</label>
 											<select name="nationality_id" class="form-control">
-												<option value="{{$studentsMast->stdNationality->id}}">{{$studentsMast->stdNationality->nationality_name}}</option>
+												<option value="{{$studentsMast->stdNationality ? $studentsMast->stdNationality->id :''}}">{{$studentsMast->stdNationality ? $studentsMast->stdNationality->nationality_name :''}}</option>
 												@foreach($studentNationalites as $key =>$studentNationalite)
 														<option value="{{$studentNationalite->id}}">{{$studentNationalite->nationality_name}}</option>
 												@endforeach
@@ -331,7 +331,7 @@
 										<div class="col-md-3 col-sm-6 col-xs-6">
 											<label>Mother tongue</label>
 											<select name="language_id" class="form-control">
-											<option value="{{$studentsMast->mothetongueMast->id}}">{{$studentsMast->mothetongueMast->mothetongue_name}}</option>
+											<option value="{{$studentsMast->mothetongueMast ? $studentsMast->mothetongueMast->id : ''}}">{{$studentsMast->mothetongueMast ? $studentsMast->mothetongueMast->mothetongue_name : ''}}</option>
 											 	@foreach($studentMothertongues as $studentMothertongue)<option value="{{$studentMothertongue->id}}">{{$studentMothertongue->mothetongue_name}}</option>@endforeach >
 											</select>
 											@error('language_id')
@@ -462,7 +462,7 @@
 				        					<div class="col-md-4 col-xs-6 col-sm-6 error-di">
 				        						<label class="">City</label>
 				        						<select name="acadmic_city_id" class="form-control" id="acadmic_city_id">
-				        						<option value="{{$studentsMast->acadmic_cityMast->id}}">{{$studentsMast->acadmic_cityMast->city_name}}</option>
+				        						<option value="{{$studentsMast->acadmic_cityMast ? $studentsMast->acadmic_cityMast->id  : ''}}">{{$studentsMast->acadmic_cityMast ? $studentsMast->acadmic_cityMast->city_name : ''}}</option>
 			        							@foreach($city as $cities)
 													<option value="{{$cities->state_id}}" >{{$cities->city_name}}</option>
 												@endforeach
@@ -471,7 +471,7 @@
 				        					<div class="col-md-4 col-xs-6 col-sm-6 error-di">
 				        						<label class="" id="">State</label>
 				        						<select name="acadmic_state_id" class="form-control" id="acadmic_state_id">
-				        						<option value="{{$studentsMast->acadmic_stateMast->id}}">{{$studentsMast->acadmic_stateMast->state_name}}</option>
+				        						<option value="{{$studentsMast->acadmic_stateMast ? $studentsMast->acadmic_stateMast->id : '' }}">{{$studentsMast->acadmic_stateMast ? $studentsMast->acadmic_stateMast->state_name : ''}}</option>
 				        						<option value="0"></option></select>
 				        					</div>
 				        					<div class="col-md-4 col-xs-6 col-sm-6 error-di">
@@ -482,7 +482,7 @@
 				        					<div class="form-group row">
 				        						<div class="col-md-4 col-xs-6 col-sm-6 error-di"><label>Country</label>
 				        							<select name="acadmic_country_id" class="form-control" id="acadmic_country_id">
-				        								<option value="{{$studentsMast->acadmic_country_mast->id}}">{{$studentsMast->acadmic_country_mast->country_name}}</option>
+				        								<option value="{{$studentsMast->acadmic_country_mast ? $studentsMast->acadmic_country_mast->id :''}}">{{$studentsMast->acadmic_country_mast ? $studentsMast->acadmic_country_mast->country_name : ''}}</option>
 				        								<option value="0"></option></select>
 				        						</div>
 				        						<div class="col-md-4 col-xs-6 col-sm-6 error-di"><label>Cast</label>
@@ -511,8 +511,42 @@
 								    <h3>Guardian Info</h3>
 								        <section>
 							        	<div class="row" >
-							        		<div class="col-md-12" style="border:1px solid #cacaca; " id="guard_info" >
-
+							        		<div class="col-md-12" style="border:1px solid #cacaca; " id="guard_info1" >
+							        			<?php $count = 0; ?>
+							        			@foreach($guardiantDetails as $studentsGuardiantDetail)
+							        			<hr><hr>
+							        			<input type="hidden" name="g_id[]" value="{{$studentsGuardiantDetail->id}}">
+							        			<div class="form-group row relation"><div class="col-sm-6 col-md-4 col-xs-6 error-di"><label >Relation <strong class="text-danger">*</strong></label>
+							        				<select name="relation[]" class="form-control ">
+							        				@foreach($guardiantDetails as $guardiantDetail)
+							        				
+								        				<option value="{{$guardiantDetail->guardiant_relation ? $guardiantDetail->guardiant_relation->id : ''}}">{{$guardiantDetail->guardiant_relation ? $guardiantDetail->guardiant_relation->religion_name : ''}}
+								        				</option>
+							        				@endforeach 
+							        				@foreach($studentReligions as $key =>$studentReligion)<option value="{{$studentReligion->id}}">{{$studentReligion->religion_name}}</option>@endforeach ></select></div><div class="col-md-4 col-sm-6 col-xs-6 error-di"><label class="">Name <strong class="text-danger">*</strong></label>
+							        					<input type="text" name="g_name[]" class="form-control" value="{{$studentsGuardiantDetail->g_name}}"></div>
+							        					<div class="col-md-4 col-sm-6 col-xs-6 error-di"><label class="required">Mobile <strong class="text-danger">*</strong></label>
+							        					<input type="text" name="g_mobile[]" class="form-control" value="{{$studentsGuardiantDetail->g_mobile}}"></div>
+							        				</div>
+							        				<div class="row form-group"><div class="col-md-4 col-xs-6 col-sm-6 error-di"><label class="">Work Status</label>
+							        					<select name="work_status[]" class="form-control"><option value="{{$studentsGuardiantDetail->id}}">{{$studentsGuardiantDetail->work_status ==0 ? 'Self Employed':''}}{{$studentsGuardiantDetail->work_status ==1 ? 'Job':''}}{{$studentsGuardiantDetail->work_status ==2 ? 'Retired':''}}</option><option value="0">Self Employed</option><option value="1">Job</option><option value="3">Retired</option>
+							        					</select>
+							        				</div>
+							        				<div class="col-md-4 col-xs-6 col-sm-6 error-di"><label class="">Employment Type</label>
+							        					<select name="employment_type[]" class="form-control" ><option value="{{$studentsGuardiantDetail->id}}">{{$studentsGuardiantDetail->work_status ==0 ? 'Government':''}}{{$studentsGuardiantDetail->work_status ==1 ? 'Private':''}}</option><option value="0">Government</option><option value="1">Private</option></select>
+							        				</div>
+							        				<div class="col-md-4 col-xs-6 col-sm-6 error-di"><label class="">Professtion Type</label>
+							        					<select name="profession_status[]" class="form-control">@foreach($guardiantDetails as $guardiantDetail)<option value="{{$guardiantDetail->professtion_type ? $guardiantDetail->professtion_type->id : ''}}">{{$guardiantDetail->professtion_type ? $guardiantDetail->professtion_type->professtion_types_name :''}}</option>@endforeach @foreach($professtionType as $key =>$professtionTypes)<option value="{{$professtionTypes->id}}">{{$professtionTypes->professtion_types_name}}</option>@endforeach ></select></div></div><div class="form-group row"><div class="col-md-4 col-xs-6 col-sm-6 error-di"><label>Employer</label><input type="text" name="employer[]" class="form-control" value="{{$studentsGuardiantDetail->employer}}"></div><div class="col-md-4 col-xs-6 col-sm-6 error-di"><label>Designation</label>
+							        						<select class="form-control" name="designation_id[]"><option value="">Select Designation Name</option> @foreach($guardianDesignation as $key =>$guardianDesignations)<option value="{{$guardianDesignations->id}}">{{$guardianDesignations->guardian_designations_name}}</option>@endforeach </option>
+							        						</select>
+							        					</div>
+							        					<div class="col-md-4 col-xs-6 col-sm-6 error-di"><label >Photo</label>
+							        					<input type="file" name="g_photo[]" id="g_photo" accept="image/*">
+							        					<input type="hidden" name="g_check[]" class="g_photo" value="{{$studentsGuardiantDetail->photo}}">
+							        					 <img src="{{asset($studentsGuardiantDetail->photo !=null ? 'storage/'.$studentsGuardiantDetail->photo : 'images/student_demo.png')}}" style="width:50px;padding-top:10px;"><span>{{$studentsGuardiantDetail->photo !=null ? ' Photo Uploaded' : ' Not Uploaded'}}</span>
+							        					</div><hr>
+							        				</div>
+							        					@endforeach
 							        		</div>
 							        	</div>
 								        </section>
@@ -539,7 +573,7 @@
 												<div class="col-md-4 error-di">
 													<label class="required">Country Name</label>
 													<select name="p_country_id" class="form-control" id="p_country_id">
-													<option value="{{$studentsMast->p_country->id}}">{{$studentsMast->p_country->country_name}}
+													<option value="{{$studentsMast->p_country ? $studentsMast->p_country->id :''}}">{{$studentsMast->p_country ? $studentsMast->p_country->country_name : ''}}
 													</option>	
 													@foreach($country as $countries)
 														<option value="{{$countries->id}}" >{{$countries->country_name}}</option>
@@ -550,7 +584,7 @@
 													<label class="required">State Name</label>
 													
 													<select name="p_state_id" class="form-control" id="p_state_id" >
-													<option value="{{$studentsMast->p_state->id}}">{{$studentsMast->p_state->state_name}}
+													<option value="{{$studentsMast->p_state ? $studentsMast->p_state->id :''}}">{{$studentsMast->p_state ? $studentsMast->p_state->state_name :''}}
 													</option>
 													</select>	
 												</div>
@@ -560,7 +594,7 @@
 												<div class="col-md-4 error-di">
 													<label class="required">City Name</label>
 													<select name="p_city_id" class="form-control" id="p_city_id"> 
-														<option value="{{$studentsMast->p_city->id}}">{{$studentsMast->p_city->city_name}}
+														<option value="{{$studentsMast->p_city ? $studentsMast->p_city->id :''}}">{{$studentsMast->p_city ? $studentsMast->p_city->city_name :''}}
 													</option>
 													</select>
 												</div>
@@ -594,7 +628,7 @@
 												<div class="col-md-4 error-di">
 													<label class="required">Country Name</label>
 													<select name="l_country_id" class="form-control" id="l_country_id">
-													<option value="{{$studentsMast->l_country->id}}">{{$studentsMast->l_country->country_name}}
+													<option value="{{$studentsMast->l_country ? $studentsMast->l_country->id : ''}}">{{$studentsMast->l_country ? $studentsMast->l_country->country_name :''}}
 													</option>	
 
 													@foreach($country as $countries)
@@ -605,7 +639,7 @@
 												<div class="col-md-4 error-di">
 													<label class="required">State Name</label>
 													<select name="l_state_id" class="form-control" id="l_state_id">
-														<option value="{{$studentsMast->l_state->id}}">{{$studentsMast->l_state->state_name}}
+														<option value="{{$studentsMast->l_state ? $studentsMast->l_state->id : ''}}">{{$studentsMast->l_state ? $studentsMast->l_state->state_name :''}}
 													</option>
 													</select>
 												</div>
@@ -616,7 +650,7 @@
 													<label class="required">City Name</label>
 													
 													<select name="l_city_id" class="form-control" id="l_city_id" >
-														<option value="{{$studentsMast->l_city->id}}">{{$studentsMast->l_city->city_name}}
+														<option value="{{$studentsMast->l_city ? $studentsMast->l_city->id : ''}}">{{$studentsMast->l_city ?$studentsMast->l_city->city_name :''}}
 													</option>
 													</select>
 												</div>
@@ -1260,15 +1294,15 @@ $(document).ready(function(){
 
 	var k =0;
 
-	var html_div ='@foreach($studentsGuardiantDetails as $studentsGuardiantDetail)<div class="form-group row relation"><div class="col-sm-6 col-md-4 col-xs-6 error-di"><label >Relation <strong class="text-danger">*</strong></label><select name="relation[]" class="form-control ">@foreach($guardiantDetails as $guardiantDetail)<option value="{{$guardiantDetail->guardiant_relation->id}}">{{$guardiantDetail->guardiant_relation->religion_name}}</option>@endforeach @foreach($studentReligions as $key =>$studentReligion)<option value="{{$studentReligion->id}}">{{$studentReligion->religion_name}}</option>@endforeach ></select></div><div class="col-md-4 col-sm-6 col-xs-6 error-di"><label class="">Name <strong class="text-danger">*</strong></label><input type="text" name="g_name[]" class="form-control" value="{{$studentsGuardiantDetail->g_name}}"></div><div class="col-md-4 col-sm-6 col-xs-6 error-di"><label class="required">Mobile <strong class="text-danger">*</strong></label><input type="text" name="g_mobile[]" class="form-control" value="{{$studentsGuardiantDetail->g_mobile}}"></div></div><div class="row form-group"><div class="col-md-4 col-xs-6 col-sm-6 error-di"><label class="">Work Status</label><select name="work_status[]" class="form-control"><option value="{{$studentsGuardiantDetail->id}}">{{$studentsGuardiantDetail->work_status ==0 ? 'Self Employed':''}}{{$studentsGuardiantDetail->work_status ==1 ? 'Job':''}}{{$studentsGuardiantDetail->work_status ==2 ? 'Retired':''}}</option><option value="0">Self Employed</option><option value="1">Job</option><option value="3">Retired</option></select></div><div class="col-md-4 col-xs-6 col-sm-6 error-di"><label class="">Employment Type</label><select name="employment_type[]" class="form-control" ><option value="{{$studentsGuardiantDetail->id}}">{{$studentsGuardiantDetail->work_status ==0 ? 'Government':''}}{{$studentsGuardiantDetail->work_status ==1 ? 'Private':''}}</option><option value="0">Government</option><option value="1">Private</option></select></div><div class="col-md-4 col-xs-6 col-sm-6 error-di"><label class="">Professtion Type</label><select name="profession_status[]" class="form-control">@foreach($guardiantDetails as $guardiantDetail)<option value="{{$guardiantDetail->professtion_type->id}}">{{$guardiantDetail->professtion_type->professtion_types_name}}</option>@endforeach @foreach($professtionType as $key =>$professtionTypes)<option value="{{$professtionTypes->id}}">{{$professtionTypes->professtion_types_name}}</option>@endforeach ></select></div></div><div class="form-group row"><div class="col-md-4 col-xs-6 col-sm-6 error-di"><label>Employer</label><input type="text" name="employer[]" class="form-control" value="{{$studentsGuardiantDetail->employer}}"></div><div class="col-md-4 col-xs-6 col-sm-6 error-di"><label>Designation</label><select class="form-control" name="designation_id[]"><option value="">Select Designation Name</option> @foreach($guardianDesignation as $key =>$guardianDesignations)<option value="{{$guardianDesignations->id}}">{{$guardianDesignations->guardian_designations_name}}</option>@endforeach </option></select></div><div class="col-md-4 col-xs-6 col-sm-6 error-di"><label >Photo</label><input type="file" name="g_photo[]" id="g_photo" accept="image/*"><input type="hidden" name="g_check[]" class="g_photo" value=""><input type="hidden" name="g_id[]" value=""></div><hr></div>@endforeach';
+	var html_div ='<div class="form-group row relation"><div class="col-sm-6 col-md-4 col-xs-6 error-di"><label >Relation <strong class="text-danger">*</strong></label><select name="relation[]" class="form-control "><option value="">Select</option> @foreach($studentReligions as $key =>$studentReligion)<option value="{{$studentReligion->id}}">{{$studentReligion->religion_name}}</option>@endforeach ></select></div><div class="col-md-4 col-sm-6 col-xs-6 error-di"><label class="">Name <strong class="text-danger">*</strong></label><input type="text" name="g_name[]" class="form-control"></div><div class="col-md-4 col-sm-6 col-xs-6 error-di"><label class="required">Mobile <strong class="text-danger">*</strong></label><input type="text" name="g_mobile[]" class="form-control" ></div></div><div class="row form-group"><div class="col-md-4 col-xs-6 col-sm-6 error-di"><label class="">Work Status</label><select name="work_status[]" class="form-control"><option>Select</option><option value="0">Self Employed</option><option value="1">Job</option><option value="3">Retired</option></select></div><div class="col-md-4 col-xs-6 col-sm-6 error-di"><label class="">Employment Type</label><select name="employment_type[]" class="form-control" ><option>Select</option><option value="0">Government</option><option value="1">Private</option></select></div><div class="col-md-4 col-xs-6 col-sm-6 error-di"><label class="">Professtion Type</label><select name="profession_status[]" class="form-control"><option value="">Select</option> @foreach($professtionType as $key =>$professtionTypes)<option value="{{$professtionTypes->id}}">{{$professtionTypes->professtion_types_name}}</option>@endforeach ></select></div></div><div class="form-group row"><div class="col-md-4 col-xs-6 col-sm-6 error-di"><label>Employer</label><input type="text" name="employer[]" class="form-control" ></div><div class="col-md-4 col-xs-6 col-sm-6 error-di"><label>Designation</label><select class="form-control" name="designation_id[]"><option value="">Select Designation Name</option> @foreach($guardianDesignation as $key =>$guardianDesignations)<option value="{{$guardianDesignations->id}}">{{$guardianDesignations->guardian_designations_name}}</option>@endforeach </option></select></div><div class="col-md-4 col-xs-6 col-sm-6 error-di"><label >Photo</label><input type="file" name="g_photo[]" id="g_photo" accept="image/*"><input type="hidden" name="g_check[]" class="g_photo" value=""><input type="hidden" name="g_id[]" value=""></div><hr></div>';
 
 
-	$('#guard_info').append('<div id="row'+k+'"><div class="row form-group "><a href="#" class="pull-right btn btn-sm btn-success " style="margin:10px 10px 0px 0px" id="add_guar"><i class="fa fa-plus"></i> Add More</a></div>'+html_div+'</div>');
+	$('#guard_info1').append('<div id="row'+k+'"><div class="row form-group "><a href="#" class="pull-right btn btn-sm btn-success " style="margin:10px 10px 0px 0px" id="add_guar"><i class="fa fa-plus"></i> Add More</a></div>'+html_div+'</div>');
 			        		
 	k++;
     $('#add_guar').click(function(e){
     	e.preventDefault();
-    	$('#guard_info').append('<div id="row'+k+'"><div class="row form-group "><a href="#" class="pull-right btn btn-sm btn-danger btn_remove" style="margin:10px 10px 0px 0px" id="'+k+'"><i class="fa fa-minus"></i></a></div>'+html_div+'</div>');
+    	$('#guard_info1').append('<div id="row'+k+'"><div class="row form-group "><a href="#" class="pull-right btn btn-sm btn-danger btn_remove" style="margin:10px 10px 0px 0px" id="'+k+'"><i class="fa fa-minus"></i></a></div>'+html_div+'</div>');
     	k++;
     });
     $(document).on('click', '.btn_remove', function(){

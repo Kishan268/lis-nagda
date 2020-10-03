@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStudentAttendancesTable extends Migration
+class CreateAcademicCalendarsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreateStudentAttendancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_attendances', function (Blueprint $table) {
+        Schema::create('academic_calendars', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('s_id', 11)->nullable();
             $table->string('user_id', 11)->nullable();
-            $table->string('present', 3)->nullable();
-            $table->string('submitted_by', 11)->nullable();
-            $table->dateTime('attendance_date')->nullable();
-            $table->dateTime('in_time')->nullable();
-            $table->date('out_time')->nullable();
-            $table->dateTime('staying_hour')->nullable();
+            $table->string('title', 100)->nullable();
+            $table->date('date_from')->nullable();
+            $table->date('date_upto')->nullable();
+            $table->string('is_holiday',3)->default(1)->nullable();
+            $table->string('is_exam',3)->default(1)->nullable();
+            $table->text('class_ids')->nullable();
             $table->string('status',3)->default(1)->nullable();
             $table->softDeletes();
             $table->timestamps();
@@ -36,6 +35,6 @@ class CreateStudentAttendancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_attendances');
+        Schema::dropIfExists('academic_calendars');
     }
 }

@@ -88,6 +88,17 @@
 </section>
 	<script >
 		$(document).ready(function(){
+
+			$(document).on('click','.selectAll' ,function(){	
+			 console.log('select');
+			 if ($(this).is( ":checked" )) {
+				$('body .check').prop('checked',true);
+
+			 }else{
+				$('body .check').prop('checked',false);
+			 }
+			});
+			 
 			$(function () {
 				$(".datepicker").datepicker({
 					format: 'yyyy-mm-dd'
@@ -146,8 +157,8 @@
 					url:'{{route('attendance.update')}}',
 					data:{present_student:present_student,total_student:total_student,attendance_date:attendance_date, "_token": "{{ csrf_token() }}"},
 					success:function(res){
-						if(res == 'success'){
-							alert('Students attendance updated successfully');
+						if (res = "success") {
+							$.notify("Students attendance updated successfully",'success');
 						}
 						filter_students();
 					}
