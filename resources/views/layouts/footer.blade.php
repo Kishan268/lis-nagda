@@ -57,7 +57,7 @@
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
    
-    <script src="{{asset('js/select2.min.js')}}"></script>
+    {{-- <script src="{{asset('js/select2.min.js')}}"></script> --}}
  <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.4/js/bootstrap-datetimepicker.min.js"></script> --}}
  <script type="text/javascript">
@@ -85,7 +85,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
   <script src="{{asset('js/notify.min.js')}}"></script>
 
 </body>

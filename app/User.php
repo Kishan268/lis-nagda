@@ -45,4 +45,13 @@ class User extends Authenticatable
      public function attendances(){
         return $this->hasMany('App\Models\StaffAttendance','staff_id');
     }
+    public function city(){
+        return $this->belongsTo('App\Models\master\cityMast','city_id');
+    }
+    public function state(){
+        return $this->belongsTo('App\Models\master\stateMast','state_id');
+    }
+    public function country(){
+        return $this->belongsTo('App\Models\master\countryMast','country_id');
+    }
 }

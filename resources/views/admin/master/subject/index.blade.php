@@ -7,16 +7,16 @@
       <div class="container">
         <div class="row mt-2">
           <div class="col-lg-12">
-<div class="container">
-    <div class="app-title">
-     @if($message = Session::get('success'))
-            
-      <div class="alert alert-success">
-        <p>{{ $message }}</p>
-      </div>
-          @endif
-    </div>
-</div>
+              <div class="container">
+                  <div class="app-title">
+                   @if($message = Session::get('success'))
+                          
+                    <div class="alert alert-success">
+                     {{ $message }}
+                    </div>
+                        @endif
+                  </div>
+              </div>
 {{-- =================================== --}}
   {{-- START INSERT MODEL BOX --}}
       

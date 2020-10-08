@@ -61,8 +61,8 @@
 			<div class="row">
 				<div class="col-md-12">
 					<form action="{{route('student_detail.update',$studentsMast->id)}}" method="post"  enctype="multipart/form-data">
-								@csrf
-								@method('PUT')
+						@csrf
+						@method('PUT')
 					    <div>
 					    	<div class="tab-content" id="myTabContent">
 							  <div class="tab-pane fade show active" id="Basic_details" role="tabpanel" aria-labelledby="Basic_details-tab">

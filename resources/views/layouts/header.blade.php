@@ -21,6 +21,7 @@
   <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
   <link href="{{asset('css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+ {{-- <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" /> --}}
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -153,7 +154,7 @@ p {
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="{{url('home')}}">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <i class="fas fa-fw fa-tachometer-alt  fa-sm fa-fw mr-2-400" style="color:skyblue;"></i>
           <span>Dashboard</span></a>
       </li>
 
@@ -240,11 +241,16 @@ p {
           </div>
         </div>
       </li>
+       <li class="nav-item active">
+        <a class="nav-link" href="{{route('notice-circular.index')}}">
+          <i class="fa fa-dashboard sidebar-nav-icon fa-sm fa-fw mr-2 text-green-400" style="color: orange;"></i>
+          <span>Notis & Circular</span></a>
+      </li> 
 
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
+          <i class="fas fa-fw fa-wrench fa-sm fa-fw mr-2-400" style="color:yellow;"></i>
           <span>Master</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -265,50 +271,19 @@ p {
             <a class="collapse-item" href="{{route('gaurdian_designation')}}">Gaurdian Designation</a>
           </div>
         </div>
+        <li class="nav-item active">
+        <a class="nav-link" href="{{url('profile')}}">
+          <i class="fas fa-fw fa-user fa-sm fa-fw mr-2 text-green-400" style="color: green;"></i>
+          <span>Profile</span></a>
+      </li> 
+      <li class="nav-item active">
+        <a class="nav-link" href="{{url('home')}}">
+          <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-red-400" style="color: red;"></i>
+          <span>Logout</span></a>
+      </li>
       </li>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Addons
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
-      </li>
-
+ 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 

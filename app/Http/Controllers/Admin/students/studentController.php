@@ -34,13 +34,30 @@ class studentController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        
+         $this->classes = studentClass::get();
+         $this->batches = studentBatch::get();
+         $this->sections = studentSectionMast::get();
+         $this->studentData = studentsMast::get();
+         $this->country   = countryMast::get();
+         $this->state     = stateMast::get();
+         $this->city      = cityMast::get();
+         $this->castCategores         = castCategory::get();
+         $this->studentReligions      = stdReligions::get();
+         $this->studentNationalites   = stdNationality::get();
+         $this->studentBloodGroups    = stdBloodGroup::get();
+         $this->studentMothertongues  = mothetongueMast::get();
+         $this->professtionType       = professtionType::get();
+         $this->guardianDesignation   = guardianDesignation::get();
+         $this->studentGenders        = Helpers::studentGender();
+         $this->studentsGuardiantDetails = studentsGuardiantMast::get();
     }
     public function index()
     {
-         $classes = studentClass::get();
-         $batches = studentBatch::get();
-         $sections = studentSectionMast::get();
-         $studentData = studentsMast::get();
+         $classes = $this->classes;
+         $batches = $this->batches;
+         $sections = $this->sections;
+         $studentData = $this->studentData;
             return view('admin.students.index',compact('studentData','classes','sections','batches'));
     }
 
@@ -48,19 +65,20 @@ class studentController extends Controller
     public function create()
     {
         
-         $classes   = studentClass::get();
-         $batches   = studentBatch::get();
-         $sections  = studentSectionMast::get();
-         $country   = countryMast::get();
-         $state     = stateMast::get();
-         $city      = cityMast::get();
-         $castCategores         = castCategory::get();
-         $studentReligions      = stdReligions::get();
-         $studentNationalites   = stdNationality::get();
-         $studentBloodGroups    = stdBloodGroup::get();
-         $studentMothertongues  = mothetongueMast::get();
-         $professtionType       = professtionType::get();
-         $guardianDesignation   = guardianDesignation::get();
+         $classes = $this->classes;
+         $batches = $this->batches;
+         $sections = $this->sections;
+         $studentData = $this->studentData;
+         $country   = $this->country;
+         $state     = $this->state;
+         $city      = $this->city;
+         $castCategores         = $this->castCategores;
+         $studentReligions      = $this->studentReligions;
+         $studentNationalites   = $this->studentNationalites;
+         $studentBloodGroups    = $this->studentBloodGroups;
+         $studentMothertongues  = $this->studentMothertongues;
+         $professtionType       = $this->professtionType;
+         $guardianDesignation   = $this->guardianDesignation;
          $studentGenders = Helpers::studentGender();
          // return student_gender();
         return view('admin.students.create',compact('classes','batches','sections','studentGenders','castCategores','studentReligions',
@@ -139,7 +157,6 @@ class studentController extends Controller
         $data['password']= Hash::make($request->password);
 
 
-
         if($data['status'] == 'P'){
             $data['passout_date'] = $request->passout_date;
         }
@@ -180,6 +197,8 @@ class studentController extends Controller
         $studentAsUser['name']      = $request->f_name.' '.$request->l_name;
         $studentAsUser['email']     = $request->email;
         $studentAsUser['student_id']= $create_stud->id;
+        $studentAsUser['user_flag'] = 'S';
+
         $insertDatainUsrTbl = User::create($studentAsUser); 
 
 // end insert data in user table..........................
@@ -279,19 +298,24 @@ class studentController extends Controller
     
     public function show($id)
     {
-        $classes   = studentClass::get();
-         $batches   = studentBatch::get();
-         $sections  = studentSectionMast::get();
-         $country   = countryMast::get();
-         $state     = stateMast::get();
-         $city      = cityMast::get();
-         $castCategores         = castCategory::get();
-         $studentReligions      = stdReligions::get();
-         $studentNationalites   = stdNationality::get();
-         $studentBloodGroups    = stdBloodGroup::get();
-         $studentMothertongues  = mothetongueMast::get();
-         $professtionType       = professtionType::get();
-         $guardianDesignation   = guardianDesignation::get();
+         $classes     = $this->classes;
+         $batches     = $this->batches;
+         $sections    = $this->sections;
+         $studentData = $this->studentData;
+         $classes     = $this->classes;
+         $batches     = $this->batches;
+         $sections    = $this->sections;
+         $studentData = $this->studentData;
+         $country   = $this->country;
+         $state     = $this->state;
+         $city      = $this->city;
+         $castCategores         = $this->castCategores;
+         $studentReligions      = $this->studentReligions;
+         $studentNationalites   = $this->studentNationalites;
+         $studentBloodGroups    = $this->studentBloodGroups;
+         $studentMothertongues  = $this->studentMothertongues;
+         $professtionType       = $this->professtionType;
+         $guardianDesignation   = $this->guardianDesignation;
          $studentGenders        = Helpers::studentGender();
          $studentsGuardiantDetails = studentsGuardiantMast::get();
 
@@ -309,19 +333,24 @@ class studentController extends Controller
     
     public function edit($id)
     {
-         $classes   = studentClass::get();
-         $batches   = studentBatch::get();
-         $sections  = studentSectionMast::get();
-         $country   = countryMast::get();
-         $state     = stateMast::get();
-         $city      = cityMast::get();
-         $castCategores         = castCategory::get();
-         $studentReligions      = stdReligions::get();
-         $studentNationalites   = stdNationality::get();
-         $studentBloodGroups    = stdBloodGroup::get();
-         $studentMothertongues  = mothetongueMast::get();
-         $professtionType       = professtionType::get();
-         $guardianDesignation   = guardianDesignation::get();
+        $classes     = $this->classes;
+         $batches     = $this->batches;
+         $sections    = $this->sections;
+         $studentData = $this->studentData;
+         $classes     = $this->classes;
+         $batches     = $this->batches;
+         $sections    = $this->sections;
+         $studentData = $this->studentData;
+         $country     = $this->country;
+         $state     = $this->state;
+         $city      = $this->city;
+         $castCategores         = $this->castCategores;
+         $studentReligions      = $this->studentReligions;
+         $studentNationalites   = $this->studentNationalites;
+         $studentBloodGroups    = $this->studentBloodGroups;
+         $studentMothertongues  = $this->studentMothertongues;
+         $professtionType       = $this->professtionType;
+         $guardianDesignation   = $this->guardianDesignation;
          $studentGenders        = Helpers::studentGender();
          $studentsGuardiantDetails = studentsGuardiantMast::get();
 
@@ -479,8 +508,8 @@ class studentController extends Controller
                     $guardian['photo'] = null;
                 }              
             // }
-            // dd($request->g_photo);
-            if($request->g_photo !=null){
+            // dd($request->g_id[$i]);
+            if($request->g_photo[$i] !=null){
 
                $filename = $guardian['g_name'].'_'.$i.'_'.time().'.'.$request->g_photo[$i]->getClientOriginalName();
 
@@ -502,8 +531,12 @@ class studentController extends Controller
                 $guardian['photo'] = 'admin/students_'.Auth::user()->id.'/parents/'.'/'.$filename;
 
             }else{
-                // dd('asds');
-                // $data['photo'] = !empty($student) ? $student->g_photo : null ;
+                 $getgphoto = studentsGuardiantMast::find($request->g_id[$i]);
+                 if ($request->g_id[$i]) {
+                    $guardian['photo'] =$getgphoto->photo;
+                 }else{
+
+                 }
             }
             // dd($guardian);
 
@@ -545,8 +578,7 @@ class studentController extends Controller
                     $stdDoc['student_doc'] = null;
                 }              
             // }
-            // dd($request->g_photo);
-            if($request->student_doc !=null){
+            if($request->student_doc[$i] !=null){
 
                $filename = $stdDoc['doc_title'].'_'.$i.'_'.time().'.'.$request->student_doc[$i]->getClientOriginalName();
 
@@ -679,28 +711,28 @@ class studentController extends Controller
 
     // get previous student details......................
     public function previousStudentRecord(){
-         $classes = studentClass::get();
-         $batches = studentBatch::get();
-         $sections = studentSectionMast::get();
-         $studentData = studentsMast::get();
+        $classes = $this->classes;
+         $batches = $this->batches;
+         $sections = $this->sections;
+         $studentData = $this->studentData;
             return view('admin.students.previous-student-detail.index',compact('studentData','classes','sections','batches'));
     }
 
     // get previous student details......................
     public function studentsManage(){
-         $classes = studentClass::get();
-         $batches = studentBatch::get();
-         $sections = studentSectionMast::get();
-         $studentData = studentsMast::get();
+         $classes = $this->classes;
+         $batches = $this->batches;
+         $sections = $this->sections;
+         $studentData = $this->studentData;
             return view('admin.students.student-manage.index',compact('studentData','classes','sections','batches'));
     }
 
     //  students Manage Get Data student details......................
     public function studentsManageGetData(Request $request){
-         $classes = studentClass::get();
-         $batches = studentBatch::get();
-         $sections = studentSectionMast::get();
-         $studentData = studentsMast::get();
+         $classes = $this->classes;
+         $batches = $this->batches;
+         $sections = $this->sections;
+         $studentData = $this->studentData;
          $students = studentsMast::where('batch_id',$request->batch_id)
                                 ->where('std_class_id',$request->std_class_id)
                                 ->where('section_id',$request->section_id)
@@ -716,5 +748,16 @@ class studentController extends Controller
             return view('admin.students.student_uploads.index');
     }
 
-
+    public function userProfile(){
+        $user = Auth::user();
+        // dd($user);
+        return view('admin.profile.index',compact('user'));
+    }
+    public function editProfile($id){
+        $getUserData = User::find($id);
+        return view('admin.profile.edit',compact('getUserData'));
+    }
+    public function updateProfile(Request $request){
+        dd($request);
+    }
 }

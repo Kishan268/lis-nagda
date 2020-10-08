@@ -17,17 +17,17 @@
 			<div class="panel-body">
 				<div class="row">
 					  <div class="col-md-3">
-							<select class="form-control" name="std_class_id" id="std_class_id"> 
-								<option value="">Select Class</option>
-									@foreach($classes as $key=>$class)
-										<option value="{{$class->id}}">{{$class->class_name}}</option>
-									@endforeach
-								</select>
-								@error('std_class_id')
-									<span class="invalid-feedback text-danger" role="alert">
-									<strong>{{ $message }}</strong>
-									</span>
-								@enderror
+						<select class="form-control" name="std_class_id" id="std_class_id"> 
+							<option value="">Select Class</option>
+								@foreach($classes as $key=>$class)
+									<option value="{{$class->id}}">{{$class->class_name}}</option>
+								@endforeach
+							</select>
+							@error('std_class_id')
+								<span class="invalid-feedback text-danger" role="alert">
+								<strong>{{ $message }}</strong>
+								</span>
+							@enderror
 						</div>								
 						<div class="col-md-3">
 							<select class="form-control" name="batch_id" id="batch_id">

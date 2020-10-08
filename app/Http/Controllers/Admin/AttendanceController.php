@@ -68,11 +68,11 @@ class AttendanceController extends Controller
 
 
             if(count($attendance) == 0){
-                    $data = [
-                        'user_id'         => $user_id,
-                        'submitted_by'    => $submitted_by,
-                        'attendance_date' => date('Y-m-d')
-                    ];
+                $data = [
+                    'user_id'         => $user_id,
+                    'submitted_by'    => $submitted_by,
+                    'attendance_date' => date('Y-m-d')
+                ];
                 foreach ($absent_students as $absent_student) {
                     $data['s_id'] = $absent_student;
                     $data['present'] = 'A';
