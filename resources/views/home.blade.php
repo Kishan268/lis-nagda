@@ -208,11 +208,12 @@
                       
             <div class="block-content-full">
                 <div class="timeline">
-                        <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
+                      <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
                          <?php $count =1; ?>
                         @foreach($getNotication as $getNotications)
 
-                        <hr>{{$count++}}<hr> 
+                        @if($getNotications->sender == 'send_to_student')
+                        <hr>{{$count++}}. For Students Notification<hr> 
                           <div class="timeline-time">
                             <small>{{$getNotications->date_from_display}}</small>
                           </div>
@@ -226,6 +227,37 @@
                               </p> 
                               <p {{-- class="push-bit" --}}>{{$getNotications->circular_description}}</p>
                           </div>
+                          @elseif($getNotications->sender == 'send_to_faculty')
+                          <hr> {{$count++}}. For Facalty Notification<hr> 
+                            <div class="timeline-time">
+                              <small>{{$getNotications->date_from_display}}</small>
+                            </div>
+                            <div class="timeline-time">
+                              <small>{{$getNotications->date_to_display}}</small>
+                            </div>  
+
+                            <div{{--  class="timeline-content" --}}>
+                                <p {{-- class="push-bit" --}}>
+                                  <a href="{{route('notice-circular.show',$getNotications->id)}}"><strong>{{$getNotications->circular_title}}</strong></a>
+                                </p> 
+                                <p {{-- class="push-bit" --}}>{{$getNotications->circular_description}}</p>
+                            </div>
+                          @elseif($getNotications->sender == 'send_to_all')
+                          <hr> {{$count++}}. For All Notification<hr> 
+                            <div class="timeline-time">
+                              <small>{{$getNotications->date_from_display}}</small>
+                            </div>
+                            <div class="timeline-time">
+                              <small>{{$getNotications->date_to_display}}</small>
+                            </div>  
+
+                            <div{{--  class="timeline-content" --}}>
+                                <p {{-- class="push-bit" --}}>
+                                  <a href="{{route('notice-circular.show',$getNotications->id)}}"><strong>{{$getNotications->circular_title}}</strong></a>
+                                </p> 
+                                <p {{-- class="push-bit" --}}>{{$getNotications->circular_description}}</p>
+                            </div>
+                            @endif
                           @endforeach
                       </marquee>
                 </div>
@@ -313,7 +345,15 @@
                 <input class="btn btn-primary" id="sendWishes" type="submit" value="Wishes">
               </div>
 
-              <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();"> Farhin Khan(4th, 2019-2020);<br> <br> Kasim Khan (4th,2019-2020 ); <br><br> </marquee>
+              <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
+                @foreach($getDob as $dob)
+                {{-- {{dd($currentdate)}} --}}
+                  @if($currentdate==date('Y-m-d',strtotime($dob->dob)))
+                      <br>{{$dob->name}}<br>
+                      {{date('Y-m-d',strtotime($dob->dob))}}<br>
+                @endif
+                @endforeach
+              </marquee>
             </div>
           </form>
         </div>

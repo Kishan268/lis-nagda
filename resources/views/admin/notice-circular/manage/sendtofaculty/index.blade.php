@@ -12,19 +12,19 @@
 	</thead>
 	<tbody>
 		@php $count = 1; @endphp
-		@foreach($studentData1 as $student)
+		@foreach($getAllSendData as $getAllSendDatas)
 		<tr>
 			<td>{{$count++}}</td>
-			<td>{{ $student->circular_title }}</td>
-			<td>{{ $student->circular_description }}</td>
-			<td>{{ $student->date_from_display }}</td>
-			<td>{{ $student->date_to_display }}</td>
-			<td>{{ $student->created_at }}</td>
+			<td>{{ $getAllSendDatas->circular_title }}</td>
+			<td>{{ $getAllSendDatas->circular_description }}</td>
+			<td>{{ $getAllSendDatas->date_from_display }}</td>
+			<td>{{ $getAllSendDatas->date_to_display }}</td>
+			<td>{{ $getAllSendDatas->created_at }}</td>
 			<td class="actions">                       	
-				<a class="btn btn-xs btn-primary" title="" data-toggle="tooltip" href="{{route('sent-to-student-show', $student->id)}}" data-original-title="view">
+				<a class="btn btn-xs btn-primary" title="" data-toggle="tooltip" href="{{route('sent-to-faculty-show', $getAllSendDatas->id)}}" data-original-title="view">
 				<i class="fa fa-eye"></i>
 				</a>
-				<a data-original-title="Edit" href="{{route('sent-to-student-edit', $student->id)}}" data-toggle="tooltip" title="" class="btn btn-xs btn-default">
+				<a data-original-title="Edit" href="{{route('sent-to-faculty-edit', $getAllSendDatas->id)}}" data-toggle="tooltip" title="" class="btn btn-xs btn-default">
 				<i class="fa fa-pencil"></i>
 				</a>
 				<a data-original-title="Delete" href="index.php?plugin=circularv2&amp;action=deletecircular&amp;id=2539" onclick="return confirm(&quot;Are you sure you want to delete?&quot;)" data-toggle="tooltip" title="" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>                                            

@@ -26,7 +26,9 @@ use App\Models\master\professtionType;
 use App\Models\master\guardianDesignation;
 use Illuminate\Support\Facades\Hash;
 use App\Models\classes\SectionManage;
-
+use App\Models\noticecircular\ClassBatchId;
+use App\Models\noticecircular\NoticeStudent;
+use App\Models\noticecircular\NoticeFaculty;
 class NoticeCircularController extends Controller
 {
     /**
@@ -88,7 +90,8 @@ class NoticeCircularController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->sendertype);
+
+        // dd($request->courseBatchSectionId);
         $request->validate([
                 'sendertype'=>'required',
                 'circular_title'=>'required',
@@ -106,9 +109,12 @@ class NoticeCircularController extends Controller
         $data['sender']               = $request->sendertype;
         $data['selected_student']     = $request->selected_student;
         $data['selected_student']     = json_encode($data['selected_student']);
-        $getDataStude = $request->selected_student;
+        // $getDataStude = $request->selected_student; 
+
+        // $data['class_batch_section_id']     = json_encode($data['class_batch_section_id']);
+        // $courseBatchSectionId = $data['class_batch_section_id'];
         // $arrayTode = json_decode($arrayToJson);
-        // dd($request->selected_student);
+        // dd($courseBatchSectionId);
     if($request->sendertype == 'send_to_student'){
         // dd($request);
 
@@ -136,7 +142,45 @@ class NoticeCircularController extends Controller
                 
             }
             // dd($data);
-            NoticeCircular::create($data);
+            $create_stud = NoticeCircular::create($data);
+            // $data['class_batch_section_id']     = $request->courseBatchId;
+
+            // dd($request->courseBatchId);
+        $count = count($request->courseBatchSectionId);
+        if($count != 0){
+            $x = 0;
+            while($x < $count){
+
+                if($request->courseBatchSectionId[$x] !=''){
+                      $datas2 = array(
+                        'notice_circular_id'  => $create_stud->id,
+                        'user_id'       => Auth::user()->id,
+                        'notice_course_batch_id'   => $request->courseBatchSectionId[$x]
+                    );
+                      // dd($datas2);
+                    ClassBatchId::create($datas2);
+                }             
+                $x++; 
+            }
+        }
+
+        $count = count($request->selected_student);
+        if($count != 0){
+            $x = 0;
+            while($x < $count){
+
+                if($request->selected_student[$x] !=''){
+                      $datas2 = array(
+                        'notice_circular_id'  => $create_stud->id,
+                        'user_id'       => Auth::user()->id,
+                        'notice_student_id'   => $request->selected_student[$x]
+                    );
+                      // dd($datas2);
+                    NoticeStudent::create($datas2);
+                }             
+                $x++; 
+            }
+        }
             return "success";
         }else{
              return "warning";
@@ -163,19 +207,21 @@ class NoticeCircularController extends Controller
                 $data['file'] = !empty($data) ? $request->file : null ;
                 
             }
+
              $getAllSendData = NoticeCircular::where('date_from_display',$request->date_from_display)
                 ->where('date_to_display',$request->date_to_display)
                 ->where('sender','send_to_all')
                 ->update($data);
-            if(empty($getAllSendData)){    
-                NoticeCircular::create($data);
+            if(empty($getAllSendData))
+            {    
+               NoticeCircular::create($data); 
             }else{
              return "warning";
             }
             return "success";
 
         }else{
-
+// dd($request);
             if($request->file !=null){ 
                 $verify = $request->validate([
                     'file' =>'required|image|mimes:jpeg,png,jpg' 
@@ -190,10 +236,27 @@ class NoticeCircularController extends Controller
             }
              $getFacultyData = NoticeCircular::where('date_from_display',$request->date_from_display)
                 ->where('date_to_display',$request->date_to_display)
-                ->where('sender','send_to_all_faculties')
                 ->update($data);
             if(empty($getFacultyData)){    
-                NoticeCircular::create($data);
+                $create_stud = NoticeCircular::create($data);
+
+                $count = count($request->selected_faculty);
+                    if($count != 0){
+                        $x = 0;
+                        while($x < $count){
+
+                            if($request->selected_faculty[$x] !=''){
+                                  $datas2 = array(
+                                    'notice_circular_id'  => $create_stud->id,
+                                    'user_id'       => Auth::user()->id,
+                                    'notice_faculty_id'   => $request->selected_faculty[$x]
+                                );
+                                  // dd($datas2);
+                                NoticeFaculty::create($datas2);
+                            }             
+                            $x++; 
+                        }
+                    }
             }else{
              return "warning";
             }
@@ -279,9 +342,10 @@ class NoticeCircularController extends Controller
                             ->whereIn('batch_id',$batchId)
                             ->whereIn('std_class_id',$classId)
                             ->get();
-         $page = request()->page; 
+         $page ='Teachers';
          return view('admin.notice-circular.table',compact('studentsMast','page'));
     }
+
 
     public function getSendAllData(Request $request){
 
@@ -319,39 +383,50 @@ class NoticeCircularController extends Controller
     public function getSendStudentData(Request $request){
 
         // dd($request);
-        $idArray = [];
-        $sectionId=[];
-        $batchId=[];
-        $classId=[];
+        $idArray   =[];
+        $idArray1  =[];
+        $sectionId =[];
+        $batchId   =[];
+        $classId   =[];
         if( $request->getSendAllData == 'send_to_student'){
 
-           $studentData = SectionManage::where('course_id',$request->courseId)
-           ->where('batch_id',$request->batchId)
-           ->get();
-           foreach ($studentData as $value) {
-            $idArray[] = $value;
-            $sectionId[] = $value->section_id;
-            $batchId[]   = $value->batch_id;
-            $classId[]   = $value->course_id;
-           }
+           $NoticeCircular = SectionManage::with('class_name','batch_name')
+                            ->where('course_id',$request->courseId)
+                            ->where('batch_id',$request->batchId)
+                            ->get();           
+       foreach ($NoticeCircular as $value) {
+            $idArray[]   = $value->id;
+       }
 
-           $studentsMast = studentsMast::whereIn('section_id',$sectionId)
-                            ->whereIn('batch_id',$batchId)
-                            ->whereIn('std_class_id',$classId)
-                            ->get();
+        $studentData = ClassBatchId::whereIn('notice_course_batch_id',$idArray)->get();
+
+        foreach ($studentData as $value1) {
+            $idArray1[]   = $value1->notice_circular_id;
+       }
+        $studentData1 = NoticeCircular::whereIn('id',$idArray1)->get();
+            // dd($studentData1);    
                             
-         return view('admin.notice-circular.manage.sendtostudent.index',compact('studentsMast'));
+         return view('admin.notice-circular.manage.sendtostudent.index',compact('studentData1'));
         }
     } 
     public function sentToStudentShow($id){
-        $getAllSendData = NoticeCircular::where('sender','send_to_all')->where('id',$id)->first();
-        $getAllstudents = studentsMast::get();
+        
+        $idArray = [];
+        $getAllSendData = NoticeCircular::where('sender','send_to_student')->where('id',$id)->first();
+        $sId = $getAllSendData->id;
+        // $getAllstudents = studentsMast::with('get_student_id')->get();
+        $getid = NoticeStudent::where('notice_student_id',$sId)->get();
+
+        foreach ($getid as $value) {
+            $idArray[]   = $value->id;
+       }
+        $getAllstudents = studentsMast::whereIn('id',$idArray)->get();
         $page = 'send_to_all';
 
         return view('admin.notice-circular.manage.sendtostudent.show',compact('getAllSendData','page','getAllstudents'));
     }
     public function sentToStudentEdit($id){
-        $getAllSendData = NoticeCircular::where('sender','send_to_all')->where('id',$id)->first();
+        $getAllSendData = NoticeCircular::where('sender','send_to_student')->where('id',$id)->first();
 
         return view('admin.notice-circular.manage.sendtostudent.edit',compact('getAllSendData'));
     } 
@@ -362,9 +437,53 @@ class NoticeCircularController extends Controller
                 'date_to_display'=>'required',
                 'circular_description'=>'required',
             ]);
-        $getAllSendData = NoticeCircular::where('sender','send_to_all')->where('id',$id)->update($data);
+        $getAllSendData = NoticeCircular::where('sender','send_to_student')->where('id',$id)->update($data);
 
         return redirect()->back()->with('success','Updated successfully');
      
     }
+
+         public function getFacultydata(Request $request){
+        $facultyData = user::where('user_flag','T')
+                            ->get();
+         $page ='Teachers';
+
+             return view('admin.notice-circular.table',compact('facultyData','page'));
+        }
+
+    public function getSendFacultyData(Request $request){
+
+        if( $request->getSendAllData == 'send_to_faculty'){
+            $getAllSendData = NoticeCircular::where('sender','send_to_faculty')->get();
+            $page = 'send_to_faculty';
+            // dd( $getAllSendData);
+         return view('admin.notice-circular.manage.sendtofaculty.index',compact('getAllSendData','page'));
+        }
+    }
+
+     public function sentToFacultyShow($id){
+        $getAllSendData = NoticeCircular::where('sender','send_to_faculty')->where('id',$id)->first();
+        $getAllstudents = NoticeFaculty::where('notice_faculty_id',$getAllSendData)->get();
+        // dd($getAllstudents);
+        $page = 'send_to_faculty';
+
+        return view('admin.notice-circular.manage.sendtofaculty.show',compact('getAllSendData','page','getAllstudents'));
+    }
+    public function sentToFacultyEdit($id){
+        $getAllSendData = NoticeCircular::where('sender','send_to_faculty')->where('id',$id)->first();
+
+        return view('admin.notice-circular.manage.sendtofaculty.edit',compact('getAllSendData'));
+    } 
+    public function sentToFacultyupdate(Request $request ,$id){
+        $data = $request->validate([
+                'circular_title'=>'required',
+                'date_from_display'=>'required',
+                'date_to_display'=>'required',
+                'circular_description'=>'required',
+            ]);
+        $getAllSendData = NoticeCircular::where('sender','send_to_faculty')->where('id',$id)->update($data);
+
+        return redirect()->back()->with('success','Updated successfully');
+     
+    } 
 }

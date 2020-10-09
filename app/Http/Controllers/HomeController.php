@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\NoticeCircular;
 use Auth;
 use App\User;
+use App\Models\student\studentsMast;
+
 class HomeController extends Controller
 {
     /**
@@ -26,7 +28,10 @@ class HomeController extends Controller
     public function index()
     {
         $getNotication = NoticeCircular::get();
-        return view('home',compact('getNotication'));
+        $currentdate = date("Y-m-d");
+        $getDob = user::get();
+
+            return view('home',compact('getNotication','getDob','currentdate'));
 
     }
 

@@ -277,9 +277,15 @@ p {
           <span>Profile</span></a>
       </li> 
       <li class="nav-item active">
-        <a class="nav-link" href="{{url('home')}}">
+        <a class="nav-link" href="{{route('logout')}}" onclick="event.preventDefault();
+                                           document.getElementById('logout-form').submit();">
           <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-red-400" style="color: red;"></i>
           <span>Logout</span></a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+
+                          
       </li>
       </li>
 
@@ -472,8 +478,17 @@ p {
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                             onclick="event.preventDefault();
+                                           document.getElementById('logout-form').submit();">
+                              <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Logout
+                          </a>
+
+                          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                              @csrf
+                          </form>
+                 
                 </a>
               </div>
             </li>

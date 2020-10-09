@@ -64,12 +64,20 @@
 			                                </span>
 			                                @enderror
 								        </div>
-							        </div>
-									
-									<div class="row form-group">
+
+										<div class="col-md-6" style="margin-top:10px;">
+											<label for="dob"> Date of birth<span class="text-danger">*</span></label>
+											<input type="text" value="{{date('Y-m-d',strtotime($getUserData->dob))}}" class="form-control datepicker" name="dob" required="" autocomplete="dob" autofocus="" id="datepicker" data-date-format="yyyy-mm-dd">
+											@error('dob')
+			                                  <span class="text-danger" role="alert">
+			                                  <strong>{{ $message }}</strong>
+			                                </span>
+			                                @enderror
+										</div>
+
 										<div class="col-md-6" style="margin-top:10px;">
 											<label for="created_at"> Registration Date<span class="text-danger">*</span></label>
-											<input type="text" value="{{$getUserData->created_at}}" class="form-control " name="created_at" required="" autocomplete="created_at" autofocus="" id="datepicker" data-date-format="yyyy-mm-dd">
+											<input type="text" value="{{date('Y-m-d',strtotime($getUserData->created_at))}}" class="form-control datepicker" name="created_at" required="" autocomplete="created_at" autofocus="" id="datepicker" data-date-format="yyyy-mm-dd">
 											@error('created_at')
 			                                  <span class="text-danger" role="alert">
 			                                  <strong>{{ $message }}</strong>
@@ -222,4 +230,5 @@
 	        </div>
 </div>
 </div>
+
  @endsection

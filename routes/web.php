@@ -232,6 +232,7 @@ Route::Resource('profile','Admin\profile\ProfileController');
 Route::Resource('notice-circular','Admin\noticeCircular\NoticeCircularController');
 Route::get('course_batches_chosen','Admin\noticeCircular\NoticeCircularController@getBtachSectionClass')->name('course_batches_chosen');
 Route::post('get_s_data','Admin\noticeCircular\NoticeCircularController@getSdata')->name('get_s_data');
+Route::post('get_faculty_data','Admin\noticeCircular\NoticeCircularController@getFacultydata')->name('get_faculty_data');
 
 Route::post('get_send_to_all_data','Admin\noticeCircular\NoticeCircularController@getSendAllData')->name('get_send_to_all_data');
 Route::get('sent-to-all-show/{id}','Admin\noticeCircular\NoticeCircularController@sentToAllShow')->name('sent-to-all-show');
@@ -242,3 +243,8 @@ Route::post('get_send_to_student_data','Admin\noticeCircular\NoticeCircularContr
 Route::get('sent-to-student-show/{id}','Admin\noticeCircular\NoticeCircularController@sentToStudentShow')->name('sent-to-student-show');
 Route::get('sent-to-student-edit/{id}','Admin\noticeCircular\NoticeCircularController@sentToStudentEdit')->name('sent-to-student-edit');
 Route::put('sent-to-student-update/{id}','Admin\noticeCircular\NoticeCircularController@sentToStudentupdate')->name('sent-to-student-update');
+
+Route::post('get_send_to_faculty_data','Admin\noticeCircular\NoticeCircularController@getSendFacultyData')->name('get_send_to_faculty_data');
+Route::get('sent-to-faculty-show/{id}','Admin\noticeCircular\NoticeCircularController@sentToFacultyShow')->name('sent-to-faculty-show');
+Route::get('sent-to-faculty-edit/{id}','Admin\noticeCircular\NoticeCircularController@sentToFacultyEdit')->name('sent-to-faculty-edit');
+Route::put('sent-to-faculty-update/{id}','Admin\noticeCircular\NoticeCircularController@sentToFacultyupdate')->name('sent-to-faculty-update');

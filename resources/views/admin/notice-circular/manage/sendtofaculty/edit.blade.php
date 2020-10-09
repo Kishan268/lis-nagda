@@ -35,7 +35,7 @@
                   
              <div class="row">
                 <div class="col-md-4">
-                  <form action="{{route('sent-to-student-update',$getAllSendData->id)}}" method="post" role="form" enctype="multipart/form-data">
+                  <form action="{{route('sent-to-faculty-update',$getAllSendData->id)}}" method="post" role="form" enctype="multipart/form-data">
                   @csrf
                @method('PUT')
              

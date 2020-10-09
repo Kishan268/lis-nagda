@@ -78,4 +78,7 @@ class studentsMast extends Model
         return $this->hasMany('App\Models\StudentAttendance','s_id');
     }
 
+      public function get_student_id(){
+            return $this->belongsTo('App\Models\noticecircular\NoticeStudent','id','notice_student_id');
+    }
 }

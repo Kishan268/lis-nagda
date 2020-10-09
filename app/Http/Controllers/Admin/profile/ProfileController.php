@@ -102,7 +102,8 @@ class ProfileController extends Controller
                     'country_id' =>'required',
                     'state_id' =>'required',
                     'city_id' =>'required',
-                    'zip_code' =>'required'
+                    'zip_code' =>'required',
+                    'dob' =>'required'
             ]);
         if ($request->user_flag == null OR $request->user_flag == 'T') {
             if($request->photo !=null){

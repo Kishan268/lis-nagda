@@ -75,6 +75,11 @@
                       
                       {{-- Show student Data................. --}}
                 </div>
+
+                 <div class="col-md-12" id="faculty_data" >
+                      
+                      {{-- Show student Data................. --}}
+                </div>
               <hr><hr>
 
                   <div class="container notice_circular" style="display: none;">
@@ -422,8 +427,19 @@ $('th.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;');
         $("#message-block").hide();
         $("#course_batches_div").hide();
         $("#course_batches_par_div").hide();
-        $(".notice_circular_for_all_faculties").show();
-        getTeacherList();
+        // $(".notice_circular_for_all_faculties").show();
+        // getTeacherList();
+        var val ='send_to_faculty';
+          $.ajax({
+            type: "POST",
+            url: "{{route('get_faculty_data')}}",
+            data: {val:val,"_token": "{{ csrf_token() }}"},
+            success: function(data){
+            $('#faculty_data').html(data)
+            $(".notice_circular_for_all_faculties").show();
+                  
+            }
+        })
     }
     });
  
@@ -463,8 +479,18 @@ $('th.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;');
             })
         });
 
+   
+
         $(document).on('click','#submitData',function(e){
             e.preventDefault();
+
+            courseBatchSectionId = $('#myid').val();
+            // var k = 0;
+            //  $('#myid').each(function() {
+            //   courseBatchSectionId[k++] = $(this).val();
+            // });
+             // alert(courseBatchSectionId);
+            var CourseBatchSectionId = $('#myid').val();
             var selected_student = [];
             var i = 0;
             $('input[name="s_id[]"]:checked').each(function() {
@@ -488,7 +514,7 @@ $('th.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;');
                 type:'post',
                 url:'{{route('notice-circular.store')}}',
 
-                data:{selected_student:selected_student,sendertype:sendertype,total_student:length,circular_title:circular_title,date_from_display:date_from_display,date_to_display:date_to_display,file:file,circular_description:circular_description, "_token": "{{ csrf_token() }}"},
+                data:{selected_student:selected_student,sendertype:sendertype,total_student:length,circular_title:circular_title,date_from_display:date_from_display,date_to_display:date_to_display,file:file,circular_description:circular_description,courseBatchSectionId:courseBatchSectionId, "_token": "{{ csrf_token() }}"},
                 success:function(res){
                   console.log(res)
                   if(res == 'success'){
@@ -544,7 +570,18 @@ $('th.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;');
 
     $(document).on('click','#sendToAllFaculty',function(e){
       e.preventDefault();
-      
+
+      var selected_faculty = [];
+      var i = 0;
+      $('input[name="faculty_id[]"]:checked').each(function() {
+        selected_faculty[i++] = $(this).val();
+      });
+      var j =0;
+      var total_faculty = [];
+      $('input[name="faculty_id[]"]').each(function() {
+        total_faculty[j++] = $(this).val();
+      });
+
       var sendertype = $('#sender_type2').val();
       var circular_title = $('#circulartitle2').val();
       var date_from_display = $('#displayfromdate2').val();
@@ -557,7 +594,7 @@ $('th.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;');
             type:'post',
             url:'{{route('notice-circular.store')}}',
 
-            data:{sendertype:sendertype,circular_title:circular_title,date_from_display:date_from_display,date_to_display:date_to_display,file:file,circular_description:circular_description, "_token": "{{ csrf_token() }}"},
+            data:{sendertype:sendertype,selected_faculty:total_faculty,total_faculty:sendertype,circular_title:circular_title,date_from_display:date_from_display,date_to_display:date_to_display,file:file,circular_description:circular_description, "_token": "{{ csrf_token() }}"},
             success:function(res){
               console.log(res)
               if(res == 'success'){

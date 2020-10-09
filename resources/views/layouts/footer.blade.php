@@ -60,9 +60,6 @@
     {{-- <script src="{{asset('js/select2.min.js')}}"></script> --}}
  <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.4/js/bootstrap-datetimepicker.min.js"></script> --}}
- <script type="text/javascript">
- $('.mytable').DataTable();
-</script>
 
 <script type="text/javascript" src="https://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
@@ -88,6 +85,12 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
   <script src="{{asset('js/notify.min.js')}}"></script>
 
+ <script type="text/javascript">
+    $('.mytable').DataTable();
+    $(function () {
+      $(".datepicker").datepicker();
+    });
+</script>
 </body>
 
 </html>

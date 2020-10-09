@@ -181,7 +181,25 @@
             $("#course_batches_div").hide();
             $("#course_batches_par_div").hide();
             $(".notice_circular_for_all_faculties").show();
-            getTeacherList();
+            // getTeacherList();
+            
+            // $("#sendtype").on('change', function(){
+              // alert();
+                var val = $(this).val()
+                var getSendAllData = 'send_to_faculty';
+                if(val==6){
+                  $.ajax({
+                    type: "POST",
+                    url: "{{route('get_send_to_faculty_data')}}",
+                    data: {val:val,getSendAllData:getSendAllData,"_token": "{{ csrf_token() }}"},
+                    success: function(data){
+                        $('#all_data').html(data)
+                        $(".notice_circular").show();
+                          
+                    }
+                })
+                }
+            // });
         }
         });
 
@@ -200,7 +218,8 @@
                 }
             })
             }
-        });
+        }); 
+
 
         $("#batch").on('change', function(){
             var getSendAllData = 'send_to_all';

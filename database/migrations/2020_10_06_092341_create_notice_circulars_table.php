@@ -22,6 +22,7 @@ class CreateNoticeCircularsTable extends Migration
             $table->string('file', 255)->nullable();
             $table->text('circular_description')->nullable();
             $table->text('selected_student')->nullable();
+            $table->text('class_batch_section_id')->nullable();
             $table->string('status',2)->default(1);
             $table->softDeletes();
             $table->timestamps();
