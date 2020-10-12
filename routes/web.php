@@ -64,6 +64,36 @@ Route::get('/principals-message', function () {
 
 Auth::routes();
 // Route::group(['middleware' => 'auth'], function (){
+Route::group(['middleware' => ['auth','role:superadmin']], function () {
+    // This Route start For RolesController
+
+    Route::resource('/admin', 'ACL\RolesController');
+    Route::get('/delete/{id}','ACL\RolesController@destroy')->name('delete');
+    Route::post('/save_changes','ACL\RolesController@saveChanges')->name('save_changes');
+
+    // End RolesController
+
+    // Start Permission Conroller 
+
+    Route::resource('permissions', 'ACL\PermissionController');
+    Route::get('/delete_permissions/{id}', 'ACL\PermissionController@destroy')->name('delete_permissions');
+    // End Permission Conroller 
+
+    // Start Users Conroller 
+
+    Route::resource('/users', 'ACL\UserController');
+    Route::get('/destroy/{id}', 'ACL\UserController@destroy')->name('destroy');
+    Route::post('/changes_role','ACL\UserController@changesRole')->name('changesRole');
+    Route::post('/changePermission','ACL\UserController@changePermission')->name('changePermission');   
+
+    //Start AccountController
+
+    Route::resource('/account', 'AccountController');
+    Route::get('account_delete/{id}', 'AccountController@destroy')->name('account.destroy');
+
+    //End AccountController
+});
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::Resource('student_detail', 'Admin\students\studentController');
@@ -84,9 +114,11 @@ Route::post('get_academic_country/', 'Admin\students\studentController@getAcadmi
 Route::Resource('subject','Admin\classes\SubjectController');
 Route::get('subject_assign','Admin\classes\SubjectController@assignSubject')->name('subject_assign');
 
+
 Route::post('subject_assign_add','Admin\classes\SubjectController@assignSubjectAdd')->name('subject_assign_add');
 
 Route::get('subject_assign_to_student','Admin\classes\SubjectController@subjectAssignToStudent')->name('subject_assign_to_student');
+
 
 Route::post('student_get_for_assign_subject','Admin\classes\SubjectController@studentGetForAssignSubject')->name('student_get_for_assign_subject');
 
@@ -190,22 +222,17 @@ Route::post('forward_transfer_student', 'Admin\students\studentManageController@
 Route::Resource('teachers', 'Admin\teachers\TeacherController');
 Route::Resource('teams', 'Admin\teachers\TeamsController');
 
+Route::get('teachers/assign/subject','Admin\teachers\TeacherController@subjectAndTeacher')->name('assign_subject');
+Route::post('teachers/assign/create','Admin\teachers\TeacherController@subjectAssignToTeacher')->name('assign_subject_to_teacher');
+
+Route::post('get_subject_assign_to_teacher','Admin\teachers\TeacherController@getSubAssToTeacher')->name('get_subject_assign_to_teacher');
+
 // Route::group(['prefix' => 'attendance', 'namespace' => 'LawSchools'], function ()  {
 
         Route::get('attendance/dashboard', 'Admin\AttendanceController@index')->name('dashboard');
         Route::get('attendance/student', 'Admin\AttendanceController@studentAttendance')->name('attendance.student');
         Route::post('attendance/student_fetch', 'Admin\AttendanceController@studentFetch')->name('attendance.student_fetch');
-        Route::post('attendance/attendance_submit', 'Admin\AttendanceController@attendanceSubmit')->name('attendance.submit');
-        Route::get('attendance/staff', 'Admin\AttendanceController@staffAttendance')->name('attendance.staff');
-
-        Route::get('attendance/manage/student', 'Admin\AttendanceController@manageStudentAttendance')->name('attendance.manage_student');
-        Route::post('attendance/manage_student_filter', 'Admin\AttendanceController@manageStudentFilter')->name('attendance.manage_student_filter');
-
-
-        Route::get('attendance/manage/staff', 'Admin\AttendanceController@manageStaffAttendance')->name('attendance.manage_staff');
-
-        Route::post('/staff_filter', 'Admin\AttendanceController@staff_filter')->name('attendance.staff_filter');
-        Route::post('/attendance_staff_update', 'Admin\AttendanceController@attendance_staff_update')->name('attendance.staff_update');
+        
 
         // Route::get('/manage/show_attendance/{id}', 'AttendanceController@show_attendance')->name('attendance.show_attendance');
         // Route::post('/attendance_list', 'AttendanceController@attendance_list')->name('attendance.list');
@@ -214,6 +241,19 @@ Route::Resource('teams', 'Admin\teachers\TeamsController');
         Route::get('attendance/upload','Admin\AttendanceController@attendanceUpload')->name('attendance.upload');
         
         Route::get('attendance/student_report','Admin\AttendanceController@attendanceStudentReport')->name('attendance.student_report');
+        Route::get('attendance/manage/student', 'Admin\AttendanceController@manageStudentAttendance')->name('attendance.manage_student');
+        Route::post('attendance/manage_student_filter', 'Admin\AttendanceController@manageStudentFilter')->name('attendance.manage_student_filter');
+
+Route::group(['middleware' => ['auth','role:superadmin']], function () {
+
+        Route::post('attendance/attendance_submit', 'Admin\AttendanceController@attendanceSubmit')->name('attendance.submit');
+
+        Route::get('attendance/staff', 'Admin\AttendanceController@staffAttendance')->name('attendance.staff');
+        Route::get('attendance/manage/staff', 'Admin\AttendanceController@manageStaffAttendance')->name('attendance.manage_staff');
+
+        Route::post('/staff_filter', 'Admin\AttendanceController@staff_filter')->name('attendance.staff_filter');
+        Route::post('/attendance_staff_update', 'Admin\AttendanceController@attendance_staff_update')->name('attendance.staff_update');
+
 
         Route::get('attendance/staff_report','Admin\AttendanceController@attendance_staff_report')->name('attendance.staff_report');
 
@@ -224,7 +264,7 @@ Route::Resource('teams', 'Admin\teachers\TeamsController');
         Route::post('attendance/staff_submit','Admin\AttendanceController@attendanceStaffSubmit')->name('attendance-staff_submit');
 
         // Route::post('/import','AttendanceController@importAttendence')->name('attendance.import');
-    // });
+     });
 
 
 Route::Resource('profile','Admin\profile\ProfileController');

@@ -22,10 +22,16 @@ var wpcf7 = {"apiSettings":{"root":"http:\/\/lisnagda.org\/wp-json\/contact-form
 var awsmJobsPublic = {"ajaxurl":"http:\/\/lisnagda.org\/wp-admin\/admin-ajax.php","is_tax_archive":"","job_id":"0","wp_max_upload_size":"268435456","i18n":{"loading_text":"Loading...","form_error_msg":{"general":"Error in submitting your application. Please try again later!","file_validation":"The file you have selected is too large."}}};
 /* ]]> */
 </script>
-<script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/wp-job-openings/assets/js/script.min.js?ver=1.1.2'></script>
-<script type='text/javascript' src='http://lisnagda.org/wp-content/themes/education-hub/js/skip-link-focus-fix.min.js?ver=20130115'></script>
-<script type='text/javascript' src='http://lisnagda.org/wp-content/themes/education-hub/third-party/cycle2/js/jquery.cycle2.min.js?ver=2.1.6'></script>
-<script type='text/javascript' src='http://lisnagda.org/wp-content/themes/education-hub/js/custom.min.js?ver=1.0'></script>
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/wp-job-openings/assets/js/script.min.js?ver=1.1.2'></script> --}}
+<script type='text/javascript' src='{{asset('js/frontend/script.min.js')}}'></script>
+
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-content/themes/education-hub/js/skip-link-focus-fix.min.js?ver=20130115'></script> --}}
+<script type='text/javascript' src='{{asset('js/frontend/skip-link-focus-fix.min.js')}}'></script>
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-content/themes/education-hub/third-party/cycle2/js/jquery.cycle2.min.js?ver=2.1.6'></script> --}}
+<script type='text/javascript' src='{{asset('js/frontend/jquery.cycle2.min.js')}}'></script>
+
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-content/themes/education-hub/js/custom.min.js?ver=1.0'></script> --}}
+<script type='text/javascript' src='{{asset('js/frontend/custom.min.js')}}'></script>
 <script type='text/javascript'>
 /* <![CDATA[ */
 var EducationHubScreenReaderText = {"expand":"<span class=\"screen-reader-text\">expand child menu<\/span>","collapse":"<span class=\"screen-reader-text\">collapse child menu<\/span>"};
@@ -38,11 +44,17 @@ var ajaxsearchlite = {"ajaxurl":"http:\/\/lisnagda.org\/wp-admin\/admin-ajax.php
 var ASL = {"ajaxurl":"http:\/\/lisnagda.org\/wp-admin\/admin-ajax.php","backend_ajaxurl":"http:\/\/lisnagda.org\/wp-admin\/admin-ajax.php","js_scope":"jQuery","detect_ajax":"0","scrollbar":"1","js_retain_popstate":"0","version":"4737","fix_duplicates":"1"};
 /* ]]> */
 </script>
-<script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/ajax-search-lite/js/min/jquery.ajaxsearchlite.min.js?ver=4.8'></script>
-<script type='text/javascript' src='http://lisnagda.org/wp-includes/js/wp-embed.min.js?ver=4.9.15'></script>
-<script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/tlp-portfolio/assets/vendor/jquery.magnific-popup.min.js'></script>
-<script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/tlp-portfolio/assets/vendor/owl.carousel.min.js?ver=4.9.15'></script>
-<script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/tlp-portfolio/assets/js/tlpportfolio.js'></script>
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/ajax-search-lite/js/min/jquery.ajaxsearchlite.min.js?ver=4.8'></script> --}}
+<script type='text/javascript' src='{{asset('js/frontend/jquery.ajaxsearchlite.min.js')}}'></script>
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-includes/js/wp-embed.min.js?ver=4.9.15'></script> --}}
+<script type='text/javascript' src='{{asset('js/frontend/embed.min.js')}}'></script>
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/tlp-portfolio/assets/vendor/jquery.magnific-popup.min.js'></script> --}}
+<script type='text/javascript' src='{{asset('js/frontend/jquery.magnific-popup.min.js')}}'></script>
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/tlp-portfolio/assets/vendor/owl.carousel.min.js?ver=4.9.15'></script> --}}
+<script type='text/javascript' src='{{asset('js/frontend/owl.carousel.min.js')}}'></script>
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/tlp-portfolio/assets/js/tlpportfolio.js'></script> --}}
+<script type='text/javascript' src='{{asset('js/frontend/tlpportfolio.js')}}'></script>
+
 <style type="text/css"></style>
 <script>(function($){
 $("#widget_tlp_port_owl_carousel-4-port-carousel").owlCarousel({

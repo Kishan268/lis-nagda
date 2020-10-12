@@ -122,11 +122,12 @@
 										<div class="col-md-4" style="margin-top:10px;">
 											<label for="city_id">City <span class="text-danger">*</span> </label>
 											<select name="city_id" class="form-control " id="city">
-												<option value="{{$getUserData->city->id}}">{{$getUserData->city->city_name}}</option>
+												<option value="{{$getUserData->city ? $getUserData->city->id :''}}">{{$getUserData->city ? $getUserData->city->city_name :''}}</option>
 												@foreach($city as $cities)
-												@if($cities->id != $getUserData->city->id)
+												
+												{{-- @if($cities->id != $getUserData->city->id) --}}
 												<option value="{{$cities->id}}">{{$cities->city_name}}</option>
-												@endif
+												{{-- @endif --}}
 												@endforeach
 											</select>
 											@error('city_id')
@@ -139,7 +140,7 @@
 											<label for="state_code">State <span class="text-danger">*</span> </label>
 
 											<select name="state_id" class="form-control" id="state">
-												<option value="{{$getUserData->state->id}}">{{$getUserData->state->state_name}}</option>
+												<option value="{{$getUserData->state ? $getUserData->state->id : ''}}">{{$getUserData->state ? $getUserData->state->state_name : ''}}</option>
 												@foreach($state as $states)
 												{{-- @if($states->id != $getUserData->state->id) --}}
 												<option value="{{$states->id}}">{{$states->state_name}}</option>
@@ -156,7 +157,7 @@
 										<div class="col-md-4" style="margin-top:10px;">
 											<label for="country_id">Country <span class="text-danger">*</span> </label>
 											<select name="country_id" class="form-control " id="city">
-												<option value="{{$getUserData->country->id}}">{{$getUserData->country->country_name}}</option>
+												<option value="{{$getUserData->country ? $getUserData->country->id : ''}}">{{$getUserData->country ? $getUserData->country->country_name : ''}}</option>
 												@foreach($country as $countries)
 												{{-- @if($countries->id != $getUserData->country->id) --}}
 												<option value="{{$countries->id}}">{{$countries->country_name}}</option>

@@ -8,14 +8,24 @@ use App\Models\teachers\Teacher;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use Auth;
-
+use App\Models\master\Subject;
+use App\Models\teachers\AssignSubjectToTeacher;
+use App\Models\teachers\AssignSubIdToTeacher;
+use App\Models\student\studentsMast;
+use App\Models\master\studentClass;
+use App\Models\master\studentBatch;
+use App\Models\master\studentSectionMast;
 class TeacherController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+         $this->middleware('auth');
+         $this->classes = studentClass::get();
+         $this->batches = studentBatch::get();
+         $this->sections = studentSectionMast::get();
+         $this->studentData = studentsMast::get();
+        
+    }
     public function index()
     {
         // return 'edsfdsf';
@@ -126,4 +136,62 @@ class TeacherController extends Controller
 
         return redirect()->back()->with('success','Teacher deleted successfully');
     }
+
+    public function subjectAndTeacher(Request $request){
+
+         $classes = $this->classes;
+         $batches = $this->batches;
+         $sections = $this->sections;
+         $studentData = $this->studentData;
+         $teacher     = User::where('user_flag','T')->get();
+         $subject     = Subject::get();
+         
+        return view('admin.teachers.assign-subject.index',compact('teacher','subject','classes','batches','sections'));
+    } 
+    public function subjectAssignToTeacher(Request $request){
+     
+         $data = $request->validate([
+                'batch_id'       => 'required',
+                'class_id'       => 'required',
+                'section_id'     => 'required',
+                'teacher_id'     => 'required'
+        ]);
+        $data['user_id']  = Auth::user()->id;
+        $lastId = AssignSubjectToTeacher::create($data);
+        $count = count($request->all_subject_id);
+                
+        for($i= 0 ; $i < count($request->all_subject_id); $i++) {
+            $data2 = [
+                'assign_subject_teacher_id'   => $lastId->id,
+                'assign_subject_id'   => $request->all_subject_id[$i]
+            ];
+            AssignSubIdToTeacher::create($data2);
+
+        }
+        
+       return "success";
+        
+    }
+
+    public function getSubAssToTeacher(Request $request){
+        // dd($request);
+        // $assignedSub = AssignSubIdToTeacher::with('get_assign_subject')->get();
+        $data1 = AssignSubjectToTeacher::with('get_assign_subject')
+                        ->where('class_id',$request->class_id)
+                        ->where('batch_id',$request->batch_id)
+                        ->where('section_id',$request->section_id)
+                        ->where('teacher_id',$request->teacher_id)
+                        ->get();
+            $get_assign_subject = [];            
+            foreach ($data1 as $value) {
+                // $get_assign_subject[] = $value->assign_subject_id ;
+                foreach ($value['get_assign_subject'] as $value1) {
+                    $get_assign_subject[] = $value1->assign_subject_id ;
+                }
+            }
+            // dd($get_assign_subject);
+
+        $data = Subject::whereIn('id',$get_assign_subject)->get();               
+        return response()->json($data);
+    } 
 }

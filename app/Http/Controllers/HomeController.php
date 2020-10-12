@@ -7,6 +7,8 @@ use App\Models\NoticeCircular;
 use Auth;
 use App\User;
 use App\Models\student\studentsMast;
+use App\Models\master\studentBatch;
+use App\Models\teachers\Teacher;
 
 class HomeController extends Controller
 {
@@ -26,12 +28,15 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
+    {   
+        $user = Auth::user()->roles;
         $getNotication = NoticeCircular::get();
         $currentdate = date("Y-m-d");
         $getDob = user::get();
-
-            return view('home',compact('getNotication','getDob','currentdate'));
+        $students = studentsMast::get();
+        $studentBatch = studentBatch::get();
+        $Teacher = Teacher::get();
+        return view('home',compact('getNotication','getDob','currentdate','students','studentBatch','Teacher'));
 
     }
 

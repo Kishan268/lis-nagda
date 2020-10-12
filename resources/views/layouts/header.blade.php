@@ -154,7 +154,7 @@ p {
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="{{url('home')}}">
-          <i class="fas fa-fw fa-tachometer-alt  fa-sm fa-fw mr-2-400" style="color:skyblue;"></i>
+          <i class="fas fa-fw fa-tachometer-alt  fa-sm fa-fw mr-2 text-green-400" style="color:#7F00FF;"></i>
           <span>Dashboard</span></a>
       </li>
 
@@ -163,15 +163,16 @@ p {
 
       <!-- Heading -->
 
-      <div class="sidebar-heading">
+      {{-- <div class="sidebar-heading">
         Interface
       </div>
-
+ --}}
+ @role('superadmin')
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#student_details" aria-expanded="true" aria-controls="student_details">
-          <i class="fa fa-graduation-cap sidebar-nav-icon"></i>
-          <span>Manage Student</span>
+          <i class="fa fa-graduation-cap sidebar-nav-icon " style="color: #7FFF00;"></i>
+          <span class="fa-sm fa-fw mr-2 text-green-400">Manage Student</span>
         </a>
         <div id="student_details" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded siderbar1">
@@ -190,24 +191,24 @@ p {
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#teachers_details" aria-expanded="true" aria-controls="teachers_details">
-          <i class="fa fa-users sidebar-nav-icon"></i>
+          <i class="fa fa-users sidebar-nav-icon" style="color: #00FFFF;"></i>
           <span>Manage Teachers</span>
         </a>
         <div id="teachers_details" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
             <a class="collapse-item" href="{{url('teachers')}}">Teacher Dasboard</a>
-            
+             <a class="collapse-item" href="{{route('assign_subject')}}">Subject Assign </a>
            
           </div>
           
         </div>
-      </li> 
+      </li>
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed {{Request()->segment(2) == 'attendance.student' ? 'active-li' : ''}}" href="#" data-toggle="collapse" data-target="#manage_attendance" aria-expanded="true" aria-controls="manage_attendance">
-          <i class="fa fa-clock-o sidebar-nav-icon"></i>
+          <i class="fa fa-clock-o sidebar-nav-icon" style="color: #4B0082;"></i>
           <span>Manage Attendance</span>
         </a>
         <div id="manage_attendance" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -225,7 +226,7 @@ p {
  <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#manage_classes" aria-expanded="true" aria-controls="manage_classes">
-          <i class="fa fa-graduation-cap sidebar-nav-icon"></i>
+          <i class="fa fa-graduation-cap sidebar-nav-icon" style="color: #CC7722;"></i>
           <span>Classes</span>
         </a>
         <div id="manage_classes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -236,16 +237,13 @@ p {
             <a class="collapse-item" href="{{route('subject.index')}}">Subject Details</a>
             <a class="collapse-item" href="{{url('subject_assign')}}">Assign Subject</a>
             <a class="collapse-item" href="{{route('subject_assign_to_student')}}">Subject Assign to Student</a>
+           
             <a class="collapse-item" href="{{route('batch')}}">Report</a>
             <a class="collapse-item" href="{{route('batch')}}">Co Subject</a>
           </div>
         </div>
       </li>
-       <li class="nav-item active">
-        <a class="nav-link" href="{{route('notice-circular.index')}}">
-          <i class="fa fa-dashboard sidebar-nav-icon fa-sm fa-fw mr-2 text-green-400" style="color: orange;"></i>
-          <span>Notis & Circular</span></a>
-      </li> 
+      
 
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
@@ -272,10 +270,69 @@ p {
           </div>
         </div>
         <li class="nav-item active">
-        <a class="nav-link" href="{{url('profile')}}">
+        <a class="nav-link" href="{{route('notice-circular.index')}}">
+          <i class="fa fa-dashboard sidebar-nav-icon fa-sm fa-fw mr-2 text-green-400" style="color: #E0B0FF;"></i>
+          <span>Notis & Circular</span></a>
+      </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url('admin')}}">
+            <i class="fas fa-fw fa-cubes fa-sm fa-fw mr-2 text-green-400" style="color: blue;"></i>
+            <span>ACL</span></a>
+        </li>
+         
+
+       <li class="nav-item active">
+          <a class="nav-link" href="{{url('profile')}}">
           <i class="fas fa-fw fa-user fa-sm fa-fw mr-2 text-green-400" style="color: green;"></i>
           <span>Profile</span></a>
+      </li>
+       @endrole
+       @ability('teachers','superadmin')
+          <!-- Nav Item - Pages Collapse Menu -->
+          <li class="nav-item">
+            <a class="nav-link collapsed {{Request()->segment(2) == 'attendance.student' ? 'active-li' : ''}}" href="#" data-toggle="collapse" data-target="#manage_attendance" aria-expanded="true" aria-controls="manage_attendance">
+              <i class="fa fa-clock-o sidebar-nav-icon" style="color: #4B0082;"></i>
+              <span>Manage Attendance</span>
+            </a>
+            <div id="manage_attendance" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
+                <a class="collapse-item" href="{{route('dashboard')}}">Dashboard</a>
+                <a class="collapse-item" href="{{route('attendance.student')}}">Student Attendance</a>
+                {{-- <a class="collapse-item" href="{{route('attendance.staff')}}">Staff Attendance</a> --}}
+                <a class="collapse-item" href="{{route('attendance.upload')}}">Upload Attendance</a>
+                <a class="collapse-item" href="{{route('attendance.manage_student')}}">Manage Attendance</a>
+                <a class="collapse-item" href="{{route('attendance.student_report')}}">Reports Attendance</a>
+              </div>
+            </div>
+          </li>
+        <li class="nav-item active">
+        <a class="nav-link" href="{{route('notice-circular.index')}}">
+          <i class="fa fa-dashboard sidebar-nav-icon fa-sm fa-fw mr-2 text-green-400" style="color: #E0B0FF;"></i>
+          <span>Notis & Circular</span></a>
+        
+       </li>
+       <li class="nav-item active">
+          <a class="nav-link" href="{{url('profile')}}">
+          <i class="fas fa-fw fa-user fa-sm fa-fw mr-2 text-green-400" style="color: green;"></i>
+          <span>Profile</span></a>
+      </li>
+       @endability
+
+      @role('students')
+
+        <li class="nav-item active">
+        <a class="nav-link" href="{{url('profile')}}">
+          <i class="fas fa-fw fa-user fa-sm fa-fw mr-2 text-green-400" style="color: green;"></i>
+          <span>Manage Profile</span></a>
+      </li>   
+      <li class="nav-item active">
+        <a class="nav-link" href="{{url('profile')}}">
+          <i class="fas fa-fw fa-bars fa-sm fa-fw mr-2 text-green-400" style="color: #40826D;"></i>
+          <span>Show Attendance</span></a>
       </li> 
+      @endrole
+
       <li class="nav-item active">
         <a class="nav-link" href="{{route('logout')}}" onclick="event.preventDefault();
                                            document.getElementById('logout-form').submit();">
@@ -283,9 +340,7 @@ p {
           <span>Logout</span></a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
-        </form>
-
-                          
+        </form>              
       </li>
       </li>
 
@@ -464,7 +519,7 @@ p {
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{url('profile')}}">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>

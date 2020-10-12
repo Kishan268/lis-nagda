@@ -21,7 +21,9 @@
     <header id="masthead" class="site-header" role="banner"><div class="container">     
         <div class="site-branding">
 
-            <a href="http://lisnagda.org/" class="custom-logo-link" rel="home" itemprop="url"><img width="170" height="139" src="http://lisnagda.org/wp-content/uploads/2020/01/LIS_Logo-1.png" class="custom-logo" alt="" itemprop="logo"></a>
+            <a href="http://lisnagda.org/" class="custom-logo-link" rel="home" itemprop="url">
+                <img width="170" height="139" src="{{ asset('frontend-logos/LIS_Logo-1.png')}}" class="custom-logo" alt="" itemprop="logo"></a>
+                {{-- <img width="170" height="139" src="http://lisnagda.org/wp-content/uploads/2020/01/LIS_Logo-1.png" class="custom-logo" alt="" itemprop="logo"></a> --}}
 
                 <div id="site-identity">
                   <p class="site-title"><a href="http://lisnagda.org/" rel="home">Lakshya International School, Nagda</a></p>
@@ -101,25 +103,29 @@
  <!-- SLIDE  -->
     <li data-transition="boxslide" data-slotamount="7" data-masterspeed="300"  data-fstransition="slideleft" data-fsmasterspeed="300" data-fsslotamount="7" data-saveperformance="off" >
         <!-- MAIN IMAGE -->
-        <img src="http://lisnagda.org/wp-content/uploads/2017/03/LIS-BANNER-03-1.jpg"  alt="LIS-BANNER-03-1"  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+        {{-- <img src="http://lisnagda.org/wp-content/uploads/2017/03/LIS-BANNER-03-1.jpg"  alt="LIS-BANNER-03-1"  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"> --}}
+        <img src="{{ asset('frontend-banner/LIS-BANNER-03-1.jpg')}}"  alt="LIS-BANNER-03-1"  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
         <!-- LAYERS -->
     </li>
     <!-- SLIDE  -->
     <li data-transition="random,slideup" data-slotamount="7" data-masterspeed="300"  data-saveperformance="off" >
         <!-- MAIN IMAGE -->
-        <img src="http://lisnagda.org/wp-content/uploads/2020/01/LIS-BANNER-02-1024x375.jpg"  alt="LIS-BANNER-02-1024x375"  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+        <img src="{{ asset('frontend-banner/LIS-BANNER-02-1024x375.jpg')}}"  alt="LIS-BANNER-02-1024x375"  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+        {{-- <img src="http://lisnagda.org/wp-content/uploads/2020/01/LIS-BANNER-02-1024x375.jpg"  alt="LIS-BANNER-02-1024x375"  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"> --}}
         <!-- LAYERS -->
     </li>
     <!-- SLIDE  -->
     <li data-transition="slidevertical,scaledownfromright" data-slotamount="7" data-masterspeed="300"  data-saveperformance="off" >
         <!-- MAIN IMAGE -->
-        <img src="http://lisnagda.org/wp-content/uploads/2020/01/sd1.png"  alt="sd1"  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+        <img src="{{ asset('frontend-banner/sd1.png')}}"  alt="sd1"  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+        {{-- <img src="http://lisnagda.org/wp-content/uploads/2020/01/sd1.png"  alt="sd1"  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"> --}}
         <!-- LAYERS -->
     </li>
     <!-- SLIDE  -->
     <li data-transition="random" data-slotamount="7"  data-saveperformance="off" >
         <!-- MAIN IMAGE -->
-        <img src="http://lisnagda.org/wp-content/uploads/2020/01/fdf.png"  alt="fdf"  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+        <img src="{{ asset('frontend-banner/fdf.png')}}"  alt="fdf"  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
+        {{-- <img src="http://lisnagda.org/wp-content/uploads/2020/01/fdf.png"  alt="fdf"  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"> --}}
         <!-- LAYERS -->
     </li>
 </ul>
@@ -246,34 +252,49 @@
             <p><div class="row "><div class="col-lg-4 col-md-12 col-xs-12 col-sm-12"><span style="color: #333399;"><br />
 </span></p>
 <h1 style="text-align: left;"><strong>Art</strong></h1>
-<div class="thumbnail-hidden"><img src="http://lisnagda.org/wp-content/uploads/2017/03/Art-300X200.jpg" class="img-responsive oscitas-res-image" alt=""></div>
+<div class="thumbnail-hidden">
+    {{-- <img src="http://lisnagda.org/wp-content/uploads/2017/03/Art-300X200.jpg" class="img-responsive oscitas-res-image" alt=""> --}}
+    <img src="{{ asset('frontend-home/Art-300X200.jpg')}}" class="img-responsive oscitas-res-image" alt="">
+</div>
 <p>A well prepared Art Room that creates confidence of the student and their aptitude like drawing, painting, stoneware, models etc.</div>
 <div class="col-lg-4 col-md-12 col-xs-12 col-sm-12"><span style="color: #333399;"><br />
 </span></p>
 <h1><strong>Theater and Drama</strong></h1>
-<div class="thumbnail-hidden"><img src="http://lisnagda.org/wp-content/uploads/2017/03/drama.JPG" class="img-responsive oscitas-res-image" alt=""></div>
+<div class="thumbnail-hidden">
+    <img src="{{ asset('frontend-home/drama.JPG')}}" class="img-responsive oscitas-res-image" alt="">
+    {{-- <img src="http://lisnagda.org/wp-content/uploads/2017/03/drama.JPG" class="img-responsive oscitas-res-image" alt=""> --}}
+</div>
 <p>Theater and drama classes for the students to present all aspects of theater which incorporates lighting, production, stage design and costumes.</div>
 <div class="col-lg-4 col-md-12 col-xs-12 col-sm-12"><span style="color: #333399;"><br />
 </span></p>
 <h1 style="text-align: left;"><strong>Swimming Pool</strong></h1>
-<div class="thumbnail-hidden"><img src="http://lisnagda.org/wp-content/uploads/2017/03/MT-SWIMMING-1-300x200.jpg" class="img-responsive oscitas-res-image" alt=""></div>
+<div class="thumbnail-hidden">
+    {{-- <img src="http://lisnagda.org/wp-content/uploads/2017/03/MT-SWIMMING-1-300x200.jpg" class="img-responsive oscitas-res-image" alt=""> --}}
+    <img src="{{ asset('frontend-home/MT-SWIMMING-1-300x200.jpg')}}" class="img-responsive oscitas-res-image" alt="">
+</div>
 <div class="thumbnail-hidden">A well designed Swimming pool for both recreational and wellness purpose to keep the kids cool while empowering physical development.</div>
 <p></div>
 </div><br />
-<img src="http://lisnagda.org/wp-content/uploads/2016/11//saparator.png"><br />
+{{-- <img src="http://lisnagda.org/wp-content/uploads/2016/11//saparator.png"><br /> --}}
+<img src="{{ asset('frontend-home/saparator.png')}}"><br />
 <div class="row "><div class="col-lg-12 col-md-12 col-xs-12 col-sm-12"><span style="color: #333399;"><br />
 </span></p>
 <h2 style="text-align: center;"><strong>Facilities offered</strong></h2>
 <p>At LIS, The prime objective is to provide an opportunity for students to build up their own particular potential. We believe in overall growth of children. While it comes to imparting knowledge, we create a platform wherein each child takes an interest in learning through experience by joy and fun.</div>
 </div></p>
-<p><img src="http://lisnagda.org/wp-content/uploads/2016/11//saparator.png"></p>
-<div class="row "><div class="col-lg-6 col-md-12 col-xs-12 col-sm-12">
-<img src="http://lisnagda.org/wp-content/uploads/2017/03/about-1.jpg" class="img-responsive oscitas-res-image" alt="">
+<p>
+    {{-- <img src="http://lisnagda.org/wp-content/uploads/2016/11//saparator.png"></p> --}}
+    <img src="{{ asset('frontend-home/saparator.png')}}"></p>
+<div class="row ">
+    <div class="col-lg-6 col-md-12 col-xs-12 col-sm-12">
+{{-- <img src="http://lisnagda.org/wp-content/uploads/2017/03/about-1.jpg" class="img-responsive oscitas-res-image" alt=""> --}}
+<img src="{{ asset('frontend-home/about-1.jpg')}}" class="img-responsive oscitas-res-image" alt="">
 </div>
 <div class="col-lg-6 col-md-12 col-xs-12 col-sm-12">
 The School is established with the goal of superior educational development of the students by enhancing their personality and developing their mind, through sharpening intellect, sustaining imagination and reinforcing their mind. The fundamental objective of the school is to create and support a teaching learning environment in which children learn, explore, discover and achieve.</div>
 </div>
-<p><img src="http://lisnagda.org/wp-content/uploads/2016/11/saparator.png"></p>
+{{-- <p><img src="http://lisnagda.org/wp-content/uploads/2016/11/saparator.png"></p> --}}
+<p><img src="{{ asset('frontend-home/saparator.png')}}"></p>
                 <br>    
             </div><!-- .entry-content -->
     <footer class="entry-footer">
@@ -367,27 +388,40 @@ var wpcf7 = {"apiSettings":{"root":"http:\/\/lisnagda.org\/wp-json\/contact-form
 var awsmJobsPublic = {"ajaxurl":"http:\/\/lisnagda.org\/wp-admin\/admin-ajax.php","is_tax_archive":"","job_id":"0","wp_max_upload_size":"268435456","i18n":{"loading_text":"Loading...","form_error_msg":{"general":"Error in submitting your application. Please try again later!","file_validation":"The file you have selected is too large."}}};
 /* ]]> */
 </script>
-<script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/wp-job-openings/assets/js/script.min.js?ver=1.1.2'></script>
-<script type='text/javascript' src='http://lisnagda.org/wp-content/themes/education-hub/js/skip-link-focus-fix.min.js?ver=20130115'></script>
-<script type='text/javascript' src='http://lisnagda.org/wp-content/themes/education-hub/third-party/cycle2/js/jquery.cycle2.min.js?ver=2.1.6'></script>
-<script type='text/javascript' src='http://lisnagda.org/wp-content/themes/education-hub/js/custom.min.js?ver=1.0'></script>
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/wp-job-openings/assets/js/script.min.js?ver=1.1.2'></script> --}}
+<script type='text/javascript' src='{{asset('js/frontend/script.min.js')}}'></script>
+
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-content/themes/education-hub/js/skip-link-focus-fix.min.js?ver=20130115'></script> --}}
+<script type='text/javascript' src='{{asset('js/frontend/skip-link-focus-fix.min.js')}}'></script>
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-content/themes/education-hub/third-party/cycle2/js/jquery.cycle2.min.js?ver=2.1.6'></script> --}}
+<script type='text/javascript' src='{{asset('js/frontend/jquery.cycle2.min.js')}}'></script>
+
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-content/themes/education-hub/js/custom.min.js?ver=1.0'></script> --}}
+<script type='text/javascript' src='{{asset('js/frontend/custom.min.js')}}'></script>
 <script type='text/javascript'>
 /* <![CDATA[ */
 var EducationHubScreenReaderText = {"expand":"<span class=\"screen-reader-text\">expand child menu<\/span>","collapse":"<span class=\"screen-reader-text\">collapse child menu<\/span>"};
 /* ]]> */
 </script>
-<script type='text/javascript' src='http://lisnagda.org/wp-content/themes/education-hub/js/navigation.min.js?ver=20120206'></script>
+<script type='text/javascript' src='{{asset('js/frontend/navigation.min.js')}}'></script>
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-content/themes/education-hub/js/navigation.min.js?ver=20120206'></script> --}}
 <script type='text/javascript'>
 /* <![CDATA[ */
 var ajaxsearchlite = {"ajaxurl":"http:\/\/lisnagda.org\/wp-admin\/admin-ajax.php","backend_ajaxurl":"http:\/\/lisnagda.org\/wp-admin\/admin-ajax.php","js_scope":"jQuery"};
 var ASL = {"ajaxurl":"http:\/\/lisnagda.org\/wp-admin\/admin-ajax.php","backend_ajaxurl":"http:\/\/lisnagda.org\/wp-admin\/admin-ajax.php","js_scope":"jQuery","detect_ajax":"0","scrollbar":"1","js_retain_popstate":"0","version":"4737","fix_duplicates":"1"};
 /* ]]> */
 </script>
-<script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/ajax-search-lite/js/min/jquery.ajaxsearchlite.min.js?ver=4.8'></script>
-<script type='text/javascript' src='http://lisnagda.org/wp-includes/js/wp-embed.min.js?ver=4.9.15'></script>
-<script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/tlp-portfolio/assets/vendor/jquery.magnific-popup.min.js'></script>
-<script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/tlp-portfolio/assets/vendor/owl.carousel.min.js?ver=4.9.15'></script>
-<script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/tlp-portfolio/assets/js/tlpportfolio.js'></script>
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/ajax-search-lite/js/min/jquery.ajaxsearchlite.min.js?ver=4.8'></script> --}}
+<script type='text/javascript' src='{{asset('js/frontend/jquery.ajaxsearchlite.min.js')}}'></script>
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-includes/js/wp-embed.min.js?ver=4.9.15'></script> --}}
+<script type='text/javascript' src='{{asset('js/frontend/embed.min.js')}}'></script>
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/tlp-portfolio/assets/vendor/jquery.magnific-popup.min.js'></script> --}}
+<script type='text/javascript' src='{{asset('js/frontend/jquery.magnific-popup.min.js')}}'></script>
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/tlp-portfolio/assets/vendor/owl.carousel.min.js?ver=4.9.15'></script> --}}
+<script type='text/javascript' src='{{asset('js/frontend/owl.carousel.min.js')}}'></script>
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/tlp-portfolio/assets/js/tlpportfolio.js'></script> --}}
+<script type='text/javascript' src='{{asset('js/frontend/tlpportfolio.js')}}'></script>
+
 <style type="text/css"></style>
 <script>(function($){
 $("#widget_tlp_port_owl_carousel-4-port-carousel").owlCarousel({

@@ -136,8 +136,8 @@ class AttendanceController extends Controller
             $total_staffs = $request->total;
 
             $attendances = StaffAttendance::whereIn('staff_id',$total_staffs)->where('attendance_date',date('Y-m-d'))->get();  
-        $user_id = Auth::user()->id;
-        $submitted_by = $user_id;
+            $user_id = Auth::user()->id;
+            $submitted_by = $user_id;
             // return $attendances;
                 
             // if(Auth::user()->hasRole('lawcollege')){

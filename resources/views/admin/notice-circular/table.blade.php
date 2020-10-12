@@ -24,7 +24,7 @@
 	</tbody>
 </table> 
 	
-		<?php }else{ ?>
+<?php }else{ ?>
 	<table class="table table-striped table-bordered mytable">
 		<thead>
 		<tr>

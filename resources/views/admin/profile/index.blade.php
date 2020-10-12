@@ -18,7 +18,7 @@
 					<div class="col-sm-12">
 						<div class="box box-primary">
 							<div class="box-header with-border">
-								<h3 class="" style="margin-top: 10px;">Profile <a href="{{route('profile.edit',1)}}" class="btn btn-sm btn-info pull-right">Edit Profile</a>
+								<h3 class="" style="margin-top: 10px;">Profile <a href="{{route('profile.edit',$user->id)}}" class="btn btn-sm btn-info pull-right">Edit Profile</a>
 										
 							</h3>
 							</div>
@@ -35,11 +35,12 @@
 
 												<h5><b>Full Name:</b>{{$user->name}}</h5>
 												<h5><b>Email Address:</b> {{$user->email}}</h5>
-												<h5><b>Registration Date:</b>{{$user->created_at}} </h5>
-													<h5><b>Address:{{$user->city->city_name}}, {{$user->state->state_name}}, {{$user->zip_code}}</b> </h5>
+												<h5><b>Registration Date:</b>{{date('Y-m-d',strtotime($user->created_at))}} </h5>
+													<h5><b>Date of Birth:</b>{{$user->dob}}</h5>
 											</div>
 											<div class="col-md-6">
 												<h5><b>Mobile Number:</b>{{$user->mobile}} </h5>
+												<h5><b>Address:</b>{{$user->city ? $user->city->city_name :''}}, {{$user->state ? $user->state->state_name : ''}}, {{$user->zip_code}} </h5>
 											</div>
 										</div>
 										

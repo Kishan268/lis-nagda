@@ -17,7 +17,9 @@
 				<div class="row">
 					<div class="col-md-12">
 						<a href="{{route('attendance.manage_student')}}" class="btn btn-sm {{Request()->segment(3) == 'student' ? 'btn-primary' : 'btn-default'}}">Student attendance</a>
+						@role('superadmin')
 						<a href="{{route('attendance.manage_staff')}}" class="btn btn-sm {{Request()->segment(3) == 'staff' ? 'btn-primary' : 'btn-info'}} ">Staff attendance</a>
+						@endrole
 					</div>
 				</div>
 

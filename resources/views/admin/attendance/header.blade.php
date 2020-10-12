@@ -51,7 +51,7 @@
 		          </div>
 		          </a>
 		        </div>
-
+ 			@role('superadmin')
 		        <div class="col-md-2 col-sm-6 col-xs-11  col-div-mar col-div-nav active-li">
 		        <a href="{{route('attendance.staff')}}" >
 		          <div class="card border-left-info shadow h-100 py-2 bg-color">
@@ -77,7 +77,7 @@
 		          </div>
 		      </a>
 		        </div>
-
+		    @endrole
 		          <div class="col-md-2 col-sm-6 col-xs-11  col-div-mar col-div-nav active-li">
 		          	<a href="{{route('attendance.upload')}}" >
 		            <div class="card border-left-warning shadow h-100 py-2 bg-color">

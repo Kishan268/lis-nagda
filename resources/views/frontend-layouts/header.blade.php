@@ -51,11 +51,17 @@
 <link rel='stylesheet' id='ebs_dynamic_css-css'  href='http://lisnagda.org/wp-content/plugins/easy-bootstrap-shortcodes/styles/ebs_dynamic_css.php?ver=4.9.15' type='text/css' media='all' />
 
 
-<script type='text/javascript' src='http://lisnagda.org/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
-<script type='text/javascript' src='http://lisnagda.org/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
-<script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/easy-bootstrap-shortcodes/js/bootstrap.min.js?ver=4.9.15'></script>
-<script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/revslider/rs-plugin/js/jquery.themepunch.tools.min.js?rev=4.5.9&#038;ver=4.9.15'></script>
-<script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/revslider/rs-plugin/js/jquery.themepunch.revolution.min.js?rev=4.5.9&#038;ver=4.9.15'></script>
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script> --}}
+<script type='text/javascript' src='{{ asset('js/frontend/jquery.js')}}'></script>
+
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script> --}}
+<script type='text/javascript' src='{{ asset('js/frontend/jquery-migrate.min.js')}}'></script>
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/easy-bootstrap-shortcodes/js/bootstrap.min.js?ver=4.9.15'></script> --}}
+<script type='text/javascript' src='{{ asset('js/frontend/bootstrap.min.js')}}'></script>
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/revslider/rs-plugin/js/jquery.themepunch.tools.min.js?rev=4.5.9&#038;ver=4.9.15'></script> --}}
+<script type='text/javascript' src='{{ asset('js/frontend/jquery.themepunch.tools.min.js')}}'></script>
+{{-- <script type='text/javascript' src='http://lisnagda.org/wp-content/plugins/revslider/rs-plugin/js/jquery.themepunch.revolution.min.js?rev=4.5.9&#038;ver=4.9.15'></script> --}}
+<script type='text/javascript' src='{{ asset('js/frontend/jquery.themepunch.revolution.min.js')}}'></script>
 <link rel='https://api.w.org/' href='http://lisnagda.org/wp-json/' />
 <link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://lisnagda.org/xmlrpc.php?rsd" />
 <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://lisnagda.org/wp-includes/wlwmanifest.xml" /> 
@@ -128,9 +134,13 @@
                 if ( typeof _ASL !== "undefined" && _ASL !== null && typeof _ASL.initialize !== "undefined" )
                     _ASL.initialize();
             </script>
-            <link rel="icon" href="http://lisnagda.org/wp-content/uploads/2020/01/cropped-LIS_Logo-9-32x32.png" sizes="32x32" />
-            <link rel="icon" href="http://lisnagda.org/wp-content/uploads/2020/01/cropped-LIS_Logo-9-192x192.png" sizes="192x192" />
-            <link rel="apple-touch-icon-precomposed" href="http://lisnagda.org/wp-content/uploads/2020/01/cropped-LIS_Logo-9-180x180.png" />
-            <meta name="msapplication-TileImage" content="http://lisnagda.org/wp-content/uploads/2020/01/cropped-LIS_Logo-9-270x270.png" />
-            <link rel='stylesheet' id='tlpportfolio-fontawsome-css'  href='http://lisnagda.org/wp-content/plugins/tlp-portfolio/assets/vendor/font-awesome/css/font-awesome.min.css?ver=4.9.15' type='text/css' media='all' />
+            {{-- <link rel="icon" href="http://lisnagda.org/wp-content/uploads/2020/01/cropped-LIS_Logo-9-32x32.png" sizes="32x32" /> --}}
+            <link rel="icon" href="{{ asset('frontend-logos/cropped-LIS_Logo-9-32x32.png')}}" sizes="32x32" />
+            {{-- <link rel="icon" href="http://lisnagda.org/wp-content/uploads/2020/01/cropped-LIS_Logo-9-192x192.png" sizes="192x192" /> --}}
+            <link rel="icon" href="{{ asset('frontend-logos/cropped-LIS_Logo-9-192x192.png')}}" sizes="32x32" />
+            {{-- <link rel="apple-touch-icon-precomposed" href="http://lisnagda.org/wp-content/uploads/2020/01/cropped-LIS_Logo-9-180x180.png" /> --}}
+            <link rel="icon" href="{{ asset('frontend-logos/cropped-LIS_Logo-9-180x180.png')}}" sizes="32x32" />
+            {{-- <meta name="msapplication-TileImage" content="http://lisnagda.org/wp-content/uploads/2020/01/cropped-LIS_Logo-9-270x270.png" /> --}}
+            <meta name="msapplication-TileImage" content="{{ asset('frontend-logos/cropped-LIS_Logo-9-270x270.png')}}" />
+            <link rel='stylesheet' id='tlpportfolio-fontawsome-css'  href='{{ asset('css/font-awesome.min.css')}}' type='text/css' media='all' />
 </head>
