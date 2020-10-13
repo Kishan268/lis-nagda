@@ -1,7 +1,10 @@
 <?php
 
  class Helpers{
- 
+	 
+	 function customRequestCaptcha(){
+	    return new \ReCaptcha\RequestMethod\Post();
+	}
  	public static function schoolClasses(){
 
  		$array = array([

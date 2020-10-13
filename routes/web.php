@@ -55,6 +55,8 @@ Route::get('/principals-message', function () {
     return view('frontend/More/principals-message');
 });
 
+Route::post('/save-contact-us','Frontend\ContactUsController@sendContactUsData')->name('save-contact-us');
+
 //Student routes start
 
 // Route::get('/student', function () {

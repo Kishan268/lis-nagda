@@ -1,4 +1,4 @@
-<!DOCTYPE html> <html lang="en-US"><head>
+ <!DOCTYPE html> <html lang="en-US"><head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="http://gmpg.org/xfn/11">
@@ -144,3 +144,47 @@
             <meta name="msapplication-TileImage" content="{{ asset('frontend-logos/cropped-LIS_Logo-9-270x270.png')}}" />
             <link rel='stylesheet' id='tlpportfolio-fontawsome-css'  href='{{ asset('css/font-awesome.min.css')}}' type='text/css' media='all' />
 </head>
+
+<body class="home page-template-default page page-id-5 wp-custom-logo site-layout-fluid global-layout-no-sidebar">
+
+        <div id="page" class="container hfeed site">
+    <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+        <div id="tophead">
+        <div class="container">
+            <div id="quick-contact">
+                <ul>
+                    <li class="quick-call"><a href="tel:917879822222">+91-78798-22222</a></li>
+                        <li class="quick-email"><a href="mailto:support@lisnagda.org">support@lisnagda.org</a></li>
+                </ul>
+            </div>
+
+        </div> <!-- .container -->
+    </div><!--  #tophead -->
+
+    <header id="masthead" class="site-header" role="banner"><div class="container">     
+        <div class="site-branding">
+
+            <a href="http://lisnagda.org/" class="custom-logo-link" rel="home" itemprop="url">
+                <img width="170" height="139" src="{{ asset('frontend-logos/LIS_Logo-1.png')}}" class="custom-logo" alt="" itemprop="logo"></a>
+                {{-- <img width="170" height="139" src="http://lisnagda.org/wp-content/uploads/2020/01/LIS_Logo-1.png" class="custom-logo" alt="" itemprop="logo"></a> --}}
+
+                <div id="site-identity">
+                  <p class="site-title"><a href="http://lisnagda.org/" rel="home">Lakshya International School, Nagda</a></p>
+
+                    <p class="site-description">CBSE Affiliation No. 1031030</p>
+                </div><!-- #site-identity -->
+            
+        </div><!-- .site-branding -->
+
+            <div class="search-section">
+                <form role="search" method="get" class="search-form" action="http://lisnagda.org/">
+                <label>
+                    <span class="screen-reader-text">Search for:</span>
+                    <input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+                </label>
+                <input type="submit" class="search-submit" value="Search" />
+            </form>         
+        </div>
+        
+        </div><!-- .container -->
+    </header><!-- #masthead -->   
