@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers\Admin\students;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Helpers;
 use Auth;
+use File;
+use Helpers;
+use App\User;
+use App\Mail\UserNamePassword;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Controller;
 use App\Models\student\studentsGuardiantMast;
 use App\Models\student\studentsMast;
 use App\Models\master\studentClass;
@@ -22,11 +28,8 @@ use App\Models\master\mothetongueMast;
 use App\Models\student\StudenstDoc;
 use App\Models\master\professtionType;
 use App\Models\master\guardianDesignation;
-use Illuminate\Support\Facades\Hash;
-use File;
-use App\User;
-use Illuminate\Support\Facades\Storage;
-
+// use App\Models\master\SendCode1;
+use App\Models\sendmessage\SendMessage;
 
 class studentController extends Controller
 {
@@ -89,7 +92,9 @@ class studentController extends Controller
     
     public function store(Request $request)
     {
-    
+        
+        
+// dd($data);
          $data = [
             'user_id'             => Auth::user()->id,
             'std_class_id'        => $request->std_class_id,
@@ -189,6 +194,7 @@ class studentController extends Controller
             
         $create_stud = studentsMast::create($data); 
 
+    if ($create_stud) {
 
 
 // insert data in user table..........................
@@ -199,7 +205,31 @@ class studentController extends Controller
         $studentAsUser['student_id']= $create_stud->id;
         $studentAsUser['user_flag'] = 'S';
 
-        $insertDatainUsrTbl = User::create($studentAsUser); 
+        $insertDatainUsrTbl = User::create($studentAsUser)->id;
+
+        // send user name and password using email and SMS..................
+            // if ( $insertDatainUsrTbl) {
+              
+            //     $userNamePassword['base_url'] =  url('/login');
+            //     $userNamePassword['username'] =   $request->username;
+            //     $userNamePassword['email']    =   $request->email;
+            //     $userNamePassword['password'] =  $request->password;
+
+            //     Mail::to($userNamePassword['email'])->send(new UserNamePassword($userNamePassword));
+
+            //     $sendData = [
+            //         'message' =>'Your User name or Password. User Name:-'.$userNamePassword['username'].' , Password:'.$userNamePassword['password'].' , You can Login using Email Addaress ('.$userNamePassword['email'].')  Click '.$userNamePassword['base_url'].'',
+            //         'mobile' => $data['s_mobile'] 
+            //     ]; 
+
+            //     $sendMessage = SendMessage::sendCode($sendData);
+            //     if ($sendMessage) {
+            //         $user = User::find($insertDatainUsrTbl)->update(['message_sent' => 1]);
+            //       }  
+            // }
+        //end send user name and password using email and SMS..................
+
+             
 
 // end insert data in user table..........................
         
@@ -292,6 +322,10 @@ class studentController extends Controller
         }
         // return redirect('student_detail');
         return redirect()->back()->with('success','Student added successfully');
+    }else{
+        return redirect()->back()->with('success','Student not added...');
+
+    }
 
     }
 

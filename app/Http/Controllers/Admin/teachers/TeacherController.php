@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin\teachers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\teachers\Teacher;
-use Illuminate\Support\Facades\Hash;
-use App\User;
 use Auth;
+use App\User;
+use App\Mail\UserNamePassword;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
+use App\Models\teachers\Teacher;
 use App\Models\master\Subject;
 use App\Models\teachers\AssignSubjectToTeacher;
 use App\Models\teachers\AssignSubIdToTeacher;
@@ -15,6 +17,8 @@ use App\Models\student\studentsMast;
 use App\Models\master\studentClass;
 use App\Models\master\studentBatch;
 use App\Models\master\studentSectionMast;
+use App\Models\sendmessage\SendMessage;
+
 class TeacherController extends Controller
 {
     public function __construct()
@@ -63,13 +67,36 @@ class TeacherController extends Controller
         ]);
         $data['user_flag']  = 'T';
         $data['parent_id']  = Auth::user()->id;
-        $data['password'] = Hash::make($request->password);
-        $data['username'] = $request->email;
-        $data = User::create($data);
-        $lastId = $data->id;
+        $data['password']   = Hash::make($request->password);
+        $data['username']   = $request->name;
+        $insertDatainUsrTbl = User::create($data);
+        $lastId = $insertDatainUsrTbl->id;
         $teacherData['id']   = $lastId;
         $teacherData['parent_id']   = $data['parent_id'];
-        Teacher::create($teacherData);
+        $insertDatainTeacherTbl    = Teacher::create($teacherData);
+        // $data->Teacher()->sync($lastId);
+         // send user name and password using email and SMS..................
+          /*  if ( $insertDatainUsrTbl) {
+              
+                $userNamePassword['base_url'] =  url('/login');
+                $userNamePassword['username'] =   $request->name;
+                $userNamePassword['email']    =   $request->email;
+                $userNamePassword['password'] =   $request->password;
+
+                Mail::to($userNamePassword['email'])->send(new UserNamePassword($userNamePassword));
+
+                $sendData = [
+                    'message' =>'Your User name or Password. User Name:-'.$userNamePassword['username'].' , Password:- '.$userNamePassword['password'].' , You can Login using Email Addaress ('.$userNamePassword['email'].')   Click '.$userNamePassword['base_url'].'',
+                    'mobile' => $data['mobile_no'] 
+                ]; 
+
+                $sendMessage = SendMessage::sendCode($sendData);
+                // if ($sendMessage) {
+                //     $user = User::find($insertDatainUsrTbl)->update(['message_sent' => 1]);
+                //   }  
+            }*/
+        //end send user name and password using email and SMS..................
+
        return back()->with("success","Teacher created Successfully");
 
 

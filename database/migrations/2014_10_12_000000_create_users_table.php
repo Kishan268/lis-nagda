@@ -24,6 +24,14 @@ class CreateUsersTable extends Migration
             $table->string('status',3)->default(1);
             $table->string('parent_id',11)->nullable();
             $table->string('mobile_no',12)->nullable();
+            $table->string('alternative_mo_no',12)->nullable();
+            $table->string('photo',255)->nullable();
+            $table->string('country_id',11)->nullable();
+            $table->string('state_id',11)->nullable();
+            $table->string('city_id',11)->nullable();
+            $table->string('zip_code',11)->nullable();
+            $table->string('dob',20)->nullable();
+            $table->string('message_sent',2)->default(0);
             $table->softDeletes();
             
             $table->rememberToken();
