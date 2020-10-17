@@ -19,6 +19,8 @@ class CreateContactUsFromsTable extends Migration
             $table->string('email',30)->nullable();
             $table->text('message')->nullable();
             $table->string('status',2)->default(1);
+            $table->softDeletes();
+            
             $table->timestamps();
         });
     }

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin\noticeCircular;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\NoticeCircular;
 use Auth;
 use App\User;
 use Helpers;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\NoticeCircular;
 use App\Models\student\studentsGuardiantMast;
 use App\Models\student\studentsMast;
 use App\Models\master\studentClass;

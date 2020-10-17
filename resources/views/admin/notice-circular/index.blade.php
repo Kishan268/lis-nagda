@@ -44,7 +44,7 @@
                       </select>
                       </div>
                              
-                   <div class="col-md-3" id="course" style="display: none;">
+                    <div class="col-md-3" id="course" style="display: none;">
                         <label>Select Class</label>
                         <select class="form-control" name="course" id="course1" >
 

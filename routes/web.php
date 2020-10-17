@@ -290,3 +290,14 @@ Route::post('get_send_to_faculty_data','Admin\noticeCircular\NoticeCircularContr
 Route::get('sent-to-faculty-show/{id}','Admin\noticeCircular\NoticeCircularController@sentToFacultyShow')->name('sent-to-faculty-show');
 Route::get('sent-to-faculty-edit/{id}','Admin\noticeCircular\NoticeCircularController@sentToFacultyEdit')->name('sent-to-faculty-edit');
 Route::put('sent-to-faculty-update/{id}','Admin\noticeCircular\NoticeCircularController@sentToFacultyupdate')->name('sent-to-faculty-update');
+
+//compose email and message...........................
+
+Route::get('email-compose','Admin\composeSmsAndEmail\EmailAndSMSController@emailCompose')->name('email_compose');
+Route::post('get_students_for_email_compose','Admin\composeSmsAndEmail\EmailAndSMSController@getStudentsForEmailCompose')->name('get_students_for_email_compose');
+Route::post('send_email','Admin\composeSmsAndEmail\EmailAndSMSController@sendEmail')->name('send_email');
+
+Route::get('sms-compoe','Admin\composeSmsAndEmail\EmailAndSMSController@smsCompose')->name('sms_compoe');
+Route::post('get_students_for_sms_compose','Admin\composeSmsAndEmail\EmailAndSMSController@getStudentsForSmsCompose')->name('get_students_for_sms_compose');
+Route::post('send_sms','Admin\composeSmsAndEmail\EmailAndSMSController@sendSms')->name('send_sms');
+Route::get('sms-compoe-report','Admin\composeSmsAndEmail\EmailAndSMSController@smsDeliveryReport')->name('send_sms_delivery_report');

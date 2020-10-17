@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
             $table->string('zip_code',11)->nullable();
             $table->string('dob',20)->nullable();
             $table->string('message_sent',2)->default(0);
+            $table->string('compose_message_sent',2)->default(0);
             $table->softDeletes();
             
             $table->rememberToken();

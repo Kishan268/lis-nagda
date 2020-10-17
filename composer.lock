@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "956958a6d4e089775fb39ab55aa6dfb6",
+    "content-hash": "de3f6b3c73e3df3f0f80759eb0bf629a",
     "packages": [
         {
             "name": "buzz/laravel-google-captcha",
@@ -70,6 +70,48 @@
                 "recaptcha"
             ],
             "time": "2020-09-14T15:09:58+00:00"
+        },
+        {
+            "name": "ckeditor/ckeditor",
+            "version": "4.15.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ckeditor/ckeditor4-releases.git",
+                "reference": "f233b056a20528c442576e661486170a7d84a7b9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ckeditor/ckeditor4-releases/zipball/f233b056a20528c442576e661486170a7d84a7b9",
+                "reference": "f233b056a20528c442576e661486170a7d84a7b9",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+",
+                "LGPL-2.1+",
+                "MPL-1.1+"
+            ],
+            "authors": [
+                {
+                    "name": "CKSource",
+                    "homepage": "https://cksource.com"
+                }
+            ],
+            "description": "JavaScript WYSIWYG web text editor.",
+            "homepage": "https://ckeditor.com/ckeditor-4/",
+            "keywords": [
+                "CKEditor",
+                "ckeditor4",
+                "editor",
+                "fckeditor",
+                "html",
+                "javascript",
+                "richtext",
+                "text",
+                "wysiwyg"
+            ],
+            "time": "2020-09-07T13:41:04+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -503,16 +545,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v6.18.42",
+            "version": "v6.18.43",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "ea27c9af8f9fbd27ab0753749830c267f25de9d4"
+                "reference": "7a6043b9049a93a6388d6ab6ac50dad28600d227"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/ea27c9af8f9fbd27ab0753749830c267f25de9d4",
-                "reference": "ea27c9af8f9fbd27ab0753749830c267f25de9d4",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/7a6043b9049a93a6388d6ab6ac50dad28600d227",
+                "reference": "7a6043b9049a93a6388d6ab6ac50dad28600d227",
                 "shasum": ""
             },
             "require": {
@@ -648,7 +690,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-10-06T14:21:51+00:00"
+            "time": "2020-10-13T14:20:24+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -2723,16 +2765,16 @@
         },
         {
             "name": "symfony/http-client-contracts",
-            "version": "v2.2.0",
+            "version": "v2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client-contracts.git",
-                "reference": "3a5d0fe7908daaa23e3dbf4cee3ba4bfbb19fdd3"
+                "reference": "41db680a15018f9c1d4b23516059633ce280ca33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-client-contracts/zipball/3a5d0fe7908daaa23e3dbf4cee3ba4bfbb19fdd3",
-                "reference": "3a5d0fe7908daaa23e3dbf4cee3ba4bfbb19fdd3",
+                "url": "https://api.github.com/repos/symfony/http-client-contracts/zipball/41db680a15018f9c1d4b23516059633ce280ca33",
+                "reference": "41db680a15018f9c1d4b23516059633ce280ca33",
                 "shasum": ""
             },
             "require": {
@@ -2743,8 +2785,9 @@
             },
             "type": "library",
             "extra": {
+                "branch-version": "2.3",
                 "branch-alias": {
-                    "dev-master": "2.2-dev"
+                    "dev-main": "2.3-dev"
                 },
                 "thanks": {
                     "name": "symfony/contracts",
@@ -2780,7 +2823,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2020-09-07T11:33:47+00:00"
+            "time": "2020-10-14T17:08:19+00:00"
         },
         {
             "name": "symfony/http-foundation",

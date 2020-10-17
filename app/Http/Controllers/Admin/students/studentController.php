@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
+use App\Models\ClassBatchSectionGroupMast;
 use App\Models\student\studentsGuardiantMast;
 use App\Models\student\studentsMast;
 use App\Models\master\studentClass;
@@ -30,6 +31,8 @@ use App\Models\master\professtionType;
 use App\Models\master\guardianDesignation;
 // use App\Models\master\SendCode1;
 use App\Models\sendmessage\SendMessage;
+use App\Models\AssignSubjectGroupStudent;
+
 
 class studentController extends Controller
 {
@@ -161,7 +164,7 @@ class studentController extends Controller
         ]; 
         $data['password']= Hash::make($request->password);
 
-
+         
         if($data['status'] == 'P'){
             $data['passout_date'] = $request->passout_date;
         }
@@ -193,6 +196,18 @@ class studentController extends Controller
         }
             
         $create_stud = studentsMast::create($data); 
+
+        // class section group create ...................
+        // $getClasses = studentClass::where('id',$request->std_class_id)->first();
+        // $getBatches = studentBatch::where('id',$request->batch_id)->first();
+        // $getSections = studentSectionMast::where('id',$request->section_id)->first();
+        //  $grouData['group_name'] = $getClasses->class_name.'-'.$getBatches->batch_name.'-'.$getSections->section_name;
+        //  $grouData['class_id']    = $request->std_class_id;
+        //  $grouData['section_id']  = $request->section_id;
+        //  $grouData['batch_id']    = $request->batch_id;
+        //  $grouData['user_id']     = $create_stud->id;
+
+        // ClassBatchSectionGroupMast::create($grouData);
 
     if ($create_stud) {
 
@@ -230,7 +245,6 @@ class studentController extends Controller
         //end send user name and password using email and SMS..................
 
              
-
 // end insert data in user table..........................
         
         for($i= 0 ; $i < count($request->relation); $i++) {

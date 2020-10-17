@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAssignSubIdToTeachersTable extends Migration
+class CreateComposeEmailStudentIdsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateAssignSubIdToTeachersTable extends Migration
      */
     public function up()
     {
-        Schema::create('assign_sub_id_to_teachers', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('assign_subject_teacher_id',11)->nullable();
-            $table->string('assign_subject_id',11)->nullable();
+        Schema::create('compose_email_student_ids', function (Blueprint $table) {
+            $table->string('compose_email_id', 11)->nullable();
+            $table->string('students_id', 11)->nullable();
             $table->string('status',2)->default(1);
             $table->softDeletes();
             
@@ -31,6 +30,6 @@ class CreateAssignSubIdToTeachersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assign_sub_id_to_teachers');
+        Schema::dropIfExists('compose_email_student_ids');
     }
 }

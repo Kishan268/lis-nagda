@@ -56,4 +56,7 @@ class User extends Authenticatable
     public function country(){
         return $this->belongsTo('App\Models\master\countryMast','country_id');
     }
+    public function get_compose_sms(){
+        return $this->hasMany('App\Models\composeEmail\ComposeSms','reciver_id','id');
+    }
 }

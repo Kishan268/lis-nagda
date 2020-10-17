@@ -92,27 +92,27 @@
 	<script >
 $(document).ready(function(){
 	$('.select2').select2({
-	tags: true,
-	placeholder: 'Select an option',
-	templateSelection : function (tag, container){
-			// here we are finding option element of tag and
-	// if it has property 'locked' we will add class 'locked-tag' 
-	// to be able to style element in select
-		var $option = $('.select2 option[value="'+tag.id+'"]');
-	if ($option.attr('locked')){
-	   $(container).addClass('locked-tag');
-	   tag.locked = true; 
-	}
-		return tag.text;
-	},
-})
-.on('select2:unselecting', function(e){
-		// before removing tag we check option element of tag and 
-  // if it has property 'locked' we will create error to prevent all select2 functionality
-   if ($(e.params.args.data.element).attr('locked')) {
-       e.preventDefault();
-    }
- });
-		});
+		tags: true,
+		placeholder: 'Select an option',
+		templateSelection : function (tag, container){
+				// here we are finding option element of tag and
+		// if it has property 'locked' we will add class 'locked-tag' 
+		// to be able to style element in select
+			var $option = $('.select2 option[value="'+tag.id+'"]');
+		if ($option.attr('locked')){
+		   $(container).addClass('locked-tag');
+		   tag.locked = true; 
+		}
+			return tag.text;
+		},
+	})
+	.on('select2:unselecting', function(e){
+			// before removing tag we check option element of tag and 
+	  // if it has property 'locked' we will create error to prevent all select2 functionality
+	   if ($(e.params.args.data.element).attr('locked')) {
+	       e.preventDefault();
+	    }
+	 });
+});
 	</script>
 @endsection

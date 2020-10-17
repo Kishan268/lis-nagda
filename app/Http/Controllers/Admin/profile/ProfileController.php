@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin\profile;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Auth;
 use App\User;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\master\countryMast;
 use App\Models\master\stateMast;
 use App\Models\master\cityMast;

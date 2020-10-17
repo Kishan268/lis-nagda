@@ -14,6 +14,7 @@
 
   <!-- Custom fonts for this template-->
   {{-- <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> --}}
+
   <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
   
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -25,6 +26,7 @@
  {{-- <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" /> --}}
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  
 
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -270,6 +272,21 @@ p {
             <a class="collapse-item" href="{{route('gaurdian_designation')}}">Gaurdian Designation</a>
           </div>
         </div>
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#compose_mgs_and_sms" aria-expanded="true" aria-controls="compose_mgs_and_sms">
+            <i class="fa fa-commenting sidebar-nav-icon" style="color: yellow;"></i>
+            <span>Compose Email & sms</span>
+          </a>
+          <div id="compose_mgs_and_sms" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
+              <a class="collapse-item" href="{{route('email_compose')}}"> Compose Message</a>
+               <a class="collapse-item" href="{{route('sms_compoe')}}">Compose SMS </a>
+             
+            </div>
+            
+          </div>
+       </li>
         <li class="nav-item active">
         <a class="nav-link" href="{{route('notice-circular.index')}}">
           <i class="fa fa-dashboard sidebar-nav-icon fa-sm fa-fw mr-2 text-green-400" style="color: #E0B0FF;"></i>
@@ -531,6 +548,14 @@ p {
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                   Activity Log
+                </a> 
+                <a class="dropdown-item" href="{{route('email_compose')}}">
+                  <i class="fas fa-envelope fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Compose Email
+                </a> 
+                <a class="dropdown-item" href="{{route('sms_compoe')}}">
+                  <i class="fas fa-commenting fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Compose SMS
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">

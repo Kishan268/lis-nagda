@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAssignSubjectToTeachersTable extends Migration
+class CreateComposeEmailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,19 @@ class CreateAssignSubjectToTeachersTable extends Migration
      */
     public function up()
     {
-        Schema::create('assign_subject_to_teachers', function (Blueprint $table) {
+        Schema::create('compose_emails', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('user_id', 11)->nullable();
             $table->string('class_id', 11)->nullable();
             $table->string('section_id',11)->nullable();
             $table->string('batch_id', 11)->nullable();
-            $table->text('subject_id')->nullable();
-            $table->string('status',2)->default(1);
+            $table->string('subject', 255)->nullable();
+            $table->text('compose_mail_content')->nullable();
+            $table->text('student_ids')->nullable();
+            $table->text('staff_ids')->nullable();
+            $table->string('attechment', 255)->nullable();
+            $table->string('sender_type', 30)->nullable();
             $table->softDeletes();
-            
             $table->timestamps();
         });
     }
@@ -34,6 +37,6 @@ class CreateAssignSubjectToTeachersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assign_subject_to_teachers');
+        Schema::dropIfExists('compose_emails');
     }
 }

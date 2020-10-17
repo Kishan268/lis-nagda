@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin\classes;
 
+use Auth;
+use Validator;
+use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\master\studentClass;
 use App\Models\master\studentBatch;
 use App\Models\master\studentSectionMast;
-use Validator;
-use App\User;
-use Auth;
 use App\Models\master\Subject;
 use App\Models\classes\SectionManage;
 use App\Models\classes\AssignStudentToSection;

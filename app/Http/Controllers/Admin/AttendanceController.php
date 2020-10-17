@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Auth;
+use App\User;
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\student\studentsMast;
@@ -10,9 +13,6 @@ use App\Models\master\studentBatch;
 use App\Models\master\studentSectionMast;
 use App\Models\StudentAttendance;
 use App\Models\StaffAttendance;
-use Auth;
-use App\User;
-use Carbon\Carbon;
 use App\Helpers\Helpers;
 
 
