@@ -78,6 +78,10 @@ class CreateStudentsMastsTable extends Migration
             $table->string('status',10)->nullable();
             $table->string('user_status',3)->nullable();
             $table->string('mobile_no',12)->nullable();
+            $table->string('students_masts',2)->nullable();
+            $table->string('other_language',255)->nullable();
+            $table->string('cast',50)->nullable();
+            $table->string('admission_status',2)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

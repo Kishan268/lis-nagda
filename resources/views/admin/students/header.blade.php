@@ -62,14 +62,7 @@
 		                <div class="col mr-2">
 		                  <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Manage Students</div>
 		                  <div class="row no-gutters align-items-center">
-		                    <div class="col-auto">
-		                      {{-- <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div> --}}
-		                    </div>
-		                    <div class="col">
-		                      <div class="progress progress-sm mr-2">
-		                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-		                      </div>
-		                    </div>
+		                    
 		                  </div>
 		                </div>
 		                <div class="col-auto">
@@ -89,14 +82,7 @@
 		                <div class="col mr-2">
 		                  <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Prevous Record</div>
 		                  <div class="row no-gutters align-items-center">
-		                    <div class="col-auto">
-		                      {{-- <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div> --}}
-		                    </div>
-		                    <div class="col">
-		                      <div class="progress progress-sm mr-2">
-		                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-		                      </div>
-		                    </div>
+		                    
 		                  </div>
 		                </div>
 		                <div class="col-auto">
@@ -110,9 +96,9 @@
 
 		          <!-- Pending Requests Card Example -->
 		          <div class="col-md-2 col-sm-6 col-xs-11  col-div-mar col-div-nav active-li">
-		          	<a href="{{route('student_uploads')}}">
+		          	<a href="{{route('student_import_export')}}">
 		            <div class="card border-left-warning shadow h-100 py-2 bg-color">
-		              <div class="{{ Request::url() == route('student_uploads') ? 'card-body btn-primary' : '' }}">
+		              <div class="{{ Request::url() == route('student_import_export') ? 'card-body btn-primary' : '' }}">
 		                <div class="row no-gutters align-items-center">
 		                  <div class="col mr-2">
 		                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Upload Students</div>
@@ -134,6 +120,24 @@
 		                <div class="row no-gutters align-items-center">
 		                  <div class="col mr-2">
 		                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Records</div>
+		                    {{-- <div class="h5 mb-0 font-weight-bold text-gray-800">18</div> --}}
+		                  </div>
+		                  <div class="col-auto">
+		                    <i class="ffa fa-cube fa-2x text-gray-300"></i>
+		                  </div>
+		                </div>
+		              </div>
+		            </div>
+		        </a>
+		          </div> 
+		            <!-- Pending Requests Card Example -->
+		          <div class="col-md-2 col-sm-6 col-xs-11  col-div-mar col-div-nav active-li mt-3">
+		          	<a href="{{route('home')}}">
+		            <div class="card border-left-warning shadow h-100 py-2 bg-color">
+		              <div class="card-body">
+		                <div class="row no-gutters align-items-center">
+		                  <div class="col mr-2">
+		                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">ID Card</div>
 		                    {{-- <div class="h5 mb-0 font-weight-bold text-gray-800">18</div> --}}
 		                  </div>
 		                  <div class="col-auto">

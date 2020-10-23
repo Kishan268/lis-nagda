@@ -21,7 +21,7 @@
                             <a href="{{url('extra-curricular-activities')}}">Extra Curricular Activities</a>
                         </li>
                         <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102">
-                            <a href="{{url('admissions')}}">Admissions</a>
+                            <a href="{{url('admissions')}}">Admissions Form</a>
                         </li>
                         <li id="menu-item-1809" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1809">
                             <a href="#">CBSE Section</a>
@@ -41,7 +41,26 @@
                             <li id="menu-item-861" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-861"><a href="{{url('openings')}}">Openings</a></li>
                             <li id="menu-item-100" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-100"><a href="{{url('principals-message')}}">Principal’s Message</a></li>
                         </ul>
-                    <li id="menu-item-99" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-99"><a href="{{url('login')}}">Login</a>
+                     {{-- <li id="menu-item-99" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-99"><a href="{{url('login')}}">Admition Form</a> --}}
+                    </li><li id="menu-item-99" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-99"><?php if (Auth::user()) { ?>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                             onclick="event.preventDefault();
+                                           document.getElementById('logout-form').submit();">
+                              <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Logout
+                          </a>
+
+                          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                              @csrf
+                          </form>
+                 
+                </a>
+                        
+                        <?php }else{ ?>
+
+                            <a href="{{url('login')}}">Login</a>
+                      
+                       <?php  } ?>
                     </li>
                 </li>
             </ul>

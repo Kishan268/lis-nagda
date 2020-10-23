@@ -9,14 +9,14 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "barryvdh/laravel-dompdf": "^0.8.7",
         "buzz/laravel-google-captcha": "^2.3",
         "ckeditor/ckeditor": "^4.15",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.18.35",
         "laravel/tinker": "^2.0",
         "maatwebsite/excel": "^3.1",
-        "santigarcor/laratrust": "^6.2",
-        "unisharp/laravel-ckeditor": "^4.7"
+        "santigarcor/laratrust": "^6.2"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

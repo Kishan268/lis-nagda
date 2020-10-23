@@ -133,6 +133,23 @@ p {
     background-color: #27ae60 !important;
 }*/
  </style>
+ <style type="text/css">
+  .blink {
+  animation: blink 1s steps(1, end) infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+</style>
 </head>
 
 <body id="page-top">
@@ -184,8 +201,8 @@ p {
             <a class="collapse-item" href="{{url('student_detail')}}" >Student Details</a>
             <a class="collapse-item" href="{{route('previous-record')}}">Previous Record</a>
             <a class="collapse-item" href="{{route('student_manage')}}">Manage Students</a>
-            <a class="collapse-item" href="{{route('student_uploads')}}">Upload Students</a>
-            <a class="collapse-item" href="#">ID Card</a>
+            <a class="collapse-item" href="{{route('student_import_export')}}">Upload Students</a>
+            <a class="collapse-item" href="{{route('id_card')}}">ID Card</a>
             <a class="collapse-item" href="#">Records</a>
           </div>
         </div>
@@ -251,7 +268,7 @@ p {
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench fa-sm fa-fw mr-2-400" style="color:yellow;"></i>
+          <i class="fas fa-fw fa-wrench fa-sm fa-fw mr-2-400" style="color: #3498db;"></i>
           <span>Master</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -272,6 +289,7 @@ p {
             <a class="collapse-item" href="{{route('gaurdian_designation')}}">Gaurdian Designation</a>
           </div>
         </div>
+
         <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#compose_mgs_and_sms" aria-expanded="true" aria-controls="compose_mgs_and_sms">
             <i class="fa fa-commenting sidebar-nav-icon" style="color: yellow;"></i>
@@ -280,13 +298,16 @@ p {
           <div id="compose_mgs_and_sms" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-              <a class="collapse-item" href="{{route('email_compose')}}"> Compose Message</a>
                <a class="collapse-item" href="{{route('sms_compoe')}}">Compose SMS </a>
-             
+              <a class="collapse-item" href="{{route('email_compose')}}"> Compose Email</a>
             </div>
-            
           </div>
        </li>
+       <li class="nav-item active">
+          <a class="nav-link" href="{{route('admission_inquiry_data')}}">
+          <i class="fas fa-fw fa-user fa-sm fa-fw mr-2 text-green-400" style="color: #873600;"></i>
+          <span>Admission Inquiry data</span></a>
+      </li>
         <li class="nav-item active">
         <a class="nav-link" href="{{route('notice-circular.index')}}">
           <i class="fa fa-dashboard sidebar-nav-icon fa-sm fa-fw mr-2 text-green-400" style="color: #E0B0FF;"></i>
@@ -298,12 +319,13 @@ p {
             <span>ACL</span></a>
         </li>
          
-
-       <li class="nav-item active">
+        
+      
+      {{-- <li class="nav-item active">
           <a class="nav-link" href="{{url('profile')}}">
           <i class="fas fa-fw fa-user fa-sm fa-fw mr-2 text-green-400" style="color: green;"></i>
           <span>Profile</span></a>
-      </li>
+      </li> --}}
        @endrole
        @ability('teachers','superadmin')
           <!-- Nav Item - Pages Collapse Menu -->
@@ -350,7 +372,7 @@ p {
           <span>Show Attendance</span></a>
       </li> 
       @endrole
-
+@role('students','teachers')
       <li class="nav-item active">
         <a class="nav-link" href="{{route('logout')}}" onclick="event.preventDefault();
                                            document.getElementById('logout-form').submit();">
@@ -361,6 +383,7 @@ p {
         </form>              
       </li>
       </li>
+      @endrole
 
  
       <!-- Divider -->
@@ -422,12 +445,12 @@ p {
               </div>
             </li>
 
-            <!-- Nav Item - Alerts -->
+      <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
+                <span class="badge badge-danger badge-counter blink">3+</span>
               </a>
               <!-- Dropdown - Alerts -->
               <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
@@ -442,10 +465,10 @@ p {
                   </div>
                   <div>
                     <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                    <span class="font-weight-bold">Admission Iquiry</span>
                   </div>
                 </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
+                {{-- <a class="dropdown-item d-flex align-items-center" href="#">
                   <div class="mr-3">
                     <div class="icon-circle bg-success">
                       <i class="fas fa-donate text-white"></i>
@@ -466,7 +489,7 @@ p {
                     <div class="small text-gray-500">December 2, 2019</div>
                     Spending Alert: We've noticed unusually high spending for your account.
                   </div>
-                </a>
+                </a> --}}
                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
               </div>
             </li>
@@ -537,8 +560,9 @@ p {
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="{{url('profile')}}">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+               
+                 <a class="dropdown-item" href="{{url('profile')}}">
+                  <i class="fas fa-user fa-sm fa-fw mr-2 text-green-400" style="color: green;"></i>
                   Profile
                 </a>
                 <a class="dropdown-item" href="#">
@@ -549,20 +573,20 @@ p {
                   <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                   Activity Log
                 </a> 
-                <a class="dropdown-item" href="{{route('email_compose')}}">
-                  <i class="fas fa-envelope fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Compose Email
-                </a> 
                 <a class="dropdown-item" href="{{route('sms_compoe')}}">
                   <i class="fas fa-commenting fa-sm fa-fw mr-2 text-gray-400"></i>
                   Compose SMS
                 </a>
+                <a class="dropdown-item" href="{{route('email_compose')}}">
+                  <i class="fas fa-envelope fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Compose Email
+                </a> 
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                     <a class="dropdown-item" href="{{ route('logout') }}"
                              onclick="event.preventDefault();
                                            document.getElementById('logout-form').submit();">
-                              <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                              <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-red-400" style="color: red;"></i>
                       Logout
                           </a>
 

@@ -251,9 +251,9 @@
                success:function(data){
                   $.notify("Message send Succesfully",'success');
                   alert('Message send Succesfully');
-                   // setTimeout(function () {
-                   //      location.reload(true);
-                   //    }, 3000);
+                   setTimeout(function () {
+                        location.reload(true);
+                      }, 3000);
                }, 
         });
        }else{

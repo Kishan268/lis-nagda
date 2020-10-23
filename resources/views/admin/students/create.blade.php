@@ -373,11 +373,7 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<div class="row" style="background: #4f5775;
-															    color: #fff;
-															    padding: 10px;
-															    border-radius: 10px;
-															    margin: 20px;">
+										<div class="row" style="background: #4f5775;color: #fff; padding: 10px;border-radius: 10px;margin: 20px;">
                                             <div class="col-md-3">
                                                  <label for="phone1">
                                                 Student User Name
@@ -1701,7 +1697,7 @@ $('#acadmic_state_id').on('change',function(){
 	});
 
 
-/* add table row For local tour amount bill..................................*/
+/* add table row For student document..................................*/
     $(document).ready(function(){
      var count = 1;
      $(document).on('click', '#add_more_std_doc', function(){

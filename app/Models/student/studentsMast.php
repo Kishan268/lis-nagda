@@ -50,7 +50,7 @@ class studentsMast extends Model
     }  
 
     public function studentsGuardiantMast(){
-    	 return $this->HasMany('App\Models\student\studentsGuardiantMast', 'id','s_id');
+    	 return $this->hasMany('App\Models\student\studentsGuardiantMast', 's_id');
     } 
    	public function p_country(){
     	 return $this->belongsTo('App\Models\master\countryMast', 'p_country_id');

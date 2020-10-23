@@ -57,6 +57,13 @@ Route::get('/principals-message', function () {
 
 Route::post('/save-contact-us','Frontend\ContactUsController@sendContactUsData')->name('save-contact-us');
 
+/*Route::get('admissions-form','Frontend\AdmissionForm@index')->name('admission_form');
+// get state for academic details....................
+Route::post('academic_state/', 'Frontend\AdmissionForm@getAcadmicState')->name('academic_state');
+// get city academic details....................
+Route::post('academic_country/', 'Frontend\AdmissionForm@getAcadmicCountry')->name('academic_country');
+Route::post('student-basic-info', 'Frontend\AdmissionForm@admissionInquiryForm')->name('save_student_basic_info');*/
+Route::post('admission-inquiry-form', 'Frontend\AdmissionForm@admissionInquiryForm')->name('admission_inquiry_form');
 //Student routes start
 
 // Route::get('/student', function () {
@@ -67,6 +74,15 @@ Route::post('/save-contact-us','Frontend\ContactUsController@sendContactUsData')
 Auth::routes();
 // Route::group(['middleware' => 'auth'], function (){
 Route::group(['middleware' => ['auth','role:superadmin']], function () {
+
+Route::get('admission-inquiry-data', 'Frontend\AdmissionForm@getadmissionInquiryFormData')->name('admission_inquiry_data');
+
+Route::get('id-card', 'Admin\students\IdCardController@index')->name('id_card');
+Route::post('get-id-card', 'Admin\students\IdCardController@getIdCard')->name('get_id_card');
+
+Route::get('pdf','Admin\students\IdCardController@pdfview')->name('pdf');
+
+Route::get('/prnpriview','Admin\students\IdCardController@prnpriview');
     // This Route start For RolesController
 
     Route::resource('/admin', 'ACL\RolesController');
@@ -213,8 +229,18 @@ Route::get('student_previous-detail', 'Admin\students\studentController@previous
 Route::get('student_manage', 'Admin\students\studentController@studentsManage')->name('student_manage');
 
 Route::post('student_manage_get_data', 'Admin\students\studentController@studentsManageGetData')->name('student_manage_get_data');
+//student import export........................................
+Route::get('student-import-export', 'Admin\students\studentController@studentUploads')->name('student_import_export');
 
-Route::get('student_uploads', 'Admin\students\studentController@studentUploads')->name('student_uploads');
+Route::get('import-export', 'Admin\students\UserImportExportController@importExport')->name('import_export');
+Route::post('import-student', 'Admin\students\UserImportExportController@importStudent')->name('import_student');
+Route::get('export-all-student-', 'Admin\students\UserImportExportController@exportAllStudent')->name('export_all_student');
+Route::get('download-student-sample', 'Admin\students\UserImportExportController@downloadStudentSample')->name('download_student_sample');
+Route::get('export-students-class-section-and-batch-wise', 'Admin\students\UserImportExportController@exportclassSectionBatchWise')->name('export_student_class_section_batch_wise');
+//batch wise export....................................
+Route::get('export-students-class-section-and-batch-wise', 'Admin\students\UserImportExportController@exportclassSectionBatchWise')->name('export_student_class_section_batch_wise');
+Route::post('/batch-wise-export', 'Admin\students\UserImportExportController@batchWiseExport')->name('batch_wise_export');
+
 // route for passoute student
 Route::post('passout_student', 'Admin\students\studentManageController@passoutStudent')->name('passout_student');
 Route::post('dropout_student', 'Admin\students\studentManageController@dropoutStudent')->name('dropout_student');

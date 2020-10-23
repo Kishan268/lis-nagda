@@ -248,22 +248,43 @@ document.addEventListener( 'wpcf7submit', function( event ) {
 }, false );*/
 </script>
 <script>
-// (function($){
-// $("#widget_tlp_port_owl_carousel-4-port-carousel").owlCarousel({
-//     // Most important owl features
-//     items : 1,
-//     paginationSpeed : 800,
-//     autoPlay : true,
-//     stopOnHover : true,
-//     navigation : true,
-//     navigationText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
-//     pagination : true,
-//     responsive: true,
-//     lazyLoad : true,
-//     autoHeight : true
-// });
-// })(jQuery)
+(function($){
+$("#widget_tlp_port_owl_carousel-4-port-carousel").owlCarousel({
+    // Most important owl features
+    items : 1,
+    paginationSpeed : 800,
+    autoPlay : true,
+    stopOnHover : true,
+    navigation : true,
+    navigationText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
+    pagination : true,
+    responsive: true,
+    lazyLoad : true,
+    autoHeight : true
+});
+})(jQuery)
 </script>
+{{-- for datetime picker.......................... --}}
+     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">   
+      <link href="http://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">    
+      <link href="http://getbootstrap.com/examples/navbar-static-top/navbar-static-top.css" rel="stylesheet">
+      <link href="http://getbootstrap.com/examples/navbar/navbar.css" rel="stylesheet">
+      <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.19/themes/start/jquery-ui.css" rel="stylesheet">
+         
+     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>  
+      <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8/jquery.validate.min.js"></script>
+       <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>   
+      <script src="http://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>       
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+      
+     
+     <script type="text/javascript">
+        
+        $(function () {
+          $(".datepicker").datepicker();
+        });
+    </script>
 
+    
 </body>
 </html>

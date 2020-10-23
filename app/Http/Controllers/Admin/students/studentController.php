@@ -792,8 +792,11 @@ class studentController extends Controller
 
      // get previous student details......................
     public function studentUploads(){
-        
-            return view('admin.students.student_uploads.index');
+        $classes = $this->classes;
+         $batches = $this->batches;
+         $sections = $this->sections;
+         $studentData = $this->studentData;
+            return view('admin.students.student-import-export.index',compact('studentData','classes','sections','batches'));
     }
 
     public function userProfile(){

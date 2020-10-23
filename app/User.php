@@ -59,4 +59,8 @@ class User extends Authenticatable
     public function get_compose_sms(){
         return $this->hasMany('App\Models\composeEmail\ComposeSms','reciver_id','id');
     }
+
+    public function student_mast(){
+        return $this->belongsTo('App\Models\student\studentsMast','student_id','id');
+    }
 }

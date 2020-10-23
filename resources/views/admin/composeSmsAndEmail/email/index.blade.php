@@ -20,7 +20,7 @@
             <div class="card mb-4">
               <div class="card-header">
                 <div class="panel-heading">
-                      <h4 class="panel-title"> Email Compose </h4>
+                      <h4 class="panel-title"> Email Compose <a href="{{ URL::previous() }}"><button class="btn btn-success" style="float:right;">Back</button></a></h4>
                   </div>
               </div>
               <div class="card-body">

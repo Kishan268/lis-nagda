@@ -203,7 +203,7 @@ class EmailAndSMSController extends Controller
             $getAll = User::get();
              foreach ($getAll as  $getAlls) {
                 $data['reciver_id'] = $getAlls->id;
-                
+
                 $lastId = ComposeSms::create($data)->id;
 
                 $getMobile = $getAlls->mobile_no;
@@ -289,7 +289,7 @@ class EmailAndSMSController extends Controller
 
     public function smsDeliveryReport(){
 
-        $getComposeSms = ComposeSms::with('get_user')->get();
+        $getComposeSms = ComposeSms::with('get_user')->orderBy('id', 'DESC')->get();
         $getStaffId = [];
         $getstudent = [];
         // foreach ($getComposeSms as $getId) {

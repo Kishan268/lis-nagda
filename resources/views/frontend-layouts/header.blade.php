@@ -143,6 +143,7 @@
             {{-- <meta name="msapplication-TileImage" content="http://lisnagda.org/wp-content/uploads/2020/01/cropped-LIS_Logo-9-270x270.png" /> --}}
             <meta name="msapplication-TileImage" content="{{ asset('frontend-logos/cropped-LIS_Logo-9-270x270.png')}}" />
             <link rel='stylesheet' id='tlpportfolio-fontawsome-css'  href='{{ asset('css/font-awesome.min.css')}}' type='text/css' media='all' />
+            
 </head>
 
 <body class="home page-template-default page page-id-5 wp-custom-logo site-layout-fluid global-layout-no-sidebar">
