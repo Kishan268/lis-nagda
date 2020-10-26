@@ -1,14 +1,4 @@
-		<div class="col-sm-12">
-			<div class="row " id="printarea">
-				<br><br>
-
-				<div class="col-md-6" {{-- style="border: solid black; " --}} style="border: solid;">
-					{{-- <h3 style="text-align:center">Identity Card</h3> --}}
-						<div class="card1">
-						<div class="col-sm-12">
-							<div class="row">
-								<div class="col-md-4 mt-3">
-									<img src="{{ asset('frontend-logos/LIS_Logo-1.png')}}" alt="image" width="100px;" />
+	<?php 	 echo $data = '<div class="col-sm-12"><div class="row " id="printarea"><br><br><div class="col-md-6"  style="border: solid;"><div class="card1"><div class="col-sm-12"><div class="row"><div class="col-md-4 mt-3"><img src="asset("frontend-logos/LIS_Logo-1.png")" alt="image" width="100px;" />
 								</div>
 								<div class="col-md-8 school_heading" >
 									<u style="text-align: center;font-size: 13px;margin-top: 17px; color: #136D40;"><strong>LAKSHYA INTERNATION SCHOOL</strong></u>
@@ -28,7 +18,7 @@
 						<div class="col-md-6 full-center">
 							<div class="row " align="center" >
 								<span class="student_image" style="border: 5px solid black; margin-right: 15px;margin-left: 142px;margin-top: 13px;" >
-									<img src="{{asset($getData->photo !=null ? 'storage/'.$getData->photo : 'storage/admin/student_demo.png')}}" style="width: 100px; height: 100px;">
+									<img src="{{asset($getData->photo !=null ? "storage/".$getData->photo : "storage/admin/student_demo.png")}}" style="width: 100px; height: 100px;">
 								</span>	
 							</div>
 						</div>
@@ -38,11 +28,11 @@
 								<h5>
 									@foreach($studentsGuardiant as $value2)
 										@if($value->relation_id == $value2->guardiant_relation->id)
-											@if($value2->guardiant_relation->religion_name== 'Father')
+											@if($value2->guardiant_relation->religion_name== "Father")
 												Father Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{{$value->g_name}}
-											@elseif($value2->guardiant_relation->religion_name== 'Mother')
+											@elseif($value2->guardiant_relation->religion_name== "Mother")
 											Mother Name &nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{{$value->g_name}}	
-											@elseif($value2->guardiant_relation->religion_name != 'Mother' && $value2->guardiant_relation->religion_name != 'Father')
+											@elseif($value2->guardiant_relation->religion_name != "Mother" && $value2->guardiant_relation->religion_name != "Father")
 											 Guardiant Name &nbsp;&nbsp;&nbsp;&nbsp;: {{$value->g_name}}	
 											@endif
 										@endif
@@ -73,7 +63,7 @@
 					{{-- <h3 style="text-align:center">Identity Card</h3> --}}
 						<div class="card1">
 							<div class="card_back" style="width: 100px;align-self: center; margin-top: 10px;">
-								<img src="{{ asset('frontend-logos/LIS_Logo-1.png')}}" alt="image" style="width: 100px;align-items: center; margin-left: 190px;" />
+								<img src="{{ asset("frontend-logos/LIS_Logo-1.png")}}" alt="image" style="width: 100px;align-items: center; margin-left: 190px;" />
 							</div>
 						<div class="school_heading" style="text-align: center;font-size: 20px;margin-top: 20px; color: #136D40; align-self: center;">
 							<strong>LAKSHYA INTERNATION SCHOOL</strong>
@@ -93,4 +83,5 @@
 				</div>
 		</div>
 	</div>
-<div>
+<div>';
+?>

@@ -313,11 +313,16 @@ p {
           <i class="fa fa-dashboard sidebar-nav-icon fa-sm fa-fw mr-2 text-green-400" style="color: #E0B0FF;"></i>
           <span>Notis & Circular</span></a>
       </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="{{url('admin')}}">
-            <i class="fas fa-fw fa-cubes fa-sm fa-fw mr-2 text-green-400" style="color: blue;"></i>
-            <span>ACL</span></a>
-        </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{url('admin')}}">
+          <i class="fas fa-fw fa-cubes fa-sm fa-fw mr-2 text-green-400" style="color: blue;"></i>
+          <span>ACL</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{url('gallery')}}">
+          <i class="fa fa-picture-o fa-sm fa-fw mr-2 text-green-400" style="color: blue;"></i>
+          <span>Gallery</span></a>
+      </li>
          
         
       
@@ -450,7 +455,7 @@ p {
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter blink">3+</span>
+                {{-- <span class="badge badge-danger badge-counter blink">3+</span> --}}
               </a>
               <!-- Dropdown - Alerts -->
               <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">

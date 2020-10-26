@@ -327,3 +327,9 @@ Route::get('sms-compoe','Admin\composeSmsAndEmail\EmailAndSMSController@smsCompo
 Route::post('get_students_for_sms_compose','Admin\composeSmsAndEmail\EmailAndSMSController@getStudentsForSmsCompose')->name('get_students_for_sms_compose');
 Route::post('send_sms','Admin\composeSmsAndEmail\EmailAndSMSController@sendSms')->name('send_sms');
 Route::get('sms-compoe-report','Admin\composeSmsAndEmail\EmailAndSMSController@smsDeliveryReport')->name('send_sms_delivery_report');
+Route::get('gallery','Admin\gallery\GalleryController@index');
+Route::get('gallery-folder','Admin\gallery\GalleryController@galleryFolder')->name('gallery_folder');
+Route::post('gallery-folder-create','Admin\gallery\GalleryController@createGalleryFolder')->name('create_gallery_folder');
+Route::any('gallery-image-video-add/{id}','Admin\gallery\GalleryController@addGalleryImageVideo')->name('gallery_image_video_add');
+Route::any('gallery-image-add/{id}','Admin\gallery\GalleryController@galleryImageAdd')->name('gallery_image_add');
+Route::post('gallery-image-upload','Admin\gallery\GalleryController@galleryImageUpload')->name('gallery_image_upload');

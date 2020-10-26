@@ -1,18 +1,24 @@
 
 <div class="row mb-2">
-	<input type='button' id='btn' value='Print' onclick='printDiv();' class="bt btn-success">
+	<input type="button" value="Print this page" onClick="printReport()"  class="bt btn-success">
 </div>
 <script type="text/javascript">
-
-$("#btn").click(function () {
-    //Hide all other elements other than printarea.
-    $("#printarea").show();
-    window.print();
-});
+    function printReport()
+    {
+        var prtContent = document.getElementById("reportPrinting");
+        var WinPrint = window.open();
+        WinPrint.document.write(prtContent.innerHTML);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+        WinPrint.close();
+        document.write( "<link rel='stylesheet' href='style.css' type='text/css' media='print'/>" );
+    }
 </script>
-<div class="container" >
+ 
+<div class="container" id="reportPrinting"	>
 		<div class="col-sm-12">
-			<div class="row " id="printarea">
+			<div class="row " >
 				<br><br>
 
 				<div class="col-md-6" {{-- style="border: solid black; " --}} style="border: solid;">
@@ -115,5 +121,5 @@ $("#btn").click(function () {
 		</div>
 		</div>
 </div>
- <a href="{{ url('pdf') }}" class="btn btn-success mb-2">Export PDF</a>
+ {{-- <a href="{{ url('pdf') }}" class="btn btn-success mb-2">Export PDF</a> --}}
    
