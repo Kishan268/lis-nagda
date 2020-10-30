@@ -24,6 +24,8 @@ class CreateComposeSmsTable extends Migration
             $table->text('staff_ids')->nullable();
             $table->string('sender_type', 30)->nullable();
             $table->text('reciver_id')->nullable();
+            $table->string('status', 1)->default(1);
+            
             $table->softDeletes();
             $table->timestamps();
         });

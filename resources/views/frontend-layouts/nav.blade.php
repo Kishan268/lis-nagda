@@ -37,7 +37,7 @@
                     </li> 
                     <li id="menu-item-1053" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1053"><a href="#">More</a>
                         <ul class="sub-menu">
-                            <li id="menu-item-258" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-258"><a href="{{url('gallery')}}">Gallery</a></li>
+                            <li id="menu-item-258" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-258"><a href="{{url('school-gallery')}}">Gallery</a></li>
                             <li id="menu-item-861" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-861"><a href="{{url('openings')}}">Openings</a></li>
                             <li id="menu-item-100" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-100"><a href="{{url('principals-message')}}">Principal’s Message</a></li>
                         </ul>

@@ -15,7 +15,11 @@
         <div class="card-body">
          	<div class="col-md-12">
 		<div class="panel panel-default">
-			
+			<div class="">
+			     @if($message = Session::get('success'))   
+			      	<div class="alert alert-success">{{ $message }}</div>
+			     @endif
+			  </div>	
 			<div class="panel-body">
 				<br>
 				<div class="row">
@@ -36,18 +40,19 @@
 					                          <br>
 					                         
 					                          <div id="filediv" style="display: block;">
-					                          	<input name="gallery_image[]" type="file" id="gallery_image" multiple><br><br>
+					                          	<input name="gallery_image_file[]" type="file" id="gallery_image_file" multiple><br><br>
 					                          	<input type="hidden" name="folder_id" value="{{$galleryFolder->id}}">
 					                          	<input type="hidden" name="folder_name" value="{{$galleryFolder->folder_name}}">
 					                          </div>
-					                          <input type="button" id="add_more" class="btn btn-info" value="Add ">
+					                         {{--  <input type="button" id="add_more" class="btn btn-info" value="Add "> --}}
 					                          <!--  <span class="fileupload-exists">Change</span> -->
 					                          <input type="submit" value="Upload " id="upload" name="submit" class="btn btn-primary" style="padding-left:32px; padding-right:25px;">
 					                          <br>
-					                          <br>
-					                          <div style="color:red;">
-					                              
-					                          </div>
+					                          <br>@error('gallery_image_file')
+					                              <span class="text-danger">
+					                                <strong>{{$message}}</strong>
+					                              </span>
+					                            @enderror
 					                        </div>
 					                      </div>
 					                    </form>
@@ -81,7 +86,7 @@
 			
 			<div class="panel-body">	
 				<br>
-				<div class="row">
+			<div class="row">
 					<div class="col-md-12 table-responsive" id="tableFilter">
 						<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
 							<div class="card-body">
@@ -89,13 +94,27 @@
 									<div class="panel panel-default">
 										<div class="panel-body">
 											<div class="row">
-												<div class="fileupload fileupload-new" data-provides="fileupload">
+											<form class="form-horizontal" enctype="multipart/form-data" method="post" action="{{route('gallery_zip_upload')}}">
+											@csrf
+										     <div class="fileupload fileupload-new" data-provides="fileupload">
 					                        <div>
 					                          <div class="fileupload-new">
-					                           <input name="zipfile" type="file" id="file1" required=""> 
+					                            <!-- <input name="file[]" type="file" id="file"/> -->
 					                          </div>
 					                          <br>
 					                         
+					                          <div id="filediv" style="display: block;">
+					                          	<input name="gallery_image" type="file" id="gallery_image" ><br><br>
+					                          	<input type="hidden" name="folder_id" value="{{$galleryFolder->id}}">
+					                          	<input type="hidden" name="folder_name" value="{{$galleryFolder->folder_name}}">
+
+					                            @error('gallery_image')
+					                              <span class="text-danger">
+					                                <strong>{{$message}}</strong>
+					                              </span>
+					                            @enderror
+					                          </div>
+					                          
 					                          <!--  <span class="fileupload-exists">Change</span> -->
 					                          <input type="submit" value="Upload " id="upload" name="submit" class="btn btn-primary" style="padding-left:32px; padding-right:25px;">
 					                          <br>
@@ -105,6 +124,8 @@
 					                          </div>
 					                        </div>
 					                      </div>
+					                    </form>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -113,8 +134,6 @@
 				</div> 
 			
 				</div>
-				</div>
-			</div>
 		</div>
 
 	</div>

@@ -8,4 +8,8 @@ class GalleryFolder extends Model
 {
     protected $table = 'gallery_folders';
     protected $guarded =[];
+    
+    public function gallery_image(){
+  		return $this->hasMany('App\Models\gallery\GalleryImage','folder_id','id');
+   	}
 }

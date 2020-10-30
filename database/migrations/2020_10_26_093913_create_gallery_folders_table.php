@@ -16,7 +16,6 @@ class CreateGalleryFoldersTable extends Migration
         Schema::create('gallery_folders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('user_id', 11)->nullable();
-            
             $table->string('folder_name', 111)->nullable();
             $table->string('status', 1)->default(1);
             $table->timestamps();
