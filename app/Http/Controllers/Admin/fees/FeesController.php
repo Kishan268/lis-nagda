@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin\fees;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\master\studentClass;
+use App\Models\master\studentBatch;
+use App\Models\master\studentSectionMast;
 class FeesController extends Controller
 {
     /**
@@ -14,7 +16,8 @@ class FeesController extends Controller
      */
     public function index()
     {
-        //
+        return view ('admin.fees.index');
+
     }
 
     /**
@@ -23,8 +26,12 @@ class FeesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {    
+         $classes = studentClass::get();
+         $batches = studentBatch::get();
+         $sections = studentSectionMast::get();
+        return view ('admin.fees.create',compact('classes','batches','sections'));
+        
     }
 
     /**
@@ -35,7 +42,7 @@ class FeesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
@@ -82,4 +89,16 @@ class FeesController extends Controller
     {
         //
     }
+
+    public function dashboard(){
+        return view ('admin.fees.dashboard');
+    }
+    public function getCourseBatches(Request $request){
+        dd($request);
+        // return view ('admin.fees.dashboard');
+    }
+    public function feesSudentList(Request $request){
+        dd($request);
+        // return view ('admin.fees.dashboard');
+    } 
 }

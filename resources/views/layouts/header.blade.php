@@ -297,15 +297,15 @@ p {
           <div id="fees" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-               <a class="collapse-item" href="{{route('sms_compoe')}}">Fees </a>
-              <a class="collapse-item" href="{{route('email_compose')}}"> Heads</a>
+               <a class="collapse-item" href="{{route('fees_dashboard')}}">Dashboard </a>
+              {{-- <a class="collapse-item" href="{{route('email_compose')}}"> Heads</a>
               <a class="collapse-item" href="{{route('email_compose')}}"> Concession</a>
               <a class="collapse-item" href="{{route('email_compose')}}">Reports</a>
               <a class="collapse-item" href="{{route('email_compose')}}"> Donations</a>
               <a class="collapse-item" href="{{route('email_compose')}}"> Settings</a>
               <a class="collapse-item" href="{{route('email_compose')}}"> Pay Regular Fees</a>
               <a class="collapse-item" href="{{route('email_compose')}}"> Bulk Fees Upload</a>
-              <a class="collapse-item" href="{{route('email_compose')}}"> Bulk Installment Fees Upload</a>
+              <a class="collapse-item" href="{{route('email_compose')}}"> Bulk Installment Fees Upload</a> --}}
             </div>
           </div>
        </li>
@@ -339,7 +339,7 @@ p {
           <span>ACL</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="{{url('school_gallery')}}">
+        <a class="nav-link" href="{{url('gallery')}}">
           <i class="fa fa-picture-o fa-sm fa-fw mr-2 text-green-400" style="color: blue;"></i>
           <span>Gallery</span></a>
       </li>

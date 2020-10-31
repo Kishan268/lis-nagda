@@ -336,6 +336,13 @@ Route::any('gallery-folder-delete/{id}','Admin\gallery\GalleryController@gallery
 Route::any('gallery-image-delete/{id}','Admin\gallery\GalleryController@galleryImageDelete')->name('gallery_image_delete');
 Route::post('gallery-zip-upload','Admin\gallery\GalleryController@galleryZipUpload')->name('gallery_zip_upload');
 
+// fees routers.......................................
+Route::resource('fees','Admin\fees\FeesController');
+Route::get('fees-dashboard','Admin\fees\FeesController@dashboard')->name('fees_dashboard');
+Route::post('fees_student_list','Admin\fees\FeesController@feesSudentList')->name('fees_student_list');
+
+Route::post('get-course-batches','Admin\fees\FeesController@getCourseBatches')->name('get_course_batches');
+
 
 
 });
