@@ -16,7 +16,8 @@ class CreateFineTypesTable extends Migration
         Schema::create('fine_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('fine_type_id')->nullable();
-            $table->boolean('fine_amount_status')->nullable();
+            $table->string('fine_amount_status')->nullable();
+            $table->string('fine_type')->nullable();
             $table->string('no_of_days',10)->nullable();
             $table->decimal('fine_amount',9,2)->nullable();
             $table->integer('fees_head_mast_id')->nullable();

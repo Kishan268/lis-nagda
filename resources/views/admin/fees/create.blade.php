@@ -32,7 +32,7 @@
                                  <div class="widget-content padded">
           {{--   <form action="{{route('fees.store')}}" id="fees-form1" method="post" > --}}
             	@csrf
-               <input type="hidden" name="student_ids" id="student_ids">
+               {{-- <input type="hidden" name="student_ids" id="student_ids"> --}}
                <fieldset>
               <div class="col-md-12">
                 <div class="row">								
@@ -47,7 +47,7 @@
 		           </div>
 				</div>
 
-				<div class="col-md-3">
+				<div class="col-md-2">
 					 <label class="red"> *</label>
 		                <label for="amount">
 		                Amount
@@ -57,13 +57,15 @@
 		                   <input class="form-control onlyDigit" id="amount" name="amount" type="text" readonly="">
 		                </div>
 		             </div>
-		             <div class="col-md-4">
+		             <div class="col-md-5">
 		                <div class="">
 		                   <label for="name">
 		                   Header Name To Be Displayed On Reciept
 		                   </label>
 		                   <select class="form-control" name="tmpinst_name" id="tmpinst_name">
-		                      <option value="325">Jath Public Hr. Sec. School, Ratlam </option>
+		                   	@foreach($headerName as $headerNames)
+		                      <option value="{{ $headerNames}}">{{ $headerNames}}</option>
+		                      @endforeach
 		                   </select>
 		                </div>
 				</div>
@@ -72,8 +74,9 @@
 		           Select Currency
 		           </label>
 		           <select class="form-control" name="currency_code" id="currency_code">
-		              <option value="INR"> INR </option>
-		              <option value="USD"> USD </option>
+		              @foreach($currencyCode as $currencyCodes)
+                      <option value="{{ $currencyCodes}}">{{ $currencyCodes}}</option>
+                      @endforeach
 		           </select>
 				</div>
 		        </div>
@@ -87,7 +90,8 @@
                       <thead>
                          <tr>
                             <th class="check-header hidden-xs">
-                               <label><input id="checkAll" name="checkAll" type="checkbox"><span></span></label>
+                               <label>
+                               	<input id="checkAll" name="checkAll" type="checkbox"><span></span></label>
                             </th>
                             <th>Head Title</th>
                             <th> Installable </th>
@@ -96,50 +100,70 @@
                       </thead>
                       <tbody>
                          <tr>
+
+                         	@foreach($feesHeadMast as $feesHeadMasts)
+                         	<tr>
                             <td class="check hidden-xs">
-                               <label><input name="fees_heads[]" type="checkbox" value="26196" class="display_checkbox" onclick="findIfChecked()"><span></span></label>
+                               <label>
+                               	<input name="fees_heads[]" type="checkbox" value="{{$feesHeadMasts->id}}" class="display_checkbox" onclick="findIfChecked()"><span></span>
+                               </label>
                             </td>
-                            <td>Examination fees </td>
-                            <input type="hidden" name="headinstallable_26196" id="headinstallable_26196" value="0" class="onlyDigit">
-                            <td><strong>No</strong></td>
-                            <td><input type="text" name="headAmt_26196" id="headAmt_26196" value="0" onchange="findIfChecked()" class="onlyDigit"></td>
+                         		<td>{{$feesHeadMasts->name}}</td>
+                           		 <input type="hidden" name="{{$feesHeadMasts->name}}" id="{{$feesHeadMasts->name}}" value="{{$feesHeadMasts->amount}}" class="onlyDigit">
+                            	<td><strong>{{$feesHeadMasts->instalment_applicable_status == 'on' ? 'Yes' : 'No'}}</strong></td>
+                            	<td>
+                            	<input type="text" name="headAmt_{{$feesHeadMasts->id}}" id="headAmt_{{$feesHeadMasts->id}}" value="{{$feesHeadMasts->amount}}" onchange="findIfChecked()" class="onlyDigit"></td>
+                         	</tr>
+                         	@endforeach
                          </tr>
-                         <tr>
+                         {{-- <tr>
                             <td class="check hidden-xs">
-                               <label><input name="fees_heads[]" type="checkbox" value="26197" class="display_checkbox" onclick="findIfChecked()"><span></span></label>
+                               <label>
+                               	<input name="fees_heads[]" type="checkbox" value="26197" class="display_checkbox" onclick="findIfChecked()"><span></span>
+                               </label>
                             </td>
                             <td>Activity fee </td>
-                            <input type="hidden" name="headinstallable_26197" id="headinstallable_26197" value="0" class="onlyDigit">
+                            <input type="hidden" name="activity_fee" id="activity_fee" value="0" class="onlyDigit">
                             <td><strong>No</strong></td>
-                            <td><input type="text" name="headAmt_26197" id="headAmt_26197" value="0" onchange="findIfChecked()" class="onlyDigit"></td>
+                            <td>
+                            	<input type="text" name="headAmt_26197" id="headAmt_26197" value="0" onchange="findIfChecked()" class="onlyDigit"></td>
                          </tr>
                          <tr>
                             <td class="check hidden-xs">
-                               <label><input name="fees_heads[]" type="checkbox" value="26198" class="display_checkbox" onclick="findIfChecked()"><span></span></label>
+                               <label>
+                               	<input name="fees_heads[]" type="checkbox" value="26198" class="display_checkbox" onclick="findIfChecked()"><span></span>
+                               </label>
                             </td>
                             <td>Tuition fee </td>
-                            <input type="hidden" name="headinstallable_26198" id="headinstallable_26198" value="1" class="onlyDigit">
+                            <input type="hidden" name="tuition_fee" id="tuition_fee" value="1" class="onlyDigit">
                             <td><strong>Yes</strong></td>
-                            <td><input type="text" name="headAmt_26198" id="headAmt_26198" value="0" onchange="findIfChecked()" class="onlyDigit"></td>
+                            <td>
+                            	<input type="text" name="headAmt_26198" id="headAmt_26198" value="0" onchange="findIfChecked()" class="onlyDigit"></td>
                          </tr>
                          <tr>
                             <td class="check hidden-xs">
-                               <label><input name="fees_heads[]" type="checkbox" value="26199" class="display_checkbox" onclick="findIfChecked()"><span></span></label>
+                               <label>
+                               	<input name="fees_heads[]" type="checkbox" value="26199" class="display_checkbox" onclick="findIfChecked()"><span></span>
+                               </label>
                             </td>
                             <td>Science fee </td>
-                            <input type="hidden" name="headinstallable_26199" id="headinstallable_26199" value="0" class="onlyDigit">
+                            <input type="hidden" name="science_fee" id="science_fee" value="0" class="onlyDigit">
                             <td><strong>No</strong></td>
-                            <td><input type="text" name="headAmt_26199" id="headAmt_26199" value="0" onchange="findIfChecked()" class="onlyDigit"></td>
+                            <td>
+                            	<input type="text" name="headAmt_26199" id="headAmt_26199" value="0" onchange="findIfChecked()" class="onlyDigit"></td>
                          </tr>
                          <tr>
                             <td class="check hidden-xs">
-                               <label><input name="fees_heads[]" type="checkbox" value="33085" class="display_checkbox" onclick="findIfChecked()"><span></span></label>
+                               <label>
+                               	<input name="fees_heads[]" type="checkbox" value="33085" class="display_checkbox" onclick="findIfChecked()"><span></span>
+                               </label>
                             </td>
                             <td>Tuition Fees </td>
-                            <input type="hidden" name="headinstallable_33085" id="headinstallable_33085" value="1" class="onlyDigit">
+                            <input type="hidden" name="tuition_fees" id="tuition_fees" value="1" class="onlyDigit">
                             <td><strong>Yes</strong></td>
-                            <td><input type="text" name="headAmt_33085" id="headAmt_33085" value="500" onchange="findIfChecked()" class="onlyDigit"></td>
-                         </tr>
+                            <td>
+                            	<input type="text" name="headAmt_33085" id="headAmt_33085" value="500" onchange="findIfChecked()" class="onlyDigit"></td>
+                         </tr> --}}
                       </tbody>
                    </table>
                 </div>
@@ -171,9 +195,10 @@
 	                Course Selection
 	                </label>
 	                <select class="form-control" name="courseselection" id="courseselection">
-	                   <option value="0">Select</option>
-	                   <option value="1">Multiple Courses</option>
-	                   <option value="2">Single Course</option>
+		                   <option value="0">Select</option>
+		                   @foreach($courseSelection as $key => $courseSelections)
+			                   <option value="{{$key+1}}">{{$courseSelections}}</option>
+		                   @endforeach
 	                </select>
 				</div>
 				<div class="col-md-3" id="insth1" style="display: none;">
@@ -798,7 +823,8 @@
              
           </div>
            
-              <div class="row">
+            <div class="container">
+            	  <div class="row">
                  <div class="col-md-4" id="course_div" style="display: none;">
                     <label class="red">
                     *
@@ -859,9 +885,9 @@
                     </label>
                     <select class="form-control" name="gender" id="gender">
                        <option value="0">All</option>
-                       <option value="1">Male</option>
-                       <option value="2">Female</option>
-                       <option value="3">Other</option>
+	                   @foreach($studentGender as $key => $studentGenders)
+		                   <option value="{{$key}}">{{$studentGenders}}</option>
+	                   @endforeach
                     </select>
                  </div>
                  <div class="col-md-4">
@@ -869,13 +895,11 @@
                     Category
                     </label>
                     <select class="form-control" name="caste" id="caste">
-                       <option value="0">Select Category </option>
+                       <option value="">Select Category </option>
                        <option value="0" selected="">All</option>
-                       <option value="1">GEN</option>
-                       <option value="2">OBC</option>
-                       <option value="3">SC</option>
-                       <option value="4">ST</option>
-                       <option value="5">Other</option>
+                       @foreach($castCategory as $key => $castCategories)
+		                   <option value="{{$key}}">{{$castCategories}}</option>
+	                   @endforeach
                     </select>
                  </div>
                  <div class="col-md-4">
@@ -883,9 +907,10 @@
                     Include
                     </label>
                     <select class="form-control" name="rte" id="rte">
-                       <option value=" ">All</option>
-                       <option value="1">RTE</option>
-                       <option value="0">Without RTE</option>
+                       <option value="">All</option>
+                       @foreach($Include as $key => $Includes)
+		                   <option value="{{$key}}">{{$Includes}}</option>
+	                   @endforeach
                     </select>
                  </div>
               </div>
@@ -905,10 +930,14 @@
                     Class - Batch - Section
                     </label>
                     <select class="form-control" multiple="" id="course_batches" name="course_batches[]">
-                       <option value="4179_8999_1703">Nursery----2019-20----EM</option>
+                       {{-- <option value="4179_8999_1703">Nursery----2019-20----EM</option> --}}
                        
                     </select>
                  </div>
+               <div class="col-md-12" id="all_data" style="display: none;">
+                      
+                      {{-- Show student Data................. --}}
+                </div>
               </div>
               <div class="row">
                  <div class="col-md-4">
@@ -946,14 +975,15 @@
                     <label class="red">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </label>
-                    <div class="has-error col-md-6">
-                       <label class="control-label" for="inputError">
+                    <div class="has-error col-md-12">
+                       <label class="control-label text-danger" for="inputError" >
                        All Fields marked * are mandatory
                        </label>
                     </div>
                     <div class="pull-right" id="fees_submit1">
                       {{--  <input class="btn btn-primary" id="fees_button1" type="button" value="Submit"> --}}
                       <input type="submit" name="submit" value="Submit" class="btn btn-primary">
+            </div>
             {{-- </form> --}}
                       {{--  <input class="btn btn-default-outline" onclick="javascript: window.location.replace('index.php?plugin=Fees&amp;action=listFees');" type="button" value="Cancel"> --}}
                     </div>
@@ -1106,6 +1136,8 @@
 		});
 
 
+
+
 $('#courseselection').on('change', function(){
 		var val=$(this).val();
 		$('#row1').hide();
@@ -1121,8 +1153,24 @@ $('#courseselection').on('change', function(){
 		$('#fees_for_div').hide();
 		if(val==1)
 		{
-			$('#course_batches_div').show();
-			$('#row1').show();
+			$.ajax({
+			    type: "POST",
+			    url: "{{route('get_course_batches')}}",
+			    data: {
+				 "_token": "{{ csrf_token() }}"
+			    },
+			    success: function(data){
+			   	$('#course_batches_div').show();
+				$('#row1').show();
+				// $('#course_batches_div').empty();
+                // $('#course_batches').append('<option>Select</option>');
+                $.each(data,function(key,value){
+            		$('#course_batches').append('<option value="'+value.student_class.id+'_'+value.student_batch.id+'_'+value.student_section.id+'">'+value.student_class.class_name+'--'+value.student_batch.batch_name+'--'+value.student_section.section_name+'</option>');
+        		});
+
+			    }
+			})
+			
 		}
 		else if(val==2)
 		{
@@ -1135,7 +1183,6 @@ $('#courseselection').on('change', function(){
 	});
 	$('#feesfor').on('change', function(){
 		var val=$(this).val();
-		
 		if(val==0)
 		{
 		    $('#row1').hide();
@@ -1144,12 +1191,12 @@ $('#courseselection').on('change', function(){
 		else if(val==1)
 		{
 			$('#row2').hide();
+			$('#all_data').hide();
 			$('#row1').show();
 			
 		}
 		else if(val==2)
 		{
-			alert('sdf');
 			$("#gender").val('0');
 			$("#category").val('0');
 			$("#rte").val(' ');
@@ -1168,9 +1215,10 @@ $('#courseselection').on('change', function(){
 					 "_token": "{{ csrf_token() }}"
 				    },
 				    success: function(data){
-				   	//alert(data);
-					$("#datadiv").load("plugins/Fees/templates/feedStudentList.tpl");
-					$("#datadiv").show();
+				   	// alert(data);
+					// $("#datadiv").load("plugins/Fees/templates/feedStudentList.tpl");
+					$('#all_data').html(data)
+					$('#all_data').show(data)
 					
 					
 				    }
@@ -1193,9 +1241,7 @@ $('#courseselection').on('change', function(){
 	   $('#row1').hide();
 	   $('#row2').hide();	
 	   $("#datadiv2").hide();
-          if (course > 0) {
-
-alert(course);
+        if (course > 0) {
                 $.ajax({
                     type: "POST",
                     url: "{{'get_course_batches'}}",
@@ -1216,7 +1262,6 @@ alert(course);
             }
           
            else if (course ==-1) {
-	 alert(course);
 
                 $.ajax({
                     type: "POST",
@@ -1252,17 +1297,18 @@ alert(course);
 		   $('#row2').hide();
 		   $('#fees_for_div').hide();
 		}
-		else
+		/*else
 		{
 			var course = $("#course").val();
 			var batch = $("#batch").val();
 	
 			$.ajax({
 				type: "POST",
-				url: "index.php?plugin=Fees&action=getSectionByCourseBatch",
+				url: "{{route('get_course_batches')}}",
 				data: {
 					course: course,
-					batch: batch
+					batch: batch,
+					 "_token": "{{ csrf_token() }}"
 				   
 				},
 				success: function(data){
@@ -1277,7 +1323,7 @@ alert(course);
 			   }
 			})
 			$('#fees_for_div').show();
-		}
+		}*/
 
 	 });
 
@@ -1319,178 +1365,55 @@ alert(course);
            }
        }
        $(function(){
-       $('#fees-form').validate({
-       rules: {
-       receipt_name: {
-       	required: true,
-       },
-       course: {
-       	selectcheck: true,
-       },
-       fee_cate_name: {
-       	selectcheck: true,
-       },
-       batch: {
-       	selectcheck: true,
-       },
-       sdate: {
-       	required: true,
-       },
-       edate: {
-       	required: true,
-       },
-       dudate: {
-       	required: true,
-       },
-       name: {
-       	required: true
-       },
-       amount:	{
-       	required: true
-       },
-       courseselection :
-       {
-       	selectcheck: true,
-       },
-       discount:	
-       {
-       	required: true
-       }
-       },
-       focusCleanup: true
-       });
+	       $('#fees-form').validate({
+	       rules: {
+	       receipt_name: {
+	       	required: true,
+	       },
+	       course: {
+	       	selectcheck: true,
+	       },
+	       fee_cate_name: {
+	       	selectcheck: true,
+	       },
+	       batch: {
+	       	selectcheck: true,
+	       },
+	       sdate: {
+	       	required: true,
+	       },
+	       edate: {
+	       	required: true,
+	       },
+	       dudate: {
+	       	required: true,
+	       },
+	       name: {
+	       	required: true
+	       },
+	       amount:	{
+	       	required: true
+	       },
+	       courseselection :
+	       {
+	       	selectcheck: true,
+	       },
+	       discount:	
+	       {
+	       	required: true
+	       }
+	       },
+	       focusCleanup: true
+	       });
        
        	jQuery.validator.addClassRules("instalment-date", {
            	required: true,
         });
        });
-       
-
-
-	     function showhide(id) {
-	       
-	          if (document.getElementById(id).style.display == "none")
-	          {
-	              document.getElementById(id).style.display = "block";
-	         }
-	  
-	         if ("Div1" != id) {
-	             document.getElementById("Div1").style.display = "none";
-	         }
-	         if ("Div2" != id) {
-	             document.getElementById("Div2").style.display = "none";
-	         } 
-	         if ("Div3" != id) {
-	             document.getElementById("Div3").style.display = "none";
-	         }
-	         if ("Div4" != id) {
-	             document.getElementById("Div4").style.display = "none";
-	         }
-	         if ("Div5" != id) {
-	             document.getElementById("Div5").style.display = "none";
-	         }
-	         if ("Div6" != id) {
-	             document.getElementById("Div6").style.display = "none";
-	         }
-	         if ("Div7" != id) {
-	             document.getElementById("Div7").style.display = "none";
-	         }
-	         if ("Div8" != id) {
-	             document.getElementById("Div8").style.display = "none";
-	         }
-	         if ("Div9" != id) {
-	             document.getElementById("Div9").style.display = "none";
-	         }
-	         if ("Div10" != id) {
-	             document.getElementById("Div10").style.display = "none";
-	         }
-	         if ("Div11" != id) {
-	             document.getElementById("Div11").style.display = "none";
-	         }
-	         if ("Div12" != id) {
-	             document.getElementById("Div12").style.display = "none";
-	         }           
-	     }
-	     
-
-	     $("a, button, input[type=submit], input[type=button]").click(function(e) {
-					var currentURL = window.location.href;
-					//var target = $(e.target)
-					var currentElement = $(this).text(); //target.id;
-					
-					$.ajax({
-						type: "POST",
-						url: "index.php?plugin=RoleManagement&action=storeUserLogs",
-                        global: false,
-						data: {
-							currentURL:currentURL,
-							currentElement:currentElement
-						},
-						success: function(data){
-							//alert( data );
-						},
-						error: function(x,e){
-							 
-						}
-					});
-            });
-    if (window.jQuery) {
-     $('#opr_year').on('change', function () {
-        var opyear = $("#opr_year").val();
-        $.ajax({
-            type: "POST",
-            url: "index.php?plugin=Dashboard&action=selectedyear",
-            data: {opyear: opyear},
-            success: function(data){
-                location.reload();
-            }
-        });
-    });
-	}else{
-	console.log('jquery not loaded');
-	}
-	function changeBranch1()
-	{   
-	var branch_id=0;
-	    $.ajax({
-	        type: "POST",
-	        url: "index.php?plugin=Dashboard&action=selectBranch",
-	        data: {
-	            branch_id: branch_id
-	            
-	        },
-	        success: function(data){
-	            //console.log(data);
-	        window.location.href=data;
-	        }
-	});
-	}
-
-	    var opyear = $("#opr_year").val();
-	    if(opyear=='' || opyear==null || opyear==0){
-	        var a='';
-	        a +='<marquee style="background-color: lightblue;">Please Select Operation Year before uploading any data or filling any entries.</marquee>';
-	        
-	        alert('Please Select Operation Year before Uploading any Data or filling any entries');
-	        $('#marqueeOperationYear').html(a);
-	    }   
-
-
-	    function get(name){
-		   if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
-		      return decodeURIComponent(name[1]);
-		}
-		
-		$(document).ready(function(){
-			var module = get('plugin');		
-			var action = get('action');		
-			gtag('event', 'esh_dimension', {'Username': userid,'Module':module,'Action':action});
-		});   
-
 }); 
 
 
- $(document).ready(function(){
+$(document).ready(function(){
 
 $('#checkAll').click(function () {
 		$(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
@@ -1516,6 +1439,7 @@ $('#checkAll').click(function () {
 	$("#dudate1").show();
 	$('#courseselection').on('change', function(){
 		var val=$(this).val();
+		// alert(val);
 		$('#row1').hide();
 		$('#row2').hide();
 		$('#course_div').hide();
@@ -1529,7 +1453,7 @@ $('#checkAll').click(function () {
 		$('#fees_for_div').hide();
 		if(val==1)
 		{
-			$('#course_batches_div').show();
+			// $('#course_batches_div').show();
 			$('#row1').show();
 		}
 		else if(val==2)
@@ -1542,18 +1466,12 @@ $('#checkAll').click(function () {
 		
 	});
 
-	$("#amount").on('change', function(){
-		var amount=$(this).val();
-		if(amount>0){
-			var installmentVal = $('#paymentselection').val();
-			callInstallmentDevide(installmentVal, amount);
-		}
-	});
 
 	
 	$('#paymentselection').on('change', function(){
 		var val=$(this).val();
 		var couserSelectionValue = $("#courseselection").val();
+		alert(couserSelectionValue);
 		var insth1 = $('#insth1').show();
 		alert();
 		if(couserSelectionValue == '0')
@@ -1576,6 +1494,7 @@ $('#checkAll').click(function () {
 		{
 			if($(this).prop('checked')) 
 			{
+				alert(value);
 				var value = $(this).val();
 				
 				var amtId = "#headAmt_"+value;
@@ -1662,29 +1581,27 @@ $('#checkAll').click(function () {
 	   $('#row1').hide();
 	   $('#row2').hide();	
 	 $("#datadiv2").hide();
-	 //alert(course);
-            if (course > 0) {
+	    if (course > 0) {
 
-                $.ajax({
-                    type: "POST",
-                    url: "index.php?plugin=Finance&action=getCourseBatches",
-                    data: {
-                        courseId: course
-                    },
-                    success: function(data){
-		    			$('#batch option').remove();
-                        var collaboration = '';
-                        $.each($.parseJSON(data), function(item, val){
-                            collaboration += "<option value=" + val.batch_id + ">" + val.batch_name + "</option>";
-                        });
-                        $("#batch").append("<option value='0'>Select Batch</option>");
-                        $("#batch").append(collaboration);
-                    }
-                })
-            }
+	        $.ajax({
+	            type: "POST",
+	            url: "index.php?plugin=Finance&action=getCourseBatches",
+	            data: {
+	                courseId: course
+	            },
+	            success: function(data){
+	    			$('#batch option').remove();
+	                var collaboration = '';
+	                $.each($.parseJSON(data), function(item, val){
+	                    collaboration += "<option value=" + val.batch_id + ">" + val.batch_name + "</option>";
+	                });
+	                $("#batch").append("<option value='0'>Select Batch</option>");
+	                $("#batch").append(collaboration);
+	            }
+	        })
+	    }
           
            else if (course ==-1) {
-alert();
                 $.ajax({
                     type: "POST",
                     url: "index.php?plugin=Fees&action=feedStudentListAllCourses",
@@ -1698,9 +1615,7 @@ alert();
 		    			
                     }
                 })
-            }
-          
-            else {
+            }else {
 		$('#feesfor').val('0');
 		
                 $('#batch option').remove();
@@ -1731,7 +1646,7 @@ alert();
 	
 			$.ajax({
 				type: "POST",
-				url: "index.php?plugin=Fees&action=getSectionByCourseBatch",
+				url: "{{route('get_course_batches')}}",
 				data: {
 					course: course,
 					batch: batch
@@ -1782,7 +1697,7 @@ alert();
 		});
 	 });
 
-	 function callInstallmentDevide(val, dividedValue,remaindividedValue){
+	function callInstallmentDevide(val, dividedValue,remaindividedValue){
 		if(val==1){
 			viewIstallments(1, dividedValue,remaindividedValue);
 		}else
@@ -1968,37 +1883,34 @@ alert();
 	});
 
 
-	 $("#fees_button").click(function(){    	 	
- 		 $("#fees_submit").hide();
+	$("#fees_button").click(function(){    	 	
+ 		$("#fees_submit").hide();
  		$("#fees-form").submit();
  		$("#fees_button").submit();
 
-       
     });
 
 
-	
-
     });
 
-     function findIfChecked(){
+   function findIfChecked(){
 	var amount = 0;
 	var remain_amount = 0;
-	//alert('hii');
+	// alert('hii');
 	$('.display_checkbox').each(function(){
 		if($(this).prop('checked')) {
 			var value = $(this).val();
-			//alert(value);
 			var amtId = "#headAmt_"+value;
+			// alert(amtId);
 			var amt = $(amtId).val();
 			amount = parseFloat(amount)+parseFloat(amt);
-			//alert(amt);
+			// alert(amt);
 			
 		} 
 	});
 	$("#amount").val(amount);
   } 
-  function checkdate() {
+  /*function checkdate() {
         var startdate1=$("#startdate1").val();
         var duedate1=$("#duedate1").val();
         if(startdate1==='30-11-0' || duedate1==='30-11-0') {
@@ -2006,7 +1918,7 @@ alert();
             $('#startdate1').val('');
             $('#duedate1').val('');
         }
-    }
+    }*/
 	$(function(){
 		$('#fees-form').validate({
 			rules: {
@@ -2054,7 +1966,7 @@ alert();
 	    });
 	});
 
-	$(document).ready(function()
+	/*$(document).ready(function()
 	{
 		 $("#wait").remove();
 		$(document).ajaxStart(function()
@@ -2068,16 +1980,16 @@ alert();
 			$.overlay.hide('ajax');
   
 		});
-	});
+	});*/
 /* Code For Railway PNR Enquiry */
-function loadPNRStatus(){
+/*function loadPNRStatus(){
 var searchN = $('#PNR_NUM').val();
 	if(searchN !=''){
 		$.ajax( {
 				type: 'POST',
 				url: 'index.php?plugin=Dashboard&action=getPNRStatus',
 				data:{pnrQ: searchN },
-				/*beforeSend: function() {
+				beforeSend: function() {
 					$.blockUI({ css: {
 								'border': 'none',
 								'padding': '15px',
@@ -2087,7 +1999,7 @@ var searchN = $('#PNR_NUM').val();
 								opacity: 0.5,
 								color: '#fff'
 							} });
-				},*/
+				},
 				success:function(htmlResp) {
 					$('div.pnrStatusLoad').html(htmlResp);
 					$("#pnrModal").modal("show");
@@ -2095,9 +2007,9 @@ var searchN = $('#PNR_NUM').val();
 				}
 		});
 	}
-}
+}*/
 
-$('#PNR_NUM').on('keypress', function (event) {
+/*$('#PNR_NUM').on('keypress', function (event) {
 	if(event.which === 13){
 	loadPNRStatus();
 	}
@@ -2107,10 +2019,10 @@ $('#PNR_NUM').on('keypress', function (event) {
 		//display error message
 		return false;
 	}
-});         
+});*/         
     </script>
     <style>
-    	red
+    	.red
     	{
     		color:red;
     	}

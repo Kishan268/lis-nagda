@@ -26,7 +26,7 @@ class CreateStudentFeesPayTransTable extends Migration
             $table->decimal('excess_amnt',9,2)->nullable();
             $table->integer('payment_mode')->nullable();
             $table->integer('transcation_id')->nullable();
-            $table->string('reciept _no',100)->nullable();
+            $table->string('reciept_no',100)->nullable();
             $table->date('date_no')->nullable();
             $table->text('remark')->nullable();
             $table->string('fees_month',20)->nullable();

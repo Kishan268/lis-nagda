@@ -343,6 +343,7 @@ Route::post('fees_student_list','Admin\fees\FeesController@feesSudentList')->nam
 
 Route::post('get-course-batches','Admin\fees\FeesController@getCourseBatches')->name('get_course_batches');
 
-
+// fees heads routers.......................................
+Route::resource('fees-heads','Admin\fees\HeadsController');
 
 });

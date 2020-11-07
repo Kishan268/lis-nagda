@@ -30,7 +30,21 @@
               </div>
               </a>
             </div>
-
+             <div class="col-md-3 col-sm-6 col-xs-11  col-div-mar col-div-nav active-li mt-2">
+            <a href="{{route('fees-heads.index')}}">
+              <div class="card shadow h-100 py-2 bg-color">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Heads</div>
+                      
+                      <i class="fa fa-header fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div> 
             <!-- Earnings (Monthly) Card Example -->
             <div class="col-md-3 col-sm-6 col-xs-11  col-div-mar col-div-nav active-li">
             <a href="http://127.0.0.1:8000/student_manage">
@@ -130,21 +144,7 @@
               </div>
             </a>
           </div>
-          <div class="col-md-3 col-sm-6 col-xs-11  col-div-mar col-div-nav active-li mt-2">
-            <a href="http://127.0.0.1:8000/home">
-              <div class="card shadow h-100 py-2 bg-color">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Heads</div>
-                      
-                      <i class="fa fa-header fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>  
+          
           <div class="col-md-3 col-sm-6 col-xs-11  col-div-mar col-div-nav active-li mt-2">
             <a href="http://127.0.0.1:8000/home">
               <div class="card shadow h-100 py-2 bg-color">
