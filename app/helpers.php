@@ -51,15 +51,15 @@
   //  		return $array;    
  	// }
  	public static function studentGender(){
- 		$array = array([
+ 		$array = array(
 				 '1'=>'Male',
 				 '2'=>'Female',
 				 '3'=>'Other'
-		 ]);
+		 );
    		return $array;    
  	}
  	public static function castCategory (){
- 		$array = array([
+ 		$array = array(
 				 'OBC',
 				 'GENERAL',
 				 'SC',
@@ -71,7 +71,7 @@
 				 'NT-C',
 				 'NT-D',
 				 'Other'
-		 ]);
+		 );
    		return $array;    
  	}
  	public static function studentReligion (){
@@ -193,6 +193,57 @@
 				 'CHINESE TRADITIONAL',
 				 'OTHERS'
 		 ]);
+   		return $array;    
+ 	}
+
+
+ 	  
+ 	public static function headTypes (){
+ 		$array = array(
+				 'Permanent',
+				 'Temporary'
+		 );
+   		return $array;    
+ 	}
+ 	public static function fineTypes (){
+ 		$array = array(
+				 'Fixed',
+				 'Per Day'
+		 );
+   		return $array;    
+ 	}
+ 	public static function fine (){
+ 		$array = array(
+				 'Amount',
+				 'Percentage'
+		 );
+   		return $array;    
+ 	}
+ 	public static function headerName (){
+ 		$array = array(
+				 'Jath Public Hr. Sec. School, Ratlam'
+		 );
+   		return $array;    
+ 	}
+ 	public static function currencyCode (){
+ 		$array = array(
+				 'INR',
+				 'USD',
+		 );
+   		return $array;    
+ 	}
+ 	public static function courseSelection(){
+ 		$array = array(
+				 'Multiple Courses',
+				 'Single Course',
+		 );
+   		return $array;    
+ 	}
+ 	public static function Include(){
+ 		$array = array(
+				 'RTE',
+				 'Without RTE',
+		 );
    		return $array;    
  	}
  } 

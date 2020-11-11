@@ -178,7 +178,7 @@ return [
         Buzz\LaravelGoogleCaptcha\CaptchaServiceProvider::class,
 //        Unisharp\Ckeditor\ServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-
+        ZanySoft\Zip\ZipServiceProvider::class,
     ],
 
     /*
@@ -231,9 +231,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Captcha' => Buzz\LaravelGoogleCaptcha\CaptchaFacade::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class
-
-,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Zip' => ZanySoft\Zip\ZipFacade::class,
 
     ],
 

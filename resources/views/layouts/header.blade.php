@@ -292,11 +292,30 @@ p {
             <a class="collapse-item" href="{{route('gaurdian_designation')}}">Gaurdian Designation</a>
           </div>
         </div>
-
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#fees" aria-expanded="true" aria-controls="fees">
+            <i class="fa fa-money sidebar-nav-icon" style="color: yellow;"></i>
+            <span>Fees</span>
+          </a>
+          <div id="fees" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
+               <a class="collapse-item" href="{{route('fees_dashboard')}}">Dashboard </a>
+              {{-- <a class="collapse-item" href="{{route('email_compose')}}"> Heads</a>
+              <a class="collapse-item" href="{{route('email_compose')}}"> Concession</a>
+              <a class="collapse-item" href="{{route('email_compose')}}">Reports</a>
+              <a class="collapse-item" href="{{route('email_compose')}}"> Donations</a>
+              <a class="collapse-item" href="{{route('email_compose')}}"> Settings</a>
+              <a class="collapse-item" href="{{route('email_compose')}}"> Pay Regular Fees</a>
+              <a class="collapse-item" href="{{route('email_compose')}}"> Bulk Fees Upload</a>
+              <a class="collapse-item" href="{{route('email_compose')}}"> Bulk Installment Fees Upload</a> --}}
+            </div>
+          </div>
+       </li>
         <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#compose_mgs_and_sms" aria-expanded="true" aria-controls="compose_mgs_and_sms">
             <i class="fa fa-commenting sidebar-nav-icon" style="color: yellow;"></i>
-            <span>Compose Email & sms</span>
+            <span>Compose Email & SMS</span>
           </a>
           <div id="compose_mgs_and_sms" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
@@ -305,7 +324,22 @@ p {
               <a class="collapse-item" href="{{route('email_compose')}}"> Compose Email</a>
             </div>
           </div>
+       </li> 
+       <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#student_time_table" aria-expanded="true" aria-controls="student_time_table">
+            {{-- <i class="fa fa-commenting sidebar-nav-icon" style="color: yellow;"></i> --}}
+            <i class="fa fa-calendar sidebar-nav-icon" style="color: yellow;" aria-hidden="true"></i>
+            <span>Time Table</span>
+          </a>
+          <div id="student_time_table" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
+               <a class="collapse-item" href="{{route('time-table.index')}}">Dashboard </a>
+               
+            </div>
+          </div>
        </li>
+     
        <li class="nav-item active">
           <a class="nav-link" href="{{route('admission_inquiry_data')}}">
           <i class="fas fa-fw fa-user fa-sm fa-fw mr-2 text-green-400" style="color: #873600;"></i>

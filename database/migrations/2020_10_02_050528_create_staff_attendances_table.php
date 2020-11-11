@@ -23,7 +23,7 @@ class CreateStaffAttendancesTable extends Migration
             $table->dateTime('in_time')->nullable();
             $table->date('out_time')->nullable();
             $table->dateTime('staying_hour')->nullable();
-            $table->string('status',3)->default(1)->nullable();
+            $table->integer('status',1)->default(1);
             $table->softDeletes();
             $table->timestamps();
         });

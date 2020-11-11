@@ -146,11 +146,11 @@ img.emoji {
     	<div id="tophead">
 		<div class="container">
 			<div id="quick-contact">
-									<ul>
-													<li class="quick-call"><a href="tel:917879822222">+91-78798-22222</a></li>
-																			<li class="quick-email"><a href="mailto:support@lisnagda.org">support@lisnagda.org</a></li>
-											</ul>
-											</div>
+	<ul>
+					<li class="quick-call"><a href="tel:917879822222">+91-78798-22222</a></li>
+					<li class="quick-email"><a href="mailto:support@lisnagda.org">support@lisnagda.org</a></li>
+			</ul>
+			</div>
 
 			
 			
@@ -161,10 +161,12 @@ img.emoji {
 
 		    <a href="http://lisnagda.org/" class="custom-logo-link" rel="home" itemprop="url"><img width="170" height="139" src="http://lisnagda.org/wp-content/uploads/2020/01/LIS_Logo-1.png" class="custom-logo" alt="" itemprop="logo"></a>
 
-										        <div id="site-identity">
-					            	              <p class="site-title"><a href="http://lisnagda.org/" rel="home">Lakshya International School, Nagda</a></p>
-	            				
-					            <p class="site-description">CBSE Affiliation No. 1031030</p>
+			 <div id="site-identity">
+    	       <p class="site-title">
+                <a href="http://lisnagda.org/" rel="home">Lakshya International School, Nagda</a>
+            </p>
+	
+        <p class="site-description">CBSE Affiliation No. 1031030</p>
 					        </div><!-- #site-identity -->
 			
 	    </div><!-- .site-branding -->
@@ -178,7 +180,8 @@ img.emoji {
 				<input type="submit" class="search-submit" value="Search" />
 			</form>		    </div>
 	    
-        </div><!-- .container --></header><!-- #masthead -->    <div id="main-nav" class="clear-fix">
+        </div><!-- .container --></header><!-- #masthead -->  
+          <div id="main-nav" class="clear-fix">
         <div class="container-fluid">
         <nav id="site-navigation" class="main-navigation" role="navigation">
           <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><i class="fa fa-bars"></i>
@@ -214,7 +217,7 @@ img.emoji {
                     </li> 
                     <li id="menu-item-1053" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1053"><a href="#">More</a>
                         <ul class="sub-menu">
-                            <li id="menu-item-258" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-258"><a href="{{url('gallery')}}">Gallery</a></li>
+                            <li id="menu-item-258" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-258"><a href="{{url('school-gallery')}}">Gallery</a></li>
                             <li id="menu-item-861" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-861"><a href="{{url('openings')}}">Openings</a></li>
                             <li id="menu-item-100" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-100"><a href="{{url('principals-message')}}">Principal’s Message</a></li>
                         </ul>
@@ -222,13 +225,16 @@ img.emoji {
                     </li>
                 </li>
             </ul>            
-                </div>            </div><!-- .menu-content -->
+            </div>            
+            </div><!-- .menu-content -->
         </nav><!-- #site-navigation -->
        </div> <!-- .container -->
     </div> <!-- #main-nav -->
     	<div class="rev-slider">
 		</div>
-	<div id="content" class="site-content"><div class="container"><div class="inner-wrapper">    
+	<div id="content" class="site-content">
+        <div class="container">
+            <div class="inner-wrapper">    
 
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
@@ -240,42 +246,60 @@ img.emoji {
 		<h1 class="entry-title">Gallery</h1>	</header><!-- .entry-header -->
 
 	<div class="entry-content">
-    		<div class="ngg-albumoverview">
-            <div class="ngg-album-compact">
-            <div class="ngg-album-compactbox">
-                <div class="ngg-album-link">
-                                        <a title='Janmashtami'
-                       href='http://lisnagda.org/gallery/nggallery/gallery/Janmashtami'>
-                        <img class="Thumb"
-                             alt="Janmashtami"
-                             src="http://lisnagda.org/wp-content/gallery/janmashtami/dynamic/219.jpg-nggid03355-ngg0dyn-300x250x100-00f0w010c010r110f110r010t010.jpg"/>
-                    </a>
-                                    </div>
+    		
+                  <div class="row">
+                    
+                    @foreach($galleryFolder as $galleryFolders)
+                    
+                        <div class="col-md-4" style="border: solid;">
+                           
+                            <div class="row">
+                                <a href="{{route('gallery_image_show',$galleryFolders->id)}}">
+                                <div>
+
+                                @foreach($galleryFolders->gallery_image as $imageName)
+                                @if($imageName->gallery_image)
+                                <img src="{{asset($imageName->gallery_image !=null ? $imageName->gallery_image: 'storage/admin/student_demo.png')}}" style="width: 400px; height: 300px; border: solid;">
+                                @break;
+
+                                @else
+                                <img src="" style="width: 400px; height: 300px; border: solid;">
+                                @endif
+                                @endforeach
+                                </div>
+                                </a>
+                            </div>
+                           
+                             <h4>
+                                <a class='ngg-album-desc' title='{{$galleryFolders->folder_name}}'href='{{route('gallery_image_show',$galleryFolders->id)}}'style="max-width: 320px">{{$galleryFolders->folder_name}}</a>
+                            </h4>
+                          
+                        </div>
+           
+                    @endforeach
+                                
+                    
             </div>
-                        <h4>
-                <a class='ngg-album-desc' title='Janmashtami'
-                       href='http://lisnagda.org/gallery/nggallery/gallery/Janmashtami'style="max-width: 320px">Janmashtami</a>
-            </h4>
             <p class="ngg-album-gallery-image-counter">
-                                    <strong>5</strong>&nbsp;Photos                            </p>
+            <strong>5</strong>&nbsp;Photos</p>
         </div>
-            <div class="ngg-album-compact">
+           {{-- <div class="ngg-album-compact">
             <div class="ngg-album-compactbox">
                 <div class="ngg-album-link">
-                                        <a title='Parents Teacher Meeting'
+                    <a title='Parents Teacher Meeting'
                        href='http://lisnagda.org/gallery/nggallery/gallery/Parents-Teacher-Meeting'>
                         <img class="Thumb"
                              alt="Parents Teacher Meeting"
                              src="http://lisnagda.org/wp-content/gallery/parents-teacher-meeting/dynamic/DSC00352.jpg-nggid0283-ngg0dyn-300x250x100-00f0w010c010r110f110r010t010.jpg"/>
                     </a>
-                                    </div>
+                </div>
             </div>
-                        <h4>
+             <h4>
                 <a class='ngg-album-desc' title='Parents Teacher Meeting'
                        href='http://lisnagda.org/gallery/nggallery/gallery/Parents-Teacher-Meeting'style="max-width: 320px">Parents Teacher Meeting</a>
             </h4>
             <p class="ngg-album-gallery-image-counter">
-                                    <strong>13</strong>&nbsp;Photos                            </p>
+             <strong>13</strong>&nbsp;Photos  </p>
         </div>
             <div class="ngg-album-compact">
             <div class="ngg-album-compactbox">
@@ -419,42 +443,48 @@ img.emoji {
                        href='http://lisnagda.org/gallery/nggallery/gallery/School-Picnic'style="max-width: 320px">School Picnic</a>
             </h4>
             <p class="ngg-album-gallery-image-counter">
-                                    <strong>9</strong>&nbsp;Photos                            </p>
-        </div>
+            <strong>9</strong>&nbsp;Photos </p>
+        </div> --}}
         <br class="ngg-clear"/>
     <div class='ngg-clear'></div></div>
 
 					</div><!-- .entry-content -->
-
-	<footer class="entry-footer">
-			</footer><!-- .entry-footer -->
+</article>
+</main>
+</div>
+</div>
+</div>
+</div>
+</div>
+{{-- 
+    <footer class="entry-footer">
+            </footer><!-- .entry-footer -->
 </article><!-- #post-## -->
 
-				
-			
-		</main><!-- #main -->
-	</div><!-- #primary -->
+                
+            
+        </main><!-- #main -->
+    </div><!-- #primary -->
 
 
 
 </div><!-- .inner-wrapper --></div><!-- .container --></div><!-- #content -->
-	<div  id="footer-widgets" ><div class="container"><div class="inner-wrapper"><div class="footer-active-4 footer-widget-area"><aside id="widget_tlp_port_owl_carousel-4" class="widget widget_tlp_port_owl_carousel"><h3 class="widget-title">     Facilities</h3>            <div class="tlp-portfolio">
+    <div  id="footer-widgets" ><div class="container"><div class="inner-wrapper"><div class="footer-active-4 footer-widget-area"><aside id="widget_tlp_port_owl_carousel-4" class="widget widget_tlp_port_owl_carousel"><h3 class="widget-title">     Facilities</h3>            <div class="tlp-portfolio">
             <div class='rt-container-fluid tlp-portfolio'><div class="row"><div id='widget_tlp_port_owl_carousel-4-port-carousel' class='slider'><div class='tlp-col-lg-12 tlp-col-md-12 tlp-col-sm-6 tlp-col-xs-12 tlp-equal-height'><div class="tlp-portfolio-item"><div class="tlp-portfolio-thum tlp-item"><img class="img-responsive" src="http://lisnagda.org/wp-content/uploads/2016/11/02222-350x250.jpg" alt="Transport"/><div class="tlp-overlay"><p class="link-icon"><a class="tlp-zoom" href="http://lisnagda.org/wp-content/uploads/2016/11/02222.jpg"><i class="fa fa-search-plus"></i></a><a target="_blank" href="http://lisnagda.org/portfolio/transport/"><i class="fa fa-external-link"></i></a></p></div></div><div class="tlp-content"><div class="tlp-content-holder"><h3><a href="http://lisnagda.org/portfolio/transport/">Transport</a></h3><p> </p></div></div></div></div><div class='tlp-col-lg-12 tlp-col-md-12 tlp-col-sm-6 tlp-col-xs-12 tlp-equal-height'><div class="tlp-portfolio-item"><div class="tlp-portfolio-thum tlp-item"><img class="img-responsive" src="http://lisnagda.org/wp-content/uploads/2016/11/Computer-Lab-Pic-300x250.jpg" alt="Computer Lab"/><div class="tlp-overlay"><p class="link-icon"><a class="tlp-zoom" href="http://lisnagda.org/wp-content/uploads/2016/11/Computer-Lab-Pic.jpg"><i class="fa fa-search-plus"></i></a><a target="_blank" href="http://lisnagda.org/portfolio/computer-lab/"><i class="fa fa-external-link"></i></a></p></div></div><div class="tlp-content"><div class="tlp-content-holder"><h3><a href="http://lisnagda.org/portfolio/computer-lab/">Computer Lab</a></h3><p> </p></div></div></div></div><div class='tlp-col-lg-12 tlp-col-md-12 tlp-col-sm-6 tlp-col-xs-12 tlp-equal-height'><div class="tlp-portfolio-item"><div class="tlp-portfolio-thum tlp-item"><img class="img-responsive" src="http://lisnagda.org/wp-content/uploads/2016/11/Library-Pic-2-300x250.jpg" alt="Library"/><div class="tlp-overlay"><p class="link-icon"><a class="tlp-zoom" href="http://lisnagda.org/wp-content/uploads/2016/11/Library-Pic-2.jpg"><i class="fa fa-search-plus"></i></a><a target="_blank" href="http://lisnagda.org/portfolio/library/"><i class="fa fa-external-link"></i></a></p></div></div><div class="tlp-content"><div class="tlp-content-holder"><h3><a href="http://lisnagda.org/portfolio/library/">Library</a></h3><p> </p></div></div></div></div><div class='tlp-col-lg-12 tlp-col-md-12 tlp-col-sm-6 tlp-col-xs-12 tlp-equal-height'><div class="tlp-portfolio-item"><div class="tlp-portfolio-thum tlp-item"><img class="img-responsive" src="http://lisnagda.org/wp-content/uploads/2016/11/LIS-BANNER-02-350x250-300x250.jpg" alt="Classroom"/><div class="tlp-overlay"><p class="link-icon"><a class="tlp-zoom" href="http://lisnagda.org/wp-content/uploads/2016/11/LIS-BANNER-02-350x250.jpg"><i class="fa fa-search-plus"></i></a><a target="_blank" href="http://lisnagda.org/portfolio/classroom/"><i class="fa fa-external-link"></i></a></p></div></div><div class="tlp-content"><div class="tlp-content-holder"><h3><a href="http://lisnagda.org/portfolio/classroom/">Classroom</a></h3><p> </p></div></div></div></div><div class='tlp-col-lg-12 tlp-col-md-12 tlp-col-sm-6 tlp-col-xs-12 tlp-equal-height'><div class="tlp-portfolio-item"><div class="tlp-portfolio-thum tlp-item"><img class="img-responsive" src="http://lisnagda.org/wp-content/uploads/2016/11/drama-300x250.jpg" alt="Theatre and Drama"/><div class="tlp-overlay"><p class="link-icon"><a class="tlp-zoom" href="http://lisnagda.org/wp-content/uploads/2016/11/drama.jpg"><i class="fa fa-search-plus"></i></a><a target="_blank" href="http://lisnagda.org/portfolio/theatre-and-drama/"><i class="fa fa-external-link"></i></a></p></div></div><div class="tlp-content"><div class="tlp-content-holder"><h3><a href="http://lisnagda.org/portfolio/theatre-and-drama/">Theatre and Drama</a></h3><p> </p></div></div></div></div></div></div></div>            </div>
 
-            </aside></div><!-- .footer-widget-area --><div class="footer-active-4 footer-widget-area"><aside id="text-10" class="widget widget_text"><h3 class="widget-title">Social Icons</h3>			<div class="textwidget"><p><i class="fa fa-facebook"></i> <i class="fa fa-twitter"></i><br />
+            </aside></div><!-- .footer-widget-area --><div class="footer-active-4 footer-widget-area"><aside id="text-10" class="widget widget_text"><h3 class="widget-title">Social Icons</h3>         <div class="textwidget"><p><i class="fa fa-facebook"></i> <i class="fa fa-twitter"></i><br />
 We provide best education and facilities to the students, to make them achieve new landmarks and success in various fields.</p>
 </div>
-		</aside></div><!-- .footer-widget-area --><div class="footer-active-4 footer-widget-area"><aside id="text-11" class="widget widget_text"><h3 class="widget-title">About LIS</h3>			<div class="textwidget"><p>Lakshya International school (LIS) Nagda is an  English medium, coeducational, day cum residential school founded in 2015 by the Lakshya Shiksha Avam Unnati Samiti. The school is affiliated to CBSE.<br />
+        </aside></div><!-- .footer-widget-area --><div class="footer-active-4 footer-widget-area"><aside id="text-11" class="widget widget_text"><h3 class="widget-title">About LIS</h3>            <div class="textwidget"><p>Lakshya International school (LIS) Nagda is an  English medium, coeducational, day cum residential school founded in 2015 by the Lakshya Shiksha Avam Unnati Samiti. The school is affiliated to CBSE.<br />
 At LIS we are providing world class facilities and environment for children to learn and grow.</p>
 </div>
-		</aside></div><!-- .footer-widget-area --><div class="footer-active-4 footer-widget-area"><aside id="nav_menu-5" class="widget widget_nav_menu"><h3 class="widget-title">Quick Links</h3><div class="menu-menu2-container"><ul id="menu-menu2" class="menu"><li id="menu-item-1691" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-1691"><a href="http://lisnagda.org/">Home</a></li>
+        </aside></div><!-- .footer-widget-area --><div class="footer-active-4 footer-widget-area"><aside id="nav_menu-5" class="widget widget_nav_menu"><h3 class="widget-title">Quick Links</h3><div class="menu-menu2-container"><ul id="menu-menu2" class="menu"><li id="menu-item-1691" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-1691"><a href="http://lisnagda.org/">Home</a></li>
 <li id="menu-item-1692" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1692"><a href="http://lisnagda.org/about-us/">About Us</a></li>
 <li id="menu-item-1693" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1693"><a href="http://lisnagda.org/academics/">Academics</a></li>
 <li id="menu-item-1726" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1726"><a href="http://lisnagda.org/auditors-report-pdf/">Admission</a></li>
 <li id="menu-item-1695" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1695"><a href="http://lisnagda.org/cbse-info/">CBSE Section</a></li>
 <li id="menu-item-1696" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1696"><a href="http://lisnagda.org/contact-us/">Contact Us</a></li>
 <li id="menu-item-1697" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1697"><a href="http://lisnagda.org/extra-curricular-activities/">Extra Curricular Activities</a></li>
-</ul></div></aside></div><!-- .footer-widget-area --></div><!-- .inner-wrapper --></div><!-- .container --></div>
-
+</ul></div></aside></div><!-- .footer-widget-area --></div><!-- .inner-wrapper --></div><!-- .container --></div> --}}
 
 @include('frontend-layouts.footer')

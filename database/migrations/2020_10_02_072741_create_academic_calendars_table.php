@@ -22,7 +22,7 @@ class CreateAcademicCalendarsTable extends Migration
             $table->string('is_holiday',3)->default(1)->nullable();
             $table->string('is_exam',3)->default(1)->nullable();
             $table->text('class_ids')->nullable();
-            $table->string('status',3)->default(1)->nullable();
+            $table->string('status',3)->default(1);
             $table->softDeletes();
             $table->timestamps();
         });

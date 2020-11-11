@@ -25,6 +25,8 @@ class CreateComposeEmailsTable extends Migration
             $table->text('staff_ids')->nullable();
             $table->string('attechment', 255)->nullable();
             $table->string('sender_type', 30)->nullable();
+            $table->string('status', 1)->default(1);
+            
             $table->softDeletes();
             $table->timestamps();
         });

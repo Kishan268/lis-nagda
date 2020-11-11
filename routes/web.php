@@ -45,9 +45,9 @@ Route::get('/auditors-report', function () {
 Route::get('/contact-us', function () {
     return view('frontend/ContactUs/index');
 });
-Route::get('/gallery', function () {
-    return view('frontend/More/gallery');
-});
+Route::get('/school-gallery', 'Frontend\GalleryController@index');
+Route::any('gallery-image-show/{id}','Frontend\GalleryController@galleryImageShow')->name('gallery_image_show');
+
 Route::get('/openings', function () {
     return view('frontend/More/openings');
 });
@@ -292,7 +292,6 @@ Route::group(['middleware' => ['auth','role:superadmin']], function () {
         Route::post('attendance/staff_submit','Admin\AttendanceController@attendanceStaffSubmit')->name('attendance-staff_submit');
 
         // Route::post('/import','AttendanceController@importAttendence')->name('attendance.import');
-     });
 
 
 Route::Resource('profile','Admin\profile\ProfileController');
@@ -333,3 +332,21 @@ Route::post('gallery-folder-create','Admin\gallery\GalleryController@createGalle
 Route::any('gallery-image-video-add/{id}','Admin\gallery\GalleryController@addGalleryImageVideo')->name('gallery_image_video_add');
 Route::any('gallery-image-add/{id}','Admin\gallery\GalleryController@galleryImageAdd')->name('gallery_image_add');
 Route::post('gallery-image-upload','Admin\gallery\GalleryController@galleryImageUpload')->name('gallery_image_upload');
+Route::any('gallery-folder-delete/{id}','Admin\gallery\GalleryController@galleryFolderDelete')->name('gallery_folder_delete');
+Route::any('gallery-image-delete/{id}','Admin\gallery\GalleryController@galleryImageDelete')->name('gallery_image_delete');
+Route::post('gallery-zip-upload','Admin\gallery\GalleryController@galleryZipUpload')->name('gallery_zip_upload');
+
+// fees routers.......................................
+Route::resource('fees','Admin\fees\FeesController');
+Route::get('fees-dashboard','Admin\fees\FeesController@dashboard')->name('fees_dashboard');
+Route::post('fees_student_list','Admin\fees\FeesController@feesSudentList')->name('fees_student_list');
+
+Route::post('get-course-batches','Admin\fees\FeesController@getCourseBatches')->name('get_course_batches');
+
+// fees heads routers.......................................
+Route::resource('fees-heads','Admin\fees\HeadsController');
+
+// fees heads routers.......................................
+Route::resource('time-table','Admin\timetable\TimeTableController');
+
+});
