@@ -4,8 +4,8 @@ namespace App\Models\fees;
 
 use Illuminate\Database\Eloquent\Model;
 
-class FeesInstalmentMast extends Model
+class FeesHeadTrans extends Model
 {
-    protected $table = 'fees_instalment_masts';
+    protected $table = 'fees_head_trans';
     protected $guarded =[];
 }

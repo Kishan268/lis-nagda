@@ -321,6 +321,20 @@ p {
               <a class="collapse-item" href="{{route('email_compose')}}"> Compose Email</a>
             </div>
           </div>
+       </li> 
+       <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#student_time_table" aria-expanded="true" aria-controls="student_time_table">
+            {{-- <i class="fa fa-commenting sidebar-nav-icon" style="color: yellow;"></i> --}}
+            <i class="fa fa-calendar sidebar-nav-icon" style="color: yellow;" aria-hidden="true"></i>
+            <span>Time Table</span>
+          </a>
+          <div id="student_time_table" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
+               <a class="collapse-item" href="{{route('time-table.index')}}">Dashboard </a>
+               
+            </div>
+          </div>
        </li>
      
        <li class="nav-item active">

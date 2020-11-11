@@ -346,4 +346,7 @@ Route::post('get-course-batches','Admin\fees\FeesController@getCourseBatches')->
 // fees heads routers.......................................
 Route::resource('fees-heads','Admin\fees\HeadsController');
 
+// fees heads routers.......................................
+Route::resource('time-table','Admin\timetable\TimeTableController');
+
 });

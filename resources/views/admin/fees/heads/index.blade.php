@@ -193,7 +193,7 @@
 							@endforeach</td>
 							<td>{{$feesHeadMasts->type}}</td>
 							<td>{{$feesHeadMasts->refundable_status == 'Refundable' ? 'Yes' :'No'}}</td>
-							<td>{{$feesHeadMasts->instalment_applicable_status == 'on' ?'Yes' : 'No'}}</td>
+							<td>{{$feesHeadMasts->instalment_applicable_status == 'on' ? 'Yes' : 'No'}}</td>
 							<td><button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal{{$feesHeadMasts->id}}">Edit</button></td>
 						</tr>
 						<!-- Modal -->

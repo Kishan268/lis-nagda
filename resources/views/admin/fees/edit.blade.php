@@ -36,49 +36,42 @@
                <fieldset>
               <div class="col-md-12">
                 <div class="row">								
-				<div class="col-md-3">
-				  <label class="red"> *</label>
-		           <label for="name">
-		           Fees Name
-		           </label>
-		           <input class="form-control" id="name" name="name" type="text">
-		            <div class="has-error" id="errmsg" style="display: none;">
-		              <label class="control-label" for="inputError">Fees Name Already Exist !!!</label>
-		           </div>
-				</div>
+        				<div class="col-md-3">
+        				  <label class="red"> *</label>
+        		           <label for="name">
+        		           Fees Name
+        		           </label>
+        		           <input class="form-control" id="name" name="name" type="text" value="{{$data->fees_name}}">
+        		            <div class="has-error" id="errmsg" style="display: none;">
+        		              <label class="control-label" for="inputError">Fees Name Already Exist !!!</label>
+        		           </div>
+        				</div>
 
-				<div class="col-md-2">
-					 <label class="red"> *</label>
+        				<div class="col-md-3">
+        					 <label class="red"> *</label>
 		                <label for="amount">
 		                Amount
 		                </label>						  	
 		                <div class="input-group">
 		                   <span class="input-group-addon"><i class="fa fa-rupee"></i></span>
-		                   <input class="form-control onlyDigit" id="amount" name="amount" type="text" readonly="">
+		                   <input class="form-control onlyDigit" id="amount" name="amount" type="text" readonly="" value="{{$data->fees_amt}}">
 		                </div>
 		             </div>
-		             <div class="col-md-5">
+		             <div class="col-md-6">
 		                <div class="">
 		                   <label for="name">
 		                   Header Name To Be Displayed On Reciept
 		                   </label>
 		                   <select class="form-control" name="tmpinst_name" id="tmpinst_name">
+                          <option value="{{$data->header_name_to_be_display_reci}}">{{$data->header_name_to_be_display_reci}}</option>
+
 		                   	@foreach($headerName as $headerNames)
 		                      <option value="{{ $headerNames}}">{{ $headerNames}}</option>
-		                      @endforeach
+		                    @endforeach
 		                   </select>
 		                </div>
 				</div>
-				<div class="col-md-2">
-					<label for="name">
-		           Select Currency
-		           </label>
-		           <select class="form-control" name="currency_code" id="currency_code">
-		              @foreach($currencyCode as $currencyCodes)
-                      <option value="{{ $currencyCodes}}">{{ $currencyCodes}}</option>
-                      @endforeach
-		           </select>
-				</div>
+				
 		        </div>
                                             
              <div class="row">
@@ -91,7 +84,7 @@
                          <tr>
                             <th class="check-header hidden-xs">
                                <label>
-                               	<input id="checkAll" name="checkAll" type="checkbox"><span></span></label>
+                               	<input id="checkAll" name="checkAll" type="checkbox" checked="" disabled=""><span></span></label>
                             </th>
                             <th>Head Title</th>
                             <th> Installable </th>
@@ -101,19 +94,19 @@
                       <tbody>
                          <tr>
 
-                         	@foreach($feesHeadMast as $feesHeadMasts)
+                         	@foreach($FeesHead as $feesHeadMasts)
                          	<tr>
                             <td class="check hidden-xs">
                                <label>
-                               	<input name="fees_heads[]" type="checkbox" value="{{$feesHeadMasts->id}}" class="display_checkbox" onclick="findIfChecked()"><span></span>	
-                               	<input name="fees_amount[]" type="hidden" value="{{$feesHeadMasts->amount}}" class="fees_amount" onclick="findIfChecked()"><span></span>
+                               	<input name="fees_heads[]" type="checkbox" value="{{$feesHeadMasts->id}}" class="display_checkbox" onclick="findIfChecked()" checked="" disabled=""><span></span>	
+                               	<input name="fees_amount[]" type="hidden" value="{{$feesHeadMasts->amount}}" class="fees_amount" onclick="findIfChecked()" ><span></span>
                                </label>
                             </td>
                          		<td>{{$feesHeadMasts->name}}</td>
                            		 <input type="hidden" name="{{$feesHeadMasts->name}}" id="{{$feesHeadMasts->name}}" value="{{$feesHeadMasts->amount}}" class="onlyDigit">
                             	<td><strong>{{$feesHeadMasts->instalment_applicable_status == 'on' ? 'Yes' : 'No'}}</strong></td>
                             	<td>
-                            	<input type="text" name="headAmt_{{$feesHeadMasts->id}}" id="headAmt_{{$feesHeadMasts->id}}" value="{{$feesHeadMasts->amount}}" onchange="findIfChecked()" class="onlyDigit"></td>
+                            	<input type="text" name="headAmt_{{$feesHeadMasts->id}}" id="headAmt_{{$feesHeadMasts->id}}" value="{{$feesHeadMasts->amount}}" onchange="findIfChecked()" class="onlyDigit" readonly=""></td>
                          	</tr>
                          	@endforeach
                          </tr>
@@ -197,9 +190,9 @@
 	                </label>
 	                <select class="form-control" name="courseselection" id="courseselection">
 	                   <option value="0">Select</option>
-	                   @foreach($courseSelection as $key => $courseSelections)
+	                   {{-- @foreach($courseSelection as $key => $courseSelections)
 		                   <option value="{{$key+1}}">{{$courseSelections}}</option>
-	                   @endforeach
+	                   @endforeach --}}
 	                </select>
 				</div>
 				<div class="col-md-3" id="insth1" style="display: none;">
@@ -836,9 +829,9 @@
                     <select class="form-control" name="course" id="course">
                        <option value="0">Select Class</option>
                        <option value="-1">All Classes</option>
-                       @foreach($classes as $class)
+                       {{-- @foreach($classes as $class)
                        	<option value="{{$class->id}}">{{$class->class_name}} </option>
-                       @endforeach
+                       @endforeach --}}
                     </select>
                  </div>
                  <div class="col-md-4" id="batch_div" style="display: none;">
@@ -851,9 +844,9 @@
                     <select class="form-control" name="batch" id="batch">
                        <option value="0">Select Batch</option>
                        <option value="-1">All Batch</option>
-                        @foreach($batches as $batch)
+                        {{-- @foreach($batches as $batch)
                        	<option value="{{$batch->id}}">{{$batch->batch_name}} </option>
-                       @endforeach
+                       @endforeach --}}
                     </select>
                  </div>
                  <div class="col-md-4" id="section_div" style="display: none;">
@@ -863,9 +856,9 @@
                     <select class="form-control" name="section" id="section">
                        <option value="0">Select Section</option>
                        <option value="-1">All Section</option>
-                       @foreach($sections as $section)
+                       {{-- @foreach($sections as $section)
                        	<option value="{{$section->id}}">{{$section->section_name}} </option>
-                       @endforeach
+                       @endforeach --}}
                     </select>
                  </div>
                  <div class="col-md-4" id="fees_for_div" style="display: none;">
@@ -886,9 +879,9 @@
                     </label>
                     <select class="form-control" name="gender" id="gender">
                        <option value="0">All</option>
-	                   @foreach($studentGender as $key => $studentGenders)
+	                   {{-- @foreach($studentGender as $key => $studentGenders)
 		                   <option value="{{$key}}">{{$studentGenders}}</option>
-	                   @endforeach
+	                   @endforeach --}}
                     </select>
                  </div>
                  <div class="col-md-4">
@@ -898,9 +891,9 @@
                     <select class="form-control" name="caste" id="caste">
                        <option value="">Select Category </option>
                        <option value="0" selected="">All</option>
-                       @foreach($castCategory as $key => $castCategories)
+                      {{--  @foreach($castCategory as $key => $castCategories)
 		                   <option value="{{$key+1}}">{{$castCategories}}</option>
-	                   @endforeach
+	                   @endforeach --}}
                     </select>
                  </div>
                  <div class="col-md-4">
@@ -909,9 +902,9 @@
                     </label>
                     <select class="form-control" name="rte" id="rte">
                        <option value="0">All</option>
-                       @foreach($Include as $key => $Includes)
+                      {{--  @foreach($Include as $key => $Includes)
 		                   <option value="{{$key+1}}">{{$Includes}}</option>
-	                   @endforeach
+	                   @endforeach --}}
                     </select>
                  </div>
               </div>

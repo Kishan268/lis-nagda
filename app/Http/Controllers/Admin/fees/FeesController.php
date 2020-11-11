@@ -10,6 +10,10 @@ use App\Models\master\studentSectionMast;
 use App\Models\student\studentsMast;
 use Helpers;
 use App\Models\fees\FeesHeadMast;
+use App\Models\fees\FeesHeadTrans;
+use App\Models\fees\FeesInstalmentMast;
+use App\Models\fees\FeesMast;
+use App\Models\fees\StudentFeesTrans;
 
 class FeesController extends Controller
 {
@@ -20,8 +24,9 @@ class FeesController extends Controller
      */
     public function index()
     {
-        return view ('admin.fees.index');
-
+        $data = FeesMast::get();
+        // dd( $data);
+        return view ('admin.fees.index',compact('data'));
     }
 
     /**
@@ -55,84 +60,118 @@ class FeesController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
-        $data['name']            = $request->name;
-        $data['amount']          = $request->amount;
-        $data['tmpinst_name']    = $request->tmpinst_name;
-        $data['currency_code']   = $request->currency_code;
-        $data['examination_fees'] = $request->examination_fees;
-        $data['headAmt_26196']   = $request->headAmt_26196;
-        $data['activity_fee']    = $request->activity_fee;
-        $data['headAmt_26197']   = $request->headAmt_26197;
-        $data['tuition_fee']     = $request->tuition_fee;
-        $data['headAmt_26198']   = $request->headAmt_26198;
-        $data['science_fee']     = $request->science_fee;
-        $data['headAmt_26199']   = $request->headAmt_26199;
-        $data['tuition_fees']    = $request->tuition_fees;
-        $data['headAmt_33085']   = $request->headAmt_33085;
-        $data['paymentselection']= $request->paymentselection;
-        $data['courseselection'] = $request->courseselection;
-        $data['instalment1'] = $request->instalment1;
-        $data['startdate1']  = $request->startdate1;
-        $data['duedate1']    = $request->duedate1;
-        $data['instalment2'] = $request->instalment2;
-        $data['startdate2']  = $request->startdate2;
-        $data['duedate2']    = $request->duedate2;
-
-        $data['instalment3'] = $request->instalment3;
-        $data['startdate3']  = $request->startdate3;
-        $data['duedate3']    = $request->duedate3;
-        
-        $data['instalment4'] = $request->instalment4;
-        $data['startdate4']  = $request->startdate4;
-        $data['duedate4']    = $request->duedate4;
-        
-        $data['instalment5'] = $request->instalment5;
-        $data['startdate5']  = $request->startdate5;
-        $data['duedate5']    = $request->duedate5;
-        
-        $data['instalment6'] = $request->instalment6;
-        $data['startdate6']  = $request->startdate6;
-        $data['duedate6']    = $request->duedate6;
-        
-        $data['instalment7'] = $request->instalment7;
-        $data['startdate7']  = $request->startdate7;
-        $data['duedate7']    = $request->duedate7;
-        
-        $data['instalment8']  = $request->instalment8;
-        $data['startdate8']   = $request->startdate8;
-        $data['duedate8']     = $request->duedate8;
-        
-        $data['instalment9']  = $request->instalment9;
-        $data['startdate9']   = $request->startdate9;
-        $data['duedate9']     = $request->duedate9;
-        
-        $data['instalment10'] = $request->instalment10;
-        $data['startdate10']  = $request->startdate10;
-        $data['duedate10']    = $request->duedate10;
-        
-        $data['instalment11'] = $request->instalment11;
-        $data['startdate11']  = $request->startdate11;
-        $data['duedate11']    = $request->duedate11;
-        
-        $data['instalment12'] = $request->instalment12;
-        $data['startdate12']  = $request->startdate12;
-        $data['duedate12']    = $request->duedate12;
-
-        $data['gender']      = $request->gender;
-        $data['caste']       = $request->caste;
-        $data['rte']         = $request->rte;
-        $data['discount']    = $request->discount;
-        $data['is_fees_student_assign']    = $request->is_fees_student_assign;
-        $data['feesfor']    = $request->feesfor;
-        $data['course_batches']    = $request->course_batches;
-        /*dd($data['course_batches']);
-        for ($i=0; $i < count($request->course_batches) ; $i++) { 
-            echo "<pre>";
-            print_r($data['course_batches']);
-        }*/
-        
         // dd($request);
+        $data['fees_name']    = $request->name;
+        $data['fees_amt']       = $request->amount;
+        $data['header_name_to_be_display_reci'] = $request->tmpinst_name;
+        $data['currency_code']     = $request->currency_code;
+        $data['no_of_instalment'] = $request->paymentselection;
+        $data['courseselection']    = $request->courseselection;
+        $data['discount']   = $request->discount;
+        $data['refundable']    = $request->refundable;
+        $data['is_fees_student_assign']    = $request->is_fees_student_assign;
+        $data['gender']         = $request->gender;
+        $data['cast_category']  = $request->caste;
+        $data['rte_status']     = $request->rte;
+        $data['feesfor']        = $request->feesfor;
+        // $data['course_batches']       = $request->course_batches;
+
+
+        if ($request->course_batches) {
+            $data['course_batches'] =json_encode($request->course_batches);
+            
+        }else{
+            $data['course_batches']    = json_encode($request->course.'_'.$request->batch.'_'.$request->section);
+            
+        }
+        // dd($request);
+        $lastId = FeesMast::create($data)->id;
+        // $lastId = 1;
+
+        if ($request->courseselection == 2 && $request->feesfor == 2) {
+            
+            $data['students_id'] = $request->students_id;
+                for ($i=0; $i < count($request->students_id); $i++) {
+
+                    $data3 = array(
+                        'f_id'=>$lastId,
+                        's_id'=>$request->students_id[$i],
+                        'due_amount'=>$request->due_amount[$i],
+                    );
+                    StudentFeesTrans::create($data3);
+                }
+
+
+        }
+
+        $data1['installment_mode'] = $request->paymentselection;
+        
+        if ($request->instalment1) {
+            $data1['instalment_amount1']     = $request->instalment1;
+            $data1['st_date1']    = $request->startdate1;
+            $data1['ed_date1']    = $request->duedate1;
+        }if($request->instalment2){
+            $data1['instalment_amount2']     = $request->instalment2;
+            $data1['st_date2']    = $request->startdate2;
+            $data1['ed_date2']    = $request->duedate2;
+        }if($request->instalment3){
+            $data1['instalment_amount3']     = $request->instalment3;
+            $data1['st_date3']    = $request->startdate3;
+            $data1['ed_date3']    = $request->duedate3;
+        }if($request->instalment4){
+            $data1['instalment_amount4']     = $request->instalment4;
+            $data1['st_date4']    = $request->startdate4;
+            $data1['ed_date4']    = $request->duedate4;
+        }if($request->instalment5){
+            $data1['instalment_amount5']     = $request->instalment5;
+            $data1['st_date5']    = $request->startdate5;
+            $data1['ed_date5']    = $request->duedate5;
+        }if($request->instalment6){
+            $data1['instalment_amount6']     = $request->instalment6;
+            $data1['st_date6']    = $request->startdate6;
+            $data1['ed_date6']    = $request->duedate6;
+        }else if($request->instalment7){
+            $data1['instalment_amount7']     = $request->instalment7;
+            $data1['st_date7']    = $request->startdate7;
+            $data1['ed_date7']    = $request->duedate7;
+        }if($request->instalment8){
+            $data1['instalment_amount8']     = $request->instalment8;
+            $data1['st_date8']    = $request->startdate8;
+            $data1['ed_date8']    = $request->duedate8;
+        }if($request->instalment9){
+            $data1['instalment_amount9']     = $request->instalment9;
+            $data1['st_date9']    = $request->startdate9;
+            $data1['ed_date9']    = $request->duedate9;
+        }if($request->instalment10){
+            $data1['instalment_amount10']     = $request->instalment10;
+            $data1['st_date10']    = $request->startdate10;
+            $data1['ed_date10']    = $request->duedate10;
+        }if($request->instalment11){
+            $data1['instalment_amount11']     = $request->instalment11;
+            $data1['st_date11']    = $request->startdate11;
+            $data1['ed_date11']    = $request->duedate11;
+        }if($request->instalment12){
+            $data1['instalment_amount12']     = $request->instalment12;
+            $data1['st_date12']    = $request->startdate12;
+            $data1['ed_date12']    = $request->duedate12;
+        }
+        // dd($data1);
+        if (!empty($data1)) {
+            
+            FeesInstalmentMast::create($data1);
+        }
+        
+        foreach ($request->fees_heads as $key => $value) {
+
+            $fees_heads['fees_head_mast_id'] = $lastId;
+            $fees_heads['fees_head_id']  = $value;
+            $fees_heads['amount'] = $request->fees_amount[$key];
+
+            $data = FeesHeadTrans::create($fees_heads);
+        }
+        return redirect('fees')->with('success','Fess created successfully');
+       // return view ('admin.fees.index');
+
     }
 
     /**
@@ -143,7 +182,8 @@ class FeesController extends Controller
      */
     public function show($id)
     {
-        //
+        dd($id);
+        
     }
 
     /**
@@ -153,8 +193,16 @@ class FeesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {   $headerName = Helpers::headerName();
+        $data = FeesMast::with('fees_heads')->where('id',$id)->first();
+
+        $FeesHeadMast = array();
+        foreach ($data->fees_heads as  $value) {
+            $FeesHeadMast [] = $value->fees_head_id;
+        }
+        $FeesHead = FeesHeadMast::whereIn('id',$FeesHeadMast)->get();
+        // dd($FeesHead);
+        return view ('admin.fees.edit',compact('data','headerName','FeesHead'));
     }
 
     /**
@@ -166,7 +214,8 @@ class FeesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($id);
+        
     }
 
     /**
@@ -177,6 +226,7 @@ class FeesController extends Controller
      */
     public function destroy($id)
     {
+        dd($id);
         //
     }
 
