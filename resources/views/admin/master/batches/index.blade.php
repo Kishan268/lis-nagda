@@ -43,6 +43,20 @@
                       {{-- INSERT FORM --}}
                         <form class="row" action="{{route('batches_add')}}" method="post">
                        @csrf
+                         <div class="form-group col-md-6" >
+                              <label for="batch_from">Class Name</label>
+                              <select name="class_id" class="form-control">
+                              <option>Slect Class</option>
+                              @foreach($class as $classes)
+                              <option value="{{$classes->id}}">{{$classes->class_name}}</option>
+                              @endforeach
+                              </select>
+                                @error('batch_from')
+                                  <span class="text-danger" role="alert">
+                                  <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                           </div>
                           <div class="form-group col-md-6" >
                               <label for="batch_from"> Start Date</label>
                                 <input type="text" name="batch_from" id="batch_from" class="form-control datepicker" placeholder="dd/mm/yyyy" >
@@ -51,7 +65,8 @@
                                   <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
-                           </div>
+                           </div> 
+                         
                             <div class="form-group col-md-6" >
                               <label for="batch_to"> End Date</label>
                                 <input type="text" name="batch_to" id="batch_to" class="form-control datepicker" placeholder="dd/mm/yyyy" >
@@ -105,6 +120,7 @@
                       <thead>
                         <tr>
                           <th>S.No</th>
+                          <th>Class Name</th>
                           <th>Batch Name</th>
                           <th>start Date</th>
                           <th>End Date</th>
@@ -118,6 +134,7 @@
                     
                         <tr>
                           <td>{{ $i++}}</td>
+                          <td>{{ $data->class_name['class_name']}}</td>
                           <td>{{ $data->batch_name}}</td>
                           <td>{{ $data->batch_from}}</td>
                           <td>{{ $data->batch_to}}</td>
@@ -156,7 +173,21 @@
                                           <form class="row" action="{{route('batches_update',$data->id)}}" method="post">
                                             @csrf
                                             @method('PUT')
-                                 
+                                  <div class="row">
+                                  <div class="form-group col-md-6" >
+                                      <label for="batch_from">Class Name</label>
+                                      <select name="class_id" class="form-control">
+                                      <option value="{{$data->id}}" >{{$data->class_name['class_name']}}</option>
+                                      @foreach($class as $classes)
+                                        <option value="{{$classes->id}}">{{$classes->class_name}}</option>
+                                      @endforeach
+                                      </select>
+                                        @error('batch_from')
+                                          <span class="text-danger" role="alert">
+                                          <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                  </div>
                                           
                                             <div class="form-group col-md-6" >
                                               <label for="batch_from">Start Date</label>
@@ -236,11 +267,14 @@ $(document).ready(function(){
 
   }); 
   $(document).on('blur', '#batch_to_update', function(){
-    var batch_from = $('#batch_from_update').val();
-    var batch_to = $('#batch_to_update').val();
-    var lastDigitbatch_from = batch_from.toString().slice(-4);
-    var lastDigitbatch_to = batch_to.toString().slice(-4);
-    var batch_name = $('#batch_name_update').val(lastDigitbatch_from+'-'+lastDigitbatch_to);
+
+    var batch_from_update = $('#batch_from_update').val();
+    var batch_to_update = $('#batch_to_update').val();
+
+    var lastDigitbatch_from1 = batch_from_update.toString().slice(-4);
+    var lastDigitbatch_to1 = batch_to_update.toString().slice(-4);
+    alert(batch_name1);
+    var batch_name1 = $('#batch_name_update').val(lastDigitbatch_from1 );
   });
 });
 </script>

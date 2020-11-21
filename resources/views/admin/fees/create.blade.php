@@ -36,50 +36,50 @@
                <fieldset>
               <div class="col-md-12">
                 <div class="row">								
-				<div class="col-md-3">
-				  <label class="red"> *</label>
-		           <label for="name">
-		           Fees Name
-		           </label>
-		           <input class="form-control" id="name" name="name" type="text">
-		            <div class="has-error" id="errmsg" style="display: none;">
-		              <label class="control-label" for="inputError">Fees Name Already Exist !!!</label>
-		           </div>
-				</div>
+          				<div class="col-md-3">
+          				  <label class="red"> *</label>
+          		           <label for="name">
+          		           Fees Name
+          		           </label>
+          		           <input class="form-control" id="name" name="name" type="text">
+          		            <div class="has-error" id="errmsg" style="display: none;">
+          		              <label class="control-label" for="inputError">Fees Name Already Exist !!!</label>
+          		           </div>
+          				</div>
 
-				<div class="col-md-2">
-					 <label class="red"> *</label>
-		                <label for="amount">
-		                Amount
-		                </label>						  	
-		                <div class="input-group">
-		                   <span class="input-group-addon"><i class="fa fa-rupee"></i></span>
-		                   <input class="form-control onlyDigit" id="amount" name="amount" type="text" readonly="">
-		                </div>
-		             </div>
-		             <div class="col-md-5">
-		                <div class="">
-		                   <label for="name">
-		                   Header Name To Be Displayed On Reciept
-		                   </label>
-		                   <select class="form-control" name="tmpinst_name" id="tmpinst_name">
-		                   	@foreach($headerName as $headerNames)
-		                      <option value="{{ $headerNames}}">{{ $headerNames}}</option>
-		                      @endforeach
-		                   </select>
-		                </div>
-				</div>
-				<div class="col-md-2">
-					<label for="name">
-		           Select Currency
-		           </label>
-		           <select class="form-control" name="currency_code" id="currency_code">
-		              @foreach($currencyCode as $currencyCodes)
-                      <option value="{{ $currencyCodes}}">{{ $currencyCodes}}</option>
-                      @endforeach
-		           </select>
-				</div>
-		        </div>
+          				<div class="col-md-2">
+          					 <label class="red"> *</label>
+          		                <label for="amount">
+          		                Amount
+          		                </label>						  	
+          		                <div class="input-group">
+          		                   <span class="input-group-addon"><i class="fa fa-rupee"></i></span>
+          		                   <input class="form-control onlyDigit" id="amount" name="amount" type="text" readonly="">
+          		                </div>
+          		             </div>
+          		             <div class="col-md-5">
+          		                <div class="">
+          		                   <label for="name">
+          		                   Header Name To Be Displayed On Reciept
+          		                   </label>
+          		                   <select class="form-control" name="tmpinst_name" id="tmpinst_name">
+          		                   	@foreach($headerName as $headerNames)
+          		                      <option value="{{ $headerNames}}">{{ $headerNames}}</option>
+          		                      @endforeach
+          		                   </select>
+          		                </div>
+          				        </div>
+                				<div class="col-md-2">
+                					<label for="name">
+                		           Select Currency
+                		           </label>
+                		           <select class="form-control" name="currency_code" id="currency_code">
+                		              @foreach($currencyCode as $currencyCodes)
+                                      <option value="{{ $currencyCodes}}">{{ $currencyCodes}}</option>
+                                      @endforeach
+                		           </select>
+                				</div>
+      		        </div>
                                             
              <div class="row">
                 <div class="col-md-12">

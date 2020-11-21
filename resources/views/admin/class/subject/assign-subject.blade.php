@@ -126,6 +126,44 @@
 		</div>
   		</div>
       </div>
+         <div class="container">
+        <div class="row hide_table" style="margin-top: 20px;">
+          <div class="col-md-12 table-responsive ">
+            <table  class="table table-striped table-bordered myTable hide_table">
+              <thead>
+                <tr>
+                  <td>#</td>
+                  <td>Class</td>
+                  <td>Batch</td>
+                  <td>Section</td>
+                  <td>Assign Subject</td>
+                          
+                </tr>
+              </thead>
+              <tbody>
+              @php $count = 1; @endphp
+              @foreach($assignSubject as $assignSubjects)
+              <tr>
+                <td>{{$count++}}</td>
+                <td>{{$assignSubjects->assign_class->class_name}}</td>
+                <td>{{$assignSubjects->assign_batch->batch_name}}</td>
+                <td>{{$assignSubjects->assign_section->section_name}}</td>
+                <td>
+             	@foreach($subjectName as $subjectNames)
+                	{{$subjectNames->subject_name}},
+              	@endforeach           
+                </td>
+                	
+                        
+              
+              </tr>
+              @endforeach           
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+       
   </div>
 </div>
 </div>

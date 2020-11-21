@@ -36,15 +36,18 @@ class masterController extends Controller
 
     public function studentBatches()
     {
-    	$studentBatch = studentBatch::get();
-
-    		return view('admin.master.batches.index',compact('studentBatch'));
+    	$studentBatch = studentBatch::with('class_name')->get();
+        $class = studentClass::get();
+        // dd($studentBatch);
+    		return view('admin.master.batches.index',compact('studentBatch','class'));
     } 
     public function addBatch(Request $request)
     {
+        // dd( $request);
     
         $data = $request->validate([
-        		'batch_from'=>'required',
+        		'class_id'=>'required',
+                'batch_from'=>'required',
         		'batch_to'=>'required',
                 'batch_name' =>'required'
         ]);
@@ -59,14 +62,16 @@ class masterController extends Controller
     public function updateBatch(Request $request, $id)
     {
          $data = $request->validate([
+                'class_id'=>'required',
                 'batch_from' =>'required',
                 'batch_to'   =>'required',
                 'batch_name' =>'required'
         ]);
+         // dd($data);
         $data['user_id']    = Auth::user()->id;
 
     	studentBatch::where('id',$id)->update($data);
-    	return redirect('master/batches');
+    	return redirect('class/batches');
     }
 	//  student batch add code.............................
 

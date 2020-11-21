@@ -255,7 +255,7 @@ p {
             <a class="collapse-item" href="{{route('batch')}}">Manage Batch</a>
             <a class="collapse-item" href="{{route('section')}}">Manage Section</a>
             <a class="collapse-item" href="{{route('subject.index')}}">Subject Details</a>
-            <a class="collapse-item" href="{{url('subject_assign')}}">Assign Subject</a>
+            <a class="collapse-item" href="{{url('subject_assign')}}"> Subject Assign To Class</a>
             <a class="collapse-item" href="{{route('subject_assign_to_student')}}">Subject Assign to Student</a>
            
             <a class="collapse-item" href="{{route('batch')}}">Report</a>

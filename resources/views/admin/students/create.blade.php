@@ -233,9 +233,9 @@
 											<label class="required">Gender</label>
 											<select name="gender" class="form-control required">
 												<option value="">Select Gender</option>
-													@foreach($studentGenders[0] as $key =>$studentGender)
-														<option value="{{$key}}">{{$studentGender}}</option>
-												@endforeach
+														{{-- @foreach($studentGenders[0] as $key =>$studentGender)
+															<option value="{{$key}}">{{$studentGender}}</option>
+													@endforeach --}}
 											</select>
 											@error('gender')
 												<span class="text-danger">
