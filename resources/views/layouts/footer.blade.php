@@ -37,50 +37,47 @@
       </div>
     </div>
   </div>
-  <!-- Bootstrap core JavaScript-->
+    {{-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-  <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.0/moment.min.js"></script>
 
-  <!-- Core plugin JavaScript-->
-  <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+    <script src="{{asset("vendor/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
 
-  <!-- Custom scripts for all pages-->
-  <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
+    <script src="{{asset("vendor/jquery-easing/jquery.easing.min.js")}}"></script>
+    <script src="{{asset("js/sb-admin-2.min.js")}}"></script>
 
-  <!-- Page level plugins -->
-  <script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="{{asset('js/demo/chart-area-demo.js')}}"></script>
-  <script src="{{asset('js/demo/chart-pie-demo.js')}}"></script>
-  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.0/moment.min.js"></script>
-
- <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
-  
-
-<script type="text/javascript" src="https://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
 
 
-
-<script src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.common.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.js"></script>
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js'></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-  <script src="{{asset('js/notify.min.js')}}"></script>
-  
+
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.common.min.js"></script> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.js"></script>
+
 
  <script type="text/javascript">
-    $('.mytable').DataTable();
-    $(function () {
-      $(".datepicker").datepicker();
-    });
+  $(document).ready(function(){
+        $('.mytable').DataTable();
+        $(function () {
+            $(".datepicker").datepicker();
+        });
+        $('li a').click(function() {
+            var $this = $(this);
+            // e.preventDefault();
+            $('a').removeClass('active');
+            $(this).addClass('active');
+        });
+
+  });
+   
+  
 </script>
 </body>
 

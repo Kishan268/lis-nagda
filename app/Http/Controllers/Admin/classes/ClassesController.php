@@ -28,29 +28,20 @@ class ClassesController extends Controller
     public function addClasses(Request $request)
     {
         $data = $request->validate([
-                'class_name'=>'required',
-                'class_description'=>'required'
-        ]);
-        $data['user_id']    = Auth::user()->id;
-
-    	studentClass::create($data);
-    		return redirect('master/classes');
-
-    }
-    public function updateClasses(Request $request, $id)
-    {
-        // dd($request);
-        $data =$request->validate([
             'class_name'=>'required',
             'class_description'=>'required'
         ]);
-        $data['user_id']    = Auth::user()->id;
-    	
-    	 studentClass::where('id',$id)->update($data);
-    		return redirect('master/classes');
-    		
-    }
+        if($request->flag == 'add'){
+            $data['user_id']    = Auth::user()->id;
+            studentClass::create($data);
+            return redirect()->back()->with('success','Class added successfully');
+        }else{
+            studentClass::where('id',$request->class_id)->update($data);
+            return redirect()->back()->with('success','Class updated successfully');
+        }
 
+    }
+    
 	// end student class add code.............................
     public function assignSectionList(){
          $classes = studentClass::get();

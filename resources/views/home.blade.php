@@ -7,8 +7,8 @@
         <div class="container-fluid">
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+            <h1 class=" mb-0 text-gray-800 bread-text" >Dashboard</h1>
+            {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
           </div>
         @role('superadmin')
           <!-- Content Row -->
@@ -20,7 +20,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Students</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($students)}}</div>
+                      <div class="mb-0 font-weight-bold text-gray-800">{{count($students)}}</div>
                     </div>
                     <div class="col-auto">
                       <i class="fa fa-graduation-cap fa-2x text-gray-300"></i>
@@ -37,7 +37,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Teachers</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($Teacher)}}</div>
+                      <div class="mb-0 font-weight-bold text-gray-800">{{count($Teacher)}}</div>
                     </div>
                     <div class="col-auto">
                       <i class="fa fa-language sidebar-nav-icon fa-2x text-gray-300"></i>
@@ -53,11 +53,11 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Totsl Batches</div>
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Batches</div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
-                          {{-- <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div> --}}
-                      		<div class="h5 mb-0 font-weight-bold text-gray-800">{{count($studentBatch)}}</div>
+                          {{-- <div class="mb-0 mr-3 font-weight-bold text-gray-800">50%</div> --}}
+                      		<div class="mb-0 font-weight-bold text-gray-800">{{count($studentBatch)}}</div>
 
                         </div>
                        {{--  <div class="col">
@@ -82,7 +82,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Fees Details</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-inr"></i>180000</div>
+                      <div class="mb-0 font-weight-bold text-gray-800"><i class="fa fa-inr"></i>180000</div>
                     </div>
                     <div class="col-auto">
                       <i class="fa fa-money fa-2x text-gray-300"></i>
@@ -92,549 +92,149 @@
               </div>
             </div>
           </div>
+          @endrole
+</div>
+       
 
-          <!-- Content Row -->
 
-          <div class="row">
+<div class="container-fluid">
+  <div class="row">
+  <div class="col-md-12 col-lg-12">
+    <div class="row">
 
-            <!-- Area Chart -->
-           {{--  <div class="col-xl-8 col-lg-7">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                  <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <!-- Area Chart -->
+        <div class="col-xl-8 col-lg-7">
+        <div class="card shadow mb-4">
+          <!-- Card Header - Dropdown -->
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+            {{--   <div class="dropdown no-arrow">
+                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                       <div class="dropdown-header">Dropdown Header:</div>
                       <a class="dropdown-item" href="#">Action</a>
                       <a class="dropdown-item" href="#">Another action</a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
                   </div>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
- --}}
-            <!-- Pie Chart -->
-
-
-
-<div class="container-fluid">
-  <div class="row">
-  <div class="col-md-9 col-lg-9">
-    <div class="row">
-      <div class="col-md-4 col-lg-4">
-       <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-              <h6 class="m-0 font-weight-bold text-primary">Admission Details</h6>
-              <div class="dropdown no-arrow">
-                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                  <div class="dropdown-header">Dropdown Header:</div>
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-              </div>
-            </div>
-            <!-- Card Body -->
-            <div class="card-body">
-              <div class="chart-pie pt-4 pb-2">
-                <canvas id="myPieChart"></canvas>
-              </div>
-              <div class="mt-4 text-center small">
-                <span class="mr-2">
-                  <i class="fas fa-circle text-primary"></i> Total Admission
-                </span>
-                <span class="mr-2">
-                  <i class="fas fa-circle text-success"></i> Current year Admission
-                </span>
-                <span class="mr-2">
-                  <i class="fas fa-circle text-info"></i> Referral
-                </span>
-              </div>
-            </div>
-          </div>
-      </div>
-      <div class="col-md-4 col-lg-4">
-    <div class="card shadow mb-4">
-          <!-- Card Header - Dropdown -->
-          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary"> Fee Details </h6>
-            <div class="dropdown no-arrow">
-              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                <div class="dropdown-header">Dropdown Header:</div>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </div>
+              </div> --}}
           </div>
           <!-- Card Body -->
           <div class="card-body">
-            <div class="chart-area">
-              <canvas id="myAreaChart"></canvas>
-            </div>
+              <div class="chart-area"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                  <canvas id="myAreaChart" style="display: block; width: 623px; height: 320px;" width="623" height="320" class="chartjs-render-monitor"></canvas>
+              </div>
+          </div>
+        </div>
+        </div>
+
+        <!-- Pie Chart -->
+        <div class="col-xl-4 col-lg-5">
+        <div class="card shadow mb-4">
+          <!-- Card Header - Dropdown -->
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Academic Details</h6>
+             {{--  <div class="dropdown no-arrow">
+                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                      <div class="dropdown-header">Dropdown Header:</div>
+                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+              </div> --}}
+          </div>
+          <!-- Card Body -->
+          <div class="card-body">
+              <div class="chart-pie pt-4 pb-2"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                  <canvas id="myPieChart" style="display: block; width: 279px; height: 245px;" width="279" height="245" class="chartjs-render-monitor"></canvas>
+              </div>
+              <div class="mt-4 text-center small">
+                  <span class="mr-2">
+                      <i class="fas fa-circle text-primary"></i> Direct
+                  </span>
+                  <span class="mr-2">
+                      <i class="fas fa-circle text-success"></i> Social
+                  </span>
+                  <span class="mr-2">
+                      <i class="fas fa-circle text-info"></i> Referral
+                  </span>
+              </div>
+          </div>
+        </div>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-xl-4 col-lg-5">
+        <div class="card shadow mb-4">
+          <!-- Card Header - Dropdown -->
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Notice & Circular</h6>           
+          </div>
+          <!-- Card Body -->
+          <div class="card-body">
+              <div class="chart-pie pt-4 pb-2">
+
+              </div>              
+          </div>
+        </div>
+      </div>
+
+       <div class="col-xl-4 col-lg-5">
+        <div class="card shadow mb-4">
+          <!-- Card Header - Dropdown -->
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Today's Birthday</h6>           
+          </div>
+          <!-- Card Body -->
+          <div class="card-body">
+              <div class="chart-pie pt-4 pb-2">
+                <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
+                @foreach($birthUsers as $birthUser)
+                {{$birthUser->name}} ({{date('d-M-Y',strtotime($birthUser->dob))}})
+                @endforeach
+                </marquee>
+              </div>              
           </div>
         </div>
       </div>
       <div class="col-md-4 col-lg-4">
-          <div class="card shadow mb-4">
-           <div class="block full" style="width: 100%;">           
-            <div class="block-title" style="background-color:#394263;">
-                <div class="block-options pull-right">
-                    <a data-original-title="Settings" href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title=""><i class="fa fa-cog"></i></a>
-                </div>
-                <h2 style="color:white;"><strong>Notice </strong> Circular</h2>
-            </div> 
-                      
-            <div class="block-content-full">
-                <div class="timeline">
-                      <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
-                         <?php $count =1; ?>
-                        @foreach($getNotication as $getNotications)
-
-                        @if($getNotications->sender == 'send_to_student')
-                        <hr>{{$count++}}. For Students Notification<hr> 
-                          <div class="timeline-time">
-                            <small>{{$getNotications->date_from_display}}</small>
-                          </div>
-                          <div class="timeline-time">
-                            <small>{{$getNotications->date_to_display}}</small>
-                          </div>  
-
-                          <div{{--  class="timeline-content" --}}>
-                              <p {{-- class="push-bit" --}}>
-                                <a href="{{route('notice-circular.show',$getNotications->id)}}"><strong>{{$getNotications->circular_title}}</strong></a>
-                              </p> 
-                              <p {{-- class="push-bit" --}}>{{$getNotications->circular_description}}</p>
-                          </div>
-                          @elseif($getNotications->sender == 'send_to_faculty')
-                          <hr> {{$count++}}. For Facalty Notification<hr> 
-                            <div class="timeline-time">
-                              <small>{{$getNotications->date_from_display}}</small>
-                            </div>
-                            <div class="timeline-time">
-                              <small>{{$getNotications->date_to_display}}</small>
-                            </div>  
-
-                            <div{{--  class="timeline-content" --}}>
-                                <p {{-- class="push-bit" --}}>
-                                  <a href="{{route('notice-circular.show',$getNotications->id)}}"><strong>{{$getNotications->circular_title}}</strong></a>
-                                </p> 
-                                <p {{-- class="push-bit" --}}>{{$getNotications->circular_description}}</p>
-                            </div>
-                          @elseif($getNotications->sender == 'send_to_all')
-                          <hr> {{$count++}}. For All Notification<hr> 
-                            <div class="timeline-time">
-                              <small>{{$getNotications->date_from_display}}</small>
-                            </div>
-                            <div class="timeline-time">
-                              <small>{{$getNotications->date_to_display}}</small>
-                            </div>  
-
-                            <div{{--  class="timeline-content" --}}>
-                                <p {{-- class="push-bit" --}}>
-                                  <a href="{{route('notice-circular.show',$getNotications->id)}}"><strong>{{$getNotications->circular_title}}</strong></a>
-                                </p> 
-                                <p {{-- class="push-bit" --}}>{{$getNotications->circular_description}}</p>
-                            </div>
-                            @endif
-                          @endforeach
-                      </marquee>
-                </div>
-            </div>           
+        <div class="card shadow mb-4">
+          <!-- Card Header - Dropdown -->
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">  Transport Details  </h6>
           </div>
-          </div>
-      </div>
-      <div class="col-md-4 col-lg-4">
-          <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-              <h6 class="m-0 font-weight-bold text-primary">  Transport Details  </h6>
-              <div class="dropdown no-arrow">
-                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                  <div class="dropdown-header">Dropdown Header:</div>
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-              </div>
+          <!-- Card Body -->
+          <div class="card-body">
+            <div class="chart-pie pt-4 pb-2">
+              <canvas id="myPieChart1"></canvas>
             </div>
-            <!-- Card Body -->
+          </div>
+        </div>
+      </div>  
+   </div>
+   <div class="row">
+     <div class="col-md-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Calendar</h6>
+            </div>
             <div class="card-body">
-              <div class="chart-pie pt-4 pb-2">
-                <canvas id="myPieChart"></canvas>
-              </div>
-              <div class="mt-4 text-center small">
-                <span class="mr-2">
-                  <i class="fas fa-circle text-primary"></i> Total
-                </span>
-              </div>
+              <div id="calendar"></div>
+                <br>
             </div>
           </div>
-        </div>  
-        <div class="col-md-4 col-lg-4">
-          <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-              <h6 class="m-0 font-weight-bold text-primary">  Transport Details  </h6>
-              <div class="dropdown no-arrow">
-                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                  <div class="dropdown-header">Dropdown Header:</div>
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-              </div>
-            </div>
-            <!-- Card Body -->
-            <div class="card-body">
-              <div class="chart-pie pt-4 pb-2">
-                <canvas id="myPieChart"></canvas>
-              </div>
-              <div class="mt-4 text-center small">
-                <span class="mr-2">
-                  <i class="fas fa-circle text-primary"></i> Total
-                </span>
-              </div>
-            </div>
-          </div>
-        </div> 
-    </div>
-</div>
+     </div>
+   </div>
 
-
-
-<div class="row">
-  <div class="col-xs-5 col-xs-3"><!--left panel section-->
-    <div class="card shadow mb-4">
-     <div class="block full" style="width: 100%;">           
-      <div class="block-title" style="background-color:#394263;">
-          <div class="block-options pull-right">
-          <form onsubmit="return confirm('Please confirm to send Birthday Wishes.');" id="studentStatus" method="post" action="index.php?plugin=Dashboard&amp;action=birthdayWishesSMS">
-            <div class="block full">
-              <div class="block-title" style="background-color:#394263;">
-                <h2 style="color:white;"><strong>Today's </strong> Birthday</h2>
-                <input class="btn btn-primary" id="sendWishes" type="submit" value="Wishes">
-              </div>
-
-              <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
-                @foreach($getDob as $dob)
-                {{-- {{dd($currentdate)}} --}}
-                  @if($currentdate==date('Y-m-d',strtotime($dob->dob)))
-                      <br>{{$dob->name}}<br>
-                      {{date('Y-m-d',strtotime($dob->dob))}}<br>
-                @endif
-                @endforeach
-              </marquee>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-                                          
-      </div>
-                             
-    </form>
   </div>
-</div>
-</div>
-</div>
-          <!-- Content Row -->
-          <div class="row">
-
-            <!-- Content Column -->
-            <div class="col-lg-12 mb-4">
-
-              <!-- Project Card Example -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Calendar</h6>
-                </div>
-                <div class="card-body">
-                  <div id="calendar"></div>
-                    <br>
-                </div>
-              </div>
-
-           
-
-            </div>
-
-            
-          </div>
-
-        </div>
-        <!-- /.container-fluid -->
-
-      </div>
-      <!-- End of Main Content -->
-@endrole
-
-@role('teachers')
-<div class="container">
-  <div class="col-xs-12">
-    <div class="row">
-      <div class="card shadow mb-4">
-       <div class="block full" style="width: 100%;">  
-        <div class="col-xs-6">
-           <div class="block-title" style="background-color:#394263;">
-           {{--  <div class="block-options pull-right">
-                <a data-original-title="Settings" href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title=""><i class="fa fa-cog"></i></a>
-            </div> --}}
-            <h2 style="color:white;"><strong>Notice </strong> Circular</h2>
-            </div>
-         <div class="block-content-full">
-            <div class="timeline">
-                  <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
-                     <?php $count =1; ?>
-                    @foreach($getNotication as $getNotications)
-
-                    @if($getNotications->sender == 'send_to_student')
-                    <hr>{{$count++}}. For Students Notification<hr> 
-                      <div class="timeline-time">
-                        <small>{{$getNotications->date_from_display}}</small>
-                      </div>
-                      <div class="timeline-time">
-                        <small>{{$getNotications->date_to_display}}</small>
-                      </div>  
-
-                      <div{{--  class="timeline-content" --}}>
-                          <p {{-- class="push-bit" --}}>
-                            <a href="{{route('notice-circular.show',$getNotications->id)}}"><strong>{{$getNotications->circular_title}}</strong></a>
-                          </p> 
-                          <p {{-- class="push-bit" --}}>{{$getNotications->circular_description}}</p>
-                      </div>
-                      @elseif($getNotications->sender == 'send_to_faculty')
-                      <hr> {{$count++}}. For Facalty Notification<hr> 
-                        <div class="timeline-time">
-                          <small>{{$getNotications->date_from_display}}</small>
-                        </div>
-                        <div class="timeline-time">
-                          <small>{{$getNotications->date_to_display}}</small>
-                        </div>  
-
-                        <div{{--  class="timeline-content" --}}>
-                            <p {{-- class="push-bit" --}}>
-                              <a href="{{route('notice-circular.show',$getNotications->id)}}"><strong>{{$getNotications->circular_title}}</strong></a>
-                            </p> 
-                            <p {{-- class="push-bit" --}}>{{$getNotications->circular_description}}</p>
-                      @elseif($getNotications->sender == 'send_to_all')
-                        <hr> {{$count++}}. For All Notification<hr> 
-                        <div class="timeline-time">
-                          <small>{{$getNotications->date_from_display}}</small>
-                        </div>
-                        <div class="timeline-time">
-                          <small>{{$getNotications->date_to_display}}</small>
-                        </div>  
-
-                        <div{{--  class="timeline-content" --}}>
-                            <p {{-- class="push-bit" --}}>
-                              <a href="{{route('notice-circular.show',$getNotications->id)}}"><strong>{{$getNotications->circular_title}}</strong></a>
-                            </p> 
-                            <p {{-- class="push-bit" --}}>{{$getNotications->circular_description}}</p>
-                        </div>
-                        @endif
-                      @endforeach
-                  </marquee>
-            </div>
-          </div>
-      </div>
-    </div>
   </div>
-
-  <div class="col-xs-6">
-    <div class="card shadow mb-4">
-     <div class="block full" style="width: 100%;">           
-      <div class="block-title" style="background-color:#394263;">
-          <div class="block-options pull-right">
-          <form onsubmit="return confirm('Please confirm to send Birthday Wishes.');" id="studentStatus" method="post" action="index.php?plugin=Dashboard&amp;action=birthdayWishesSMS">
-            <div class="block full">
-              <div class="block-title" style="background-color:#394263;">
-                <h2 style="color:white;"><strong>Today's </strong> Birthday</h2>
-                <input class="btn btn-primary" id="sendWishes" type="submit" value="Wishes">
-              </div>
-
-              <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
-                @foreach($getDob as $dob)
-                {{-- {{dd($currentdate)}} --}}
-                  @if($currentdate==date('Y-m-d',strtotime($dob->dob)))
-                      <br>{{$dob->name}}<br>
-                      {{date('Y-m-d',strtotime($dob->dob))}}<br>
-                @endif
-                @endforeach
-              </marquee>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    </div>                    
-    </form>
-    </div>
-    </div>
   </div>
-</div>
-  
-</div>
-<div class="container">
-  <div class="card shadow mb-4">
-      <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Calendar</h6>
-      </div>
-      <div class="card-body">
-        <div id="calendar"></div>
-          <br>
-      </div>
-    </div>
-</div>
-</div>
-@endrole
-
-@role('students')
-<div class="container ">
-  <div class="col-xs-12 full-right">
-    <div class="row ">
-      <div class="card shadow mb-4">
-       <div class="block full" style="width: 100%;">  
-        <div class="col-xs-6">
-           <div class="block-title" style="background-color:#394263;">
-            <div class="block-options pull-right">
-                <a data-original-title="Settings" href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title=""><i class="fa fa-cog"></i></a>
-            </div>
-            <h2 style="color:white;"><strong>Notice </strong> Circular</h2>
-            </div>
-         <div class="block-content-full">
-            <div class="timeline">
-                  <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
-                     <?php $count =1; ?>
-                    @foreach($getNotication as $getNotications)
-
-                    @if($getNotications->sender == 'send_to_student')
-                    <hr>{{$count++}}. For Students Notification<hr> 
-                      <div class="timeline-time">
-                        <small>{{$getNotications->date_from_display}}</small>
-                      </div>
-                      <div class="timeline-time">
-                        <small>{{$getNotications->date_to_display}}</small>
-                      </div>  
-
-                      <div{{--  class="timeline-content" --}}>
-                          <p {{-- class="push-bit" --}}>
-                            <a href="{{route('notice-circular.show',$getNotications->id)}}"><strong>{{$getNotications->circular_title}}</strong></a>
-                          </p> 
-                          <p {{-- class="push-bit" --}}>{{$getNotications->circular_description}}</p>
-                      </div>
-                      @elseif($getNotications->sender == 'send_to_faculty')
-                      <hr> {{$count++}}. For Facalty Notification<hr> 
-                        <div class="timeline-time">
-                          <small>{{$getNotications->date_from_display}}</small>
-                        </div>
-                        <div class="timeline-time">
-                          <small>{{$getNotications->date_to_display}}</small>
-                        </div>  
-
-                        <div{{--  class="timeline-content" --}}>
-                            <p {{-- class="push-bit" --}}>
-                              <a href="{{route('notice-circular.show',$getNotications->id)}}"><strong>{{$getNotications->circular_title}}</strong></a>
-                            </p> 
-                            <p {{-- class="push-bit" --}}>{{$getNotications->circular_description}}</p>
-                              @elseif($getNotications->sender == 'send_to_all')
-                              <hr> {{$count++}}. For All Notification<hr> 
-                                <div class="timeline-time">
-                                  <small>{{$getNotications->date_from_display}}</small>
-                                </div>
-                                <div class="timeline-time">
-                                  <small>{{$getNotications->date_to_display}}</small>
-                                </div>  
-
-                                <div{{--  class="timeline-content" --}}>
-                                    <p {{-- class="push-bit" --}}>
-                                      <a href="{{route('notice-circular.show',$getNotications->id)}}"><strong>{{$getNotications->circular_title}}</strong></a>
-                                    </p> 
-                                    <p {{-- class="push-bit" --}}>{{$getNotications->circular_description}}</p>
-                                </div>
-                                @endif
-                      @endforeach
-                  </marquee>
-            </div>
-          </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-xs-6">
-    <div class="card shadow mb-4">
-     <div class="block full" style="width: 100%;">           
-      <div class="block-title" style="background-color:#394263;">
-          <div class="block-options pull-right">
-          <form onsubmit="return confirm('Please confirm to send Birthday Wishes.');" id="studentStatus" method="post" action="index.php?plugin=Dashboard&amp;action=birthdayWishesSMS">
-            <div class="block full">
-              <div class="block-title" style="background-color:#394263;">
-                <h2 style="color:white;"><strong>Today's </strong> Birthday</h2>
-                <input class="btn btn-primary" id="sendWishes" type="submit" value="Wishes">
-              </div>
-
-              <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
-                @foreach($getDob as $dob)
-                {{-- {{dd($currentdate)}} --}}
-                  @if($currentdate==date('Y-m-d',strtotime($dob->dob)))
-                      <br>{{$dob->name}}<br>
-                      {{date('Y-m-d',strtotime($dob->dob))}}<br>
-                @endif
-                @endforeach
-              </marquee>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    </div>                    
-    </form>
-    </div>
-    </div>
-  </div>
-  <div class="container">
-  <div class="card shadow mb-4">
-      <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Calendar</h6>
-      </div>
-      <div class="card-body">
-        <div id="calendar"></div>
-          <br>
-      </div>
-    </div>
-</div>
-</div>
-@endrole
-
 
 <script>
     $(document).ready(function() {
@@ -652,5 +252,8 @@
           });
     });
 </script>
+   <script src="{{asset("vendor/chart.js/Chart.min.js")}}"></script>
+    <script src="{{asset("js/demo/chart-area-demo.js")}}"></script>
+    <script src="{{asset("js/demo/chart-pie-demo.js")}}"></script>
 
  @endsection

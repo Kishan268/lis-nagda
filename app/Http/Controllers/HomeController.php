@@ -32,11 +32,13 @@ class HomeController extends Controller
         $user = Auth::user()->roles;
         $getNotication = NoticeCircular::get();
         $currentdate = date("Y-m-d");
-        $getDob = user::get();
+        $birthUsers = User::where('user_flag','S')->whereDate('dob',date('Y-m-d'))->get();
+        // return $getDob;
+
         $students = studentsMast::get();
         $studentBatch = studentBatch::get();
         $Teacher = Teacher::get();
-        return view('home',compact('getNotication','getDob','currentdate','students','studentBatch','Teacher'));
+        return view('home',compact('getNotication','birthUsers','currentdate','students','studentBatch','Teacher'));
 
     }
 

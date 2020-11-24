@@ -1,27 +1,20 @@
+
 @extends('layouts.main')
- @section('content')
+@section('content')
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-lg-12">
+			@include('admin.teachers.header')
+		</div>
+	</div>
 
-<div class="container">
-	 <div class="col-lg-12">
-@include('admin.teachers.header')
-
-<div class="container">
-	<div class="row mt-2">
-    <div class="col-lg-12">
-
-      <!-- Default Card Example -->
-      <div class="card mb-4">
-			 <div class="card-body">
-		      <div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="panel-body">				
-				<div class="row"><br>
-			<div class="col-md-12">
-				<div class="box box-primary">
-					<div class="box-header with-border">
-						<h3 class="">Edit Team  <a href="{{route('teams.index')}}" class="btn btn-sm btn-primary pull-right">Back</a></h3>
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-lg-12 ">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="">Edit Team <a href="{{route('teachers.index')}}" class="btn btn-sm btn-primary pull-right">Back</a></h3>
 					</div>
-					<div class="box-body">
+					<div class="card-body">
 						<form action="{{route('teams.update',$team->id)}}" method="post">
 							@csrf
 							@method('PATCH')

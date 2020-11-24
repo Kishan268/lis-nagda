@@ -1,199 +1,140 @@
- @extends('layouts.main')
- @section('content')
-<div class="container">
-   <div class="col-lg-12">
-    @include('admin.master.header')
-      <div class="container">
-        <div class="row mt-2">
-          <div class="col-lg-12">
+@extends('layouts.main')
+@section('content')
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">          
+            @include('admin.master.header')
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">
+                        Classes ({{count($studentclassdata)}}) 
+                       <button type="button" class="btn btn-primary btn-sm pull-right addClass">Add Class</button>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                          <tr>
+                            <th>S.No</th>
+                            <th>Class Name</th>
+                            <th>Class Details </th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            @php $i=1; @endphp
+                            @foreach($studentclassdata as $studentClasse)
+                               <tr>
+                                <td>{{ $i++}}</td>
+                                <td>{{ $studentClasse->class_name}}</td>
+                                <td>{{ $studentClasse->class_description}}</td>
+                                <td> <button class="fa fa-pencil-square-o btn btn-sm btn-primary editClass" id="{{$studentClasse->id}}" data-id="{{$studentClasse->class_name}}" data-class="{{$studentClasse->class_description}}">
+                                         </button></td>
+                                {{-- <td>
+                                  <form method="post" action="{{ route('add-branch.destroy',$datas1->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                         <button type="button" data-toggle="modal" data-target="#editGrad{{ $datas1->id }}" class="fa fa-pencil-square-o btn btn-primary">
+                                         </button>
+                                         <button class="fa fa-trash btn btn-danger" onclick="return confirm(' you want to delete?');">
+                                          </button>
+                                  </form>
+                                </td> --}}
+                              </tr>
+                          @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="addClass">
+            <div class="modal-dialog">
+                <div class="modal-content">
 
-<div class="container">
-    <div class="app-title">
-     @if($message = Session::get('success'))
-            
-      <div class="alert alert-success">
-        <p>{{ $message }}</p>
-      </div>
-          @endif
+                <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add Class</h4>
+                        <button type="button" class="close modalClose" >&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form action="{{route('classes-add')}}" method="post">
+                        @csrf
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-lg-12 form-group">
+                                    <label for="class_name"> Class Name</label>
+                                    <input type="text" name="class_name" id="class_name" class="form-control">
+                                    @error('class_name')
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                  @enderror   
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-lg-12 form-group">
+                                    <label for="class_description">Class Details </label>
+                                    <textarea name="class_description" id="class_desceiption" class="form-control"></textarea>
+                                    @error('class_description')
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                 <div class="col-md-12 col-sm-12 col-lg-12 form-group">
+                                    <input type="hidden" name="flag" value="add">
+                                    <input type="hidden" name="class_id" value="">
+                                    <button  class="btn btn-primary btn-sm" type="submit" id="btnSubmit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-sm modalClose" >Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-{{-- =================================== --}}
-  {{-- START INSERT MODEL BOX --}}
-      
-<div class="container">
-  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addGrade">Add Class</button>
-  <!-- Modal -->
-  <div class="modal fade" id="addGrade" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="row">
-        <div style="width: 131%;" class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title"></h4>
-          </div>
-          <div class="modal-body">
-            <div class="clearix"></div>
-            <div class="col-md-12">
-              <div class="tile">
-                <h3 class="tile-title">Add Class</h3>
-                <div class="tile-body">
-                {{-- INSERT FORM --}}
-                  <form class="row" action="{{route('classes-add')}}" method="post">
-                 @csrf
-                      <div class="form-group col-md-6" >
-                        <label for="class_name"> Class Name</label>
-                          <input type="text" name="class_name" id="class_name" class="form-control">
-                          @error('class_name')
-                            <span class="text-danger" role="alert">
-                            <strong>{{ $message }}</strong>
-                          </span>
-                          @enderror
-                     </div>
-                       <div class="form-group col-md-6" >
-                          <label for="class_description">Class Details </label>
-                            <textarea name="class_description" id="class_desceiption" class="form-control"></textarea>
-                            @error('class_description')
-                              <span class="text-danger" role="alert">
-                              <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                         </div>
-                      <div class="form-group col-md-4 align-self-end">
-                        <button id="addGrade" class="btn btn-primary" type="submit">
-                          <i class="fa fa-fw fa-lg fa-check-circle"></i>ADD
-                        </button>
-                      </div>
-                    </form>
-                      {{-- END INSERT FORM --}}
-                
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" id="close" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-{{-- END INSERT MODEL BOX --}}
+<script >
+    $(document).ready(function(){
+        $('.addClass').on('click',function(e){
+            e.preventDefault();
+            $('input[name="flag"]').val('add');
+            $('input[name="class_id"]').val('');
+            $('#class_name').val('');
+            $('#class_desceiption').val('');
+            $('#addClass').modal('show');
 
-{{-- ================================ --}}
-  <br>
-    <div class="container">
-        <div class="row">
-      <div class="col-md-12">
-        <div class="tile">
-          <div class="tile-body">
-            <div class="table-responsive">
-              <table class="table table-hover table-bordered" id="sampleTable">
-                <thead>
-                  <tr>
-                    <th>S.No</th>
-                    <th>Class Name</th>
-                    <th>Class Details </th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                @php $i=1; @endphp
-                {{-- Foreach Loop start --}}
-                @foreach($studentclassdata as $studentClasse)
-              
-                  <tr>
-                    <td>{{ $i++}}</td>
-                    <td>{{ $studentClasse->class_name}}</td>
-                    <td>{{ $studentClasse->class_description}}</td>
-                    <td> <button type="button" data-toggle="modal" data-target="#editGrad{{ $studentClasse->id }}" class="fa fa-pencil-square-o btn btn-primary">
-                             </button></td>
-                    {{-- <td>
-                      <form method="post" action="{{ route('add-branch.destroy',$datas1->id) }}">
-                        @csrf
-                        @method('DELETE')
-                             <button type="button" data-toggle="modal" data-target="#editGrad{{ $datas1->id }}" class="fa fa-pencil-square-o btn btn-primary">
-                             </button>
-                             <button class="fa fa-trash btn btn-danger" onclick="return confirm(' you want to delete?');">
-                              </button>
-                      </form>
-                    </td> --}}
-                  </tr>
-        {{-- Edit Model Box start ,this model box popup on edit button click --}}
-            <div class="container">
-              <div class="modal fade" id="editGrad{{ $studentClasse->id }}" role="dialog">
-                <div class="modal-dialog">
-                  <!-- Modal content-->
-                  <div class="row">
-                    <div style="width: 131%;" class="modal-content">
-                      <div class="modal-header">
-                        <button class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"></h4>
-                      </div>
-                      <div class="modal-body">
-                        <div class="clearix"></div>
-                        <div class="col-md-12">
-                          <div class="tile">
-                            <h3 class="tile-title">Update Class</h3>
-                            <div class="tile-body">
-                            {{-- Update FORM --}}
-                   
-                              <form class="row" action="{{route('classes-update',$studentClasse->id)}}" method="post">
-                                @csrf
-                                @method('PUT')
-                     
-                              
-                                <div class="form-group col-md-6" >
-                                  <label for="Grade">Class Name</label>
-                                    <input type="text" name="class_name" id="class_name" class="form-control" value="{{$studentClasse->class_name}}">
-                                    @error('class_name')
-                                      <span class="text-danger" role="alert">
-                                      <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                 </div>  
-                                  <div class="form-group col-md-6" >
-                                  <label for="Grade">Class Details </label>
-                                    <textarea name="class_description" id="class_description" class="form-control" value="{{$studentClasse->class_description}}"></textarea>
-                                    @error('class_description')
-                                      <span class="text-danger" role="alert">
-                                      <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                 </div>
-                                   <input type="hidden" name="id" id="id" class="form-control" value="{{$studentClasse->id}}">
-                                  <div class="form-group col-md-4 align-self-end">
-                                    <button type="submit" class="btn btn-primary">
-                                      <i class="fa fa-fw fa-lg fa-check-circle"></i>Update
-                                    </button>
-                                  </div>
-                                </form>
-                                  {{-- END Update FORM --}}
-                 
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" id="closeEdit" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {{-- Edit Model/Update Box End --}}
-              @endforeach
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-     </div>
-  </div>
- </div>
+        });
+        $('.modalClose').on('click',function(e){
+            e.preventDefault();
+            $('#addClass').modal('hide');
+        });
+        $('.editClass').on('click',function(e){
+            e.preventDefault();
+       
+            $('input[name="flag"]').val('edit');
+            $('input[name="class_id"]').val($(this).attr('id'));
+            $('#class_name').val($(this).data('id'));
+            $('#class_desceiption').val($(this).data('class'));
 
- @endsection('content')
+            $('#addClass').modal('show');
+        });
+
+        @if($message = Session::get('success'))
+            alert("{{$message}}")
+        @endif
 
 
+    })
+</script>
+
+@endsection
