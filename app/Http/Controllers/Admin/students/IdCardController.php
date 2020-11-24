@@ -21,8 +21,8 @@ class IdCardController extends Controller
     }
     public function getIdCard(Request $request){
 
-    	// $getData = studentsMast::with('studentsGuardiantMast','stdBloodGroup','p_country','p_state','p_city')->where('aadhar_card',$request->aadhar_no)->get();
-    	$getData = studentsMast::with('studentsGuardiantMast','stdBloodGroup','p_country','p_state','p_city')->first();
+    	$getData = studentsMast::with('studentsGuardiantMast','stdBloodGroup','p_country','p_state','p_city')->where('roll_no',$request->roll_no)->get();
+    	// $getData = studentsMast::with('studentsGuardiantMast','stdBloodGroup','p_country','p_state','p_city')->first();
 
     	$guardiantData  = array();
     	$guardiantId  = array();

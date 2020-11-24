@@ -10,6 +10,49 @@
           </div>
           <!-- Card Body -->
           <div class="card-body">
+             <div class="row">               
+                    <div class="col-md-4">
+                       <label for="name"> Name</label>
+                       <input class="form-control input-small " id="exam_name" name="exam_name"  aria-label="Small" type="text" value="{{$timeTabale->name}}" readonly="">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="class_from">Class From </label>                
+                        <div class="input-group">
+                             <input type="" value="{{$timeTabale->get_from_class->class_name}}" readonly="" class="form-control onlyDigit input-sm"> 
+                        </div>
+                             
+                    </div>
+                    <div class="col-md-4">
+                        <label for="class_to">Class To </label>                
+                        <div class="input-group">
+                            <input type="" value="{{$timeTabale->get_to_class->class_name}}" readonly="" class="form-control onlyDigit input-sm"> 
+                        </div>
+                          
+                    </div>
+                    <div class="col-md-6">
+                         <label for="name">Reporting Time</label>
+                         <input type="text" name="reporting_time" class="form-control timepicker" value="{{$timeTabale->reporting_time}}" readonly="">
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <label for="name">Examination Time</label>
+                         <input type="text" name="examination_time" class="form-control timepicker" value="{{$timeTabale->examination_time}}" readonly="">
+                         
+                    </div>
+                    <div class="col-md-6">
+                        <label for="name">Start Date</label>
+                         <input type="text" name="start_date" class="form-control datepicker" value="{{$timeTabale->start_dt}}" required="true" readonly="true" >
+                    </div>
+                    <div class="col-md-6">
+                         <label for="name">End Date</label>
+                         <input type="text" name="end_date" class="form-control datepicker" value="{{$timeTabale->end_dt}}" required="true" readonly="true">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="red"> *</label>
+                      <label for="name">Remark</label>
+                       <textarea class="form-control" name="remark" readonly="">{{$timeTabale->remark}}</textarea>
+                    </div>
+                  </div>
             {{-- {{dd($examTimeTableMast)}} --}}
             <table class="table table-striped table-bordered mytable">
                <thead>

@@ -62,33 +62,33 @@ class TimeTableController extends Controller
             'remark'=>$request->remark
 
         ];
-
         $lastId = ExamTimeTableMast::create($data)->time_id;
 
-       foreach($getClasses as $class){
+        foreach($getClasses as $class){
             for($i=1; $i <= $nod ; $i++){
-                $field_name = 'subject_'.$class->id.'_'.$i; 
-              
+                $field_name = 'subject_'.$i.'_'.$class->id; 
                     $exam_time_table = [
                         'time_id'=>$lastId,
                         'class_id'=>$class->id,
                         'subject_id'=> $request->$field_name,
                         'date'=> date('Y-m-d',strtotime($request->date[$i-1])) 
                      ];
-
+                    
                      ExamTimeTable::create($exam_time_table);
             }
         }
-        return redirect()->back()->with('success','Time table added successfully');
+        return redirect()->route('time-table.index')->with('success','Time table added successfully');
 
     }
 
     public function show($id)
     {
          $examTimeTableMast = ExamTimeTableMast::with(['get_time_table.get_subject','get_time_table.get_class','get_time_table'=> function($q){
-                $q->orderBy('date','ASC');
+                $q->orderBy('date','DESC');
         }])->where('time_id',$id)->get();
-        return view ('admin.timetables.show',compact('examTimeTableMast'));
+
+        $timeTabale = ExamTimeTableMast::where('time_id',$id)->with(['get_time_table','get_from_class','get_to_class'])->first();
+        return view ('admin.timetables.show',compact('examTimeTableMast','timeTabale'));
 
     }
 
@@ -96,25 +96,81 @@ class TimeTableController extends Controller
     public function edit($id)
     {
 
-     $class = studentClass::get();
-     $timeTabale = ExamTimeTableMast::where('time_id',$id)->with(['get_time_table','get_from_class','get_to_class'])->first();
+    $timeTable = ExamTimeTableMast::where('time_id',$id)->first();
 
-      $getClasses = studentClass::with(['assignsubject'=>function($q){
+
+    // $examTimeTableMast = ExamTimeTableMast::with(['get_time_table.get_subject','get_time_table.get_class','get_time_table'=> function($q){
+    //             $q->orderBy('date','ASC');
+    //     }])->where('time_id',$id)->get(); 
+
+    $examTimeTableMast = ExamTimeTableMast::where('time_id',$id)->get();
+
+    // return $examTimeTableMast;
+
+    
+    $getClasses = studentClass::with(['assignsubject'=>function($q){
             $q->where('batch_id',1)->with(['assign_subjectId.subjectName']);
-        }])->whereBetween('id',[$timeTabale->class_from,$timeTabale->class_to])->get();
+        }])->whereBetween('id',[$timeTable->class_from,$timeTable->class_to])->get();
+    // dd($examTimeTableMast);
+    // return $getClasses;
 
-       $examTimeTableMast = ExamTimeTableMast::with(['get_time_table.get_subject','get_time_table.get_class','get_time_table'=> function($q){
-                $q->orderBy('date','ASC');
-        }])->where('time_id',$id)->get();
-     // dd($getClasses);
-        return view ('admin.timetables.edit',compact('class','timeTabale','getClasses','examTimeTableMast'));
+        return view ('admin.timetables.edit',compact('timeTable','getClasses','examTimeTableMast'));
         
     }
 
    
     public function update(Request $request, $id)
     {
-        dd($request);
+        $classFrom = $request->class_from;
+        $classTo   = $request->class_to;
+        $nod   = count($request->date);
+
+        $getClasses = studentClass::whereBetween('id',[$classFrom,$classTo])->get(); 
+        // dd($getClasses);
+        Validator::make($request->all(),[
+            'exam_name'=>'required',
+            'class_from'=>'required',
+            'class_to'=>'required',
+            'reporting_time'=>'required',
+            'examination_time'=>'required',
+            'start_dt'=>'required',
+            'end_dt'=>'required',
+            'remark'=>'required',
+            '*.date'=>'required'
+        ]);
+        $data = [
+            'name'=>$request->exam_name,
+            'class_from'=>$request->class_from,
+            'class_to'=>$request->class_to,
+            'reporting_time'=>$request->reporting_time,
+            'exam_time'=>$request->examination_time,
+            'start_dt'=>date('Y-m-d',strtotime($request->start_date)),
+            'end_dt'=>date('Y-m-d',strtotime($request->end_date)),
+            'remark'=>$request->remark
+
+        ];
+        $lastId = ExamTimeTableMast::where('time_id',$id)->update($data);
+        // dd($getClasses);
+        
+        foreach($getClasses as $class){
+
+            for($i=1; $i <= $nod ; $i++){
+                $field_name = 'subject_'.$i.'_'.$class->id; 
+                    $exam_time_table = [
+                        'time_id'=>$id,
+                        'class_id'=>$class->id,
+                        'subject_id'=> $request->$field_name,
+                        'date'=> date('Y-m-d',strtotime($request->date[$i-1])) 
+                     ];
+                    // dd($exam_time_table['subject_id']);
+                     $delete = ExamTimeTable::delete($exam_time_table)->where('time_id',$id);
+                     if ($delete) {
+                     ExamTimeTable::create($exam_time_table);
+                       
+                     }
+            }
+        }
+        return redirect()->route('time-table.index')->with('success','Time table updated successfully');
     }
 
  
@@ -123,40 +179,15 @@ class TimeTableController extends Controller
         //
     }
 
-    public function getsubject(Request $request){
-
-        $assignSubject = AssignSubjectToClass::with('assign_subjectId')->where('id',$request->classId)->get();         
-         $subjectAssign1 = array();
-         foreach ($assignSubject as  $value) {
-            $subjectAssign= $value->assign_subjectId;
-            foreach ($subjectAssign as  $value1) {
-                
-                    $subjectAssign1[] = (int)$value1->mendatory_subject_id;
-            }
-         }
-         $subjectName = Subject::whereIn('id',$subjectAssign1)->get();
- // dd($request);
-            return response()->json($subjectName);
-
-
-    }
-    public function getClassForTimetable(Request $request){
-        $classFrom = $request->classFrom;
-        $classTo   = $request->classTo;
-        $getClasses = studentClass::whereBetween('id',[$classFrom,$classTo])->get();  
-        // dd($getClasses);       
-            return response()->json($getClasses);
-    }
-
     public function generateTable(Request $request){
         $classFrom = $request->classFrom;
         $classTo   = $request->classTo;
         $nod   = $request->nod;
 
         $getClasses = studentClass::with(['assignsubject'=>function($q){
-            $q->where('batch_id',1)->with(['assign_subjectId.subjectName']);
+            $q->with(['assign_subjectId.subjectName']);
         }])->whereBetween('id',[$classFrom,$classTo])->get();
-// dd($getClasses);
+
         return view ('admin.timetables.generateTable',compact('getClasses','nod'));
     }
 }

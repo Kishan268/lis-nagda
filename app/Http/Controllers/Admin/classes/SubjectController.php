@@ -160,39 +160,15 @@ class SubjectController extends Controller
             $lastId = AssignSubjectToClass::create($data);
             // return gettype($request->mendatory_subject_id);
             $lastId->subject_assign()->sync($request->mendatory_subject_id);
+            return redirect()->back()->with('success','Subject assigned successfully');
+
         }else{
             // $lastId = AssignSubjectToClass::find($old->id)->update($data);
             $old->subject_assign()->sync($request->mendatory_subject_id);
+            return redirect()->back()->with('success','Subject updated successfully');
+
         }
-        return $request->all();
-
-
-        // $update = AssignSubjectToClass::where('std_class_id',$request->std_class_id)->update($data);
-
-        // if(empty($update)){
-        //    $lastId = AssignSubjectToClass::create($data)->id;
-
-        // if($request->mendatory_subject_id ){
-
-        //     for ($i=0; $i < count($request->mendatory_subject_id); $i++) { 
-               
-        //        $data2 = array(
-
-        //                 'assign_subject_to_classes_id' => $lastId,
-        //                 'mendatory_subject_id' => $request->mendatory_subject_id[$i],
-        //                 'optional_subject_id' => $request->optional_subject_id[$i],
-        //        );
-
-        //        // $update1 = AssignSubjectIdToClass::where('mendatory_subject_id',$request->mendatory_subject_id[$i])->update($data2);
-
-        //         // if(empty($update1)){
-        //                AssignSubjectIdToClass::create($data2);
-        //         // }
-        //     }
-        // }
-        // }
-
-        return redirect()->back()->with('success','Subject assigned successfully');
+       
     }
 
     public function subjectAssignToStudent(){
