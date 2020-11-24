@@ -222,22 +222,32 @@ p {
     </div>
   </li>
 
-   <li class="nav-item">
-    <a class="nav-link collapsed {{Request()->segment(2) == 'attendance.student' ? 'active-li' : ''}}" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
-      <i class="fas fa-fw fa-clock-o"></i>
-      <span>Manage Attendance</span>
-    </a>
-    <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded siderbar1">
-            <a class="collapse-item" href="{{route('dashboard')}}">Dashboard</a>
-            <a class="collapse-item" href="{{route('attendance.student')}}">Student Attendance</a>
-            <a class="collapse-item" href="{{route('attendance.staff')}}">Staff Attendance</a>
-            <a class="collapse-item" href="{{route('attendance.upload')}}">Upload Attendance</a>
-            <a class="collapse-item" href="{{route('attendance.manage_student')}}">Manage Attendance</a>
-            <a class="collapse-item" href="{{route('attendance.student_report')}}">Reports Attendance</a>
-        </div>
-    </div>
-  </li>
+  @endrole
+
+  @role(['teachers','superadmin'])
+     <li class="nav-item">
+      <a class="nav-link collapsed {{Request()->segment(2) == 'attendance.student' ? 'active-li' : ''}}" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
+        <i class="fas fa-fw fa-clock-o"></i>
+        <span>Manage Attendance</span>
+      </a>
+      <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded siderbar1">
+              <a class="collapse-item" href="{{route('dashboard')}}">Dashboard</a>
+              <a class="collapse-item" href="{{route('attendance.student')}}">Student Attendance</a>
+  @endrole
+  @role('superadmin')
+              <a class="collapse-item" href="{{route('attendance.staff')}}">Staff Attendance</a>
+  @endrole
+  @role(['teachers','superadmin'])
+              <a class="collapse-item" href="{{route('attendance.upload')}}">Upload Attendance</a>
+              <a class="collapse-item" href="{{route('attendance.manage_student')}}">Manage Attendance</a>
+              <a class="collapse-item" href="{{route('attendance.student_report')}}">Reports Attendance</a>
+          </div>
+      </div>
+    </li>
+  @endrole
+  
+  @role('superadmin')
 
   <li class="nav-item">
     <a class="nav-link collapsed {{Request()->segment(2) == 'attendance.student' ? 'active-li' : ''}}" href="#" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">

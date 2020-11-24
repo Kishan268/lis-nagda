@@ -48,10 +48,10 @@ class studentController extends Controller
          $this->country   = countryMast::get();
          $this->state     = stateMast::get();
          $this->city      = cityMast::get();
-         $this->castCategores         = castCategory::get();
-         $this->studentReligions      = stdReligions::get();
+         // $this->castCategores         = castCategory::get();
+         // $this->studentReligions      = stdReligions::get();
          $this->studentNationalites   = stdNationality::get();
-         $this->studentBloodGroups    = stdBloodGroup::get();
+         // $this->studentBloodGroups    = stdBloodGroup::get();
          $this->studentMothertongues  = mothetongueMast::get();
          $this->professtionType       = professtionType::get();
          $this->guardianDesignation   = guardianDesignation::get();
@@ -78,17 +78,17 @@ class studentController extends Controller
          $country   = $this->country;
          $state     = $this->state;
          $city      = $this->city;
-         $castCategores         = $this->castCategores;
-         $studentReligions      = $this->studentReligions;
+         // $castCategores         = $this->castCategores;
+         // $studentReligions      = $this->studentReligions;
          $studentNationalites   = $this->studentNationalites;
-         $studentBloodGroups    = $this->studentBloodGroups;
+         // $studentBloodGroups    = $this->studentBloodGroups;
          $studentMothertongues  = $this->studentMothertongues;
          $professtionType       = $this->professtionType;
          $guardianDesignation   = $this->guardianDesignation;
          $studentGenders = Helpers::studentGender();
          // return student_gender();
-        return view('admin.students.create',compact('classes','batches','sections','studentGenders','castCategores','studentReligions',
-            'studentNationalites','studentBloodGroups','studentMothertongues','country','state','city','professtionType','guardianDesignation'));
+        return view('admin.students.create',compact('classes','batches','sections','studentGenders',
+            'studentNationalites','studentMothertongues','country','state','city','professtionType','guardianDesignation'));
         
     }
 
@@ -393,10 +393,10 @@ class studentController extends Controller
          $country   = $this->country;
          $state     = $this->state;
          $city      = $this->city;
-         $castCategores         = $this->castCategores;
-         $studentReligions      = $this->studentReligions;
+         // $castCategores         = $this->castCategores;
+         // $studentReligions      = $this->studentReligions;
          $studentNationalites   = $this->studentNationalites;
-         $studentBloodGroups    = $this->studentBloodGroups;
+         // $studentBloodGroups    = $this->studentBloodGroups;
          $studentMothertongues  = $this->studentMothertongues;
          $professtionType       = $this->professtionType;
          $guardianDesignation   = $this->guardianDesignation;
@@ -405,13 +405,13 @@ class studentController extends Controller
 
          $guardiantDetails = studentsGuardiantMast::with('students_details','professtion_type','guardiant_relation')->where('s_id',$id)->get();
          // $professtionDetail       = professtionType::with('')->get();
-         $studentsMast   = studentsMast::where('id',$id)->with('student_batch','student_section','student_class','acadmic_country_mast','acadmic_stateMast','acadmic_cityMast','castCategory','stdReligions','stdNationality','stdBloodGroup','mothetongueMast','guardianDesignation','studentsGuardiantMast','p_country','p_state','p_city','l_country','l_state','l_city','studenst_doc')->first();
+         $studentsMast   = studentsMast::where('id',$id)->with('student_batch','student_section','student_class','acadmic_country_mast','acadmic_stateMast','acadmic_cityMast','stdNationality','mothetongueMast','guardianDesignation','studentsGuardiantMast','p_country','p_state','p_city','l_country','l_state','l_city','studenst_doc')->first();
 
          // $studentDoc = StudenstDoc::
          // dd($studentsMast);
          // return student_gender();
-        return view('admin.students.show',compact('classes','batches','sections','studentGenders','castCategores','studentReligions',
-            'studentNationalites','studentBloodGroups','studentMothertongues','country','state','city','professtionType','guardianDesignation','studentsMast','studentsGuardiantDetails','guardiantDetails'));
+        return view('admin.students.show',compact('classes','batches','sections','studentGenders',
+            'studentNationalites','studentMothertongues','country','state','city','professtionType','guardianDesignation','studentsMast','studentsGuardiantDetails','guardiantDetails'));
     }
 
     
