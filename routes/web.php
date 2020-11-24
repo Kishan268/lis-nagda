@@ -348,6 +348,7 @@ Route::resource('fees-heads','Admin\fees\HeadsController');
 
 // fees heads routers.......................................
 Route::resource('time-table','Admin\timetable\TimeTableController');
+// Route::any('time_table','Admin\timetable\TimeTableController@show')->name('time_table');
 Route::post('generate_table','Admin\timetable\TimeTableController@generateTable')->name('generateTable');
 
 Route::post('get-assigne-subject','Admin\timetable\TimeTableController@getsubject')->name('get_assigne_subject');

@@ -10,9 +10,40 @@
           </div>
           <!-- Card Body -->
           <div class="card-body">
+            {{-- {{dd($examTimeTableMast)}} --}}
             <table class="table table-striped table-bordered mytable">
-              
-              
+               <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Exam Name</th>
+                    <th>Class From</th>
+                    <th>Class to</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Reporting Time</th>
+                    <th>Examination Time</th>
+                    <th>Remark</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php $count = 1; ?>
+                  @foreach($examTimeTableMast as $examTimeTableMasts)
+                 <tr>
+                   <td>{{$count++}}</td>
+                   <td>{{$examTimeTableMasts->name}}</td>
+                   <td>{{$examTimeTableMasts->get_from_class->class_name}}</td>
+                   <td>{{$examTimeTableMasts->get_to_class->class_name}}</td>
+                   <td>{{$examTimeTableMasts->start_dt}}</td>
+                   <td>{{$examTimeTableMasts->end_dt}}</td>
+                   <td>{{$examTimeTableMasts->reporting_time}}</td>
+                   <td>{{$examTimeTableMasts->exam_time}}</td>
+                   <td>{{$examTimeTableMasts->remark}}</td>
+                   <td><a href="{{route('time-table.show',$examTimeTableMasts->time_id)}}" ><i class=" fa fa-eye text-primary" style="font-size: 16px;"></i></a><a href="{{route('time-table.edit',$examTimeTableMasts->time_id)}}" ><i class=" fa fa-pencil text-primary" style="font-size: 16px;"></i></a></td>
+
+                 </tr>
+                   @endforeach
+                </tbody>
             </table> 
         </div>
       </div>

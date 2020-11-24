@@ -3,7 +3,7 @@
 		<tr>
 			<th>Class Name</th>
 			@for($i=1; $i <= $nod ; $i++)
-				<th><input type="text" name="date[]" placeholder="Enter Date" class="form-control datepicker"></th>
+				<th><input type="text" name="date[]" placeholder="Enter Date" class="form-control datepicker" required=""></th>
 			@endfor
 		</tr>
 	</thead>
@@ -24,7 +24,7 @@
 				<td>{{$class->class_name}}</td>
 				@for($i=1; $i <= $nod ; $i++)
 					<td>
-						<select name="subject_{{$i}}_{{$class->id}}" class="form-control">
+						<select name="subject_{{$i}}_{{$class->id}}" class="form-control" >
 							{!!$option!!}
 						</select>
 					</td>

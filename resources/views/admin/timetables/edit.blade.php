@@ -13,15 +13,16 @@
         </div>
           <!-- Card Body -->
           <div class="card-body">
-              <form action="{{route('time-table.store')}}" method="post" id="form_submit" autocomplete="off">
+              <form action="{{route('time-table.update',$timeTabale->time_id)}}" method="post" id="form_submit" autocomplete="off">
                 @csrf
+                @method('PUT')
                 <div class="row">
                   <div class="col-md-12">
                        <div class="row">               
                     <div class="col-md-4">
                        <label class="red"> *</label>
                        <label for="name"> Name</label>
-                       <input class="form-control input-small " id="exam_name" name="exam_name"  aria-label="Small" type="text" value="{{old('exam_name')}}">
+                       <input class="form-control input-small " id="exam_name" name="exam_name"  aria-label="Small" type="text" value="{{$timeTabale->name}}">
                        @error('exam_name')
                         <span class="text-danger">
                           <strong>{{$message}}</strong>
@@ -34,7 +35,7 @@
                         <div class="input-group">
                            <span class="input-group-addon"></span>
                            <select class="form-control onlyDigit input-sm" id="class_from" name="class_from"  value="{{old('class_from')}}">
-                            <option value=""> Select Class</option>
+                            <option value="{{$timeTabale->get_from_class->id}}"> {{$timeTabale->get_from_class->class_name}}</option>
                             @foreach($class as $classes)
                             <option value="{{$classes->id}}"> {{$classes->class_name}}</option>
                             @endforeach
@@ -52,7 +53,8 @@
                         <div class="input-group">
                            <span class="input-group-addon"></span>
                            <select class="form-control onlyDigit input-sm" id="class_to"  name="class_to"  value="{{old('class_to')}}">
-                            <option value=""> Select Class</option>
+                            <option value="{{$timeTabale->get_to_class->id}}"> {{$timeTabale->get_to_class->class_name}}</option>
+
                             @foreach($class as $classes)
                             <option value="{{$classes->id}}"> {{$classes->class_name}}</option>
                             @endforeach
@@ -67,7 +69,7 @@
                     <div class="col-md-6">
                         <label class="red"> *</label>
                          <label for="name">Reporting Time</label>
-                         <input type="text" name="reporting_time" class="form-control timepicker" value="{{old('reporting_time')}}">
+                         <input type="text" name="reporting_time" class="form-control timepicker" value="{{$timeTabale->reporting_time}}">
                          @error('reporting_time')
                           <span class="text-danger">
                             <strong>{{$message}}</strong>
@@ -77,7 +79,7 @@
                     <div class="col-md-6">
                         <label class="red"> *</label>
                         <label for="name">Examination Time</label>
-                         <input type="text" name="examination_time" class="form-control timepicker" value="{{old('examination_time')}}">
+                         <input type="text" name="examination_time" class="form-control timepicker" value="{{$timeTabale->examination_time}}">
                           @error('examination_time')
                           <span class="text-danger">
                             <strong>{{$message}}</strong>
@@ -87,7 +89,7 @@
                     <div class="col-md-6">
                         <label class="red"> *</label>
                         <label for="name">Start Date</label>
-                         <input type="text" name="start_date" class="form-control datepicker" value="{{old('start_date')}}" required="true" readonly="true">
+                         <input type="text" name="start_date" class="form-control datepicker" value="{{$timeTabale->start_dt}}" required="true" readonly="true">
                          @error('start_date')
                           <span class="text-danger">
                             <strong>{{$message}}</strong>
@@ -98,7 +100,7 @@
                          <label class="red"> *</label>
                          <label for="name">End Date</label>
 
-                         <input type="text" name="end_date" class="form-control datepicker" value="{{old('end_date')}}" required="true" readonly="true">
+                         <input type="text" name="end_date" class="form-control datepicker" value="{{$timeTabale->end_dt}}" required="true" readonly="true">
                          @error('end_date')
                           <span class="text-danger">
                             <strong>{{$message}}</strong>
@@ -123,7 +125,7 @@
                     <div class="col-md-6">
                       <label class="red"> *</label>
                       <label for="name">Remark</label>
-                       <textarea class="form-control" name="remark" >{{old('remark')}}</textarea>
+                       <textarea class="form-control" name="remark" >{{$timeTabale->remark}}</textarea>
                         @error('remark')
                           <span class="text-danger">
                             <strong>{{$message}}</strong>
@@ -135,8 +137,60 @@
                 </div>
                 <hr>
                  <div class="row">
+                  <div class="col-md-12">
+                     <table class="table table-striped table-bordered">
+                         <thead>
+                            <tr>
+                              <th>Class Name</th>
+                              <?php $date = []; ?>
+                               @foreach($examTimeTableMast as $class)
+
+                                @foreach($class->get_time_table as $dates)
+                                  <?php 
+                                     if(!in_array($dates->date, $date)){
+                                      $date[] = $dates->date
+
+                                  ?>
+                                    <th><input type="text" name="date[]" placeholder="Enter Date" class="form-control datepicker" required="" value="{{$dates->date}}"></th> 
+                                  <?php } ?>
+                                
+                                @endforeach
+                              @endforeach
+                              
+                            </tr>
+                          </thead>
+                          <tbody>
+
+                            <?php $classData = []; ?>
+                            @foreach($examTimeTableMast as $class)
+                              @foreach ($class->get_time_table as $subjectsClass) 
+                                <?php 
+                                    $classData[$subjectsClass->get_class->class_name][] = $subjectsClass->get_subject?$subjectsClass->get_subject->subject_name:'';                       
+                                ?>
+                              @endforeach
+                            @endforeach         
+                            @foreach($classData as $key => $value)
+                            <tr>
+                              <td>{{$key}}</td>
+                              @foreach($value as $key => $sub)                  
+                                
+                                  <td>
+                                    <select name="subject_{{$i}}_{{$class->id}}" class="form-control" >
+                                      <option value="{{$sub ? $sub : ''}}">{{$sub ? $sub : ''}}</option>
+
+                                    </select>
+                                  </td>                    
+                              @endforeach
+                            </tr>
+                            @endforeach    
+
+                          </tbody>
+                      </table> 
+
+                  </div>
+                </div>
+                <div class="row">
                   <div class="col-md-12 mydiv">
-               
                   </div>
                 </div>
                 <div class="row">
