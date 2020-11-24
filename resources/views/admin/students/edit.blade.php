@@ -229,10 +229,9 @@
 										<div class="col-md-4 col-sm-6 col-xs-6 error-div">
 											<label class="required">Gender</label>
 											<select name="gender" class="form-control required">
-
-												<option value="{{$studentsMast->gender}}">{{$studentsMast->gender == '1' ? 'Male' : ''}} {{$studentsMast->gender == '2' ? 'Female' : ''}}{{$studentsMast->gender == '3' ? 'Other' : ''}}</option>
-												@foreach($studentGenders[0] as $key =>$studentGender)
-													<option value="{{$key}}">{{$studentGender}}</option>
+												<option value="">Select Gender</option>
+												@foreach(GENDER as $key =>$value)
+													<option value="{{$key}}" {{$studentsMast->gender == $key ? 'selected' : ''}}>{{$value}}</option>
 												@endforeach
 											</select>
 											@error('gender')

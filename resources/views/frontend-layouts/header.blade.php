@@ -5,11 +5,15 @@
     <link rel="pingback" href="http://lisnagda.org/xmlrpc.php">
     
 <title>Lakshya International School, Nagda &#8211; CBSE Affiliation No. 1031030</title>
-<meta name='robots' content='noindex,follow' />
+{{-- <meta name='robots' content='noindex,follow' />
 <link rel='dns-prefetch' href='//fonts.googleapis.com' />
 <link rel='dns-prefetch' href='//s.w.org' />
 <link rel="alternate" type="application/rss+xml" title="Lakshya International School, Nagda &raquo; Feed" href="http://lisnagda.org/feed/" />
-<link rel="alternate" type="application/rss+xml" title="Lakshya International School, Nagda &raquo; Comments Feed" href="http://lisnagda.org/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Lakshya International School, Nagda &raquo; Comments Feed" href="http://lisnagda.org/comments/feed/" /> --}}
+
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
 <script type="text/javascript">
     window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/lisnagda.org\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.15"}};
     !function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56760,9792,65039],[55358,56760,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
@@ -28,22 +32,22 @@
     padding: 0 !important;
     }
 </style>
-<link rel='stylesheet' id='bootstrap-css'  href="{{ asset('css/bootstrap.min.css')}}" type='text/css' media='all' />
-<link rel='stylesheet' id='bootstrap-fa-icon-css'  href="{{ asset('css/font-awesome.min.css')}}" type='text/css' media='all' />
-<link rel='stylesheet' id='contact-form-7-css'  href="{{ asset('css/styles.css')}}" type='text/css' media='all' />
-<link rel='stylesheet' id='rs-plugin-settings-css'  href="{{ asset('css/settings.css')}}" type='text/css' media='all' />
+<link rel='stylesheet'  href="{{ asset('css/bootstrap.min.css')}}" type='text/css' />
+{{-- <link rel='stylesheet'  href="{{ asset('css/font-awesome.min.css')}}" type='text/css' media='all' /> --}}
+<link rel='stylesheet'  href="{{ asset('css/styles.css')}}" type='text/css' media='all' />
+<link rel='stylesheet'  href="{{ asset('css/settings.css')}}" type='text/css' media='all' />
 <style id='rs-plugin-settings-inline-css' type='text/css'>
 .avada_huge_white_text{position:absolute; color:#ffffff; font-size:130px; line-height:45px; font-family:museoslab500regular;   text-shadow:0px 2px 5px rgba(0,0,0,1)}.avada_huge_black_text{position:absolute; color:#000000; font-size:130px; line-height:45px; font-family:museoslab500regular}.avada_big_black_text{position:absolute; color:#333333; font-size:42px; line-height:45px; font-family:museoslab500regular}.avada_big_white_text{position:absolute; color:#fff; font-size:42px; line-height:45px; font-family:museoslab500regular}.avada_big_black_text_center{position:absolute; color:#333333; font-size:38px; line-height:45px; font-family:museoslab500regular;   text-align:center}.avada_med_green_text{position:absolute; color:#A0CE4E; font-size:24px; line-height:24px; font-family:PTSansRegular,Arial,Helvetica,sans-serif}.avada_small_gray_text{position:absolute; color:#747474; font-size:13px; line-height:20px; font-family:PTSansRegular,Arial,Helvetica,sans-serif}.avada_small_white_text{position:absolute; color:#fff; font-size:13px; line-height:20px; font-family:PTSansRegular,Arial,Helvetica,sans-serif;  text-shadow:0px 2px 5px rgba(0,0,0,0.5); font-weight:700}.avada_block_black{position:absolute; color:#A0CE4E; text-shadow:none; font-size:22px; line-height:34px; padding:0px 10px; padding-top:1px;margin:0px; border-width:0px; border-style:none; background-color:#000;font-family:PTSansRegular,Arial,Helvetica,sans-serif}.avada_block_green{position:absolute; color:#000; text-shadow:none; font-size:22px; line-height:34px; padding:0px 10px; padding-top:1px;margin:0px; border-width:0px; border-style:none; background-color:#A0CE4E;font-family:PTSansRegular,Arial,Helvetica,sans-serif}.avada_block_white{position:absolute; color:#fff; text-shadow:none; font-size:22px; line-height:34px; padding:0px 10px; padding-top:1px;margin:0px; border-width:0px; border-style:none; background-color:#000;font-family:PTSansRegular,Arial,Helvetica,sans-serif}.avada_block_white_trans{position:absolute; color:#fff; text-shadow:none; font-size:22px; line-height:34px; padding:0px 10px; padding-top:1px;margin:0px; border-width:0px; border-style:none; background-color:rgba(0,0,0,0.6);  font-family:PTSansRegular,Arial,Helvetica,sans-serif}.tp-caption a{color:#ff7302;text-shadow:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out}.tp-caption a:hover{color:#ffa902}
 </style>
-<link rel='stylesheet' id='searchandfilter-css'  href="{{ asset('css/style.css')}}" type='text/css' media='all' />
+{{-- <link rel='stylesheet' id='searchandfilter-css'  href="{{ asset('css/style.css')}}" type='text/css' media='all' /> --}}
 <link rel='stylesheet' id='social-icons-general-css'  href="{{ asset('css/social-icons.css')}}" type='text/css' media='all' />
 <link rel='stylesheet' id='tlpportfolio-css-css'  href="{{ asset('css/tlpportfolio.css')}}" type='text/css' media='all' />
 <link rel='stylesheet' id='awsm-jobs-general-css'  href="{{ asset('css/general.min.css')}}" type='text/css' media='all' />
 <link rel='stylesheet' id='awsm-jobs-style-css'  href="{{ asset('css/style.min.css')}}" type='text/css' media='all' />
 <link rel='stylesheet' id='parent-style-css'  href="{{ asset('css/style1.css')}}" type='text/css' media='all' />
 <link rel='stylesheet' id='child-style-css'  href="{{ asset('css/style2.css')}}" type='text/css' media='all' />
-<link rel='stylesheet' id='fontawesome-css'  href="{{ asset('css/font-awesome.min.css')}}" type='text/css' media='all' />
-<link rel='stylesheet' id='education-hub-google-fonts-css'  href='//fonts.googleapis.com/css?family=Open+Sans%3A600%2C400%2C400italic%2C300%2C100%2C700%7CMerriweather+Sans%3A400%2C700&#038;ver=4.9.15' type='text/css' media='all' />
+{{-- <link rel='stylesheet' id='fontawesome-css'  href="{{ asset('css/font-awesome.min.css')}}" type='text/css' media='all' /> --}}
+{{-- <link rel='stylesheet' id='education-hub-google-fonts-css'  href='//fonts.googleapis.com/css?family=Open+Sans%3A600%2C400%2C400italic%2C300%2C100%2C700%7CMerriweather+Sans%3A400%2C700&#038;ver=4.9.15' type='text/css' media='all' /> --}}
 <link rel='stylesheet' id='education-hub-style-css'  href="{{ asset('css/style3.css')}}" type='text/css' media='all' />
 <link rel='stylesheet' id='wpdreams-asl-basic-css'  href="{{ asset('css/style.basic.css')}}" type='text/css' media='all' />
 <link rel='stylesheet' id='wpdreams-ajaxsearchlite-css'  href="{{ asset('css/style-curvy-blue.css')}}" type='text/css' media='all' />
@@ -142,7 +146,7 @@
             <link rel="icon" href="{{ asset('frontend-logos/cropped-LIS_Logo-9-180x180.png')}}" sizes="32x32" />
             {{-- <meta name="msapplication-TileImage" content="http://lisnagda.org/wp-content/uploads/2020/01/cropped-LIS_Logo-9-270x270.png" /> --}}
             <meta name="msapplication-TileImage" content="{{ asset('frontend-logos/cropped-LIS_Logo-9-270x270.png')}}" />
-            <link rel='stylesheet' id='tlpportfolio-fontawsome-css'  href='{{ asset('css/font-awesome.min.css')}}' type='text/css' media='all' />
+            {{-- <link rel='stylesheet' id='tlpportfolio-fontawsome-css'  href='{{ asset('css/font-awesome.min.css')}}' type='text/css' media='all' /> --}}
             
 </head>
 

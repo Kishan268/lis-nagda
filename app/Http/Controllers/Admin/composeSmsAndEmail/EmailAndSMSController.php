@@ -20,6 +20,12 @@ use App\Models\composeEmail\ComposeSmsStudentId;
 use App\Models\composeEmail\ComposeSmsStaffIdAndStudentId;
 use App\Models\composeEmail\ComposeEmail;
 use App\Models\composeEmail\ComposeSms;
+
+
+use App\Models\compose\ComposeSmsEmailMast;
+use App\Models\compose\ComposeSmsEmail;
+
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ComposeMail;
@@ -31,10 +37,13 @@ class EmailAndSMSController extends Controller
 // code start for compose email..................................
 
     public function emailCompose(){
-    	 $classes = studentClass::get();
-         $batches = studentBatch::get();
-         $sections = studentSectionMast::get();
-         $teacher = User::where('user_flag','T')->get();
+    	  $classes = studentClass::get();
+        $batches = studentBatch::get();
+
+
+        
+        $sections = studentSectionMast::get();
+        $teacher = User::where('user_flag','T')->get();
         return view('admin.composeSmsAndEmail.email.index',compact('classes','sections','batches','teacher'));
 
     }

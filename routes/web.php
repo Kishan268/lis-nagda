@@ -148,7 +148,7 @@ Route::post('student_add_to_assign_subject','Admin\classes\SubjectController@stu
 // Student classes route....................
 Route::get('classes', 'Admin\classes\ClassesController@studentClasses')->name('classes');
 Route::post('master/classes/add', 'Admin\classes\ClassesController@addClasses')->name('classes-add');
-Route::put('classes/{id}/update', 'Admin\classes\ClassesController@updateClasses')->name('classes-update');
+//Route::put('classes/{id}/update', 'Admin\classes\ClassesController@updateClasses')->name('classes-update');
 
 // Student batches route....................
 Route::get('class/batches', 'Admin\master\masterController@studentBatches')->name('batch');

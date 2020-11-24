@@ -35,17 +35,20 @@
                 <div class="row">
                     <div class="col-md-3">
                       <label>Select Option</label>
-                      <select class="form-control" name="sendtype" id="sendtype">
+                      <select class="form-control" name="send_to" id="sendtype">
                         <option value="0">--Select--</option>
-                        <option value="1">Send to All</option>
-                        <option value="2">Send to Students</option>
-                        <option value="3">Send to All Faculty</option>
+                        @foreach(SENDTO as $key => $value)
+                            <option value="{{$key}}">{{$value}}</option>                         
+                        @endforeach
                       </select>
                       </div>
                       <div class="col-md-9" id="class_batch_section" style="display: none;">
                         <div class="row">
-                          <div class="col-md-4">
-                          <label>Select Batch</label>
+                          <div class="col-md-6">
+                            <select class="form-control valid" multiple="" id="course_batches" name="course_batches[]">
+                                  
+                            </select>
+                        {{--   <label>Select Batch</label>
                             <select class="form-control" name="batch_id">
                               <option value="">Select Batch</option>
                               @foreach($batches as $key=>$batch)
@@ -74,7 +77,7 @@
                               @foreach($sections as $key=>$section)
                                 <option value="{{$section->id}}">{{$section->section_name}}</option>
                               @endforeach
-                            </select>
+                            </select> --}}
                           </div>
                         </div>
                       </div>

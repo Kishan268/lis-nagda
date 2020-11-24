@@ -8,51 +8,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-      
-<title>Lakshya International School, Nagda &#8211; CBSE Affiliation No. 1031030</title>
-   <link rel="icon" href="{{ asset('frontend-logos/cropped-LIS_Logo-9-270x270.png')}}"/>
-
-  <!-- Custom fonts for this template-->
-  {{-- <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> --}}
-
+  {{-- <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> --}}
   <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-  
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-  <!-- Custom styles for this template-->
+    <script src="{{asset("vendor/jquery/jquery.min.js")}}"></script>
+  <title>Lakshya International School, Nagda &#8211; CBSE Affiliation No. 1031030</title>
+  <link rel="icon" href="{{ asset('frontend-logos/cropped-LIS_Logo-9-270x270.png')}}"/>
+
+  {{-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"> --}}
+
   <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
+
+{{--   <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
   <link href="{{asset('css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
- {{-- <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" /> --}}
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
 
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-      
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
-
- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
- {{-- <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" /> --}}
-     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
-     {{-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"> --}}
-     {{-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.4/css/bootstrap-datetimepicker.min.css"> --}}
-
-{{-- 
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> --}}
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css' />
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.css">
-  
-    
-    <style type="text/css">
-  
-@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600');
-@import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.css"> --}}
+
+{{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"> --}}
+
+ <link href="{{asset('vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css' />
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+ 
+  {{-- <link href="{{asset('css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet"> --}}
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.css">
+<style type="text/css">
+
 html {
   box-sizing: border-box;
   font-weight: 300;
@@ -75,14 +72,18 @@ p {
   justify-content: flex-end;
   margin-bottom: .5em !important;
 }
-
+.siderbar1{
+  font-size: 12px !important;
+}
 .btn {
   border-radius: 0;
   margin-right: .5em;
   /*color: #fff !important;*/
   /*width: 100px;*/
 }
-
+.bread-text{
+  font-size:  20px !important;
+}
 /*.nav-tabs,
 .tab-content {
   max-width: 50%;
@@ -163,9 +164,9 @@ p {
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('home')}}">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+          <i class="" style="font-size: 15px">LIS</i>
         </div>
-        <div class="sidebar-brand-text mx-3">LIS,Nagda <sup></sup></div>
+        <div class="sidebar-brand-text mx-3">LIS, Nagda <sup></sup></div>
       </a>
 
       <!-- Divider -->
@@ -188,241 +189,207 @@ p {
       </div>
  --}}
  @role('superadmin')
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#student_details" aria-expanded="true" aria-controls="student_details">
-          <i class="fa fa-graduation-cap sidebar-nav-icon " style="color: #7FFF00;"></i>
-          <span class="fa-sm fa-fw mr-2 text-green-400">Manage Student</span>
-        </a>
-        <div id="student_details" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded siderbar1">
-            {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-            <a class="collapse-item " href="{{url('student')}}" >Student Dasboard</a>
+     <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+      <i class="fas fa-fw fa-users"></i>
+      <span>Manage Student</span>
+    </a>
+    <div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded siderbar1">
+            <a class="collapse-item " href="{{url('student')}}" >Student Dashboard</a>
             <a class="collapse-item" href="{{url('student_detail')}}" >Student Details</a>
             <a class="collapse-item" href="{{route('previous-record')}}">Previous Record</a>
             <a class="collapse-item" href="{{route('student_manage')}}">Manage Students</a>
             <a class="collapse-item" href="{{route('student_import_export')}}">Upload Students</a>
             <a class="collapse-item" href="{{route('id_card')}}">ID Card</a>
-            <a class="collapse-item" href="#">Records</a>
+            {{-- <a class="collapse-item" href="#">Records</a> --}}
           </div>
-        </div>
+    </div>
+  </li>
 
-      </li> 
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#teachers_details" aria-expanded="true" aria-controls="teachers_details">
-          <i class="fa fa-users sidebar-nav-icon" style="color: #00FFFF;"></i>
-          <span>Manage Teachers</span>
-        </a>
-        <div id="teachers_details" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-            <a class="collapse-item" href="{{url('teachers')}}">Teacher Dasboard</a>
-             <a class="collapse-item" href="{{route('assign_subject')}}">Subject Assign </a>
-           
-          </div>
-          
+   <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
+      <i class="fas fa-fw fa-users"></i>
+      <span>Manage Teachers</span>
+    </a>
+    <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded siderbar1">
+          <a class="collapse-item" href="{{url('teachers')}}">Teacher Dashboard</a>
+          <a class="collapse-item" href="{{route('assign_subject')}}">Subject Assign </a>
         </div>
-      </li>
+    </div>
+  </li>
 
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed {{Request()->segment(2) == 'attendance.student' ? 'active-li' : ''}}" href="#" data-toggle="collapse" data-target="#manage_attendance" aria-expanded="true" aria-controls="manage_attendance">
-          <i class="fa fa-clock-o sidebar-nav-icon" style="color: #4B0082;"></i>
-          <span>Manage Attendance</span>
-        </a>
-        <div id="manage_attendance" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
+   <li class="nav-item">
+    <a class="nav-link collapsed {{Request()->segment(2) == 'attendance.student' ? 'active-li' : ''}}" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
+      <i class="fas fa-fw fa-clock-o"></i>
+      <span>Manage Attendance</span>
+    </a>
+    <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded siderbar1">
             <a class="collapse-item" href="{{route('dashboard')}}">Dashboard</a>
             <a class="collapse-item" href="{{route('attendance.student')}}">Student Attendance</a>
             <a class="collapse-item" href="{{route('attendance.staff')}}">Staff Attendance</a>
             <a class="collapse-item" href="{{route('attendance.upload')}}">Upload Attendance</a>
             <a class="collapse-item" href="{{route('attendance.manage_student')}}">Manage Attendance</a>
             <a class="collapse-item" href="{{route('attendance.student_report')}}">Reports Attendance</a>
-          </div>
         </div>
-      </li>
- <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#manage_classes" aria-expanded="true" aria-controls="manage_classes">
-          <i class="fa fa-graduation-cap sidebar-nav-icon" style="color: #CC7722;"></i>
-          <span>Classes</span>
-        </a>
-        <div id="manage_classes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{route('classes')}}">Manage Class</a>
+    </div>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link collapsed {{Request()->segment(2) == 'attendance.student' ? 'active-li' : ''}}" href="#" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+      <i class="fas fa-fw fa-cogs"></i>
+      <span>Manage</span>
+    </a>
+    <div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded siderbar1">
+           <a class="collapse-item" href="{{route('classes')}}">Manage Class</a>
             <a class="collapse-item" href="{{route('batch')}}">Manage Batch</a>
             <a class="collapse-item" href="{{route('section')}}">Manage Section</a>
             <a class="collapse-item" href="{{route('subject.index')}}">Subject Details</a>
-            <a class="collapse-item" href="{{url('subject_assign')}}"> Subject Assign To Class</a>
-            <a class="collapse-item" href="{{route('subject_assign_to_student')}}">Subject Assign to Student</a>
-           
+
+            <a class="collapse-item" href="{{url('subject_assign')}}">Assign Subject</a>
+            <a class="collapse-item" href="{{route('subject_assign_to_student')}}">Subject Assign to Student</a>  
             <a class="collapse-item" href="{{route('batch')}}">Report</a>
             <a class="collapse-item" href="{{route('batch')}}">Co Subject</a>
-          </div>
         </div>
-      </li>
-      
+    </div>
+  </li>
 
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench fa-sm fa-fw mr-2-400" style="color: #3498db;"></i>
-          <span>Master</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
+  <li class="nav-item">
+    <a class="nav-link collapsed {{Request()->segment(2) == 'attendance.student' ? 'active-li' : ''}}" href="#" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
+      <i class="fas fa-fw fa-cogs"></i>
+      <span>Master</span>
+    </a>
+    <div id="collapse5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded siderbar1">
             <a class="collapse-item" href="{{route('classes')}}">Manage Class</a>
             <a class="collapse-item" href="{{route('batch')}}">Manage Batch</a>
             <a class="collapse-item" href="{{route('section')}}">Manage Section</a>
-            <a class="collapse-item" href="{{route('cast-category')}}">Category</a>
-            <a class="collapse-item" href="{{route('religions')}}">Religion </a>
-            <a class="collapse-item" href="{{route('blood-group')}}">Blood Group  </a>
+            {{-- <a class="collapse-item" href="{{route('cast-category')}}">Category</a> --}}
+            {{-- <a class="collapse-item" href="{{route('religions')}}">Religion </a> --}}
+            {{-- <a class="collapse-item" href="{{route('blood-group')}}">Blood Group  </a> --}}
             <a class="collapse-item" href="{{route('nationality')}}">Nationality</a>
-            <a class="collapse-item" href="{{route('countries')}}">Country</a>
-            <a class="collapse-item" href="{{route('state')}}">State</a>
-            <a class="collapse-item" href="{{route('cities')}}">City</a>
-            <a class="collapse-item" href="{{route('mothetongue')}}">Mothetongue</a>
+            {{-- <a class="collapse-item" href="{{route('countries')}}">Country</a> --}}
+            {{-- <a class="collapse-item" href="{{route('state')}}">State</a> --}}
+            {{-- <a class="collapse-item" href="{{route('cities')}}">City</a> --}}
+            {{-- <a class="collapse-item" href="{{route('mothetongue')}}">Mothetongue</a> --}}
             <a class="collapse-item" href="{{route('professtiontype')}}">Professtion Type</a>
             <a class="collapse-item" href="{{route('gaurdian_designation')}}">Gaurdian Designation</a>
-          </div>
         </div>
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#fees" aria-expanded="true" aria-controls="fees">
-            <i class="fa fa-money sidebar-nav-icon" style="color: yellow;"></i>
-            <span>Fees</span>
-          </a>
-          <div id="fees" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-              {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-               <a class="collapse-item" href="{{route('fees_dashboard')}}">Dashboard </a>
-              {{-- <a class="collapse-item" href="{{route('email_compose')}}"> Heads</a>
-              <a class="collapse-item" href="{{route('email_compose')}}"> Concession</a>
-              <a class="collapse-item" href="{{route('email_compose')}}">Reports</a>
-              <a class="collapse-item" href="{{route('email_compose')}}"> Donations</a>
-              <a class="collapse-item" href="{{route('email_compose')}}"> Settings</a>
-              <a class="collapse-item" href="{{route('email_compose')}}"> Pay Regular Fees</a>
-              <a class="collapse-item" href="{{route('email_compose')}}"> Bulk Fees Upload</a>
-              <a class="collapse-item" href="{{route('email_compose')}}"> Bulk Installment Fees Upload</a> --}}
-            </div>
-          </div>
-       </li>
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#compose_mgs_and_sms" aria-expanded="true" aria-controls="compose_mgs_and_sms">
-            <i class="fa fa-commenting sidebar-nav-icon" style="color: yellow;"></i>
-            <span>Compose Email & SMS</span>
-          </a>
-          <div id="compose_mgs_and_sms" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-              {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-               <a class="collapse-item" href="{{route('sms_compoe')}}">Compose SMS </a>
-              <a class="collapse-item" href="{{route('email_compose')}}"> Compose Email</a>
-            </div>
-          </div>
-       </li> 
-       <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#student_time_table" aria-expanded="true" aria-controls="student_time_table">
-            {{-- <i class="fa fa-commenting sidebar-nav-icon" style="color: yellow;"></i> --}}
-            <i class="fa fa-calendar sidebar-nav-icon" style="color: yellow;" aria-hidden="true"></i>
-            <span>Time Table</span>
-          </a>
-          <div id="student_time_table" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-              {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-               <a class="collapse-item" href="{{route('time-table.index')}}">Dashboard </a>
-               
-            </div>
-          </div>
-       </li>
-     
-       <li class="nav-item active">
-          <a class="nav-link" href="{{route('admission_inquiry_data')}}">
-          <i class="fas fa-fw fa-user fa-sm fa-fw mr-2 text-green-400" style="color: #873600;"></i>
-          <span>Admission Inquiry data</span></a>
-      </li>
-        <li class="nav-item active">
-        <a class="nav-link" href="{{route('notice-circular.index')}}">
-          <i class="fa fa-dashboard sidebar-nav-icon fa-sm fa-fw mr-2 text-green-400" style="color: #E0B0FF;"></i>
-          <span>Notis & Circular</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{{url('admin')}}">
-          <i class="fas fa-fw fa-cubes fa-sm fa-fw mr-2 text-green-400" style="color: blue;"></i>
-          <span>ACL</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{{url('gallery')}}">
-          <i class="fa fa-picture-o fa-sm fa-fw mr-2 text-green-400" style="color: blue;"></i>
-          <span>Gallery</span></a>
-      </li>
-         
-        
-      
-      {{-- <li class="nav-item active">
-          <a class="nav-link" href="{{url('profile')}}">
-          <i class="fas fa-fw fa-user fa-sm fa-fw mr-2 text-green-400" style="color: green;"></i>
-          <span>Profile</span></a>
-      </li> --}}
-       @endrole
-       @ability('teachers','superadmin')
-          <!-- Nav Item - Pages Collapse Menu -->
-          <li class="nav-item">
-            <a class="nav-link collapsed {{Request()->segment(2) == 'attendance.student' ? 'active-li' : ''}}" href="#" data-toggle="collapse" data-target="#manage_attendance" aria-expanded="true" aria-controls="manage_attendance">
-              <i class="fa fa-clock-o sidebar-nav-icon" style="color: #4B0082;"></i>
-              <span>Manage Attendance</span>
-            </a>
-            <div id="manage_attendance" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-                <a class="collapse-item" href="{{route('dashboard')}}">Dashboard</a>
-                <a class="collapse-item" href="{{route('attendance.student')}}">Student Attendance</a>
-                {{-- <a class="collapse-item" href="{{route('attendance.staff')}}">Staff Attendance</a> --}}
-                <a class="collapse-item" href="{{route('attendance.upload')}}">Upload Attendance</a>
-                <a class="collapse-item" href="{{route('attendance.manage_student')}}">Manage Attendance</a>
-                <a class="collapse-item" href="{{route('attendance.student_report')}}">Reports Attendance</a>
-              </div>
-            </div>
-          </li>
-        <li class="nav-item active">
-        <a class="nav-link" href="{{route('notice-circular.index')}}">
-          <i class="fa fa-dashboard sidebar-nav-icon fa-sm fa-fw mr-2 text-green-400" style="color: #E0B0FF;"></i>
-          <span>Notis & Circular</span></a>
-        
-       </li>
-       <li class="nav-item active">
-          <a class="nav-link" href="{{url('profile')}}">
-          <i class="fas fa-fw fa-user fa-sm fa-fw mr-2 text-green-400" style="color: green;"></i>
-          <span>Profile</span></a>
-      </li>
-       @endability
+    </div>
+  </li>
 
-      @role('students')
+  <li class="nav-item">
+    <a class="nav-link collapsed {{Request()->segment(2) == 'attendance.student' ? 'active-li' : ''}}" href="#" data-toggle="collapse" data-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
+      <i class="fas fa-fw fa-money"></i>
+      <span>Fees</span>
+    </a>
+    <div id="collapse6" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded siderbar1">
+           <a class="collapse-item" href="{{route('fees_dashboard')}}">Dashboard </a>
+        </div>
+    </div>
+  </li>
 
-        <li class="nav-item active">
-        <a class="nav-link" href="{{url('profile')}}">
-          <i class="fas fa-fw fa-user fa-sm fa-fw mr-2 text-green-400" style="color: green;"></i>
-          <span>Manage Profile</span></a>
-      </li>   
-      <li class="nav-item active">
-        <a class="nav-link" href="{{url('profile')}}">
-          <i class="fas fa-fw fa-bars fa-sm fa-fw mr-2 text-green-400" style="color: #40826D;"></i>
-          <span>Show Attendance</span></a>
-      </li> 
-      @endrole
+  <li class="nav-item">
+    <a class="nav-link collapsed {{Request()->segment(2) == 'attendance.student' ? 'active-li' : ''}}" href="#" data-toggle="collapse" data-target="#collapse7" aria-expanded="true" aria-controls="collapse7">
+      <i class="fas fa-fw fa-envelope"></i>
+      <span>Compose</span>
+    </a>
+    <div id="collapse7" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded siderbar1">
+           <a class="collapse-item" href="{{route('sms_compoe')}}">Compose SMS </a>
+           <a class="collapse-item" href="{{route('email_compose')}}"> Compose Email</a>
+        </div>
+    </div>
+  </li>
+
+ <li class="nav-item">
+    <a class="nav-link" href="{{route('time-table.index')}}">
+      <i class="fas fa-fw fa-clock"></i>
+      <span>Time Table</span></a>
+  </li>
+
+   <li class="nav-item">
+    <a class="nav-link" href="{{route('admission_inquiry_data')}}">
+      <i class="fas fa-fw fa-question-circle"></i>
+      <span>Admission Inquiry</span></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{route('notice-circular.index')}}">
+      <i class="fas fa-fw fa-bell"></i>
+      <span>Notice & Circular</span></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url('admin')}}">
+      <i class="fas fa-fw fa-cog"></i>
+      <span>ACL</span></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url('gallery')}}">
+      <i class="fas fa-fw fa-picture-o"></i>
+      <span>Gallery</span></a>
+  </li>
+@endrole
+@ability('teachers','superadmin')
+  <!-- Nav Item - Pages Collapse Menu -->
+  <li class="nav-item">
+    <a class="nav-link collapsed {{Request()->segment(2) == 'attendance.student' ? 'active-li' : ''}}" href="#" data-toggle="collapse" data-target="#manage_attendance" aria-expanded="true" aria-controls="manage_attendance">
+      <i class="fa fa-clock-o sidebar-nav-icon" style="color: #4B0082;"></i>
+      <span>Manage Attendance</span>
+    </a>
+    <div id="manage_attendance" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
+        <a class="collapse-item" href="{{route('dashboard')}}">Dashboard</a>
+        <a class="collapse-item" href="{{route('attendance.student')}}">Student Attendance</a>
+        {{-- <a class="collapse-item" href="{{route('attendance.staff')}}">Staff Attendance</a> --}}
+        <a class="collapse-item" href="{{route('attendance.upload')}}">Upload Attendance</a>
+        <a class="collapse-item" href="{{route('attendance.manage_student')}}">Manage Attendance</a>
+        <a class="collapse-item" href="{{route('attendance.student_report')}}">Reports Attendance</a>
+      </div>
+    </div>
+  </li>
+<li class="nav-item active">
+<a class="nav-link" href="{{route('notice-circular.index')}}">
+  <i class="fa fa-dashboard sidebar-nav-icon fa-sm fa-fw mr-2 text-green-400" style="color: #E0B0FF;"></i>
+   <span>Notice & Circular</span></a>
+
+</li>
+<li class="nav-item active">
+  <a class="nav-link" href="{{url('profile')}}">
+  <i class="fas fa-fw fa-user fa-sm fa-fw mr-2 text-green-400" style="color: green;"></i>
+  <span>Profile</span></a>
+</li>
+@endability
+
+@role('students')
+
+<li class="nav-item active">
+<a class="nav-link" href="{{url('profile')}}">
+  <i class="fas fa-fw fa-user fa-sm fa-fw mr-2 text-green-400" style="color: green;"></i>
+  <span>Manage Profile</span></a>
+</li>   
+<li class="nav-item active">
+<a class="nav-link" href="{{url('profile')}}">
+  <i class="fas fa-fw fa-bars fa-sm fa-fw mr-2 text-green-400" style="color: #40826D;"></i>
+  <span>Show Attendance</span></a>
+</li> 
+@endrole
 @role('students','teachers')
-      <li class="nav-item active">
-        <a class="nav-link" href="{{route('logout')}}" onclick="event.preventDefault();
-                                           document.getElementById('logout-form').submit();">
-          <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-red-400" style="color: red;"></i>
-          <span>Logout</span></a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-        </form>              
-      </li>
-      </li>
-      @endrole
+<li class="nav-item active">
+  <a class="nav-link" href="{{route('logout')}}" onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();">
+    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-red-400" style="color: red;"></i>
+    <span>Logout</span></a>
+  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+      @csrf
+  </form>              
+</li>
+</li>
+@endrole
 
  
       <!-- Divider -->
@@ -484,7 +451,6 @@ p {
               </div>
             </li>
 
-      <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
@@ -644,12 +610,3 @@ p {
 <style type="text/css">
   #menunew:active {background-color: #07c;color: #fff;}
 </style>
-<script type="text/javascript">
-   $('li a').click(function() {
-        var $this = $(this);
-        // e.preventDefault();
-        $('a').removeClass('active');
-        $(this).addClass('active');
-    });
-  
-</script>

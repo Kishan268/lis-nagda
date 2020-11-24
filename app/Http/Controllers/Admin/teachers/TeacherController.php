@@ -33,9 +33,11 @@ class TeacherController extends Controller
     public function index()
     {
         // return 'edsfdsf';
-        $teachers = Teacher::with('teacher')->where('status',1)->get();
+        $teachers = Teacher::has('teacher')->with('teacher')->where('status',1)->get();
+        $table_title = 'Teachers';
         // dd($teachers);
-        return view('admin.teachers.index',compact('teachers'));
+        // return $teachers;
+        return view('admin.teachers.index',compact('teachers','table_title'));
 
     }
 
@@ -110,7 +112,7 @@ class TeacherController extends Controller
      */
     public function show($id)
     {
-        $teachers = Teacher::with('teacher')->where('status',1)->get();
+        $teachers = Teacher::has('teacher')->with('teacher')->where('status',1)->get();
         // dd($teachers);
         return view('admin.teachers.show',compact('teachers'));
     }

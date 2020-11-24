@@ -46,34 +46,22 @@ class masterController extends Controller
         // dd( $request);
     
         $data = $request->validate([
-        		'class_id'=>'required',
-                'batch_from'=>'required',
-        		'batch_to'=>'required',
-                'batch_name' =>'required'
+
+        		'batch_from'=>'required',
+        		'batch_to'=>'required|after:batch_from',
+                'batch_name' =>'required|unique:student_batches,batch_name,'.$request->batch_id,
         ]);
         $data['user_id']    = Auth::user()->id;
 
-        
-        
-    	 studentBatch::create($data);
-
-    		return redirect('master/batches');
+        if($request->flag == 'add'){
+    	    studentBatch::create($data);           
+            return redirect()->back()->with('success','Batch added successfully');
+        }else{
+            studentBatch::where('id',$request->batch_id)->update($data);
+            return redirect()->back()->with('success','Batch updated successfully');
+        }
+          
     }
-    public function updateBatch(Request $request, $id)
-    {
-         $data = $request->validate([
-                'class_id'=>'required',
-                'batch_from' =>'required',
-                'batch_to'   =>'required',
-                'batch_name' =>'required'
-        ]);
-         // dd($data);
-        $data['user_id']    = Auth::user()->id;
-
-    	studentBatch::where('id',$id)->update($data);
-    	return redirect('class/batches');
-    }
-	//  student batch add code.............................
 
 	//  student sectintion add code.............................
 
