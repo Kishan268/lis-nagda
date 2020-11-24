@@ -14,8 +14,8 @@
 		$option = '<option value="">Select Subject..</option>';
 			foreach ($class->assignsubject as $subjects) {
 				foreach($subjects->assign_subjectId as $subject){
-					$id = $subject->subjectName->id;
-					$name = $subject->subjectName->subject_name;
+					$id = $subject->subjectName !=null ? $subject->subjectName->id : '';
+					$name = $subject->subjectName != null ? $subject->subjectName->subject_name : '' ;
 					$option .='<option value="'.$id.'">'.$name.' </option>';
 				}
 			}		
