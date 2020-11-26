@@ -294,7 +294,6 @@ Route::group(['middleware' => ['auth','role:superadmin']], function () {
         // Route::post('/import','AttendanceController@importAttendence')->name('attendance.import');
 
 
-Route::Resource('profile','Admin\profile\ProfileController');
 
 Route::Resource('notice-circular','Admin\noticeCircular\NoticeCircularController');
 Route::get('course_batches_chosen','Admin\noticeCircular\NoticeCircularController@getBtachSectionClass')->name('course_batches_chosen');
@@ -354,4 +353,13 @@ Route::post('generate_table','Admin\timetable\TimeTableController@generateTable'
 Route::post('get-assigne-subject','Admin\timetable\TimeTableController@getsubject')->name('get_assigne_subject');
 Route::post('get_class_for_timetable','Admin\timetable\TimeTableController@getClassForTimetable')->name('get_class_for_timetable');
 
+Route::resource('settings','Admin\settings\SettingController');
+
+Route::Resource('certificates','Admin\certificate\CertificateController');
+
+Route::get('certificate/approve/{id}','Admin\certificate\CertificateController@certificateApprove')->name('certificate_approve');
+
 });
+
+Route::Resource('profile','Admin\profile\ProfileController');
+Route::Resource('certificate-request','Admin\students\CertificateRequestController');

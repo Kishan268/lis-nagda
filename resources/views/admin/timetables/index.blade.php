@@ -25,7 +25,8 @@
                     <th>Start Date</th>
                     <th>End Date</th>
                     <th>Reporting Time</th>
-                    <th>Examination Time</th>
+                    <th>Examination From Time</th>
+                    <th>Examination To Time</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -40,7 +41,8 @@
                    <td>{{$examTimeTableMasts->start_dt}}</td>
                    <td>{{$examTimeTableMasts->end_dt}}</td>
                    <td>{{$examTimeTableMasts->reporting_time}}</td>
-                   <td>{{$examTimeTableMasts->exam_time}}</td>
+                   <td>{{$examTimeTableMasts->exam_from_time}}</td>
+                   <td>{{$examTimeTableMasts->exam_to_time}}</td>
                    <td><a href="{{route('time-table.show',$examTimeTableMasts->time_id)}}" ><i class=" fa fa-eye text-primary" style="font-size: 16px;"></i></a><a href="{{route('time-table.edit',$examTimeTableMasts->time_id)}}" ><i class=" fa fa-pencil text-primary" style="font-size: 16px;"></i></a></td>
 
                  </tr>

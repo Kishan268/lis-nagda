@@ -34,37 +34,24 @@
                         <label for="class_from">Class From </label>                
                         <div class="input-group">
                            <span class="input-group-addon"></span>
-                           <select class="form-control onlyDigit input-sm" id="class_from" name="class_from"  value="{{old('class_from')}}" readonly>
-                            <option value="{{$timeTable->get_from_class->id}}"> {{$timeTable->get_from_class->class_name}}</option>
+                            <input value="{{$timeTable->get_from_class->class_name}}"  class="form-control onlyDigit input-sm" id="class_from" name="class_from" readonly=""> 
                             {{-- @foreach($class as $classes)
                             <option value="{{$classes->id}}"> {{$classes->class_name}}</option>
                             @endforeach --}}
-                            </select>
                         </div>
-                         @error('class_from')
-                          <span class="text-danger">
-                            <strong>{{$message}}</strong>
-                          </span>
-                        @enderror
                     </div>
                     <div class="col-md-4">
                         <label class="red"> *</label>
                         <label for="class_to">Class To </label>                
                         <div class="input-group">
                            <span class="input-group-addon"></span>
-                           <select class="form-control onlyDigit input-sm" id="class_to"  name="class_to"  value="{{old('class_to')}}" readonly>
-                            <option value="{{$timeTable->get_to_class->id}}" > {{$timeTable->get_to_class->class_name}}</option>
+                           <input class="form-control onlyDigit input-sm" id="class_to"  name="class_to"  value="{{$timeTable->get_to_class->class_name}}" readonly>
+                            <option  > </option>
 
                            {{--  @foreach($class as $classes)
                             <option value="{{$classes->id}}"> {{$classes->class_name}}</option>
                             @endforeach --}}
-                            </select>
                         </div>
-                        @error('class_to')
-                          <span class="text-danger">
-                            <strong>{{$message}}</strong>
-                          </span>
-                        @enderror
                     </div>
                     <div class="col-md-6">
                         <label class="red"> *</label>
@@ -76,11 +63,51 @@
                           </span>
                           @enderror
                     </div>
+                     <div class="col-md-6">
+                        <label class="red"> *</label>
+                        <label for="name">Departure Time</label>
+                         <input type="text" name="deprature_time" class="form-control timepicker" value="{{$timeTable->deprature_time}}" readonly="">
+                          @error('deprature_time')
+                          <span class="text-danger">
+                            <strong>{{$message}}</strong>
+                          </span>
+                          @enderror
+                    </div>
                     <div class="col-md-6">
                         <label class="red"> *</label>
-                        <label for="name">Examination Time</label>
-                         <input type="text" name="examination_time" class="form-control timepicker" value="{{$timeTable->exam_time}}" readonly>
-                          @error('examination_time')
+                        <label for="name">Examination From Time</label>
+                         <input type="text" name="exam_from_time" class="form-control timepicker" value="{{$timeTable->exam_from_time}}" readonly>
+                          @error('exam_from_time')
+                          <span class="text-danger">
+                            <strong>{{$message}}</strong>
+                          </span>
+                          @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label class="red"> *</label>
+                        <label for="name">Examination To Time</label>
+                         <input type="text" name="exam_to_time" class="form-control timepicker" value="{{$timeTable->exam_to_time}}" readonly>
+                          @error('exam_to_time')
+                          <span class="text-danger">
+                            <strong>{{$message}}</strong>
+                          </span>
+                          @enderror
+                    </div>
+                     <div class="col-md-6">
+                        <label class="red"> *</label>
+                        <label for="name">Lunch From Time</label>
+                         <input type="text" name="lunch_from_time" class="form-control timepicker" value="{{$timeTable->lunch_from_time}}" readonly>
+                          @error('lunch_from_time')
+                          <span class="text-danger">
+                            <strong>{{$message}}</strong>
+                          </span>
+                          @enderror
+                    </div> 
+                    <div class="col-md-6">
+                        <label class="red"> *</label>
+                        <label for="name">Lunch To Time</label>
+                         <input type="text" name="lunch_to_time" class="form-control timepicker" value="{{$timeTable->lunch_to_time}}" readonly>
+                          @error('lunch_to_time')
                           <span class="text-danger">
                             <strong>{{$message}}</strong>
                           </span>
@@ -165,18 +192,19 @@
                           <tbody>
 
                             @foreach($getClasses as $class)
-                           
+                              @php  $i =0 ; @endphp
                               <tr>
                                 <td>{{$class->class_name}}</td> 
 
                                 @foreach($examTimeTableMast as $getTimeTable)
 
-                                @foreach($getTimeTable->get_time_table as  $key => $getTime)
+                                @foreach($getTimeTable->get_time_table as $getTime)
 
                                  @if($getTime->class_id == $class->id)
-                                     @php $sub_id = $getTime->subject_id @endphp
+                                     @php $sub_id = $getTime->subject_id ;   @endphp
+
                                   <td>
-                                    <select name="subject_{{$key+1}}_{{$class->id}}" class="form-control" >
+                                    <select name="subject_{{++$i}}_{{$class->id}}" class="form-control" >
                                        <?php  
                                          $option = '<option value="">Select Subject..</option>';
                                           foreach ($class->assignsubject as $subjects) {
@@ -267,10 +295,22 @@
         class_to:{
           required:true
         },
-         reporting_time:{
+        reporting_time:{
+          required:true
+        },
+        deprature_time:{
           required:true
         }, 
-        examination_time:{
+        exam_from_time:{
+          required:true
+        }, 
+        exam_to_time:{
+          required:true
+        },
+        lunch_from_time:{
+          required:true
+        },
+        lunch_to_time:{
           required:true
         }, 
         start_date:{

@@ -44,7 +44,11 @@ class TimeTableController extends Controller
             'class_from'=>'required',
             'class_to'=>'required',
             'reporting_time'=>'required',
-            'examination_time'=>'required',
+            'deprature_time'=>'required',
+            'exam_from_time'=>'required',
+            'exam_to_time'=>'required',
+            'lunch_from_time'=>'required',
+            'lunch_to_time'=>'required',
             'start_dt'=>'required',
             'end_dt'=>'required',
             'nod'=>'required',
@@ -56,7 +60,11 @@ class TimeTableController extends Controller
             'class_from'=>$request->class_from,
             'class_to'=>$request->class_to,
             'reporting_time'=>$request->reporting_time,
-            'exam_time'=>$request->examination_time,
+            'deprature_time'=>$request->deprature_time,
+            'exam_from_time'=>$request->exam_from_time,
+            'exam_to_time'=>$request->exam_to_time,
+            'lunch_from_time'=>$request->lunch_from_time,
+            'lunch_to_time'=>$request->lunch_to_time,
             'start_dt'=>date('Y-m-d',strtotime($request->start_date)),
             'end_dt'=>date('Y-m-d',strtotime($request->end_date)),
             'remark'=>$request->remark
@@ -121,6 +129,8 @@ class TimeTableController extends Controller
    
     public function update(Request $request, $id)
     {
+
+       // return $request;
         $classFrom = $request->class_from;
         $classTo   = $request->class_to;
         $nod   = count($request->date);
@@ -132,7 +142,11 @@ class TimeTableController extends Controller
             'class_from'=>'required',
             'class_to'=>'required',
             'reporting_time'=>'required',
-            'examination_time'=>'required',
+            'deprature_time'=>'required',
+            'exam_from_time'=>'required',
+            'exam_to_time'=>'required',
+            'lunch_from_time'=>'required',
+            'lunch_to_time'=>'required',
             'start_dt'=>'required',
             'end_dt'=>'required',
             'remark'=>'required',
@@ -143,31 +157,32 @@ class TimeTableController extends Controller
             'class_from'=>$request->class_from,
             'class_to'=>$request->class_to,
             'reporting_time'=>$request->reporting_time,
-            'exam_time'=>$request->examination_time,
+            'deprature_time'=>$request->deprature_time,
+            'exam_from_time'=>$request->exam_from_time,
+            'exam_to_time'=>$request->exam_to_time,
+            'lunch_from_time'=>$request->lunch_from_time,
+            'lunch_to_time'=>$request->lunch_to_time,
             'start_dt'=>date('Y-m-d',strtotime($request->start_date)),
             'end_dt'=>date('Y-m-d',strtotime($request->end_date)),
             'remark'=>$request->remark
 
         ];
-        $lastId = ExamTimeTableMast::where('time_id',$id)->update($data);
-        // dd($getClasses);
+        $updateTimetable = ExamTimeTableMast::where('time_id',$id)->update($data);
+        $delete = ExamTimeTable::where('time_id',$id)->delete();
         
         foreach($getClasses as $class){
 
             for($i=1; $i <= $nod ; $i++){
                 $field_name = 'subject_'.$i.'_'.$class->id; 
+
                     $exam_time_table = [
                         'time_id'=>$id,
                         'class_id'=>$class->id,
                         'subject_id'=> $request->$field_name,
                         'date'=> date('Y-m-d',strtotime($request->date[$i-1])) 
                      ];
-                    // dd($exam_time_table['subject_id']);
-                     $delete = ExamTimeTable::delete($exam_time_table)->where('time_id',$id);
-                     if ($delete) {
                      ExamTimeTable::create($exam_time_table);
                        
-                     }
             }
         }
         return redirect()->route('time-table.index')->with('success','Time table updated successfully');
@@ -180,9 +195,10 @@ class TimeTableController extends Controller
     }
 
     public function generateTable(Request $request){
+
         $classFrom = $request->classFrom;
         $classTo   = $request->classTo;
-        $nod   = $request->nod;
+        $nod       = $request->nod;
 
         $getClasses = studentClass::with(['assignsubject'=>function($q){
             $q->with(['assign_subjectId.subjectName']);

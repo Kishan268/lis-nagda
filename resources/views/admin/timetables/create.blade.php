@@ -67,7 +67,7 @@
                     <div class="col-md-6">
                         <label class="red"> *</label>
                          <label for="name">Reporting Time</label>
-                         <input type="text" name="reporting_time" class="form-control timepicker" value="{{old('reporting_time')}}">
+                         <input type="text" name="reporting_time" class="form-control timepicker" value="{{old('reporting_time')}}" readonly="">
                          @error('reporting_time')
                           <span class="text-danger">
                             <strong>{{$message}}</strong>
@@ -76,9 +76,49 @@
                     </div>
                     <div class="col-md-6">
                         <label class="red"> *</label>
-                        <label for="name">Examination Time</label>
-                         <input type="text" name="examination_time" class="form-control timepicker" value="{{old('examination_time')}}">
-                          @error('examination_time')
+                        <label for="name">Departure Time</label>
+                         <input type="text" name="deprature_time" class="form-control timepicker" value="{{old('deprature_time')}}" readonly="">
+                          @error('deprature_time')
+                          <span class="text-danger">
+                            <strong>{{$message}}</strong>
+                          </span>
+                          @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label class="red"> *</label>
+                        <label for="name">Examination From Time</label>
+                         <input type="text" name="exam_from_time" class="form-control timepicker" value="{{old('exam_from_time')}}" readonly="">
+                          @error('exam_from_time')
+                          <span class="text-danger">
+                            <strong>{{$message}}</strong>
+                          </span>
+                          @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label class="red"> *</label>
+                        <label for="name">Examination To Time</label>
+                         <input type="text" name="exam_to_time" class="form-control timepicker" value="{{old('exam_to_time')}}" readonly="">
+                          @error('exam_to_time')
+                          <span class="text-danger">
+                            <strong>{{$message}}</strong>
+                          </span>
+                          @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label class="red"> *</label>
+                        <label for="name">Lunch From Time</label>
+                         <input type="text" name="lunch_from_time" class="form-control timepicker" value="{{old('lunch_from_time')}}" readonly="">
+                          @error('lunch_from_time')
+                          <span class="text-danger">
+                            <strong>{{$message}}</strong>
+                          </span>
+                          @enderror
+                    </div> 
+                    <div class="col-md-6">
+                        <label class="red"> *</label>
+                        <label for="name">Lunch To Time</label>
+                         <input type="text" name="lunch_to_time" class="form-control timepicker" value="{{old('lunch_to_time')}}" readonly="">
+                          @error('lunch_to_time')
                           <span class="text-danger">
                             <strong>{{$message}}</strong>
                           </span>
@@ -87,25 +127,27 @@
                     <div class="col-md-6">
                         <label class="red"> *</label>
                         <label for="name">Start Date</label>
-                         <input type="text" name="start_date" class="form-control datepicker" value="{{old('start_date')}}" required="true" readonly="true">
+                         <input type="text" name="start_date" class="form-control " value="{{old('start_date')}}" required="true" readonly="true" id="txtFromDate">
                          @error('start_date')
                           <span class="text-danger">
                             <strong>{{$message}}</strong>
                           </span>
                           @enderror
                     </div>
+                    
                     <div class="col-md-6">
                          <label class="red"> *</label>
                          <label for="name">End Date</label>
 
-                         <input type="text" name="end_date" class="form-control datepicker" value="{{old('end_date')}}" required="true" readonly="true">
+                         <input type="text" name="end_date" class="form-control " value="{{old('end_date')}}" required="true" readonly="true" id="txtToDate">
                          @error('end_date')
                           <span class="text-danger">
                             <strong>{{$message}}</strong>
                           </span>
                           @enderror
                     </div>
-                    <div class="col-md-6">
+
+                    <div class="col-md-4">
                       <label class="red"> *</label>
                       <label for="name">Number Of Date</label>
                        <select class="form-control" name="nod" id="nod" value="{{old('nod')}}">
@@ -120,7 +162,7 @@
                           </span>
                        @enderror
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <label class="red"> *</label>
                       <label for="name">Remark</label>
                        <textarea class="form-control" name="remark" >{{old('remark')}}</textarea>
@@ -230,14 +272,29 @@ $(document).on('change','#nod',function(){
         },
          reporting_time:{
           required:true
+        },  
+        deprature_time:{
+          required:true
         }, 
-        examination_time:{
+        exam_from_time:{
+          required:true
+        }, 
+        exam_to_time:{
+          required:true
+        },
+        lunch_from_time:{
+          required:true
+        },
+        lunch_to_time:{
           required:true
         }, 
         start_date:{
           required:true
         }, 
         end_date:{
+          required:true
+        }, 
+        deprature_time:{
           required:true
         }, 
         nod:{
@@ -258,5 +315,20 @@ $(document).on('change','#nod',function(){
  });
 
 
+
+ $(document).ready(function(){
+    $("#txtFromDate").datepicker({
+        numberOfMonths: 2,
+        onSelect: function(selected) {
+          $("#txtToDate").datepicker("option","minDate", selected)
+        }
+    });
+    $("#txtToDate").datepicker({ 
+        numberOfMonths: 2,
+        onSelect: function(selected) {
+           $("#txtFromDate").datepicker("option","maxDate", selected)
+        }
+    });  
+});
 </script>
  @endsection

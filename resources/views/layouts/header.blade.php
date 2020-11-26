@@ -344,6 +344,11 @@ p {
       <i class="fas fa-fw fa-picture-o"></i>
       <span>Gallery</span></a>
   </li>
+  <li class="nav-item active">
+   <a class="nav-link" href="{{route('certificates.index')}}">
+    <i class="fas fa-fw fa-certificate fa-sm fa-fw mr-2 text-green-400" ></i>
+    <span>Certificate Request</span></a>
+  </li>
 @endrole
 @ability('teachers','superadmin')
   <!-- Nav Item - Pages Collapse Menu -->
@@ -379,16 +384,21 @@ p {
 
 @role('students')
 
-<li class="nav-item active">
-<a class="nav-link" href="{{url('profile')}}">
-  <i class="fas fa-fw fa-user fa-sm fa-fw mr-2 text-green-400" style="color: green;"></i>
-  <span>Manage Profile</span></a>
-</li>   
-<li class="nav-item active">
-<a class="nav-link" href="{{url('profile')}}">
-  <i class="fas fa-fw fa-bars fa-sm fa-fw mr-2 text-green-400" style="color: #40826D;"></i>
-  <span>Show Attendance</span></a>
-</li> 
+    <li class="nav-item active">
+    <a class="nav-link" href="{{url('profile')}}">
+      <i class="fas fa-fw fa-user fa-sm fa-fw mr-2 text-green-400" ></i>
+      <span>Manage Profile</span></a>
+    </li>   
+    <li class="nav-item active">
+    <a class="nav-link" href="{{url('profile')}}">
+      <i class="fas fa-fw fa-bars fa-sm fa-fw mr-2 text-green-400" ></i>
+      <span>Show Attendance</span></a>
+    </li>    
+    <li class="nav-item active">
+    <a class="nav-link" href="{{route('certificate-request.index')}}">
+      <i class="fas fa-fw fa-certificate fa-sm fa-fw mr-2 text-green-400" ></i>
+      <span>Certificate</span></a>
+    </li> 
 @endrole
 @role('students','teachers')
 <li class="nav-item active">
@@ -582,7 +592,7 @@ p {
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-green-400" style="color: green;"></i>
                   Profile
                 </a>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{route('settings.index')}}">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
                 </a>
