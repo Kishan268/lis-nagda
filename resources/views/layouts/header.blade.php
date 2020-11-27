@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   {{-- <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> --}}
   <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
 
@@ -164,7 +165,7 @@ p {
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('home')}}">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('/')}}">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="" style="font-size: 15px">LIS</i>
         </div>
@@ -261,10 +262,10 @@ p {
             <a class="collapse-item" href="{{route('section')}}">Manage Section</a>
             <a class="collapse-item" href="{{route('subject.index')}}">Subject Details</a>
 
-            <a class="collapse-item" href="{{url('subject_assign')}}">Assign Subject</a>
-            <a class="collapse-item" href="{{route('subject_assign_to_student')}}">Subject Assign to Student</a>  
-            <a class="collapse-item" href="{{route('batch')}}">Report</a>
-            <a class="collapse-item" href="{{route('batch')}}">Co Subject</a>
+            {{-- <a class="collapse-item" href="{{url('subject_assign')}}">Assign Subject</a> --}}
+            {{-- <a class="collapse-item" href="{{route('subject_assign_to_student')}}">Subject Assign to Student</a>   --}}
+            {{-- <a class="collapse-item" href="{{route('batch')}}">Report</a> --}}
+            {{-- <a class="collapse-item" href="{{route('batch')}}">Co Subject</a> --}}
         </div>
     </div>
   </li>
@@ -276,13 +277,13 @@ p {
     </a>
     <div id="collapse5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded siderbar1">
-            <a class="collapse-item" href="{{route('classes')}}">Manage Class</a>
-            <a class="collapse-item" href="{{route('batch')}}">Manage Batch</a>
-            <a class="collapse-item" href="{{route('section')}}">Manage Section</a>
+            {{-- <a class="collapse-item" href="{{route('classes')}}">Manage Class</a> --}}
+            {{-- <a class="collapse-item" href="{{route('batch')}}">Manage Batch</a> --}}
+            {{-- <a class="collapse-item" href="{{route('section')}}">Manage Section</a> --}}
             {{-- <a class="collapse-item" href="{{route('cast-category')}}">Category</a> --}}
             {{-- <a class="collapse-item" href="{{route('religions')}}">Religion </a> --}}
             {{-- <a class="collapse-item" href="{{route('blood-group')}}">Blood Group  </a> --}}
-            <a class="collapse-item" href="{{route('nationality')}}">Nationality</a>
+            {{-- <a class="collapse-item" href="{{route('nationality')}}">Nationality</a> --}}
             {{-- <a class="collapse-item" href="{{route('countries')}}">Country</a> --}}
             {{-- <a class="collapse-item" href="{{route('state')}}">State</a> --}}
             {{-- <a class="collapse-item" href="{{route('cities')}}">City</a> --}}
@@ -429,7 +430,7 @@ p {
           </button>
 
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+        {{--   <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
@@ -438,13 +439,28 @@ p {
                 </button>
               </div>
             </div>
-          </form>
+          </form> --}}
+          
+
+         
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
 
-            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-            <li class="nav-item dropdown no-arrow d-sm-none">
+            <li class="nav-item mr-5">
+              <select name="session_batch" class="mt-3 form-control" id="session_batch">
+                  @foreach(batches() as $batch)
+                      <option value="{{$batch->id}}" {{$batch->id == session('current_batch') ? 'selected' : ''}}>{{$batch->batch_name}}</option>
+                  @endforeach            
+              </select>
+            </li>
+
+           
+
+
+
+
+      {{--   <li class="nav-item dropdown no-arrow d-sm-none">
               <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-search fa-fw"></i>
               </a>
@@ -462,7 +478,7 @@ p {
                 </form>
               </div>
             </li>
-
+ --}}
             <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
@@ -512,7 +528,7 @@ p {
             </li>
 
             <!-- Nav Item - Messages -->
-            <li class="nav-item dropdown no-arrow mx-1">
+          {{--   <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-envelope fa-fw"></i>
                 <!-- Counter - Messages -->
@@ -566,7 +582,7 @@ p {
                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
               </div>
             </li>
-
+ --}}
             <div class="topbar-divider d-none d-sm-block"></div>
 
             <!-- Nav Item - User Information -->

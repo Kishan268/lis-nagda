@@ -100,13 +100,13 @@ class studentController extends Controller
                 'std_class_id'        => 'required|not_in:""',
                 'batch_id'            => 'required|not_in:""',
                 'section_id'          => 'required|not_in:""',
-                'admision_no'         => 'required|number',
+                'admision_no'         => 'required|unique:students_masts,admision_no',
                 'f_name'              => 'required',
                 'l_name'              => 'required',
                 's_mobile'            => 'required',
                 'dob'                 => 'required',
-                'birth_place'         => 'required',
-                'email'               => 'required',
+                'birth_place'         => 'nullable',
+                'email'               => 'nullable',
                 'gender'              => 'required|not_in:""',
                 'reservation_class_id'=> 'required|not_in:""',
                 'p_address'           => 'required|min:3|max:191',
@@ -119,7 +119,8 @@ class studentController extends Controller
                 'l_city'              => 'required|min:3|max:30',
                 'l_state'             => 'required|min:3|max:25',
                 'l_country'           => 'required|min:3|max:57',
-                'l_zip_code'          => 'required|min:6|max:7'
+                'l_zip_code'          => 'required|min:6|max:7',
+                'teacher_ward'        => 'required|not_in:""'
 
             ],
             [
@@ -132,7 +133,131 @@ class studentController extends Controller
             ]
         );
 
+        $data = [
+                'std_class_id'  => $request->std_class_id,
+                'batch_id'      => $request->batch_id,
+                'section_id'    => $request->section_id,
+                'admision_no'   => $request->admision_no,
+                'addm_date'     => $request->addm_date,
+                'roll_no'       => $request->roll_no,
+                'status'        => $request->status,
+                'f_name'        => $request->f_name,
+                'm_name'        => $request->m_name,
+                'l_name'        => $request->l_name,
+                'passout_date'  => $request->passout_date,
+                's_mobile'      => $request->s_mobile,
+                'dob'           => $request->dob,
+                'birth_place'   => $request->birth_place,
+                'email'         => $request->email,
+                'gender'        => $request->gender,
+                'reservation_class_id'=> $request->reservation_class_id,
+                'religion_id'=> $request->religion_id,
+                'blood_id'=> $request->blood_id,
+                'spec_ailment'=> $request->spec_ailment,
+                'age'=> $request->age,
+                'nationality_id'=> $request->nationality_id,
+                'taluka'=> $request->taluka,
+                'language_id'=> $request->language_id,
+                's_ssmid'=> $request->s_ssmid,
+                'f_ssmid'=> $request->f_ssmid,
+                'aadhar_card'=> $request->aadhar_card,
+                'teacher_ward'=> $request->teacher_ward,
+                'cbsc_reg'=> $request->cbsc_reg,
+                'prev_school'=> $request->prev_school,
+                'year_of_prev_school'=> $request->year_of_prev_school,
+                'prev_school_address'=> $request->address,
+                'acadmic_city'=> $request->acadmic_city,
+                'acadmic_state'=> $request->acadmic_state,
+                'acadmic_pin'=> $request->acadmic_pin,
+                'acadmic_country'=> $request->acadmic_country,
+                'acadmic_cast'=> $request->acadmic_cast,
+                'acadmic_attendance_reg_no'=> $request->acadmic_attendance_reg_no,
+                'acadmic_remark'=> $request->acadmic_remark,
+                'p_address'=> $request->p_address,
+                'p_city'=> $request->p_city,
+                'p_state'=> $request->p_state,
+                'p_zip_code'=> $request->p_zip_code,
+                'p_country'=> $request->p_country,
+                'same_as'=> $request->same_as,
+                'l_address'=> $request->p_address,
+                'p_city'=> $request->p_city,
+                'l_state'=> $request->p_state,
+                'l_zip_code'=> $request->p_zip_code,
+                'l_country'=> $request->p_country,
+                'bank_name'=> $request->bank_name,
+                'bank_branch'=> $request->bank_branch,
+                'account_name'=> $request->account_name,
+                'account_no'=> $request->account_no,
+                'ifsc_code'=> $request->ifsc_code,
+                'user_id'   => Auth::user()->id
+        ];
 
+// dd($request->student_doc[0]);
+
+        if($request->hasFile('s_photo')){
+            $data['photo'] =  file_upload($request->s_photo,'student_profile');
+        }
+
+
+        $student  = studentsMast::create($data);
+
+        foreach ($request->relation as $key => $relation) {
+            $guardian = [
+                'relation_id'  => $relation,
+                'g_name'       => $request->g_name[$key],
+                'g_mobile'       => $request->g_mobile[$key],
+                'work_status'       => $request->work_status[$key],
+                'employment_type'       => $request->employment_type[$key],
+                'profession_status'       => $request->profession_status[$key],
+                'employer'       => $request->employer[$key],
+                'designation'       => $request->designation_id[$key],
+                's_id'       => $student->id
+            ];
+            if($request->g_photo[$key] !=null){
+                $guardian['photo'] =  file_upload($request->g_photo[$key],'student_guard');
+            }
+
+            studentsGuardiantMast::create($guardian);
+        }
+
+
+         foreach ($request->doc_title as $key => $doc_title) {
+            $docs = [
+                'doc_title'         => $doc_title,
+                'doc_description'   => $request->doc_description[$key],
+                's_id'       => $student->id
+            ];
+            if($request->student_doc[$key] !=null){
+               // dd($request->student_doc[$key]);
+                $docs['student_doc'] =  file_upload($request->student_doc[$key],'student_doc');
+            }
+            StudenstDoc::create($docs);
+        }
+
+
+        $account_create = [
+            'username' => $request->username,
+            'name' => student_name($student),
+            'email' => $student->email,
+            'password' => Hash::make($request->password),
+            'email' => $student->email,
+            'stduent_id' => $student->id,
+            'user_flag'  => 'S',
+            'mobile_no'  => $student->s_mobile,
+            'photo'  => $student->photo
+        ];
+
+
+            $user =   User::create($account_create);  
+            $user->attachRole('3');
+            // $sendData = [
+            //     'message' => 'Hello '.student_name($student).' welcome to lis nagada school',
+            //     'mobile' => $data['s_mobile'] 
+            // ]; 
+
+    //            $sendMessage = SendMessage::sendCode($sendData);
+    return redirect()->back()->with('success','Student added successfully');
+   
 
     //         $data = [
     //             'user_id'             => Auth::user()->id,
@@ -382,6 +507,13 @@ class studentController extends Controller
     
     public function show($id)
     {
+
+
+        $student = studentsMast::with(['student_class','student_batch','student_section','studentsGuardiantMast','studenst_doc','stdNationality','mothetongueMast'])->where('id',$id)->first();
+        return view('admin.students.show',compact('student'));
+
+
+
          $classes     = $this->classes;
          $batches     = $this->batches;
          $sections    = $this->sections;
@@ -393,10 +525,8 @@ class studentController extends Controller
          $country   = $this->country;
          $state     = $this->state;
          $city      = $this->city;
-         // $castCategores         = $this->castCategores;
-         // $studentReligions      = $this->studentReligions;
+  
          $studentNationalites   = $this->studentNationalites;
-         // $studentBloodGroups    = $this->studentBloodGroups;
          $studentMothertongues  = $this->studentMothertongues;
          $professtionType       = $this->professtionType;
          $guardianDesignation   = $this->guardianDesignation;
@@ -405,6 +535,9 @@ class studentController extends Controller
 
          $guardiantDetails = studentsGuardiantMast::with('students_details','professtion_type','guardiant_relation')->where('s_id',$id)->get();
          // $professtionDetail       = professtionType::with('')->get();
+
+
+
          $studentsMast   = studentsMast::where('id',$id)->with('student_batch','student_section','student_class','acadmic_country_mast','acadmic_stateMast','acadmic_cityMast','stdNationality','mothetongueMast','guardianDesignation','studentsGuardiantMast','p_country','p_state','p_city','l_country','l_state','l_city','studenst_doc')->first();
 
          // $studentDoc = StudenstDoc::
@@ -508,8 +641,6 @@ class studentController extends Controller
             'l_state_id'     => $request->l_state_id,
             'l_city_id'      => $request->l_city_id,
             'l_zip_code'     => $request->l_zip_code,
-
-            
             'bank_name'           => $request->bank_name,
             'bank_branch'         => $request->bank_branch,
             'account_name'        => $request->account_name,
@@ -760,14 +891,10 @@ class studentController extends Controller
     public function student_filter(Request $request){
 
 // dd($request);
-        $students = studentsMast::where('batch_id',$request->batch_id)
-                                ->where('std_class_id',$request->std_class_id)
-                                ->where('section_id',$request->section_id)
-                                ->where('status',$request->status)
-                                ->where('user_id',Auth::user()->id)
-                                ->get();
+        $students = studentsMast::with(['student_class'])
+                                ->where(['batch_id'=>$request->batch_id,'std_class_id' => $request->std_class_id,'section_id' => $request->section_id,'status'=>$request->status])->get();
         $page = request()->page; 
-          return view('admin.students.table',compact('students','page'));
+        return view('admin.students.table',compact('students','page'));
     }
 
 // get city state country..............................

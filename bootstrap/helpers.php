@@ -1,5 +1,6 @@
 <?php 
-
+use App\Models\master\studentBatch;
+ 
 const SENDTO = [
 	'A' => 'Send to All',
 	'S'	=> 'Send to Student',
@@ -34,6 +35,14 @@ const RELIGION = [
 	'8' => 'Other'
 ];
 
+const GUARDIAN_RELATION = [
+	'1' => 'Father',
+	'2' => 'Mother',
+	'3' => 'Guardian',
+	'4' => 'Other',
+];
+
+
 const CASTCATEGORY = [
     1 => 'OBC',
     2 => 'GENERAL',
@@ -58,3 +67,38 @@ if(!function_exists('student_gender')){
 		return 'hello';
 	}
 }
+
+if(!function_exists('batches')){
+	function batches(){
+		return studentBatch::select('id','batch_name')->get();
+	}
+}
+
+if (!function_exists('student_name')) {
+    function student_name($student){
+        
+     return $student->f_name.($student->m_name !=null ? ' '.$student->m_name : '' )." ". $student->l_name;
+     
+    }
+}
+
+if (!function_exists('file_upload')) {
+    function file_upload($file,$folder,$field_name =null,$data = []){
+        
+        if(!empty($data) !=0){
+            if($data->$field_name != null){
+               Storage::delete('public/'.$data->$field_name);
+            }
+        }
+
+        $name =  time().'_'.$file->getClientOriginalName();
+        $file->storeAs('public/'.date('Y').'/'.date('M').'/'.$folder, $name);
+        $path = date('Y').'/'.date('M').'/'.$folder.'/'.$name;
+        return $path;
+    }
+}
+const STUDENTSTATUS = [
+	'R' => 'Running',
+	'P' => 'Pass',
+	'F' => 'Fail' 
+];

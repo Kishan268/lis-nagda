@@ -61,12 +61,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
-
+<script src="{{asset('js/helpers.js')}}"></script>
  <script type="text/javascript">
   $(document).ready(function(){
         $('.mytable').DataTable();
         $(function () {
-            $(".datepicker").datepicker();
+            $(".datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
         });
         $('li a').click(function() {
             var $this = $(this);
@@ -79,6 +79,27 @@
         $('input.timepicker').timepicker({
           formate:'H:m',
         });
+
+      $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+
+
+      $('#session_batch').on('change',function(e){
+          e.preventDefault();
+          var batch_id = $(this).val();
+          $.ajax({
+            type:'get',
+            url:"/session_batch_update/"+batch_id,
+            success:function(res){
+              if(res =='success'){
+                location.reload();
+              }
+            }
+          })
+      })
 
   });
    

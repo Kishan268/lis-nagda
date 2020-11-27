@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            @include('admin.master.header')
+            @include('admin.manage.header')
         </div>
     </div>
     <div class="row mb-5">

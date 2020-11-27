@@ -72,6 +72,7 @@ Route::post('admission-inquiry-form', 'Frontend\AdmissionForm@admissionInquiryFo
 // });
 
 Auth::routes();
+Route::get('/session_batch_update/{id}', 'HomeController@session_batch_update');
 // Route::group(['middleware' => 'auth'], function (){
 Route::group(['middleware' => ['auth','role:superadmin']], function () {
 
@@ -355,3 +356,8 @@ Route::post('get-assigne-subject','Admin\timetable\TimeTableController@getsubjec
 Route::post('get_class_for_timetable','Admin\timetable\TimeTableController@getClassForTimetable')->name('get_class_for_timetable');
 
 });
+
+
+
+Route::get('batch-fetch/{id}','Admin\classes\ClassesController@batch_fetch')->name('batch-fetch');
+Route::get('section-fetch/{id}/{id1}','Admin\classes\ClassesController@section_fetch')->name('section-fetch');

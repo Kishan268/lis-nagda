@@ -39,7 +39,7 @@ class masterController extends Controller
     	$studentBatch = studentBatch::with('class_name')->get();
         $class = studentClass::get();
         // dd($studentBatch);
-    		return view('admin.master.batches.index',compact('studentBatch','class'));
+    		return view('admin.manage.batch.index',compact('studentBatch','class'));
     } 
     public function addBatch(Request $request)
     {
@@ -51,6 +51,7 @@ class masterController extends Controller
         		'batch_to'=>'required|after:batch_from',
                 'batch_name' =>'required|unique:student_batches,batch_name,'.$request->batch_id,
         ]);
+        
         $data['user_id']    = Auth::user()->id;
 
         if($request->flag == 'add'){
@@ -69,119 +70,106 @@ class masterController extends Controller
     {
     	$studentSection = studentSectionMast::get();
 
-    		return view('admin.class.section.index',compact('studentSection'));
+    		return view('admin.manage.section.index',compact('studentSection'));
     } 
     public function addSection(Request $request)
     {
-    	// dd($request);
+    
         $data = $request->validate([
-        	'section_name'=>'required'
-        ]);
-        $data['section_details'] = $request->section_details;
-
-        $data['user_id']    = Auth::user()->id;
-
-    	 studentSectionMast::create($data);
-
-    	return redirect()->back()->with('success','Section added successfully');
-    }
-    public function updateSection(Request $request, $id)
-    {
-        $data = $request->validate([
-            'section_name'=>'required',
-            ]);
-        $data['section_details'] = $request->section_details;
-        $data['user_id']    = Auth::user()->id;
-
-    	 studentSectionMast::where('id',$id)->update($data);
-        return redirect()->back()->with('success','Section updated successfully');
-    	
-    }
-	
-    // public function assignSection(){
-    //      $classes = studentClass::get();
-    //      $batches = studentBatch::get();
-    //      $sections = studentSectionMast::get();
-    //      $subject = Subject::get();
-    //     return view('admin.class.section.assign-section',compact('classes','sections','batches','subject'));
-
-    // }
-
-	//  cast categories add code.............................
-    public function castCategory()
-    {
-    	$castCategory = castCategory::get();
-    		return view('admin.master.cast-categories.index',compact('castCategory'));
-    } 
-    public function addcastCategory(Request $request)
-    {
-        $data = $request->validate([
-            'caste_category_name'=>'required'
+            'section_name'      => 'required|unique:student_section_masts,section_name,'.$request->section_id,
+            'section_details'   => 'required',
         ]);
         $data['user_id']    = Auth::user()->id;
 
-    	castCategory::create($data);
-    		return redirect('master/cast-category');
-    }
-    public function updatecastCategory(Request $request, $id)
-    {
-        $data = $request->validate(['caste_category_name'=>'required']);
-    	castCategory::where('id',$id)->update($data);
-    	return redirect('master/cast-category');
+        if($request->flag == 'add'){
+           studentSectionMast::create($data);
+    	   return redirect()->back()->with('success','Section added successfully');
+        }else{
+
+    	   studentSectionMast::where('id',$request->section_id)->update($data);
+           return redirect()->back()->with('success','Section updated successfully');
+        }
+
     }
 
-    //  Religion add code.............................
-    public function stdReligion()
-    {
-    	$stdReligions = stdReligions::get();
-    		return view('admin.master.religions.index',compact('stdReligions'));
-    } 
-    public function addStdReligion(Request $request)
-    {
-        $data = $request->validate([
-            'religion_name'=>'required'
-        ]);
-        $data['user_id']    = Auth::user()->id;
 
-    	stdReligions::create($data);
-    		return redirect('master/religions');
-    }
-    public function updateStdReligion(Request $request, $id)
-    {
-        $data =  $request->validate(['religion_name'=>'required']);
-        $data['user_id']    = Auth::user()->id;
 
-    	stdReligions::where('id',$id)->update($data);
-    	return redirect('master/religions');
-    }
+
+	// //  cast categories add code.............................
+ //    public function castCategory()
+ //    {
+ //    	$castCategory = castCategory::get();
+ //    		return view('admin.master.cast-categories.index',compact('castCategory'));
+ //    } 
+ //    public function addcastCategory(Request $request)
+ //    {
+ //        $data = $request->validate([
+ //            'caste_category_name'=>'required'
+ //        ]);
+ //        $data['user_id']    = Auth::user()->id;
+
+ //    	castCategory::create($data);
+ //    		return redirect('master/cast-category');
+ //    }
+ //    public function updatecastCategory(Request $request, $id)
+ //    {
+ //        $data = $request->validate(['caste_category_name'=>'required']);
+ //    	castCategory::where('id',$id)->update($data);
+ //    	return redirect('master/cast-category');
+ //    }
+
+ //    //  Religion add code.............................
+ //    public function stdReligion()
+ //    {
+ //    	$stdReligions = stdReligions::get();
+ //    		return view('admin.master.religions.index',compact('stdReligions'));
+ //    } 
+ //    public function addStdReligion(Request $request)
+ //    {
+ //        $data = $request->validate([
+ //            'religion_name'=>'required'
+ //        ]);
+ //        $data['user_id']    = Auth::user()->id;
+
+ //    	stdReligions::create($data);
+ //    		return redirect('master/religions');
+ //    }
+ //    public function updateStdReligion(Request $request, $id)
+ //    {
+ //        $data =  $request->validate(['religion_name'=>'required']);
+ //        $data['user_id']    = Auth::user()->id;
+
+ //    	stdReligions::where('id',$id)->update($data);
+ //    	return redirect('master/religions');
+ //    }
 
      //  Blood group add code.............................
-    public function stdBloodGroups()
-    {
-    	$stdBloodGroups = stdBloodGroup::get();
-    		return view('admin.master.blood-groups.index',compact('stdBloodGroups'));
-    } 
-    public function addStdBloodGroup(Request $request)
-    {
-        $data =  $request->validate([
-            'blood_group_name'=>'required'
-        ]);
-        $data['user_id']    = Auth::user()->id;
+    // public function stdBloodGroups()
+    // {
+    // 	$stdBloodGroups = stdBloodGroup::get();
+    // 		return view('admin.master.blood-groups.index',compact('stdBloodGroups'));
+    // } 
+    // public function addStdBloodGroup(Request $request)
+    // {
+    //     $data =  $request->validate([
+    //         'blood_group_name'=>'required'
+    //     ]);
+    //     $data['user_id']    = Auth::user()->id;
 
-    	 stdBloodGroup::create($data);
-    		return redirect('master/blood-group');
-    }
-    public function updateStdBloodGroup(Request $request, $id)
-    {
-        $data =  $request->validate([
+    // 	 stdBloodGroup::create($data);
+    // 		return redirect('master/blood-group');
+    // }
+    // public function updateStdBloodGroup(Request $request, $id)
+    // {
+    //     $data =  $request->validate([
 
-            'blood_group_name'=>'required'
-        ]);
-        $data['user_id']    = Auth::user()->id;
+    //         'blood_group_name'=>'required'
+    //     ]);
+    //     $data['user_id']    = Auth::user()->id;
 
-    	 stdBloodGroup::where('id',$id)->update($data);
-    	return redirect('master/blood-group');
-    } 
+    // 	 stdBloodGroup::where('id',$id)->update($data);
+    // 	return redirect('master/blood-group');
+    // } 
 
     //  Nationalities add code.............................
     public function stdNationalities()

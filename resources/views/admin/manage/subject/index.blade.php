@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            @include('admin.class.header')
+            @include('admin.manage.header')
         </div>
     </div>
     <div class="row">
@@ -16,7 +16,7 @@
                     </h5>
                 </div>
                 <div class="card-body">
-                    <table class="table table-hover table-bordered" id="sampleTable">
+                    <table class="table table-hover table-bordered mytable" >
                         <thead>
                             <tr>
                                 <th>S.No</th>

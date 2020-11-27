@@ -20,7 +20,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Students</div>
-                      <div class="mb-0 font-weight-bold text-gray-800">{{count($students)}}</div>
+                      <div class="mb-0 font-weight-bold text-gray-800">{{$students}}</div>
                     </div>
                     <div class="col-auto">
                       <i class="fa fa-graduation-cap fa-2x text-gray-300"></i>
@@ -37,7 +37,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Teachers</div>
-                      <div class="mb-0 font-weight-bold text-gray-800">{{count($Teacher)}}</div>
+                      <div class="mb-0 font-weight-bold text-gray-800">{{count($teachers)}}</div>
                     </div>
                     <div class="col-auto">
                       <i class="fa fa-language sidebar-nav-icon fa-2x text-gray-300"></i>

@@ -27,7 +27,7 @@ class SubjectController extends Controller
     public function index()
     {
         $subject = Subject::get();
-        return view('admin.class.subject.index',compact('subject'));
+        return view('admin.manage.subject.index',compact('subject'));
     }
 
     /**
@@ -48,16 +48,23 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
+
         $data = $request->validate([
-                'subject_name'=>'required',
-                'subject_code'=>'required'
+            'subject_name'=>'required|unique:subjects,subject_name,'.$request->subject_id,
+            'subject_code'=>'required|unique:subjects,subject_code,'.$request->subject_id,
+            'subject_sequence'=>'required|unique:subjects,subject_sequence,'.$request->subject_id,            
         ]);
-
         $data['user_id']= Auth()->user()->id;
-        $data['subject_sequence']= $request->subject_sequence;
-        Subject::create($data);
 
-        return redirect()->back()->with('success','Subject added successfully');
+        if($request->flag == 'add'){
+            Subject::create($data);
+            $success = 'Subject added successfully';
+        }else{
+            Subject::where('id',$request->subject_id)->update($data); 
+            $success = 'Subject updated successfully';
+        }
+
+        return redirect()->back()->with('success',$success);
 
     }
 
@@ -118,43 +125,31 @@ class SubjectController extends Controller
     }
 
     public function assignSubject(){
-         $classes = studentClass::get();
-         $batches = studentBatch::get();
-         $sections = studentSectionMast::get();
-         $subject = Subject::get();
-         // return (Subject::pluck('id'));
-         // $assignSubject = AssignSubject::with(['assign_batch','assign_class','assign_section'])->get();
+        $classes = studentClass::get();
+        $subjects = Subject::get();            
 
-         $assignSubject = AssignSubjectToClass::with(['assign_subjectId','assign_batch','assign_class','assign_section'])->get();
+        $assignSubjects = AssignSubjectToClass::with(['assign_subjectId.subject','batch','class','section'])->get();
 
-         $subjectAssign1 = array();
-         foreach ($assignSubject as  $value) {
-                $subjectAssign= $value->assign_subjectId;
-                foreach ($subjectAssign as  $value1) {
-                    if(!in_array($value1->mendatory_subject_id,$subjectAssign1)){
-                        $subjectAssign1[] = (int)$value1->mendatory_subject_id;
-                    }
-                }
-         }
- 
-         $subjectName = Subject::whereIn('id',$subjectAssign1)->get();
-         
-         // return $subjectName;
-
-        return view('admin.class.subject.assign-subject',compact('classes','sections','batches','subject','assignSubject','subjectName'));
+        return view('admin.manage.subject.assign-subject.index',compact('classes','subjects','assignSubjects'));
     }
 
     public function assignSubjectAdd(Request $request){
         // dd($request);
         $data = $request->validate([
-                'std_class_id' =>'required',
-                'batch_id'     =>'required',
-                'section_id'   =>'required'
-                // 'mendatory_subject_id' =>'required'
-            ]);
+            'std_class_id' =>'required',
+            'batch_id'     =>'required',
+            'section_id'   =>'required',
+            
+        ]);
+        $request->validate([
+            'mendatory_subject_id' =>'required|array'
+        ]);
+
         $data['user_id']= Auth()->user()->id;
 
+        // return $request->all();
         $old = AssignSubjectToClass::where(['std_class_id' => $request->std_class_id , 'batch_id' => $request->batch_id, 'section_id' => $request->section_id])->first();
+
 
         if(empty($old)){
             $lastId = AssignSubjectToClass::create($data);
@@ -164,34 +159,7 @@ class SubjectController extends Controller
             // $lastId = AssignSubjectToClass::find($old->id)->update($data);
             $old->subject_assign()->sync($request->mendatory_subject_id);
         }
-        return $request->all();
-
-
-        // $update = AssignSubjectToClass::where('std_class_id',$request->std_class_id)->update($data);
-
-        // if(empty($update)){
-        //    $lastId = AssignSubjectToClass::create($data)->id;
-
-        // if($request->mendatory_subject_id ){
-
-        //     for ($i=0; $i < count($request->mendatory_subject_id); $i++) { 
-               
-        //        $data2 = array(
-
-        //                 'assign_subject_to_classes_id' => $lastId,
-        //                 'mendatory_subject_id' => $request->mendatory_subject_id[$i],
-        //                 'optional_subject_id' => $request->optional_subject_id[$i],
-        //        );
-
-        //        // $update1 = AssignSubjectIdToClass::where('mendatory_subject_id',$request->mendatory_subject_id[$i])->update($data2);
-
-        //         // if(empty($update1)){
-        //                AssignSubjectIdToClass::create($data2);
-        //         // }
-        //     }
-        // }
-        // }
-
+    
         return redirect()->back()->with('success','Subject assigned successfully');
     }
 

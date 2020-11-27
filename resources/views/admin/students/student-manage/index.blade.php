@@ -34,20 +34,12 @@
 					</div>								
 					<div class="col-md-3">
 						<select class="form-control" name="batch_id" id="batch_id">
-							<option value="">Select Batch</option>
-							@foreach($batches as $key=>$batch)
-								<option value="{{$batch->id}}">{{$batch->batch_name}}</option>
-							@endforeach
 							 
 						</select>
 					</div>
 					
 					<div class="col-md-3">
 						<select class="form-control" name="section_id" id="section_id"> 
-							<option value="">Select Section</option>
-							@foreach($sections as $key=>$section)
-								<option value="{{$section->id}}">{{$section->section_name}}</option>
-							@endforeach
 						</select>
 					</div>
 					<div class="col-md-3">
@@ -166,8 +158,7 @@
   </div>
 </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+@include('layouts.common')
 <script>
 	$(document).ready(function(){
 		

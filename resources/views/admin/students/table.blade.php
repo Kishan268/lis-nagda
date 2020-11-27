@@ -1,19 +1,19 @@
 <table class="table table-striped table-bordered mytable">
 	<thead>
 		<tr>
-			@if($page == 'student_detail')
+			{{-- @if($page == 'student_detail')
 				<th><input type="checkbox" name="selectAll" class="selectAll"></th>
 			@else
 				<th>#</th>
-			@endif
-			<th>Roll Number</th>
+			@endif --}}
+			<th>#</th>
 			<th>Photo</th>
+			<th>Admission Number</th>
+			<th>Roll Number</th>
 			<th>Student Name</th>
-			<th>Qualification</th>
-			{{-- <th>Course</th> --}}
-			<th>Year of Admission</th>
-			{{-- <th>Semester</th> --}}
-			<th>Batch</th>
+			<th>Class</th>
+			<th>Admission Date</th>
+			<th>Mobile Number</th>
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -21,24 +21,24 @@
 		@php $count = 0; @endphp
 		@foreach($students as $student)
 		<tr>
-			@if($page == 'student_detail')
+			{{-- @if($page == 'student_detail')
 				<td><input type="checkbox" name="checked[]" class="check" value="{{$student->id}}"></td>
-			@else
+			@else --}}
 				<td>{{++$count}}</td>				
-			@endif
-			<td>{{ $student->roll_no }}</td>
+			{{-- @endif --}}
 			<td class="text-center sorting_1 odd">
 				<img src="{{asset($student->photo !=null ? 'storage/'.$student->photo : 'storage/admin/student_demo.png')}}" style="width: 30px; height: 30px;">
 			</td>
-			<td>{{ $student->f_name .' '. $student->l_name }}</td>
-			<td>{{ $student->std_class }}</td>
+			<td>{{ $student->admision_no }}</td>
+			<td>{{ $student->roll_no }}</td>
+			<td>{{ student_name($student) }}</td>
+
+			<td>{{ $student->student_class->class_name  }}</td>
 			<td>
-				{{ $student->addm_date }} Year
+				{{date('d-m-Y',strtotime($student->addm_date))}} 
 			</td>
-			<td>
-				{{ $student->batch_name }} 
-			</td>
-			{{-- <td>{{$student->batch->name}}</td> --}}
+			<td>{{ $student->s_mobile }}</td>
+
 			<td>
 				<form action="{{route('student_detail.destroy', $student->id)}}" method="POST" id="delform_{{$student->id}}">
 				@method('DELETE')

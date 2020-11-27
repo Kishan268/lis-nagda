@@ -17,7 +17,7 @@
 	        <div class="card-body">
 	          <div class="row">
 		        <!-- Earnings (Monthly) Card Example -->
-		        <div class="col-md-2 col-sm-6 col-xs-11  col-div-mar col-div-nav active-li">
+		        <div class="col-md-3 col-sm-6 col-xs-11  col-div-mar col-div-nav active-li">
 		         <a href="">
 		          <div class="card border-left-primary shadow h-100 py-2 bg-color">
 		            <div class="card-body ">
@@ -36,7 +36,7 @@
 		        </div>
 
 		        
-		        <div class="col-md-2 col-sm-4 col-xs-11  col-div-mar col-div-nav active-li">
+		        <div class="col-md-3 col-sm-4 col-xs-11  col-div-mar col-div-nav active-li">
 		        <a href="#">
 		          <div class="card border-left-success shadow h-100 py-2 bg-color">
 		            
@@ -55,7 +55,7 @@
 		          </a>
 		        </div>
 		        <!-- Earnings (Monthly) Card Example -->
-		        <div class="col-md-2 col-sm-4 col-xs-11  col-div-mar col-div-nav active-li">
+		        <div class="col-md-3 col-sm-4 col-xs-11  col-div-mar col-div-nav active-li">
 		        <a href="#">
 		          <div class="card border-left-success shadow h-100 py-2 bg-color">
 		            
@@ -73,7 +73,7 @@
 		          </div>
 		          </a>
 		        </div>
-		        <div class="col-md-2 col-sm-4 col-xs-11  col-div-mar col-div-nav active-li">
+		        <div class="col-md-3 col-sm-4 col-xs-11  col-div-mar col-div-nav active-li">
 		        <a href="{{route('subject.index')}}">
 		          <div class="card border-left-success shadow h-100 py-2 bg-color">
 		            
@@ -91,7 +91,7 @@
 		          </div>
 		          </a>
 		        </div>
-		        <div class="col-md-2 col-sm-4 col-xs-11  col-div-mar col-div-nav active-li">
+		        <div class="col-md-3 col-sm-4 col-xs-11  col-div-mar col-div-nav active-li">
 		        <a href="#">
 		          <div class="card border-left-success shadow h-100 py-2 bg-color">
 		            
@@ -109,7 +109,7 @@
 		          </div>
 		          </a>
 		        </div>   
-		        <div class="col-md-2 col-sm-4 col-xs-11  col-div-mar col-div-nav active-li">
+		        <div class="col-md-3 col-sm-4 col-xs-11  col-div-mar col-div-nav active-li">
 		        <a href="#">
 		          <div class="card border-left-success shadow h-100 py-2 bg-color">
 		            
@@ -132,5 +132,3 @@
 			</div>
 	      </div>
 	    </div>
-    </div>
-</div>

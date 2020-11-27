@@ -9,7 +9,7 @@ use App\User;
 use App\Models\student\studentsMast;
 use App\Models\master\studentBatch;
 use App\Models\teachers\Teacher;
-
+use Session;
 class HomeController extends Controller
 {
     /**
@@ -33,17 +33,24 @@ class HomeController extends Controller
         $getNotication = NoticeCircular::get();
         $currentdate = date("Y-m-d");
         $birthUsers = User::where('user_flag','S')->whereDate('dob',date('Y-m-d'))->get();
-        // return $getDob;
-
-        $students = studentsMast::get();
+     
+        $students = studentsMast::where('batch_id',session('current_batch'))->count();
         $studentBatch = studentBatch::get();
-        $Teacher = Teacher::get();
-        return view('home',compact('getNotication','birthUsers','currentdate','students','studentBatch','Teacher'));
+
+        $teachers = Teacher::get();
+
+        return view('home',compact('getNotication','birthUsers','currentdate','students','studentBatch','teachers'));
 
     }
 
     public function studentDashboard(){
         return view('admin.students.student-details.create');
+
+    }  
+
+    public function session_batch_update($id){
+        session::put('current_batch',$id);
+        return "success";
 
     }
 }

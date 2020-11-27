@@ -16,7 +16,7 @@ class SectionManage extends Model
        return $this->belongsTo('App\Models\master\studentBatch','batch_id');
     }
     public function class_name(){
-       return $this->belongsTo('App\Models\master\studentClass','course_id');
+       return $this->belongsTo('App\Models\master\studentClass','class_id');
     } 
     public function emp_mast(){
        return $this->belongsTo('App\Models\student\studentsMast','id');

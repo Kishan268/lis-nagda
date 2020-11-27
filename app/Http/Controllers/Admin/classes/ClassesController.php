@@ -23,7 +23,7 @@ class ClassesController extends Controller
     public function studentClasses()
     {
     	$studentclassdata = studentClass::get();
-    		return view('admin.master.classes.index',compact('studentclassdata'));
+    		return view('admin.manage.class.index',compact('studentclassdata'));
     } 
     public function addClasses(Request $request)
     {
@@ -47,31 +47,31 @@ class ClassesController extends Controller
          $classes = studentClass::get();
          $batches = studentBatch::get();
          $sections = studentSectionMast::get();
-         $subject = Subject::get();
-         $sectionList =SectionManage::with('section_names','class_name','batch_name','emp_mast')->get();
-         // dd($sectionList);
-        return view('admin.class.section.assign-section',compact('classes','sections','batches','subject','sectionList'));
+
+         $sectionList =SectionManage::with('section_names','class_name','batch_name','emp_mast')->where('batch_id',session('current_batch'))->get();
+         
+         // return $sectionList;
+        return view('admin.manage.section.assign-section.index',compact('classes','sections','batches','sectionList'));
 
     }
 
      public function addSectionList(Request $request){
-            $section_id =  $request->section_id;
-            foreach ($section_id as $id) {
-                $data =[
-                        'user_id' =>Auth::user()->id,
-                        'course_id'=>$request->course_id,
-                        'batch_id'=>$request->batch_id,
-                        'section_id'=>$id
+
+            // return $request->all();
+            foreach ($request->course_id as $key =>  $course_id) {
+                $data = [
+                    'user_id'   =>Auth::user()->id,
+                    'class_id'  =>$course_id,
+                    'batch_id'  =>$request->batch_id[$key],
+                    'section_id'=>$request->section_id[$key]
                 ];
 
-                $updateData = SectionManage::where('section_id',$id)
-                            ->where('course_id',$data['course_id'])
-                            ->where('batch_id',$data['batch_id'])
-                            ->update($data);
-                if(empty($updateData)){
-
+                $old = SectionManage::where(['section_id' => $data['section_id'], 'class_id' => $data['class_id'], 'batch_id' => $data['batch_id'] ])->first();
+                if(empty($old)){
                     SectionManage::create($data);
                 }
+
+
             }
         return 'Section added successfully';
         
@@ -98,12 +98,14 @@ class ClassesController extends Controller
     	 return response()->json($getStudentList);
     }
 
+
+
     public function assignSubjectToSection(Request $request){
         $assign_student =  $request->assign_student;
-    	 foreach ($assign_student as $id) {
+    	foreach ($assign_student as $id) {
                 $data =[
                         'user_id' =>Auth::user()->id,
-                        'course_id'=>$request->course_id,
+                        'class_id'=>$request->course_id,
                         'batch_id'=>$request->batch_id,
                         'section_id'=>$request->section_id,
                         'assign_students_id'=>$id,
@@ -122,4 +124,30 @@ class ClassesController extends Controller
             }
         return 'Student added successfully';
     }
+
+
+    // public function generateClassSection(Request $request){
+    //     $std_class_id   = $request->std_class_id; 
+    //     $batch_id       = $request->batch_id; 
+    //     $section_id     = $request->section_id; 
+
+    //     return view('admin.class.section.generateClassSection',compact('std_class_id','s'));
+
+    // }
+
+    public function batch_fetch($std_class_id){
+
+        return SectionManage::select('id','class_id','batch_id')->with(['batch_name' => function($q){
+            $q->select('id','batch_name');
+        }])->where('class_id',$std_class_id)->groupBy('batch_id')->get();
+
+    }   
+    public function section_fetch($std_class_id,$batch_id){
+        
+        return SectionManage::select('id','class_id','batch_id','section_id')->with(['section_names' => function($q){
+            $q->select('id','section_name');
+        }])->where(['class_id' => $std_class_id,'batch_id' => $batch_id])->get();
+
+    }   
+
 }

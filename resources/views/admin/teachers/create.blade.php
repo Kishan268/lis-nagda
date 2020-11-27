@@ -17,12 +17,12 @@
 					</h4>
 				</div>
 				<div class="card-body">
-					<form action="{{route('teachers.store')}}" method="post">
+					<form action="{{route('teachers.store')}}" method="post" autocomplete="off">
 					@csrf
 						<div class="row form-group">
 							<div class="col-md-6">
 								<label for="name">Name <span class="text-danger">*</span></label>
-								<input type="text" class="form-control timepicker" name="name" value="{{old('name')}}">  
+								<input type="text" class="form-control" name="name" value="{{old('name')}}">  
 								@error('name')
 		                            <span class="text-danger" role="alert">
 		                            <strong>{{ $message }}</strong>
@@ -42,7 +42,7 @@
 						<div class="row form-group">
 							<div class="col-md-6">
 								<label for="mobile_no">Mobile Number <span class="text-danger">*</span></label>
-								<input type="text" class="form-control \" name="mobile_no" value="{{old('mobile_no')}}">   
+								<input type="text" class="form-control \" name="mobile_no" value="{{old('mobile_no')}}" oninput ="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off">   
 								 @error('mobile_no')
 		                            <span class="text-danger" role="alert">
 		                            <strong>{{ $message }}</strong>

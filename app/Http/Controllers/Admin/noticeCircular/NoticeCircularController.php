@@ -45,18 +45,7 @@ class NoticeCircularController extends Controller
          $this->batches = studentBatch::get();
          $this->sections = studentSectionMast::get();
          $this->studentData = studentsMast::get();
-         $this->country   = countryMast::get();
-         $this->state     = stateMast::get();
-         $this->city      = cityMast::get();
-         $this->castCategores         = castCategory::get();
-         $this->studentReligions      = stdReligions::get();
-         $this->studentNationalites   = stdNationality::get();
-         $this->studentBloodGroups    = stdBloodGroup::get();
-         $this->studentMothertongues  = mothetongueMast::get();
-         $this->professtionType       = professtionType::get();
-         $this->guardianDesignation   = guardianDesignation::get();
-         $this->studentGenders        = Helpers::studentGender();
-         $this->studentsGuardiantDetails = studentsGuardiantMast::get();
+
     }
     public function index()
     {

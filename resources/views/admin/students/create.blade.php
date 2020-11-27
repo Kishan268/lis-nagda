@@ -65,7 +65,7 @@
 
 												</div>
 												<div class="row form-group">
-													<div class="col-md-3 col-xs-6 col-sm-6">
+													<div class="col-md-3 col-xs-6 col-sm-6 form-group">
 														<label for="std_class" class="required">Class</label>
 														<select class="form-control required" name="std_class_id" id="std_class_id" required="required">
 															<option value="">Select Class</option>
@@ -79,13 +79,10 @@
 															</span>
 														@enderror
 													</div>
-													<div class="col-md-3 col-xs-6 col-sm-6">
+													<div class="col-md-3 col-xs-6 col-sm-6 form-group">
 														<label class="required"> Batch</label>
-														<select class="form-control required" name="batch_id" required="required">
-															<option value="">Select Batch</option>
-															@foreach($batches as $batch)
-																<option value="{{$batch->id}}" {{old('batch_id') == $batch->id ? 'selected' : ''}}>{{$batch->batch_name}}</option>
-															@endforeach
+														<select class="form-control required" name="batch_id" required="required" id="batch_id">
+															
 														</select>
 														@error('batch_id')
 															<span class="text-danger">
@@ -93,14 +90,10 @@
 															</span>
 														@enderror
 													</div>
-													<div class="col-md-3 col-xs-6 col-sm-6">
+													<div class="col-md-3 col-xs-6 col-sm-6 form-group">
 														<label class="required">Section</label>
 														<select class="form-control required" name="section_id" id="section_id" required="required">
-															<option value="">Select Section</option>
-
-															@foreach($sections as $section)
-																<option value="{{$section->id}}" {{old('section_id') == $section->id ? 'selected' : ''}}>{{$section->section_name}}</option>
-															@endforeach
+															
 														</select>
 														@error('section_id')
 															<span class="text-danger">
@@ -108,9 +101,9 @@
 															</span>
 														@enderror
 													</div>
-													<div class="col-md-3 col-xs-6 col-sm-6">
+													<div class="col-md-3 col-xs-6 col-sm-6 form-group">
 														<label class="required">Admision No</label>
-														<input type="text" name="admision_no" class="form-control" value="{{old('admision_no')}}" required="required">
+														<input type="text" name="admision_no" class="form-control" value="{{old('admision_no')}}" required="required" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="{{old('s_mobile')}}">
 														@error('admision_no')
 															<span class="text-danger">
 																<strong>{{$message}}</strong>
@@ -119,7 +112,7 @@
 													</div>											
 												</div>
 												<div class="row form-group">
-													<div class="col-md-3 col-xs-6 col-sm-6">
+													<div class="col-md-3 col-xs-6 col-sm-6 form-group">
 														<label class="required">Admission Date</label>
 														<input type="text" name="addm_date" class="form-control datepicker required addm_date"  data-date-format="yyyy-mm-dd"  value="{{old('addm_date')}}" placeholder="{{date('Y-m-d')}}" required="required">
 														@error('addm_date')
@@ -129,7 +122,7 @@
 														@enderror
 													</div>
 														
-													<div class="col-md-3 col-sm-6 col-xs-6">
+													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label class="">Class Roll Number</label>
 														<input type="text" name="roll_no" value="{{old('roll_no')}}" class="form-control" >
 														@error('roll_no')
@@ -139,7 +132,7 @@
 														@enderror
 													</div>
 														
-													<div class="col-md-3 col-sm-6 col-xs-6 has-success">
+													<div class="col-md-3 col-sm-6 form-group col-xs-6 has-success">
 														<label class="required">Student Status</label>
 														<select class="form-control required status" name="status" aria-invalid="false" required="required">
 															<option value="R" {{old('status') == 'R' ? 'selected' : ''}}>Running</option>
@@ -148,7 +141,7 @@
 														</select>
 													</div>
 																								
-													<div class="col-md-3 col-sm-6 col-xs-6">
+													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label class="required">First Name</label>
 														<input type="text" name="f_name" id="f_name" value="{{old('f_name')}}" class="form-control required" required="required">
 														@error('f_name')
@@ -157,7 +150,7 @@
 															</span>
 														@enderror
 													</div>								
-													<div class="col-md-3 col-sm-6 col-xs-6">
+													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label>Middle Name</label>
 														<input type="text" name="m_name" id="m_name" value="{{old('m_name')}}" class="form-control">
 														@error('m_name')
@@ -166,7 +159,7 @@
 															</span>
 														@enderror
 													</div>									
-													<div class="col-md-3 col-sm-6 col-xs-6">
+													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label class="required">Last Name</label>
 														<input type="text" name="l_name" id="l_name" value="{{old('l_name')}}" class="form-control required" required="required">
 														@error('l_name')
@@ -176,12 +169,12 @@
 														@enderror
 													</div>
 												
-													<div class="col-md-3 col-sm-6 col-xs-6 passout_date" style="display: none;">
+													<div class="col-md-3 col-sm-6 form-group col-xs-6 passout_date" style="display: none;">
 														<label class="required">Passout Date</label>
 														<input type="text" name="passout_date" class="form-control datepicker " readonly="true" data-date-format="yyyy-mm-dd" value="{{old('passout_date')}}"  placeholder="{{date('Y-m-d')}}" required="required">
 													</div>
 
-													<div class="col-md-3 col-sm-6 col-xs-6">
+													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label class="required">Mobile Number</label>
 														<input type="text" name="s_mobile" class="form-control required" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="{{old('s_mobile')}}" required="required"> 
 														@error('s_mobile')
@@ -190,7 +183,7 @@
 															</span>
 														@enderror
 													</div>
-													<div class="col-md-3 col-sm-6 col-xs-6">
+													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label class="required">Date of Birth</label>
 														<input type="text" name="dob" class="form-control datepicker required" data-date-format="yyyy-mm-dd" placeholder="{{date('Y-m-d')}}" value="{{old('dob')}}" required="required">
 														@error('dob')
@@ -199,7 +192,7 @@
 															</span>
 														@enderror
 													</div>
-													<div class="col-md-3 col-sm-6 col-xs-6">
+													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label class="">Birth Place</label>
 														<input type="text" name="birth_place" class="form-control birth_place required" placeholder="" id="birth_place" value="{{old('birth_place')}}">
 														@error('birth_place')
@@ -208,8 +201,8 @@
 															</span>
 														@enderror
 													</div>
-													<div class="col-md-3 col-sm-6 col-xs-6">
-														<label class="required">Email Address</label> <span class="text-muted"><span class="text-muted">must be unique</span>
+													<div class="col-md-3 col-sm-6 form-group col-xs-6">
+														<label>Email Address</label>
 														<input type="text" name="email" class="form-control required" value="{{old('email')}}"> 
 														
 														@error('email')
@@ -220,7 +213,7 @@
 													</div>
 												</div>	
 												<div class="row form-group">
-													<div class="col-md-4 col-sm-6 col-xs-6">
+													<div class="col-md-4 col-sm-6 form-group col-xs-6">
 														<label class="required">Gender</label>
 														<select name="gender" class="form-control required" required="required">
 															<option value="">Select Gender</option>
@@ -234,7 +227,7 @@
 															</span>
 														@enderror
 													</div>
-													<div class="col-md-4 col-sm-6 col-xs-6">
+													<div class="col-md-4 col-sm-6 form-group col-xs-6">
 														<label class="required">Cast Category</label>
 														<select class="form-control required" name="reservation_class_id" required="required">
 															<option value="">Select Category</option>
@@ -248,7 +241,7 @@
 															</span>
 														@enderror
 													</div>
-													<div class="col-md-4 col-sm-6 col-xs-6">
+													<div class="col-md-4 col-sm-6 form-group col-xs-6">
 														<label>Religion</label>
 														<select class="form-control" name="religion_id">
 															<option value="">Select Religion</option>
@@ -264,7 +257,7 @@
 													</div>
 												</div>	
 												<div class="row form-group">
-													<div class="col-md-3 col-sm-6 col-xs-6">
+													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label>Blood Group</label>
 														<select class="form-control" name="blood_id">
 															<option value="">Select Blood Group</option>
@@ -278,7 +271,7 @@
 															</span>
 														@enderror
 													</div>
-													<div class="col-md-3 col-sm-6 col-xs-6">
+													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label>Specific Ailment</label>
 														<input type="text" name="spec_ailment" class="form-control" placeholder="Mole on nose. etc" value="{{old('spec_ailment')}}">
 														@error('spec_ailment')
@@ -287,7 +280,7 @@
 															</span>
 														@enderror
 													</div>
-													<div class="col-md-3 col-sm-6 col-xs-6">
+													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label>Age</label>
 														<input type="text" value="{{old('age')}}" name="age" class="form-control age" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
 														@error('age')
@@ -296,7 +289,7 @@
 															</span>
 														@enderror
 													</div>
-													<div class="col-md-3 col-sm-6 col-xs-6">
+													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label>Nationality</label>
 														<select name="nationality_id" class="form-control">
 															<option value="">Select Nationality</option>
@@ -312,7 +305,7 @@
 													</div>
 												</div>
 												<div class="row form-group" >
-													<div class="col-md-3 col-sm-6 col-xs-6">
+													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label>Taluka(Tehsil)</label>
 														<input type="text" name="taluka" value="{{old('taluk')}}" class="form-control">
 														@error('taluka')
@@ -321,7 +314,7 @@
 															</span>
 														@enderror
 													</div>
-													<div class="col-md-3 col-sm-6 col-xs-6">
+													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label>Mother tongue</label>
 														<select name="language_id" class="form-control">
 														<option value="">Select Mother Tongue</option>
@@ -333,7 +326,7 @@
 															</span>
 														@enderror
 													</div>
-													<div class="col-md-3 col-sm-6 col-xs-6">
+													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label>Student SSMID</label>
 														<input type="text" name="s_ssmid" value="{{old('s_ssmid')}}" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
 														@error('s_ssmid')
@@ -342,7 +335,7 @@
 															</span>
 														@enderror
 													</div>
-													<div class="col-md-3 col-sm-6 col-xs-6">
+													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label>Family SSMID</label>
 														<input type="text" name="f_ssmid" value="{{old('f_ssmid')}}" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
 														@error('f_ssmid')
@@ -353,7 +346,7 @@
 													</div>
 												</div>
 												<div class="form-group row">
-													<div class="col-md-3 col-sm-6 col-xs-6">
+													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label>Aadhar Card Number</label>
 														<input type="text" name="aadhar_card" value="{{old('aadhar_card')}}" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
 														@error('f_ssmid')
@@ -363,37 +356,34 @@
 														@enderror
 													</div>
 												</div>
-												<div class="form-group mb-4">
-													<div class="row" style="background: #4f5775;color: #fff; padding: 10px;border-radius: 10px;margin: 20px;">
-                                         <div class="col-md-3">
-                                              <label for="phone1" class="required">
-                                             Student User Name
-                                             </label>
-                                             <input class="form-control required" id="username" value="{{old('username')}}" name="username" type="text" required="required">
-                                             <spam id="usererror" style="color: red; display: none;"></spam>
-                                         </div>
-                                         
-                                          <div class="col-md-3">
-                                              <label for="phone1" class="required">
-                                              Password
-                                             </label>
-                                             <input class="form-control required"  required="required" id="password" name="password" type="password">
-                                         </div>
-											               
-			                              </div>
+												<div class="row" style="background: #4f5775;color: #fff; padding: 10px;border-radius: 10px;margin: 20px;">
+			                                         <div class="col-md-3 form-group">
+			                                              <label for="phone1">
+			                                             Student User Name
+			                                             </label>
+			                                             <input class="form-control required" id="username" value="{{old('username')}}" name="username" type="text" >
+			                                             <spam id="usererror" style="color: red; display: none;"></spam>
+			                                         </div>
+			                                         
+			                                          <div class="col-md-3 form-group">
+			                                              <label for="password">
+			                                              Password
+			                                             </label>
+			                                             <input class="form-control required"   id="password" name="password" type="password">
+			                                         </div>
 												</div>
 												<div class="row form-group">
 													<div class="col-md-3">
 														<label for="rte" class="required"> Teacher Ward </label>
 														<select class="form-control" name="teacher_ward" id="teacher_ward" required="required">
 														    <option value="">Select</option>
-														    <option value="1">Yes</option>
-														    <option value="0">No</option>
+														    <option value="1" {{old('teacher_ward') == '1' ? 'selected' : ''}}>Yes</option>
+														    <option value="0" {{old('teacher_ward') == '0' ? 'selected' : ''}}>No</option>
 														</select>
 													</div>
 													<div class="col-md-3">
 														<label for="rte"> CBSE  Registration no </label>
-														<input class="form-control" id="CBSC_reg" name="cbsc_reg" type="text">	           
+														<input class="form-control" id="CBSC_reg" name="cbsc_reg" type="text" value="{{old('cbsc_reg')}}">	           
 													</div>			                                
 												</div>
 									        </section>
@@ -417,48 +407,47 @@
 								        				<label >Previous School (last studied)</label>
 								        				<input type="text" name="prev_school" class="form-control " id="prev_school">
 								        			</div>
-								        			<div class="col-md-4 col-sm-6 col-xs-6 ">
+								        			<div class="col-md-4 col-sm-6 form-group col-xs-6 ">
 								        				<label class=""> Year (left from Previous School)</label>
-							        					<input type="text" name="year_of_prev_school" class="form-control " id="year_of_prev_school">
+							        					<input type="text" name="year_of_prev_school" class="form-control" id="year_of_prev_school" value="{{old('year_of_prev_school')}}">
 						        					</div>
-					        						<div class="col-md-4 col-sm-6 col-xs-6 ">
+					        						<div class="col-md-4 col-sm-6 form-group col-xs-6 ">
 							        					<label class="">Address 
 							        					</label>
-							        					<textarea class="form-control" name="address" id="acadmic_address"></textarea>
+							        					<textarea class="form-control" name="address" id="acadmic_address">{{old('acadmic_address')}}</textarea>
 							        				</div>								        					
 						        				</div>
 						        				<div class="row form-group">
-						        					<div class="col-md-4 col-xs-6 col-sm-6 ">
+						        					<div class="col-md-4 col-xs-6 col-sm-6 form-group ">
 						        						<label class="">City</label>
-						        						<input type="text" class="form-control" name="acadmic_city">
+						        						<input type="text" class="form-control" name="acadmic_city" value="{{old('acadmic_city')}}">
 
 						        					</div>
-						        					<div class="col-md-4 col-xs-6 col-sm-6 ">
+						        					<div class="col-md-4 col-xs-6 col-sm-6 form-group ">
 						        						<label class="">State</label>
-						        						<input type="text" class="form-control" name="acadmic_state">
+						        						<input type="text" class="form-control" name="acadmic_state" value="{{old('acadmic_state') ?? 'Madhya Pradesh'}}">
 						        						
 						        					</div>
-						        					<div class="col-md-4 col-xs-6 col-sm-6 ">
+						        					<div class="col-md-4 col-xs-6 col-sm-6 form-group ">
 						        						<label class="">Pin Code</label>
-						        						<input type="text" name="acadmic_pin" class="form-control" id="acadmic_pin">
+						        						<input type="text" name="acadmic_pin" class="form-control" id="acadmic_pin" value="{{old('acadmic_pin')}}">
 					        						</div>
 					        					</div>
 					        					<div class="form-group row">
-					        						<div class="col-md-4 col-xs-6 col-sm-6 ">
+					        						<div class="col-md-4 col-xs-6 col-sm-6 form-group ">
 					        							<label>Country</label>
-					        							<input type="text" class="form-control" name="acadmic_country">					
+					        							<input type="text" class="form-control" name="acadmic_country" value="{{old('acadmic_country') ?? 'India'}}">					
 					        						</div>
-					        						<div class="col-md-4 col-xs-6 col-sm-6 "><label>Cast</label>
-					        							<input type="text" name="acadmic_cast" class="form-control" id="acadmic_cast">
+					        						<div class="col-md-4 col-xs-6 col-sm-6 form-group "><label>Cast</label>
+					        							<input type="text" name="acadmic_cast" class="form-control" id="acadmic_cast" value="{{old('acadmic_cast')}}">
 					        						</div>
-					        						<div class="col-md-4 col-xs-6 col-sm-6 ">
+					        						<div class="col-md-4 col-xs-6 col-sm-6 form-group ">
 					        							<label> Attendance Reg. No (In device) </label>
-					        							<input type="text" name="acadmic_attendance_reg_no" class="form-control" id="acadmic_attendance_reg_no">
+					        							<input type="text" name="acadmic_attendance_reg_no" class="form-control" id="acadmic_attendance_reg_no" value="{{old('acadmic_attendance_reg_no')}}">
 					        						</div>
-					        						<div class="col-md-4 col-sm-6 col-xs-6 ">
+					        						<div class="col-md-4 col-sm-6 form-group col-xs-6 ">
 							        					<label class="">Remark </label>
-							        					<textarea class="form-control" name="acadmic_remark" id="acadmic_remark">
-							        					</textarea>
+							        					<textarea class="form-control" name="acadmic_remark" id="acadmic_remark">{{old('acadmic_remark')}}</textarea>
 							        				</div>
 					        							<hr>
 				        						</div>
@@ -503,7 +492,7 @@
 															<div class="row form-group">
 																	<div class="col-md-4 ">
 																		<label class="required">Address Line</label> 
-																		<input type="text" class="form-control" name="p_address" id="p_address">
+																		<input type="text" class="form-control" name="p_address" id="p_address" value="{{old('p_address')}}">
 																		@error('p_address')
 																			<span class="text-danger">
 																				<strong>{{$message}}</strong>
@@ -512,7 +501,7 @@
 																	</div>
 																	<div class="col-md-4 ">
 																		<label class="required">City Name</label>
-																		<input type="text" class="form-control" id="p_city" name="p_city">
+																		<input type="text" class="form-control" id="p_city" name="p_city" value="{{old('p_city')}}">
 																		@error('p_city')
 																			<span class="text-danger">
 																				<strong>{{$message}}</strong>
@@ -522,7 +511,7 @@
 																	
 																	<div class="col-md-4 ">
 																		<label class="required">State Name</label>
-																		<input type="text" class="form-control" name="p_state" id="p_state">
+																		<input type="text" class="form-control" name="p_state" id="p_state" value="{{old('p_state') ?? 'Madhya Pradesh'}}" >
 																		@error('p_state')
 																			<span class="text-danger">
 																				<strong>{{$message}}</strong>
@@ -533,7 +522,7 @@
 															<div class="row">		
 																<div class="col-md-4 ">
 																	<label class="required">Zip Code</label>
-																	<input type="text" name="p_zip_code" class="form-control" id="p_zip_code">
+																	<input type="text" name="p_zip_code" class="form-control" id="p_zip_code" value="{{old('p_zip_code')}}" >
 																	@error('p_zip_code')
 																		<span class="text-danger">
 																			<strong>{{$message}}</strong>
@@ -542,7 +531,7 @@
 																</div>
 																<div class="col-md-4 ">
 																	<label class="required">Country Name</label>
-																	<input type="text" class="form-control" name="p_country" id="p_country">
+																	<input type="text" class="form-control" name="p_country" id="p_country" value="{{old('p_country') ?? 'India'}}">
 																	@error('p_country')
 																		<span class="text-danger">
 																			<strong>{{$message}}</strong>
@@ -559,7 +548,7 @@
 														<div class="card-body">
 															<div class="row form-group">
 																<div class="col-md-12 ">
-																	<label><input type="checkbox" name="same_as" id="p_l_same" />
+																	<label><input type="checkbox" name="same_as" id="p_l_same" {{old('same_as') == '1' ? 'checked' : ''}} />
 																	</label>
 																	<label>Same as Permanent Address</label><span class="text-muted">(Click to copy permanent address data)</span>
 																</div>
@@ -567,7 +556,7 @@
 															<div class="row form-group">
 																<div class="col-md-4 ">
 																	<label class="required">Address Line</label>
-																	<input type="text" class="form-control loc_addr" name="l_address" id="l_address">
+																	<input type="text" class="form-control loc_addr" name="l_address" id="l_address" value="{{old('l_address')}}" >
 																	@error('l_address')
 																		<span class="text-danger">
 																			<strong>{{$message}}</strong>
@@ -576,7 +565,7 @@
 																</div>												
 																<div class="col-md-4 ">
 																	<label class="required">City Name</label>
-																	<input type="text" class="form-control loc_addr" name="l_city" id="l_city">
+																	<input type="text" class="form-control loc_addr" name="l_city" id="l_city" value="{{old('l_city')}}">
 																	@error('l_city')
 																		<span class="text-danger">
 																			<strong>{{$message}}</strong>
@@ -585,7 +574,7 @@
 																</div>				
 																<div class="col-md-4 ">
 																	<label class="required">State Name</label>
-																	<input type="text" class="form-control loc_addr" name="l_state" id="l_state">
+																	<input type="text" class="form-control loc_addr" name="l_state" id="l_state"  value="{{old('l_state') ?? 'Madhya Pradesh'}}">
 																	@error('l_state')
 																		<span class="text-danger">
 																			<strong>{{$message}}</strong>
@@ -597,7 +586,7 @@
 															<div class="row">
 																<div class="col-md-4 ">
 																	<label class="required">Zip Code</label>
-																	<input type="text" name="l_zip_code" class="form-control loc_addr" id="l_zip_code">
+																	<input type="text" name="l_zip_code" class="form-control loc_addr" id="l_zip_code" value="{{old('l_zip_code')}}">
 																	@error('l_zip_code')
 																		<span class="text-danger">
 																			<strong>{{$message}}</strong>
@@ -606,7 +595,7 @@
 																</div>
 																<div class="col-md-4 ">
 																	<label class="required">Country Name</label>
-																	<input type="text" class="form-control loc_addr" name="l_country" id="l_country">
+																	<input type="text" class="form-control loc_addr" name="l_country" id="l_country" value="{{old('l_country') ?? 'India'}}">
 																	@error('l_country')
 																		<span class="text-danger">
 																			<strong>{{$message}}</strong>
@@ -631,9 +620,9 @@
 											<hr>
 							        		<section>
 									        	<div class="row form-group">
-									        		<div class="col-md-6 col-sm-6 col-xs-6">
+									        		<div class="col-md-6 col-sm-6 form-group col-xs-6">
 									        			<label>Bank Name</label>
-									        			<input type="text" name="bank_name" class="form-control"> 
+									        			<input type="text" name="bank_name" class="form-control" value="{{old('bank_name')}}"> 
 									        			@error('bank_name')
 															<span class="text-danger">
 																<strong>{{$message}}</strong>
@@ -641,9 +630,9 @@
 														@enderror
 
 									        		</div>
-									        		<div class="col-md-6 col-sm-6 col-xs-6">
+									        		<div class="col-md-6 col-sm-6 form-group col-xs-6">
 									        			<label>Branch</label>
-									        			<input type="text" name="bank_branch" class="form-control">
+									        			<input type="text" name="bank_branch" class="form-control" value="{{old('bank_branch')}}">
 									        			@error('bank_branch')
 															<span class="text-danger">
 																<strong>{{$message}}</strong>
@@ -653,27 +642,27 @@
 
 									        	</div>
 									        	<div class="row form-group">
-									        		<div class="col-md-4 col-sm-6 col-xs-6">
+									        		<div class="col-md-4 col-sm-6 form-group col-xs-6">
 									        			<label>Account Name</label>
-									        			<input type="text" name="account_name" class="form-control">
+									        			<input type="text" name="account_name" class="form-control" value="{{old('account_name')}}">
 									        			@error('account_name')
 															<span class="text-danger">
 																<strong>{{$message}}</strong>
 															</span>
 														@enderror
 									        		</div>
-									        		<div class="col-md-4 col-sm-6 col-xs-6">
+									        		<div class="col-md-4 col-sm-6 form-group col-xs-6">
 									        			<label>Account Number</label>
-									        			<input type="text" name="account_no" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
+									        			<input type="text" name="account_no" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="{{old('account_no')}}">
 									        			@error('account_no')
 															<span class="text-danger">
 																<strong>{{$message}}</strong>
 															</span>
 														@enderror
 									        		</div>
-									        		<div class="col-md-4 col-sm-6 col-xs-6">
+									        		<div class="col-md-4 col-sm-6 form-group col-xs-6">
 									        			<label>IFSC CODE</label>
-									        			<input type="text" name="ifsc_code" class="form-control" id="ifsc_code" >
+									        			<input type="text" name="ifsc_code" class="form-control" id="ifsc_code" value="{{old('ifsc_code')}}">
 									        			@error('ifsc_code')
 															<span class="text-danger">
 																<strong>{{$message}}</strong>
@@ -702,9 +691,9 @@
 															<thead>
 																<tr style="background-color: #e3f2fd;">
 																	<th>SNo.</th>
-																	<th > Document Title  </th>
-																	<th > Document Description </th>
-																	<th > File </th>
+																	<th>Document Title  </th>
+																	<th>Document Description </th>
+																	<th>File </th>
 																	<th >Add More</th>
 																</tr>
 															</thead>
@@ -770,7 +759,7 @@
 	</script>	
 @endif
 
-
+@include('layouts.common')
 <script type="text/javascript">
 
 // For tabing ..........	
@@ -860,7 +849,7 @@ $(document).ready(function(){
 	
 	var k =0;
 
-	var html_div ='<div class="form-group row relation"><div class="col-sm-6 col-md-4 col-xs-6 "><label class="">Relation <strong class="text-danger">*</strong></label><select name="relation[]" class="form-control "><option value="">Select Relation</option>@foreach(RELIGION as $key =>$val)<option value="{{$key}}">{{$val}}</option>@endforeach ></select></div><div class="col-md-4 col-sm-6 col-xs-6 "><label class="">Name <strong class="text-danger">*</strong></label><input type="text" name="g_name[]" class="form-control " value=""></div><div class="col-md-4 col-sm-6 col-xs-6 "><label class="required">Mobile <strong class="text-danger">*</strong></label><input type="text" name="g_mobile[]" class="form-control "></div></div><div class="row form-group"><div class="col-md-4 col-xs-6 col-sm-6 "><label class="">Work Status</label><select name="work_status[]" class="form-control"><option value="">Select Work Status</option><option value="0">Self Employed</option><option value="1">Job</option><option value="3">Retired</option></select></div><div class="col-md-4 col-xs-6 col-sm-6 "><label class="">Employment Type</label><select name="employment_type[]" class="form-control"><option value="">Select Employment Type</option><option value="0">Government</option><option value="1">Private</option></select></div><div class="col-md-4 col-xs-6 col-sm-6 "><label class="">Professtion Type</label><select name="profession_status[]" class="form-control"><option value="">Select Profession type</option>">@foreach($professtionType as $key =>$professtionTypes)<option value="{{$professtionTypes->id}}">{{$professtionTypes->professtion_types_name}}</option>@endforeach ></select></div></div><div class="form-group row"><div class="col-md-4 col-xs-6 col-sm-6 "><label>Employer</label><input type="text" name="employer[]" class="form-control"></div><div class="col-md-4 col-xs-6 col-sm-6 "><label>Designation</label><select class="form-control" name="designation_id[]"><option value="">Select Designation Name</option> @foreach($guardianDesignation as $key =>$guardianDesignations)<option value="{{$guardianDesignations->id}}">{{$guardianDesignations->guardian_designations_name}}</option>@endforeach </option></select></div><div class="col-md-4 col-xs-6 col-sm-6 "><label >Photo</label><input type="file" name="g_photo[]" id="g_photo" accept="image/*"><input type="hidden" name="g_check[]" class="g_photo" value=""><input type="hidden" name="g_id[]" value=""></div><hr></div>';
+	var html_div ='<div class="form-group row relation"><div class="col-sm-6 form-group col-md-4 col-xs-6 "><label class="">Relation <strong class="text-danger">*</strong></label><select name="relation[]" class="form-control "><option value="">Select Relation</option>@foreach(GUARDIAN_RELATION as $key =>$val)<option value="{{$key}}">{{$val}}</option>@endforeach ></select></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="">Name <strong class="text-danger">*</strong></label><input type="text" name="g_name[]" class="form-control " value=""></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="required">Mobile <strong class="text-danger">*</strong></label><input type="text" name="g_mobile[]" class="form-control "></div></div><div class="row form-group"><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Work Status</label><select name="work_status[]" class="form-control"><option value="">Select Work Status</option><option value="0">Self Employed</option><option value="1">Job</option><option value="3">Retired</option></select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Employment Type</label><select name="employment_type[]" class="form-control"><option value="">Select Employment Type</option><option value="0">Government</option><option value="1">Private</option></select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Professtion Type</label><select name="profession_status[]" class="form-control"><option value="">Select Profession type</option>">@foreach($professtionType as $key =>$professtionTypes)<option value="{{$professtionTypes->id}}">{{$professtionTypes->professtion_types_name}}</option>@endforeach ></select></div></div><div class="form-group row"><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label>Employer</label><input type="text" name="employer[]" class="form-control"></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label>Designation</label><select class="form-control" name="designation_id[]"><option value="">Select Designation Name</option> @foreach($guardianDesignation as $key =>$guardianDesignations)<option value="{{$guardianDesignations->id}}">{{$guardianDesignations->guardian_designations_name}}</option>@endforeach </option></select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label >Photo</label><input type="file" name="g_photo[]" id="g_photo" accept="image/*"><input type="hidden" name="g_check[]" class="g_photo" value=""><input type="hidden" name="g_id[]" value=""></div><hr></div>';
 
 
 	// for(var z = 0; z < guard_info; z++){

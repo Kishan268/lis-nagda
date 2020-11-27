@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">          
-            @include('admin.master.header')
+            @include('admin.manage.header')
         </div>
     </div>
     <div class="row">
@@ -16,7 +16,7 @@
                     </h5>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered table-hover mytable">
                         <thead>
                           <tr>
                             <th>S.No</th>
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal" id="addClass">
+        <div class="modal" id="classModal">
             <div class="modal-dialog">
                 <div class="modal-content">
 
@@ -111,12 +111,12 @@
             $('input[name="class_id"]').val('');
             $('#class_name').val('');
             $('#class_desceiption').val('');
-            $('#addClass').modal('show');
+            $('#classModal').modal('show');
 
         });
         $('.modalClose').on('click',function(e){
             e.preventDefault();
-            $('#addClass').modal('hide');
+            $('#classModal').modal('hide');
         });
         $('.editClass').on('click',function(e){
             e.preventDefault();
@@ -126,7 +126,7 @@
             $('#class_name').val($(this).data('id'));
             $('#class_desceiption').val($(this).data('class'));
 
-            $('#addClass').modal('show');
+            $('#classModal').modal('show');
         });
 
         @if($message = Session::get('success'))
