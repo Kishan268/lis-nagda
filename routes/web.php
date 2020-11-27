@@ -362,12 +362,9 @@ Route::get('certificate/approve/{id}','Admin\certificate\CertificateController@c
 
 });
 
-<<<<<<< HEAD
 
 
 Route::get('batch-fetch/{id}','Admin\classes\ClassesController@batch_fetch')->name('batch-fetch');
 Route::get('section-fetch/{id}/{id1}','Admin\classes\ClassesController@section_fetch')->name('section-fetch');
-=======
 Route::Resource('profile','Admin\profile\ProfileController');
 Route::Resource('certificate-request','Admin\students\CertificateRequestController');
->>>>>>> 206960c549bb9a47ff68c1fc4a9e67df38634e92
