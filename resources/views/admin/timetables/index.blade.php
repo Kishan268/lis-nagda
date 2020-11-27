@@ -8,6 +8,10 @@
           <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
             <h6 style="font-size: 15px;" class="m-0 font-weight-bold text-primary">Time Table<h4 class="panel-title">  <a href="{{route('time-table.create')}}" class="btn btn-success pull-right btn-sm">Add Time Table</a><a href="{{ URL::previous() }}" class="btn btn-info pull-right btn-sm">Back</a></h4></h6>
           </div>
+          <div class="app-title full-right">
+           @if($message = Session::get('success'))   
+              <div class="alert alert-success">{{ $message }}</div>
+           @endif
           <!-- Card Body -->
           <div class="card-body">
             {{-- {{dd($examTimeTableMast)}} --}}
@@ -21,8 +25,8 @@
                     <th>Start Date</th>
                     <th>End Date</th>
                     <th>Reporting Time</th>
-                    <th>Examination Time</th>
-                    <th>Remark</th>
+                    <th>Examination From Time</th>
+                    <th>Examination To Time</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -37,8 +41,8 @@
                    <td>{{$examTimeTableMasts->start_dt}}</td>
                    <td>{{$examTimeTableMasts->end_dt}}</td>
                    <td>{{$examTimeTableMasts->reporting_time}}</td>
-                   <td>{{$examTimeTableMasts->exam_time}}</td>
-                   <td>{{$examTimeTableMasts->remark}}</td>
+                   <td>{{$examTimeTableMasts->exam_from_time}}</td>
+                   <td>{{$examTimeTableMasts->exam_to_time}}</td>
                    <td><a href="{{route('time-table.show',$examTimeTableMasts->time_id)}}" ><i class=" fa fa-eye text-primary" style="font-size: 16px;"></i></a><a href="{{route('time-table.edit',$examTimeTableMasts->time_id)}}" ><i class=" fa fa-pencil text-primary" style="font-size: 16px;"></i></a></td>
 
                  </tr>

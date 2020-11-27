@@ -155,12 +155,21 @@ class SubjectController extends Controller
             $lastId = AssignSubjectToClass::create($data);
             // return gettype($request->mendatory_subject_id);
             $lastId->subject_assign()->sync($request->mendatory_subject_id);
+            return redirect()->back()->with('success','Subject assigned successfully');
+
         }else{
             // $lastId = AssignSubjectToClass::find($old->id)->update($data);
             $old->subject_assign()->sync($request->mendatory_subject_id);
+<<<<<<< HEAD
         }
     
         return redirect()->back()->with('success','Subject assigned successfully');
+=======
+            return redirect()->back()->with('success','Subject updated successfully');
+
+        }
+       
+>>>>>>> 206960c549bb9a47ff68c1fc4a9e67df38634e92
     }
 
     public function subjectAssignToStudent(){

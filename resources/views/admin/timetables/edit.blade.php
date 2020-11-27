@@ -13,7 +13,7 @@
         </div>
           <!-- Card Body -->
           <div class="card-body">
-              <form action="{{route('time-table.update',$timeTabale->time_id)}}" method="post" id="form_submit" autocomplete="off">
+              <form action="{{route('time-table.update',$timeTable->time_id)}}" method="post" id="form_submit" autocomplete="off">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -22,7 +22,7 @@
                     <div class="col-md-4">
                        <label class="red"> *</label>
                        <label for="name"> Name</label>
-                       <input class="form-control input-small " id="exam_name" name="exam_name"  aria-label="Small" type="text" value="{{$timeTabale->name}}">
+                       <input class="form-control input-small " id="exam_name" name="exam_name"  aria-label="Small" type="text" value="{{$timeTable->name}}">
                        @error('exam_name')
                         <span class="text-danger">
                           <strong>{{$message}}</strong>
@@ -34,43 +34,40 @@
                         <label for="class_from">Class From </label>                
                         <div class="input-group">
                            <span class="input-group-addon"></span>
-                           <select class="form-control onlyDigit input-sm" id="class_from" name="class_from"  value="{{old('class_from')}}">
-                            <option value="{{$timeTabale->get_from_class->id}}"> {{$timeTabale->get_from_class->class_name}}</option>
-                            @foreach($class as $classes)
+                            <input value="{{$timeTable->get_from_class->class_name}}"  class="form-control onlyDigit input-sm" id="class_from" name="class_from" readonly=""> 
+                            {{-- @foreach($class as $classes)
                             <option value="{{$classes->id}}"> {{$classes->class_name}}</option>
-                            @endforeach
-                            </select>
+                            @endforeach --}}
                         </div>
-                             @error('class_from')
-                              <span class="text-danger">
-                                <strong>{{$message}}</strong>
-                              </span>
-                            @enderror
                     </div>
                     <div class="col-md-4">
                         <label class="red"> *</label>
                         <label for="class_to">Class To </label>                
                         <div class="input-group">
                            <span class="input-group-addon"></span>
-                           <select class="form-control onlyDigit input-sm" id="class_to"  name="class_to"  value="{{old('class_to')}}">
-                            <option value="{{$timeTabale->get_to_class->id}}"> {{$timeTabale->get_to_class->class_name}}</option>
+                           <input class="form-control onlyDigit input-sm" id="class_to"  name="class_to"  value="{{$timeTable->get_to_class->class_name}}" readonly>
+                            <option  > </option>
 
-                            @foreach($class as $classes)
+                           {{--  @foreach($class as $classes)
                             <option value="{{$classes->id}}"> {{$classes->class_name}}</option>
-                            @endforeach
-                            </select>
+                            @endforeach --}}
                         </div>
-                            @error('class_to')
-                              <span class="text-danger">
-                                <strong>{{$message}}</strong>
-                              </span>
-                            @enderror
                     </div>
                     <div class="col-md-6">
                         <label class="red"> *</label>
                          <label for="name">Reporting Time</label>
-                         <input type="text" name="reporting_time" class="form-control timepicker" value="{{$timeTabale->reporting_time}}">
+                         <input type="text" name="reporting_time" class="form-control timepicker" value="{{$timeTable->reporting_time}}" readonly>
                          @error('reporting_time')
+                          <span class="text-danger">
+                            <strong>{{$message}}</strong>
+                          </span>
+                          @enderror
+                    </div>
+                     <div class="col-md-6">
+                        <label class="red"> *</label>
+                        <label for="name">Departure Time</label>
+                         <input type="text" name="deprature_time" class="form-control timepicker" value="{{$timeTable->deprature_time}}" readonly="">
+                          @error('deprature_time')
                           <span class="text-danger">
                             <strong>{{$message}}</strong>
                           </span>
@@ -78,9 +75,39 @@
                     </div>
                     <div class="col-md-6">
                         <label class="red"> *</label>
-                        <label for="name">Examination Time</label>
-                         <input type="text" name="examination_time" class="form-control timepicker" value="{{$timeTabale->examination_time}}">
-                          @error('examination_time')
+                        <label for="name">Examination From Time</label>
+                         <input type="text" name="exam_from_time" class="form-control timepicker" value="{{$timeTable->exam_from_time}}" readonly>
+                          @error('exam_from_time')
+                          <span class="text-danger">
+                            <strong>{{$message}}</strong>
+                          </span>
+                          @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label class="red"> *</label>
+                        <label for="name">Examination To Time</label>
+                         <input type="text" name="exam_to_time" class="form-control timepicker" value="{{$timeTable->exam_to_time}}" readonly>
+                          @error('exam_to_time')
+                          <span class="text-danger">
+                            <strong>{{$message}}</strong>
+                          </span>
+                          @enderror
+                    </div>
+                     <div class="col-md-6">
+                        <label class="red"> *</label>
+                        <label for="name">Lunch From Time</label>
+                         <input type="text" name="lunch_from_time" class="form-control timepicker" value="{{$timeTable->lunch_from_time}}" readonly>
+                          @error('lunch_from_time')
+                          <span class="text-danger">
+                            <strong>{{$message}}</strong>
+                          </span>
+                          @enderror
+                    </div> 
+                    <div class="col-md-6">
+                        <label class="red"> *</label>
+                        <label for="name">Lunch To Time</label>
+                         <input type="text" name="lunch_to_time" class="form-control timepicker" value="{{$timeTable->lunch_to_time}}" readonly>
+                          @error('lunch_to_time')
                           <span class="text-danger">
                             <strong>{{$message}}</strong>
                           </span>
@@ -89,7 +116,7 @@
                     <div class="col-md-6">
                         <label class="red"> *</label>
                         <label for="name">Start Date</label>
-                         <input type="text" name="start_date" class="form-control datepicker" value="{{$timeTabale->start_dt}}" required="true" readonly="true">
+                         <input type="text" name="start_date" class="form-control datepicker" value="{{$timeTable->start_dt}}" required="true" readonly="true">
                          @error('start_date')
                           <span class="text-danger">
                             <strong>{{$message}}</strong>
@@ -100,7 +127,7 @@
                          <label class="red"> *</label>
                          <label for="name">End Date</label>
 
-                         <input type="text" name="end_date" class="form-control datepicker" value="{{$timeTabale->end_dt}}" required="true" readonly="true">
+                         <input type="text" name="end_date" class="form-control datepicker" value="{{$timeTable->end_dt}}" required="true" readonly="true">
                          @error('end_date')
                           <span class="text-danger">
                             <strong>{{$message}}</strong>
@@ -110,7 +137,7 @@
                     <div class="col-md-6">
                       <label class="red"> *</label>
                       <label for="name">Number Of Date</label>
-                       <select class="form-control" name="nod" id="nod" value="{{old('nod')}}">
+                       <select class="form-control" name="nod" id="nod1" value="{{old('nod')}}" readonly>
                          <option value="">Select</option> 
                         @for($i=1;$i<=7;$i++)
                          <option value="{{$i}}">{{$i}}</option> 
@@ -125,7 +152,7 @@
                     <div class="col-md-6">
                       <label class="red"> *</label>
                       <label for="name">Remark</label>
-                       <textarea class="form-control" name="remark" >{{$timeTabale->remark}}</textarea>
+                       <textarea class="form-control" name="remark" >{{$timeTable->remark}}</textarea>
                         @error('remark')
                           <span class="text-danger">
                             <strong>{{$message}}</strong>
@@ -151,8 +178,11 @@
                                       $date[] = $dates->date
 
                                   ?>
+
                                     <th><input type="text" name="date[]" placeholder="Enter Date" class="form-control datepicker" required="" value="{{$dates->date}}"></th> 
-                                  <?php } ?>
+                                  <?php } 
+                                  $nod = count($date);
+                                  ?>
                                 
                                 @endforeach
                               @endforeach
@@ -161,36 +191,43 @@
                           </thead>
                           <tbody>
 
-                            <?php $classData = []; ?>
-                            @foreach($examTimeTableMast as $class)
-                              @foreach ($class->get_time_table as $subjectsClass) 
-                                <?php 
-                                    $classData[$subjectsClass->get_class->class_name][] = $subjectsClass->get_subject?$subjectsClass->get_subject->subject_name:'';                       
-                                ?>
-                              @endforeach
-                            @endforeach         
-                            @foreach($classData as $key => $value)
-                            <tr>
-                              <td>{{$key}}</td>
-                              @foreach($value as $key => $sub)                  
-                                
-                                  <td>
-                                    <select name="subject_{{$i}}_{{$class->id}}" class="form-control" >
-                                      <option value="{{$sub ? $sub : ''}}">{{$sub ? $sub : ''}}</option>
+                            @foreach($getClasses as $class)
+                              @php  $i =0 ; @endphp
+                              <tr>
+                                <td>{{$class->class_name}}</td> 
 
+                                @foreach($examTimeTableMast as $getTimeTable)
+
+                                @foreach($getTimeTable->get_time_table as $getTime)
+
+                                 @if($getTime->class_id == $class->id)
+                                     @php $sub_id = $getTime->subject_id ;   @endphp
+
+                                  <td>
+                                    <select name="subject_{{++$i}}_{{$class->id}}" class="form-control" >
+                                       <?php  
+                                         $option = '<option value="">Select Subject..</option>';
+                                          foreach ($class->assignsubject as $subjects) {
+                                            foreach($subjects->assign_subjectId as $subject){
+                                              $id = $subject->subjectName != null ? $subject->subjectName->id : '';
+                                              $name = $subject->subjectName != null ? $subject->subjectName->subject_name : '' ;
+
+                                              $option .='<option value="'.$id.'" '.($sub_id == $id ? 'selected' : '').'>'.$name.' </option>';
+                                           
+                                            }
+                                          }
+                                      ?> 
+                                      {!!$option!!}
                                     </select>
-                                  </td>                    
-                              @endforeach
-                            </tr>
-                            @endforeach    
+                                  </td>
+                                  @endif
+                                @endforeach
+                                @endforeach
+                              </tr>
+                            @endforeach 
 
                           </tbody>
                       </table> 
-
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 mydiv">
                   </div>
                 </div>
                 <div class="row">
@@ -220,31 +257,7 @@
 </style>
 <script>
 
-  $(document).on('click','#submit',function(event){
-    event.preventDefault();
-    console.log( $('#form_submit').serialize() )
-  })
-
-$(document).on('change','#nod',function(){
-  var classFrom = $('#class_from').val();
-  var classTo = $('#class_to').val();
-  var nod = $(this).val();
-    if (classFrom != '' && classTo != '') {
-      $.ajax({
-        method:'post',
-        url:'{{route('generateTable')}}',
-        data:{'classFrom':classFrom,'classTo':classTo,'nod':nod,"_token": "{{ csrf_token() }}"},
-        success:function(data){
-          $('.mydiv').html(data)
-        }
-
-      })
-    }
-    else{
-      alert('Please Select Class From and  Class To Field....')
-    }
-    
-});
+  
 </script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script type="text/javascript" src="https://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.js"></script>
@@ -282,10 +295,22 @@ $(document).on('change','#nod',function(){
         class_to:{
           required:true
         },
-         reporting_time:{
+        reporting_time:{
+          required:true
+        },
+        deprature_time:{
           required:true
         }, 
-        examination_time:{
+        exam_from_time:{
+          required:true
+        }, 
+        exam_to_time:{
+          required:true
+        },
+        lunch_from_time:{
+          required:true
+        },
+        lunch_to_time:{
           required:true
         }, 
         start_date:{
@@ -294,9 +319,7 @@ $(document).on('change','#nod',function(){
         end_date:{
           required:true
         }, 
-        nod:{
-          required:true
-        },
+        
         remark:{
           required:true
         },

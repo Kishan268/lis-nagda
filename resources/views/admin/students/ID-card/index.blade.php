@@ -32,7 +32,7 @@
 				<div class="row">								
 					<div class="col-md-4">
 						
-						<input type="text" name="aadhar_no" class="form-control" id="aadhar_no">
+						<input type="text" name="roll_no " class="form-control" id="roll_no" placeholder="Enter roll no..">
 					</div>
 					
 					<div class="col-md-3">
@@ -49,7 +49,6 @@
 					         	<div class="col-md-12">
 									<div class="panel panel-default">
 										<div class="panel-body">
-											<h1>fsdghkj</h1>
 										</div>
 									</div>
 								</div>
@@ -73,13 +72,13 @@
 		
 		$('#btnFilter').on('click',function(e){
 			e.preventDefault();
-			var aadhar_no = $('#aadhar_no').val();
-			alert(aadhar_no);
-			 if(aadhar_no !=''){
+			var roll_no = $('#roll_no').val();
+			alert(roll_no);
+			 if(roll_no !=''){
 				$.ajax({
 					type:'POST',
 					url: "{{route('get_id_card')}}",
-					data: {aadhar_no:aadhar_no, "_token": "{{ csrf_token() }}",},
+					data: {roll_no:roll_no, "_token": "{{ csrf_token() }}",},
 					success:function(res){
 						$('#tableFilter').empty().html(res);
 					}

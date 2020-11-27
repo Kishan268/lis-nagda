@@ -295,7 +295,6 @@ Route::group(['middleware' => ['auth','role:superadmin']], function () {
         // Route::post('/import','AttendanceController@importAttendence')->name('attendance.import');
 
 
-Route::Resource('profile','Admin\profile\ProfileController');
 
 Route::Resource('notice-circular','Admin\noticeCircular\NoticeCircularController');
 Route::get('course_batches_chosen','Admin\noticeCircular\NoticeCircularController@getBtachSectionClass')->name('course_batches_chosen');
@@ -355,9 +354,20 @@ Route::post('generate_table','Admin\timetable\TimeTableController@generateTable'
 Route::post('get-assigne-subject','Admin\timetable\TimeTableController@getsubject')->name('get_assigne_subject');
 Route::post('get_class_for_timetable','Admin\timetable\TimeTableController@getClassForTimetable')->name('get_class_for_timetable');
 
+Route::resource('settings','Admin\settings\SettingController');
+
+Route::Resource('certificates','Admin\certificate\CertificateController');
+
+Route::get('certificate/approve/{id}','Admin\certificate\CertificateController@certificateApprove')->name('certificate_approve');
+
 });
 
+<<<<<<< HEAD
 
 
 Route::get('batch-fetch/{id}','Admin\classes\ClassesController@batch_fetch')->name('batch-fetch');
 Route::get('section-fetch/{id}/{id1}','Admin\classes\ClassesController@section_fetch')->name('section-fetch');
+=======
+Route::Resource('profile','Admin\profile\ProfileController');
+Route::Resource('certificate-request','Admin\students\CertificateRequestController');
+>>>>>>> 206960c549bb9a47ff68c1fc4a9e67df38634e92
