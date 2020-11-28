@@ -61,46 +61,36 @@ class studentController extends Controller
     public function index()
     {
          $classes = $this->classes;
-         $batches = $this->batches;
-         $sections = $this->sections;
          $studentData = $this->studentData;
-            return view('admin.students.index',compact('studentData','classes','sections','batches'));
+            return view('admin.students.index',compact('studentData','classes'));
     }
 
     
     public function create()
     {
         
-         $classes = $this->classes;
-         $batches = $this->batches;
-         $sections = $this->sections;
-         $studentData = $this->studentData;
-         $country   = $this->country;
-         $state     = $this->state;
-         $city      = $this->city;
-         // $castCategores         = $this->castCategores;
-         // $studentReligions      = $this->studentReligions;
-         $studentNationalites   = $this->studentNationalites;
-         // $studentBloodGroups    = $this->studentBloodGroups;
-         $studentMothertongues  = $this->studentMothertongues;
-         $professtionType       = $this->professtionType;
-         $guardianDesignation   = $this->guardianDesignation;
-         $studentGenders = Helpers::studentGender();
-         // return student_gender();
-        return view('admin.students.create',compact('classes','batches','sections','studentGenders',
-            'studentNationalites','studentMothertongues','country','state','city','professtionType','guardianDesignation'));
-        
+        $classes = $this->classes;
+        $studentMothertongues  = $this->studentMothertongues;
+        $professtionType       = $this->professtionType;
+        $guardianDesignation   = $this->guardianDesignation;
+        $studentNationalites   = $this->studentNationalites ;
+        return view('admin.students.create',compact('classes','studentNationalites','studentMothertongues','professtionType','guardianDesignation'));
+
     }
 
     
     public function store(Request $request)
     {
+
+        // return $request->all(); 
+
        $request->validate(
             [
                 'std_class_id'        => 'required|not_in:""',
                 'batch_id'            => 'required|not_in:""',
                 'section_id'          => 'required|not_in:""',
-                'admision_no'         => 'required',
+
+                'admision_no'         => 'required|unique:students_masts,admision_no',
                 'f_name'              => 'required',
                 'l_name'              => 'required',
                 's_mobile'            => 'required',
@@ -178,9 +168,9 @@ class studentController extends Controller
                 'p_state'=> $request->p_state,
                 'p_zip_code'=> $request->p_zip_code,
                 'p_country'=> $request->p_country,
-                'same_as'=> $request->same_as,
+                'same_as'=> $request->same_as =='on' ? '1' :'0',
                 'l_address'=> $request->p_address,
-                'p_city'=> $request->p_city,
+                'l_city'=> $request->p_city,
                 'l_state'=> $request->p_state,
                 'l_zip_code'=> $request->p_zip_code,
                 'l_country'=> $request->p_country,
@@ -258,250 +248,6 @@ class studentController extends Controller
 
     //            $sendMessage = SendMessage::sendCode($sendData);
     return redirect()->back()->with('success','Student added successfully');
-   
-
-            $data = [
-                'user_id'             => Auth::user()->id,
-                'std_class_id'        => $request->std_class_id,
-                'batch_id'            => $request->batch_id,
-                'admision_no'         => $request->admision_no,
-                'section_id'          => $request->section_id,
-                'f_name'              => $request->f_name,
-                'm_name'              => $request->m_name,
-                'l_name'              => $request->l_name,
-                's_mobile'            => $request->s_mobile,
-                'dob'                 => $request->dob,
-                'birth_place'         => $request->birth_place,
-                'email'               => $request->email,
-                'gender'              => $request->gender,
-                'reservation_class_id'=> $request->reservation_class_id,
-                'religion_id'         => $request->religion_id,
-                'blood_group_id'      => $request->blood_group_id,
-                'spec_ailment'        => $request->spec_ailment,
-                'age'                 => $request->age,
-                'nationality_id'      => $request->nationality_id,
-                'taluka'              => $request->taluka,
-                'language_id'         => $request->language_id,
-                's_ssmid'             => $request->s_ssmid,
-                'f_ssmid'             => $request->f_ssmid,
-                'aadhar_card'         => $request->addhar_card,
-                'teacher_ward'        => $request->teacher_ward,
-                'cbsc_reg'            => $request->cbsc_reg,
-                'status'              => $request->status,
-                'addm_date'           => $request->addm_date,
-                'enroll_no'           => $request->enroll_no,
-                'roll_no'             => $request->roll_no,
-                'username'            => $request->username,
-
-                'prev_school'               => $request->prev_school,
-                'year_of_prev_school'       => $request->year_of_prev_school,
-                'prev_school_address'       => $request->prev_school_address,
-                // 'acadmic_city_id'           => $request->acadmic_city_id,
-                // 'acadmic_state_id'          => $request->acadmic_state_id,
-                'acadmic_pin'               => $request->acadmic_pin,
-                // 'acadmic_country_id'        => $request->acadmic_country_id,
-                'acadmic_cast_id'           => $request->acadmic_cast,
-                'acadmic_attendance_reg_no' => $request->acadmic_attendance_reg_no,
-                'acadmic_remark'            => $request->acadmic_remark,
-
-                'p_address'      => $request->p_address,
-                // 'p_country_id'   => $request->p_country_id,
-                // 'p_state_id'     => $request->p_state_id,
-                // 'p_city_id'      => $request->p_city_id,
-                'p_zip_code'     => $request->p_zip_code,
-
-                // 'l_address'      => $request->l_address,
-                // 'l_country_id'   => $request->l_country_id,
-                // 'l_state_id'     => $request->l_state_id,
-                // 'l_city_id'      => $request->l_city_id,
-                // 'l_zip_code'     => $request->l_zip_code,
-
-                
-                'bank_name'           => $request->bank_name,
-                'bank_branch'         => $request->bank_branch,
-                'account_name'        => $request->account_name,
-                'account_no'          => $request->account_no,
-                'ifsc_code'           => $request->ifsc_code,
-                
-            ]; 
-            $data['password'] = Hash::make($request->password);
-
-            if($data['status'] == 'P'){
-                $data['passout_date'] = $request->passout_date;
-            }
-
-            $batches =  studentBatch::all();
-            
-            foreach ($batches as $value) {
-                if($data['batch_id'] == $value->id){
-                    $batch_name = $value->batch_from ."-".$value->batch_to;
-                }
-            }
-
-            if($request->s_photo !=null){
-                $verify = $request->validate([
-                    's_photo' =>'required|image|mimes:jpeg,png,jpg' 
-                ]);
-                $filename = $request->f_name.'_'.time().'.'.$request->s_photo->getClientOriginalName();
-                $year = date('Y');
-                    
-                if(!empty($student)){
-                    if($student->photo !=null){
-                     Storage::delete('public/'.$student->photo);   
-                    }
-                }
-               $image = $request->s_photo->storeAs('public/admin/school_'.Auth::user()->id.'/students/', $filename);
-               $data['photo'] = 'admin/school_'.Auth::user()->id.'/students/'.$filename;
-            }
-            else{
-                $data['photo'] = !empty($student) ? $student->photo : null ;
-            }
-                // dd($data);
-            $create_stud = studentsMast::create($data); 
-
-            // class section group create ...................
-            // $getClasses = studentClass::where('id',$request->std_class_id)->first();
-            // $getBatches = studentBatch::where('id',$request->batch_id)->first();
-            // $getSections = studentSectionMast::where('id',$request->section_id)->first();
-            //  $grouData['group_name'] = $getClasses->class_name.'-'.$getBatches->batch_name.'-'.$getSections->section_name;
-            //  $grouData['class_id']    = $request->std_class_id;
-            //  $grouData['section_id']  = $request->section_id;
-            //  $grouData['batch_id']    = $request->batch_id;
-            //  $grouData['user_id']     = $create_stud->id;
-
-            // ClassBatchSectionGroupMast::create($grouData);
-
-        if ($create_stud) {
-
-
-    // insert data in user table..........................
-            $studentAsUser['username']  = $request->username;
-            $studentAsUser['password']  = Hash::make($request->password);
-            $studentAsUser['name']      = $request->f_name.' '.$request->l_name;
-            $studentAsUser['email']     = $request->email;
-            $studentAsUser['student_id']= $create_stud->id;
-            $studentAsUser['user_flag'] = 'S';
-
-            $insertDatainUsrTbl = User::create($studentAsUser)->id;
-
-            // send user name and password using email and SMS..................
-                // if ( $insertDatainUsrTbl) {
-                  
-                //     $userNamePassword['base_url'] =  url('/login');
-                //     $userNamePassword['username'] =   $request->username;
-                //     $userNamePassword['email']    =   $request->email;
-                //     $userNamePassword['password'] =  $request->password;
-
-                //     Mail::to($userNamePassword['email'])->send(new UserNamePassword($userNamePassword));
-
-                //     $sendData = [
-                //         'message' =>'Your User name or Password. User Name:-'.$userNamePassword['username'].' , Password:'.$userNamePassword['password'].' , You can Login using Email Addaress ('.$userNamePassword['email'].')  Click '.$userNamePassword['base_url'].'',
-                //         'mobile' => $data['s_mobile'] 
-                //     ]; 
-
-                //     $sendMessage = SendMessage::sendCode($sendData);
-                //     if ($sendMessage) {
-                //         $user = User::find($insertDatainUsrTbl)->update(['message_sent' => 1]);
-                //       }  
-                // }
-            //end send user name and password using email and SMS..................
-
-                 
-    // end insert data in user table..........................
-            
-            for($i= 0 ; $i < count($request->relation); $i++) {
-                $guardian = [
-                    's_id'          => !empty($student) ? $id : $create_stud->id,
-                    'user_id'       => Auth::user()->id,
-                    'relation_id'   => $request->relation[$i],
-                    'g_name'        => $request->g_name[$i],
-                    'g_mobile'      => $request->g_mobile[$i],
-                    'employer'      => $request->employer[$i],
-                    'designation'   => $request->designation_id[$i],
-                    'profession_status' => $request->profession_status[$i],
-                    'work_status'       => $request->work_status[$i],
-                    'employment_type'   =>$request->employment_type[$i],
-                ]; 
-                if($request->g_id[$i] != null){
-                    $g_ids[] = $request->g_id[$i] ;
-                }
-                
-                if($request->g_check[$i] == '0'){    //photo not upload
-                    if($request->g_id[$i]!=null){   //previous photo check
-                        foreach ($guardians as $guard) {
-                            if($guard->id == $request->g_id[$i]){
-                                $guardian['photo'] =$guard->g_photo;
-                            }
-                            
-                        }
-                    }else{
-                        $guardian['photo'] = null;
-                    }              
-                }
-                
-                if($request->g_photo !=null){
-
-                   $filename = $guardian['g_name'].'_'.$i.'_'.time().'.'.$request->g_photo[$i]->getClientOriginalName();
-
-                   $year = date('Y');
-                    if($request->g_id[$i]!=null){  //old photo delete 
-                        foreach ($guardians as $guard) {
-                            if($guard->id == $request->g_id[$i]){
-                                $old_photo =$guard->photo;
-                            }                     
-                        }
-                        if($old_photo !=null ){
-                            Storage::delete('public/'.$old_photo);   
-                        }
-
-                    }
-                   
-                    $image = $request->g_photo[$i]->storeAs('public/admin/students_'.Auth::user()->id.'/parents/', $filename);
-
-                    $guardian['photo'] = 'admin/students_'.Auth::user()->id.'/parents/'.'/'.$filename;
-
-                }else{
-                    $data['photo'] = !empty($student) ? $student->g_photo : null ;
-                }
-                if(!empty($student)){
-                    if($request->g_id[$i]!=null){
-                        studentsGuardiantMast::find($request->g_id[$i])->update($guardian);
-                    }else{
-                        studentsGuardiantMast::create($guardian);
-                    }
-                }else{
-
-                    studentsGuardiantMast::create($guardian);
-                }
-            }
-
-            for($i= 0 ; $i < count($request->doc_title); $i++) {
-                $stdDoc = [
-                        's_id'          => !empty($student) ? $id : $create_stud->id,
-                        'doc_title'         => $request->doc_title[$i],
-                        'doc_description'   => $request->doc_description[$i],
-                        'user_id'           => Auth::user()->id,
-                ]; 
-
-                if($request->student_doc !=null){
-                   $filename = $stdDoc['doc_title'].'_'.$i.'_'.time().'.'.$request->student_doc[$i]->getClientOriginalName();
-                   $year = date('Y');
-                   
-                    $image = $request->student_doc[$i]->storeAs('public/admin/students_doc'.Auth::user()->id.'/student_doc/', $filename);
-
-                    $stdDoc['student_doc'] = 'admin/students_coc'.Auth::user()->id.'/student_doc/'.'/'.$filename;
-                }else{
-                    $data['student_doc'] = !empty($student) ? $student->student_doc : null ;
-                }
-                    StudenstDoc::create($stdDoc);
-                
-            }
-            // return redirect('student_detail');
-            return redirect()->back()->with('success','Student added successfully');
-        }else{
-            return redirect()->back()->with('success','Student not added...');
-
-        }
 
     }
 
@@ -509,48 +255,29 @@ class studentController extends Controller
     public function show($id)
     {
 
+        $student = studentsMast::with(['student_class','student_batch','student_section','studentsGuardiantMast.professtion_type','studentsGuardiantMast.guardian_designation','student_doc','stdNationality','mothetongueMast'])->where('id',$id)->first();
+        // return $student;
 
-        $student = studentsMast::with(['student_class','student_batch','student_section','studentsGuardiantMast','studenst_doc','stdNationality','mothetongueMast'])->where('id',$id)->first();
         return view('admin.students.show',compact('student'));
-
-
-
-         $classes     = $this->classes;
-         $batches     = $this->batches;
-         $sections    = $this->sections;
-         $studentData = $this->studentData;
-         $classes     = $this->classes;
-         $batches     = $this->batches;
-         $sections    = $this->sections;
-         $studentData = $this->studentData;
-         $country   = $this->country;
-         $state     = $this->state;
-         $city      = $this->city;
-  
-         $studentNationalites   = $this->studentNationalites;
-         $studentMothertongues  = $this->studentMothertongues;
-         $professtionType       = $this->professtionType;
-         $guardianDesignation   = $this->guardianDesignation;
-         $studentGenders        = Helpers::studentGender();
-         $studentsGuardiantDetails = studentsGuardiantMast::get();
-
-         $guardiantDetails = studentsGuardiantMast::with('students_details','professtion_type','guardiant_relation')->where('s_id',$id)->get();
-         // $professtionDetail       = professtionType::with('')->get();
-
-
-
-         $studentsMast   = studentsMast::where('id',$id)->with('student_batch','student_section','student_class','acadmic_country_mast','acadmic_stateMast','acadmic_cityMast','stdNationality','mothetongueMast','guardianDesignation','studentsGuardiantMast','p_country','p_state','p_city','l_country','l_state','l_city','studenst_doc')->first();
-
-         // $studentDoc = StudenstDoc::
-         // dd($studentsMast);
-         // return student_gender();
-        return view('admin.students.show',compact('classes','batches','sections','studentGenders',
-            'studentNationalites','studentMothertongues','country','state','city','professtionType','guardianDesignation','studentsMast','studentsGuardiantDetails','guardiantDetails'));
     }
 
     
     public function edit($id)
     {
+        $classes = $this->classes;
+        $studentMothertongues  = $this->studentMothertongues;
+        $professtionType       = $this->professtionType;
+        $guardianDesignation   = $this->guardianDesignation;
+
+        $studentNationalites   = $this->studentNationalites ;
+        $student = studentsMast::with(['student_class','student_batch','student_section','studentsGuardiantMast','student_doc','stdNationality','mothetongueMast'])->where('id',$id)->first();
+        // return $student;
+
+        return view('admin.students.edit',compact('classes','studentNationalites','studentMothertongues','professtionType','guardianDesignation','student'));
+
+
+
+
         $classes     = $this->classes;
          $batches     = $this->batches;
          $sections    = $this->sections;
@@ -574,7 +301,7 @@ class studentController extends Controller
 
          $guardiantDetails = studentsGuardiantMast::with('students_details','professtion_type','guardiant_relation')->where('s_id',$id)->get();
          // $professtionDetail       = professtionType::with('')->get();
-         $studentsMast   = studentsMast::where('id',$id)->with('student_batch','student_section','student_class','acadmic_country_mast','acadmic_stateMast','acadmic_cityMast','castCategory','stdReligions','stdNationality','stdBloodGroup','mothetongueMast','guardianDesignation','studentsGuardiantMast','p_country','p_state','p_city','l_country','l_state','l_city','studenst_doc')->first();
+         $studentsMast   = studentsMast::where('id',$id)->with('student_batch','student_section','student_class','acadmic_country_mast','acadmic_stateMast','acadmic_cityMast','castCategory','stdReligions','stdNationality','stdBloodGroup','mothetongueMast','guardianDesignation','studentsGuardiantMast','p_country','p_state','p_city','l_country','l_state','l_city','student_doc')->first();
 
          // $studentDoc = StudenstDoc::
          // dd($guardiantDetails);
@@ -586,6 +313,8 @@ class studentController extends Controller
     
     public function update(Request $request, $id)
     {
+
+        return $id;
         // dd($request);
         $data = [
             'user_id'             => Auth::user()->id,

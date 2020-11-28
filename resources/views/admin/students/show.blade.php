@@ -18,7 +18,7 @@
     <div class="col-md-12 col-sm-12 col-lg-12">
        <div class="card">
             <div class="card-header">
-              <h6 class="card-title">Show Student</h6>
+              <h6 class="card-title">Show Student <a href="{{route('student_detail.index')}}" class="btn btn-sm btn-primary pull-right"> Back</a></h6>
               </div>
               <div class="card-body">
                 <div class="row ">
@@ -48,99 +48,102 @@
                   <div class="tab-content mt-4 p-2" style="font-size: 15px !important; background-color: whitesmoke !important;" >
                     <div class="tab-pane tab  active" id="basic_details" >
                       <section>
-                            <h3 class="mb-3">Basic Details</h3>
-                            <hr/>
-                            <div class="row form-group">
-                          <div class="col-md-12">
-                            <label >Student Photo</label>
-                            <input type="file" name="s_photo" id="s_photo" accept="image/*" value="{{old('s_photo')}}">
-                          
-                          </div>
-
-                        </div>
+                         <h3 class="mb-3">Basic Details</h3>
+                         <hr>
                         <div class="row form-group">
-                          <div class="col-md-3 col-xs-6 col-sm-6 form-group">
-                            <label for="std_class" class="required">Class</label>
-                              <input type="text" readonly  name="" readonly="" value="{{$student->student_class->class_name}}" class="form-control">
-                          
+                          <div class="col-md-2">
+                            <label class="">Student Photo</label>
+                            <img src="{{asset($student->photo !=null ? 'storage/'.$student->photo : 'img/student_demo.png')}}" style="width: 100px; height: 100px;">
                           </div>
-                          <div class="col-md-3 col-xs-6 col-sm-6 form-group">
-                            <label class="required"> Batch</label>
-                             <input type="text" readonly  name="" readonly="" value="{{$student->student_batch->batch_name}}" class="form-control">
-                           
-                          </div>
-                          <div class="col-md-3 col-xs-6 col-sm-6 form-group">
-                            <label class="required">Section</label>
-                             <input type="text" readonly  name="" readonly="" value="{{$student->student_section->section_name}}" class="form-control">
-                           
-                          </div>
-                          <div class="col-md-3 col-xs-6 col-sm-6 form-group">
-                            <label class="required">Admision No</label>
-                            <input type="text" readonly name="admision_no" class="form-control" value="{{$student->admision_no}}" >
-                            
-                          </div>                      
-                        </div>
-                        <div class="row form-group">
-                          <div class="col-md-3 col-xs-6 col-sm-6 form-group">
-                            <label class="required">Admission Date</label>
-                            <input type="text" readonly name="addm_date" class="form-control  required addm_date"  data-date-format="yyyy-mm-dd"  value="{{$student->addm_date}}" >
-                            
-                          </div>
-                            
-                          <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                            <label class="">Class Roll Number</label>
-                            <input type="text" readonly name="roll_no" value="{{$student->roll_no}}"class="form-control" >
-                            
-                          </div>
-                            
-                          <div class="col-md-3 col-sm-6 form-group col-xs-6 has-success">
-                            <label class="required">Student Status</label>
-                           <input type="text" readonly name="roll_no" value="{{Arr::get(STUDENTSTATUS,$student->status)}}"class="form-control" >
-                          </div>
-                                                
-                          <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                            <label class="required">First Name</label>
-                            <input type="text" readonly name="f_name" id="f_name" vvalue="{{$student->f_name}}" class="form-control" required="required">
-                            
-                          </div>                
-                          <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                            <label>Middle Name</label>
-                            <input type="text" readonly name="m_name" id="m_name" value="{{$student->m_name}}" class="form-control">
-                            
-                          </div>                  
-                          <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                            <label class="required">Last Name</label>
-                            <input type="text" readonly name="l_name" id="l_name" value="{{$student->l_name}}" class="form-control required" required="required">
-                            
-                          </div>
-                        
-                          <div class="col-md-3 col-sm-6 form-group col-xs-6 passout_date" style="display: none;">
-                            <label class="required">Passout Date</label>
-                            <input type="text"  name="passout_date" class="form-control  " readonly="true" data-date-format="yyyy-mm-dd" value="{{date('d-m-Y',strtotime($student->passout_date))}}"  >
-                          </div>
+                            <div class="col-md-10">
+                                 <div class="row form-group">
+                                    <div class="col-md-4 col-xs-6 col-sm-6 form-group">
+                                      <label for="std_class" class="required">Class</label>
+                                        <input type="text" readonly  name="" readonly="" value="{{$student->student_class->class_name}}" class="form-control">
+                                    
+                                    </div>
+                                    <div class="col-md-4 col-xs-6 col-sm-6 form-group">
+                                      <label class="required"> Batch</label>
+                                       <input type="text" readonly  name="" readonly="" value="{{$student->student_batch->batch_name}}" class="form-control">
+                                     
+                                    </div>
+                                    <div class="col-md-4 col-xs-6 col-sm-6 form-group">
+                                      <label class="required">Section</label>
+                                       <input type="text" readonly  name="" readonly="" value="{{$student->student_section->section_name}}" class="form-control">
+                                     
+                                    </div>
+                                    <div class="col-md-4 col-xs-6 col-sm-6 form-group">
+                                      <label class="required">Admision No</label>
+                                      <input type="text" readonly name="admision_no" class="form-control" value="{{$student->admision_no}}" >
+                                      
+                                    </div>  
+                                    <div class="col-md-4 col-xs-6 col-sm-6 form-group">
+                                      <label class="required">Admission Date</label>
+                                      <input type="text" readonly name="addm_date" class="form-control  required addm_date"  data-date-format="yyyy-mm-dd"  value="{{$student->addm_date}}" >
+                                      
+                                    </div>
+                                      
+                                    <div class="col-md-4 col-sm-6 form-group col-xs-6">
+                                      <label class="">Class Roll Number</label>
+                                      <input type="text" readonly name="roll_no" value="{{$student->roll_no}}"class="form-control" >
+                                      
+                                    </div>                    
+                                  </div>
+                                </div>
+                              </div>
+                                  <div class="row form-group">
+                                    
+                                      
+                                    <div class="col-md-3 col-sm-6 form-group col-xs-6 has-success">
+                                      <label class="required">Student Status</label>
+                                     <input type="text" readonly name="roll_no" value="{{Arr::get(STUDENTSTATUS,$student->status)}}"class="form-control" >
+                                    </div>
+                                                          
+                                    <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                      <label class="required">First Name</label>
+                                      <input type="text" readonly name="f_name" id="f_name" value="{{$student->f_name}}" class="form-control" required="required">
+                                      
+                                    </div>                
+                                    <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                      <label>Middle Name</label>
+                                      <input type="text" readonly name="m_name" id="m_name" value="{{$student->m_name}}" class="form-control">
+                                      
+                                    </div>                  
+                                    <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                      <label class="required">Last Name</label>
+                                      <input type="text" readonly name="l_name" id="l_name" value="{{$student->l_name}}" class="form-control required" required="required">
+                                      
+                                    </div>
+                                  
+                                    <div class="col-md-3 col-sm-6 form-group col-xs-6 passout_date" style="display: none;">
+                                      <label class="required">Passout Date</label>
+                                      <input type="text"  name="passout_date" class="form-control" readonly="true" data-date-format="yyyy-mm-dd" value="{{date('d-m-Y',strtotime($student->passout_date))}}"  >
+                                    </div>
 
-                          <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                            <label class="required">Mobile Number</label>
-                            <input type="text" readonly name="s_mobile" class="form-control required"  value="{{$student->s_mobile}}" required="required"> 
-                           
-                          </div>
-                          <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                            <label class="required">Date of Birth</label>
-                            <input type="text"  name="dob" class="form-control" data-date-format="yyyy-mm-dd" value="{{date('d-m-Y', strtotime($student->dob))}}" readonly>
-                           
-                          </div>
-                          <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                            <label class="">Birth Place</label>
-                            <input type="text" readonly name="birth_place" class="form-control birth_place required" placeholder="" id="birth_place" value="{{$student->birth_place}}">
-                            
-                          </div>
-                          <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                            <label>Email Address</label>
-                            <input type="text" readonly name="email" class="form-control required" value="{{$student->email}}"> 
-                            
-                           
-                          </div>
-                        </div>  
+                                    <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                      <label class="required">Mobile Number</label>
+                                      <input type="text" readonly name="s_mobile" class="form-control required"  value="{{$student->s_mobile}}" required="required"> 
+                                     
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                      <label class="required">Date of Birth</label>
+                                      <input type="text"  name="dob" class="form-control" data-date-format="yyyy-mm-dd" value="{{date('d-m-Y', strtotime($student->dob))}}" readonly>
+                                     
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                      <label class="">Birth Place</label>
+                                      <input type="text" readonly name="birth_place" class="form-control birth_place required" placeholder="" id="birth_place" value="{{$student->birth_place}}">
+                                      
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                      <label>Email Address</label>
+                                      <input type="text" readonly name="email" class="form-control required" value="{{$student->email}}"> 
+                                      
+                                     
+                                    </div>
+                                  </div>  
+                                               
+                       
                         <div class="row form-group">
                           <div class="col-md-4 col-sm-6 form-group col-xs-6">
                             <label class="required">Gender</label>
@@ -219,14 +222,10 @@
                           </section>
                       <ul class="tab-links nav nav-tabs pull-right mt-3">
                         <li class="nav-item">
-                          <a href="#next_tab2" class="nav-link btn btn-sm bg-success text- readonlywhite nextButton">Next</a>
+                          <a href="#next_tab2" class="nav-link btn btn-sm bg-success text-white nextButton">Next</a>
                         </li>
                       </ul>
 
-
-                          {{-- <div class="input-group mb-3 group-end">
-                          <a class="btn btn-success nextButton" href="#next_Basic_details">Next</a>
-                        </div> --}}
                           </div>
                         <div class="tab-pane tab" id="academic_dtl">
                         <h3 class="mb-3">Academic Details</h3>
@@ -285,10 +284,10 @@
                         </section>  
                         <ul class="tab-links nav nav-tabs pull-right mt-3">
                         <li class="nav-item">
-                          <a href="#back_tab1" class="nav-link btn btn-sm bg-primary text- readonlywhite  prevButton">Prev</a>
+                          <a href="#back_tab1" class="nav-link btn btn-sm bg-primary text-white  prevButton">Prev</a>
                         </li>
                         <li class="nav-item">
-                          <a href="#next_tab2" class="nav-link btn btn-sm bg-success  text- readonlywhite nextButton">Next</a>
+                          <a href="#next_tab2" class="nav-link btn btn-sm bg-success  text-white nextButton">Next</a>
                         </li>
                       </ul>                       
                      </div>    
@@ -296,18 +295,63 @@
                         <h3 class="mb-3">Guardian Info</h3>
                         <hr>
                         <section>
-                          <div class="row" >
-                              <div class="col-md-12 col-xl-12 col-sm-12" style="border:1px solid #eee9e9; "  >
+                          {{-- @if($student->studentsGuardiantMast !=null) --}}
+                          @foreach($student->studentsGuardiantMast as $guard_info)
+                              <div class="row" style="margin-top: 10px;">
+                                <div class="col-md-2">
+                                  <label>{{Arr::get(GUARDIAN_RELATION,$guard_info->relation_id)}} Photo</label>
+                                  <img src="{{asset($guard_info->photo !=null ? $guard_info->photo : 'img/student_demo.png')}}" style="width: 100px; height: 100px;">
+                                </div>
+                                <div class="col-md-10">
+                                  <div class="row form-group">
+                                    <div class="col-md-3">
+                                      <label>Relation Name</label>
+                                      <input readonly="" class="form-control" value="{{Arr::get(GUARDIAN_RELATION,$guard_info->relation_id)}}">
+                                    </div>
+                                    <div class="col-md-3">
+                                      <label>Name</label>
+                                      <input readonly=""  class="form-control" value="{{$guard_info->g_mobile}}">
+                                    </div>
+                                    <div class="col-md-3">
+                                      <label>Mobile</label>
+                                      <input readonly="" class="form-control" value="{{$guard_info->g_mobile}}">
+                                    </div>
+                                    <div class="col-md-3">
+                                      <label>Work Status</label>
+                                      <input readonly="" class="form-control" value="{{$guard_info->work_status !=null ? Arr::get(WORK_STATUS,$guard_info->work_status) : ''}}">
+                                    </div>
+                                  </div>
 
+                                  <div class="row form-group">
+                                    <div class="col-md-3">
+                                      <label>Employment Type</label>
+                                      <input value="{{$guard_info->employment_type !=null ? (Arr::get(EMPLOYMENT_TYPE,$guard_info->employment_type)) : ''}}" readonly="" class="form-control">
+                                    </div>
+                                    <div class="col-md-3">
+                                      <label>Professtion Type</label>
+                                      <input readonly="" value="{{$guard_info->professtion_type !=null ?  $guard_info->professtion_type->professtion_types_name :''}}" class="form-control">
+                                    </div>
+                                    <div class="col-md-3">
+                                      <label>Employer</label>
+                                      <input readonly="" value="" class="form-control">
+                                    </div>
+                                    <div class="col-md-3">
+                                      <label>Designation</label>
+                                      <input readonly="" value="{{$guard_info->guardian_designation !=null ?  $guard_info->guardian_designation->guardian_designations_name :''}}" class="form-control">
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
-                          </div>
+                              <hr>
+                          @endforeach
+                              {{-- @endif --}}
                           </section>
                           <ul class="tab-links nav nav-tabs pull-right mt-3">
                           <li class="nav-item">
-                            <a href="#back_tab1" class="nav-link btn btn-sm bg-primary text- readonlywhite  prevButton">Prev</a>
+                            <a href="#back_tab1" class="nav-link btn btn-sm bg-primary text-white  prevButton">Prev</a>
                           </li>
                           <li class="nav-item">
-                            <a href="#next_tab2" class="nav-link btn btn-sm bg-success  text- readonlywhite nextButton">Next</a>
+                            <a href="#next_tab2" class="nav-link btn btn-sm bg-success  text-white nextButton">Next</a>
                           </li>
                         </ul>
                       </div>   
@@ -399,10 +443,10 @@
                             </section>
                          <ul class="tab-links nav nav-tabs pull-right mt-3">
                           <li class="nav-item">
-                            <a href="#back_tab1" class="nav-link btn btn-sm bg-primary text- readonlywhite  prevButton">Prev</a>
+                            <a href="#back_tab1" class="nav-link btn btn-sm bg-primary text-white  prevButton">Prev</a>
                           </li>
                           <li class="nav-item">
-                            <a href="#next_tab2" class="nav-link btn btn-sm bg-success  text- readonlywhite nextButton">Next</a>
+                            <a href="#next_tab2" class="nav-link btn btn-sm bg-success  text-white nextButton">Next</a>
                           </li>
                         </ul>
                       </div>
@@ -443,10 +487,10 @@
                           </section>
                           <ul class="tab-links nav nav-tabs pull-right mt-3">
                         <li class="nav-item">
-                          <a href="#back_tab1" class="nav-link btn btn-sm bg-primary text- readonlywhite  prevButton">Prev</a>
+                          <a href="#back_tab1" class="nav-link btn btn-sm bg-primary text-white  prevButton">Prev</a>
                         </li>
                         <li class="nav-item">
-                          <a href="#next_tab2" class="nav-link btn btn-sm bg-success  text- readonlywhite nextButton">Next</a>
+                          <a href="#next_tab2" class="nav-link btn btn-sm bg-success  text-white nextButton">Next</a>
                         </li>
                       </ul>
                     </div>
@@ -460,15 +504,33 @@
                             <table class="table table-bordered" style="" id="student_doc"m>
                               <thead>
                                 <tr style="background-color: #e3f2fd;">
-                                  <th>SNo.</th>
                                   <th>Document Title  </th>
                                   <th>Document Description </th>
                                   <th>File </th>
-                                  <th >Add More</th>
                                 </tr>
                               </thead>
                               <tbody>
-                               
+                                
+                                @foreach($student->student_doc as $docs)
+                                <tr>
+                                  <td>
+                                    <input value="{{$docs->doc_title}}" readonly class="form-control">
+                                  </td>
+                                  <td>
+                                    <input value="{{$docs->doc_description}}" readonly class="form-control">
+                                  </td>
+                                  
+                                  <td>
+                                    @if($docs->student_doc !=null)
+                                      <a href="{{asset($docs->student_doc !=null ? 'storage/'.$docs->student_doc : 'images/student_demo.png')}}" target="_blank">{{file_name($docs->student_doc)}}</a>
+                                    @else 
+                                      Not Uploaded
+                                    @endif  
+                              
+                                  </td>
+                                </tr>
+                                @endforeach
+                             
                               </tbody>
                             </table>                      
                           </div>                        
@@ -476,10 +538,10 @@
                       </section>    
                       <ul class="tab-links nav nav-tabs pull-right mt-3">
                         <li class="nav-item">
-                          <a href="#back_tab1" class="nav-link btn btn-sm text- readonlywhite bg-primary prevButton">Prev</a>
+                          <a href="#back_tab1" class="nav-link btn btn-sm text-white bg-primary prevButton">Prev</a>
                         </li>
                         <li class="nav-item">
-                          {{-- <input type="submit" name="submit" value="Submit"  class="btn bg-success text- readonlywhite"> --}}
+                          {{-- <input type="submit" name="submit" value="Submit"  class="btn bg-success text-white"> --}}
                         </li>
                       </ul>               
                     </div>
