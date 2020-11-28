@@ -187,6 +187,17 @@
                           @enderror
                     </div>
                     <div class="col-md-4">
+                        <label class="red"> *</label>
+                      
+                         <label for="school_board">School Board</label>
+                         <input type="text" name="school_board" class="form-control " value="{{old('school_board')}}" >
+                         @error('school_board')
+                          <span class="text-danger">
+                            <strong>{{$message}}</strong>
+                          </span>
+                          @enderror
+                    </div>
+                    <div class="col-md-4">
                          <label for="description">Description</label>
                          <textarea type="text" name="description" class="form-control "  ></textarea> 
                          @error('description')
@@ -295,6 +306,9 @@
           required:true
         }, 
         school_code:{
+          required:true
+        },
+        school_board:{
           required:true
         },
         

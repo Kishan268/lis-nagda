@@ -5,7 +5,7 @@
    <div class="card shadow mb-4">
       <!-- Card Header - Dropdown -->
       <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
-        <h6 style="font-size: 15px;" class="m-0 font-weight-bold text-primary">Certificate Request<h4 class="panel-title">  </h4></h6>
+        <h6 style="font-size: 15px;" class="m-0 font-weight-bold text-primary">Certificate Request<h4 class="panel-title">  <a href="{{route('certificates.create')}}" class="btn btn-success pull-right btn-sm fa fa-plus">create certificate</a></h4></h6>
       </div>
       <div class="app-title full-right">
        @if($message = Session::get('success'))   
@@ -23,7 +23,7 @@
                 <th>Class</th>
                 <th>Apply Date</th>
                 <th>View </th>
-                <th>Request</th>
+                <th>Download</th>
               </tr>
             </thead>
             <tbody>
@@ -35,12 +35,13 @@
                   <td>{{$certifReqs->studentInfo->f_name}} {{$certifReqs->studentInfo->l_name}}</td>
                   <td>{{$certifReqs->studentInfo->student_class->class_name}}</td>
                   <td>{{date('Y-m-d',strtotime($certifReqs->created_at))}}</td>
-                  <td><a href="{{route('certificates.show',$certifReqs->cert_req_id)}}"><i class="fa fa-eye"></i></a></td>
+                  <td><a href="{{route('certificates.show',$certifReqs->cert_id)}}" target="_blank"><i class="fa fa-eye"></i></a></td>
                   <td>
-                    <form action="{{'certificate_approve'}}" method="post">
-                      
-                    </form>
-                    <a class="btn btn-success" id="approve" href="{{route('certificate_approve',$certifReqs->cert_req_id)}}" >Go To Approve </a>|| <button class="btn btn-danger">Reject </button></td>
+                    @if($certifReqs->status==1)
+                     <a class="" id="approve" href="" ><i class="fa fa-file-pdf-o" style="font-size:48px;color:red"></i> </a> </button>
+                   
+                    @endif
+                   </td>
               </tr>
               @endforeach
             </tbody>

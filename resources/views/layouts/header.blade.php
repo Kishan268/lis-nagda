@@ -266,7 +266,7 @@ p {
             {{-- <a class="collapse-item" href="{{route('subject_assign_to_student')}}">Subject Assign to Student</a>   --}}
             {{-- <a class="collapse-item" href="{{route('batch')}}">Report</a> --}}
             {{-- <a class="collapse-item" href="{{route('batch')}}">Co Subject</a> --}}
-           
+
         </div>
     </div>
   </li>
@@ -346,10 +346,19 @@ p {
       <i class="fas fa-fw fa-picture-o"></i>
       <span>Gallery</span></a>
   </li>
-  <li class="nav-item active">
-   <a class="nav-link" href="{{route('certificates.index')}}">
-    <i class="fas fa-fw fa-certificate fa-sm fa-fw mr-2 text-green-400" ></i>
-    <span>Certificate Request</span></a>
+
+  
+   <li class="nav-item">
+    <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#Certificate" aria-expanded="true" aria-controls="Certificate">
+      <i class="fas fa-fw fa-certificate"></i>
+      <span>Certificate</span>
+    </a>
+    <div id="Certificate" class="collapse" aria-labelledby="headingTwo" data-parent="#Certificate">
+        <div class="bg-white py-2 collapse-inner rounded siderbar1">
+           <a class="collapse-item" href="{{route('certificates.index')}}">Certificate Issue </a>
+           <a class="collapse-item" href="{{route('certificate_stud_req')}}"> Certificate Request</a>
+        </div>
+    </div>
   </li>
 @endrole
 @ability('teachers','superadmin')

@@ -358,7 +358,16 @@ Route::resource('settings','Admin\settings\SettingController');
 
 Route::Resource('certificates','Admin\certificate\CertificateController');
 
-Route::get('certificate/approve/{id}','Admin\certificate\CertificateController@certificateApprove')->name('certificate_approve');
+Route::get('student/certificate/request/{id}','Admin\certificate\CertificateController@certificateApprove')->name('certificate_approve');
+
+Route::get('student/certificate/request/','Admin\certificate\CertificateController@certRequest')->name('certificate_stud_req');
+
+Route::put('student/certificate/approve/','Admin\certificate\CertificateController@certRequestApprove')->name('certificate_req_approve');
+
+Route::post('student/certificate/declin/','Admin\certificate\CertificateController@cerReqDecliceReason')->name('req_declice_reason');
+
+Route::post('get_students_for_certificate','Admin\certificate\CertificateController@getStudents')->name('get_students_for_certificate');
+Route::post('get_admission_no','Admin\certificate\CertificateController@getAdmissionNo')->name('get_admission_no');
 
 });
 
@@ -367,4 +376,5 @@ Route::get('certificate/approve/{id}','Admin\certificate\CertificateController@c
 Route::get('batch-fetch/{id}','Admin\classes\ClassesController@batch_fetch')->name('batch-fetch');
 Route::get('section-fetch/{id}/{id1}','Admin\classes\ClassesController@section_fetch')->name('section-fetch');
 Route::Resource('profile','Admin\profile\ProfileController');
+
 Route::Resource('certificate-request','Admin\students\CertificateRequestController');

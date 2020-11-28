@@ -81,6 +81,7 @@ class studentController extends Controller
     
     public function store(Request $request)
     {
+
         $data = $this->validation($request);
 
         if($request->hasFile('s_photo')){
@@ -133,7 +134,8 @@ class studentController extends Controller
             'stduent_id' => $student->id,
             'user_flag'  => 'S',
             'mobile_no'  => $student->s_mobile,
-            'photo'  => $student->photo
+            'photo'  => $student->photo,
+            'student_id'=>$student->id
         ];
 
 

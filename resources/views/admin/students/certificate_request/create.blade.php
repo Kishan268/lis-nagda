@@ -21,8 +21,24 @@
                     <div class="col-md-4">
                        <label class="red"> *</label>
                        <label for="name"> Certificate Type</label>
-                       <input class="form-control input-small " id="cert_type" name="cert_type"  aria-label="Small" type="text" value="{{old('cert_type')}}">
+                       <select class="form-control input-small " id="cert_type" name="cert_type"  aria-label="Small">
+                        <option value=""> Select certificate type..</option>
+                        @foreach(CERTIFICATE as $key => $value)
+                          <option value="{{$value}}" {{old('cert_type') }}>{{$value}}</option>
+                        @endforeach
+                        
+                       </select>
                        @error('cert_type')
+                        <span class="text-danger">
+                          <strong>{{$message}}</strong>
+                        </span>
+                      @enderror
+                    </div> 
+                    <div class="col-md-4">
+                       <label class="red"> *</label>
+                       <label for="name"> Apply Date</label>
+                       <input  type="text" class="form-control input-small datepicker" id="apply_date" name="apply_date"  aria-label="Small">
+                      @error('apply_date')
                         <span class="text-danger">
                           <strong>{{$message}}</strong>
                         </span>

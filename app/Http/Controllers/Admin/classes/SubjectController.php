@@ -164,6 +164,7 @@ class SubjectController extends Controller
             return redirect()->back()->with('success','Subject updated successfully');
 
         }
+
     }
 
     public function subjectAssignToStudent(){

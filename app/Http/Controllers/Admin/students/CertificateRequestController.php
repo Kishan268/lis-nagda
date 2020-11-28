@@ -41,14 +41,15 @@ class CertificateRequestController extends Controller
 
        $this->validate($request,[
                         'cert_type'=>'required',
-                        'reason'=>'required'
+                        'reason'=>'required',
+                        'apply_date'=>'required'
                     ]);
            $data = [
             'cert_type' =>$request->cert_type,
             'reason' =>$request->reason,
+            'apply_date' =>date('Y-m-d',strtotime($request->apply_date)),
             'stu_id' =>Auth::user()->student_id,
             ];
-            // dd($data);
             // dd($data);
             $createcertiReq = CertificateRequest::create($data);
             if ($createcertiReq) {

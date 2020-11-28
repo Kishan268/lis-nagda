@@ -112,6 +112,17 @@ if (!function_exists('file_upload')) {
         return $path;
     }
 }
+const STUDENTSTATUS = [
+	'R' => 'Running',
+	'P' => 'Pass',
+	'F' => 'Fail' 
+];
+
+const CERTIFICATE = [
+	'1' => 'Transfer Certificate',
+	'2' => 'School Leaving Certificate',
+	'3' => 'Other' 
+];
 
 if(!function_exists('file_name')){
     function file_name($docs){
