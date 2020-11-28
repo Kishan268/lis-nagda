@@ -794,11 +794,15 @@ $(document).ready(function() {
 	});
 });
 
-$(function () {
-	$(".datepicker").datepicker({ 
-		singleDatePicker: true,
-		showDropdowns: true,
-	});
+$('.dob').on('blur',function(e){
+	e.preventDefault();
+		var c_d = new Date();
+		year = c_d.getFullYear() - 8;
+		date = new Date($(this).val());
+
+		age = Math.floor((c_d.getTime() - date.getTime()) / (365.25 * 24 * 60 * 60 * 1000));
+		
+		$('.age').val(age).attr('readonly','true');
 });
 
 $('label.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;');
