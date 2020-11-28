@@ -1,6 +1,5 @@
 @extends('layouts.main')
  @section('content')
-<div id="content">
   <div class="container">
    <div class="card shadow mb-4">
       <!-- Card Header - Dropdown -->
@@ -38,17 +37,96 @@
                   <td><a href="{{route('certificates.show',$certifReqs->cert_req_id)}}"><i class="fa fa-eye"></i></a></td>
                   <td>
                     @if($certifReqs->status==1)
-                     <a class="btn btn-success" id="approve" href="{{route('certificate_approve',$certifReqs->cert_req_id)}}" >Go To Approve </a>|| <button class="btn btn-danger">Reject </button>
+                     <a class="btn btn-success" id="approve" href="{{route('certificate_approve',$certifReqs->cert_req_id)}}" >Go To Approve </a>|| <button class="btn btn-danger decline_request1" id="{{$certifReqs->cert_req_id}}" data-cert-id="{{$certifReqs->cert_req_id}}" data-stud-id="{{$certifReqs->studentInfo->id}}" data-toggle="modal" data-target="#exampleModal{{$certifReqs->cert_req_id}}">Decline </button>
                     @else
                       Approved
                     @endif
                    </td>
               </tr>
+
               @endforeach
             </tbody>
         </table> 
     </div>
   </div>
+   <!-- Modal -->
+  <div class="modal fade decline_request1" id="decline_request" >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Declin Reason</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+       
+          <div class="modal-body">
+            <form method="post" action="{{route('req_declice_reason')}}">
+              @csrf
+            <label for="decline_reason">Enter Reason</label>
+            <input type="text" name="decline_reason" class="form-control" id="cert_decline_reason">
+            <input type="hidden" name="cert_id" class="form-control" id="cert_id" value="">
+            <input type="hidden" name="stud_id" class="form-control" id="stud_id" value="">
+          </div>
+        <div class="modal-footer">
+          <button  class="btn btn-primary btn-sm" type="submit" id="btnSubmit">Submit</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
+<script >
+$(document).ready(function(){
 
+    $('.decline_request1').on('click',function(){
+        $('#cert_id').val($(this).data('cert-id'));
+        $('#stud_id').val($(this).data('stud-id'));
+        $('#decline_request').modal('show');
+    });
+
+    @if($message = Session::get('success'))
+        alert("{{$message}}")
+    @endif
+
+
+    @if($errors->any())
+         $('#decline_request').modal('show');     
+    @endif
+
+$('#btnSubmit').on('click',function(){
+
+      var decline_reason = $('#cert_decline_reason').val();
+      var cert_id = $('#cert_id').val();
+      var stud_id = $('#stud_id').val();
+      // if(decline_reason !='' && cert_id !='' stud_id !=''){
+
+         $.ajax({
+             type:'POST',
+             url: "{{route('req_declice_reason')}}",
+             data:{
+                decline_reason:decline_reason,
+                cert_id:cert_id,
+                stud_id:stud_id, 
+                "_token": "{{ csrf_token() }}"
+              },
+               success:function(res){
+                if (res == 'success') {
+                $('#decline_request').empty();
+                // $('#decline_reason').reset();
+                $('#decline_request').modal('hide');
+                 location.reload(); 
+              }
+             }
+           });
+
+      // }else{
+      //   alert('not valid request')
+      // }
+
+    });
+
+});
+
+</script>
 @endsection

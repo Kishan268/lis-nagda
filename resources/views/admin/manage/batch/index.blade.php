@@ -147,7 +147,7 @@ $(document).ready(function(){
     });
     $('.editBatch').on('click',function(e){
         e.preventDefault();
-         $('.modal-title').html('Edit Batch');
+        $('.modal-title').html('Edit Batch');
         $('input[name="flag"]').val('edit');
         $('input[name="batch_id"]').val($(this).attr('id'));
         $('#batch_name').val($(this).data('id'));

@@ -33,6 +33,16 @@
                           <strong>{{$message}}</strong>
                         </span>
                       @enderror
+                    </div> 
+                    <div class="col-md-4">
+                       <label class="red"> *</label>
+                       <label for="name"> Apply Date</label>
+                       <input  type="text" class="form-control input-small datepicker" id="apply_date" name="apply_date"  aria-label="Small">
+                      @error('apply_date')
+                        <span class="text-danger">
+                          <strong>{{$message}}</strong>
+                        </span>
+                      @enderror
                     </div>
                     
                     <div class="col-md-8">

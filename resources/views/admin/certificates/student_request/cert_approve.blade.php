@@ -15,18 +15,18 @@
           <div class="card-body">
               <form action="{{route('certificates.store')}}" method="post" id="form_submit" autocomplete="off" enctype="multipart/form-data">
                 @csrf
-                  <input type="hidden" name="stu_id" value="" id="stu_id">
+                  <input type="hidden" name="stu_id" value="{{$certifReqApprove->studentInfo->id}}" id="stu_id">
+                  <input type="hidden" name="approve_request" value="approve_request" id="approve_request">
+                  <input type="hidden" name="cert_req_id" value="{{$certifReqApprove->cert_req_id}}" id="cert_req_id">
 
                 <div class="row">
                   <div class="col-md-12">
                     <div class="row">               
                       <div class="col-md-4 form-group">
                             <label for="std_class" class="required">Class</label>
-                            <select class="form-control required" name="std_class_id" id="std_class_id" required="required">
-                              <option value="">Select Class</option>
-                              @foreach($classes as $class)
-                                <option value="{{$class->id}}" {{old('std_class_id') == $class->id ? 'selected' : ''}}>{{$class->class_name}}</option>
-                              @endforeach
+                            <select class="form-control required" name="std_class_id" id="std_class_id" required="required" readonly>
+                              <option value="{{$certifReqApprove->studentInfo->std_class_id}}">{{$certifReqApprove->studentInfo->student_class->class_name}}</option>
+                             
                             </select>
                             @error('std_class_id')
                               <span class="text-danger">
@@ -36,12 +36,8 @@
                           </div>
                           <div class="col-md-4 form-group">
                             <label class="required"> Batch</label>
-                            <select class="form-control required" name="batch_id" required="required" id="batch_id">
-                              <option value="">Select Class</option>
-
-                              @foreach($batches as $batche)
-                                <option value="{{$batche->id}}" {{old('batches_id') == $batche->id ? 'selected' : ''}}>{{$batche->batch_name}}</option>
-                              @endforeach
+                            <select class="form-control required" name="batch_id" required="required" id="batch_id" readonly>
+                              <option value="{{$certifReqApprove->studentInfo->batch_id}}">{{$certifReqApprove->studentInfo->student_batch->batch_name}}</option>
                             </select>
                             @error('batch_id')
                               <span class="text-danger">
@@ -52,11 +48,9 @@
                           <div class="col-md-4 form-group">
                             <label class="required">Section</label>
 
-                            <select class="form-control required" name="section_id" id="section_id" required="required">
-                              <option value="">Select Class</option>
-                              @foreach($sections as $section)
-                                <option value="{{$section->id}}" {{old('section_id') == $section->id ? 'selected' : ''}}>{{$section->section_name}}</option>
-                              @endforeach
+                            <select class="form-control required" name="section_id" id="section_id" required="required" readonly>
+                              <option value="{{$certifReqApprove->studentInfo->section_id}}">{{$certifReqApprove->studentInfo->student_section->section_name}}</option>
+                             
                             </select>
                             @error('section_id')
                               <span class="text-danger">
@@ -67,8 +61,8 @@
                           <div class="col-md-4 form-group">
                             <label class="required">Select Student</label>
 
-                            <select class="form-control required" name="students" id="students" required="required">
-                              <option value="">Select student</option>
+                            <select class="form-control required" name="students" id="students" required="required" readonly>
+                              <option value="{{$certifReqApprove->studentInfo->id}}">{{$certifReqApprove->studentInfo->f_name}}</option>
                             </select>
                             @error('students')
                               <span class="text-danger">
@@ -78,7 +72,7 @@
                         </div>
                         <div class="col-md-4 form-group">
                             <label class="required">Admission No</label>
-                            <input type="text" name="admission_no" id="admission_no" readonly="" class="form-control" value="">
+                            <input type="text" name="admission_no" id="admission_no" readonly="" class="form-control" value="{{$certifReqApprove->studentInfo->admision_no}}">
                             @error('admission_no')
                               <span class="text-danger">
                                 <strong>{{$message}}</strong>
@@ -87,7 +81,7 @@
                         </div>
                         <div class="col-md-4 form-group">
                             <label class="required"> Apply Date </label>
-                            <input type="text" name="apply_date" id="apply_date" readonly="" class="form-control datepicker" value="{{old('apply_date') }}">
+                            <input type="text" name="apply_date" id="apply_date" readonly="" class="form-control datepicker" value="{{$certifReqApprove->apply_date}}">
                             @error('apply_date')
                               <span class="text-danger">
                                 <strong>{{$message}}</strong>
@@ -114,12 +108,8 @@
                         </div>
                         <div class="col-md-4 form-group">
                               <label for="name"> Certificate Type</label>
-                              <select class="form-control input-small " id="cert_type" name="cert_type"  aria-label="Small">
-                              <option value=""> Select certificate type..</option>
-                                @foreach(CERTIFICATE as $key => $value)
-                          <option value="{{$value}}" {{old('cert_type') }}>{{$value}}</option>
-                        @endforeach
-                            </select>
+                              <input type="text" class="form-control input-small " id="cert_type" name="cert_type"  aria-label="Small" value="{{$certifReqApprove->cert_type}}" readonly="">
+                      
                             @error('school_board')
                               <span class="text-danger">
                                 <strong>{{$message}}</strong>
@@ -142,7 +132,7 @@
                         </div>
                          <div class="col-md-4 form-group">
                             <label class="required"> Reason </label>
-                            <textarea  name=" reason" id=" reason" class="form-control "> 
+                            <textarea  name=" reason" id=" reason" class="form-control " readonly=""> {{$certifReqApprove->reason}}
                             </textarea> 
                             @error('reason')
                               <span class="text-danger">
@@ -155,7 +145,7 @@
                 </div>
                 <div class="row mt-3">
                   <div class="col-md-12">
-                      <input type="submit" class="btn btn-success btn-sm" name="" value="Create">
+                      <input type="submit" class="btn btn-success btn-sm" name="" value="Approve">
                   </div>
                 </div>
               </form>
@@ -206,46 +196,40 @@
       
       rules: {
        
-        title:{
+        std_class_id:{
           required:true
         }, 
          
-        email:{
+        batch_id:{
           required:true
         },
-         website:{
+         section_id:{
           required:true
         },  
-        mobile1:{
-          required:true,
-          minlength:10,
-          maxlength:12,
-          number: true
+        students:{
+          required:true
         }, 
          
-        tel1:{
-          required:true,
-          minlength:10,
-          maxlength:12,
-          number: true
+        admision_no:{
+          required:true
         },
         
-        address:{
+        apply_date:{
           required:true
         }, 
-        city_name:{
+        issue_date:{
           required:true
         },
-        state_code:{
+        cert_type:{
           required:true
         }, 
-        country_name:{
+        general_conduct:{
           required:true
         }, 
-        zip_code:{
+        school_board:{
           required:true
         }, 
-        school_code:{
+        reason:{
           required:true
         },
         

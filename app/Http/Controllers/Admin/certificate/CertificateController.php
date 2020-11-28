@@ -41,6 +41,7 @@ class CertificateController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
         $this->validate($request,[
             'school_board' => 'required',
             'batch_id' => 'required',
@@ -61,11 +62,14 @@ class CertificateController extends Controller
                 'apply_date'=>date('Y-m-d',strtotime($request->apply_date)),
                 'issue_date'=>date('Y-m-d',strtotime($request->issue_date))
             ];
-             
-            $insertData = Certificate::create($data);
-            if($insertData){
-                // $updateStatus = CertificateRequest::where('stu_id',$request->stu_id)->where('cert_req_id',$request->cert_req_id)->update(['status'=>'2']);
+           if ($request->approve_request) {
+                $data['cert_req_id'] = $request->cert_req_id;
+                $insertData = Certificate::create($data);
+                $updateStatus = CertificateRequest::where('stu_id',$request->stu_id)->where('cert_req_id',$request->cert_req_id)->update(['status'=>'2']);
                 return redirect()->route('certificates.index')->with('success','Certificate created successfully');
+
+             }else{
+                return redirect()->route('certificate_stud_req')->with('success','Certificate appoved successfully');
             }
     }
 
@@ -120,17 +124,18 @@ class CertificateController extends Controller
 
     public function certRequest(){
          $certifReq = CertificateRequest::with(['studentInfo.student_class','studentInfo.student_section','studentInfo.student_batch'])->get();
-        // dd($certifReq);
+         // dd($certifReq);
             return view('admin.certificates.student_request.index',compact('certifReq'));
     }
     public function certificateApprove($id)
     {
-        $certifReqApprove = CertificateRequest::with(['studentInfo.student_class','studentInfo.student_section','studentInfo.student_batch','gaudiantInfo'])->where('cert_req_id',$id)->first();
          $classes = studentClass::get();
          $batches = studentBatch::get();
          $sections = studentSectionMast::get();
          $studentData = studentsMast::get();
          $settings = Settings::get();
+         $certifReqApprove = CertificateRequest::with(['studentInfo.student_class','studentInfo.student_section','studentInfo.student_batch','gaudiantInfo'])->where('cert_req_id',$id)->first();
+        // dd($certifReqApprove);
         return view('admin.certificates.student_request.cert_approve',compact('certifReqApprove','settings' ,'classes','batches','sections','settings'));
 
     }
@@ -187,6 +192,18 @@ class CertificateController extends Controller
                                 ->first();
 
        return response()->json($admission_no);
+
+    }
+    public function cerReqDecliceReason(Request $request){
+
+        // dd($request);
+        $updateStatus = CertificateRequest::where('stu_id',$request->stud_id)->where('cert_req_id',$request->cert_id)->update(['decline_reason'=>$request->decline_reason]);
+        if ($updateStatus) {
+            return "success";
+        }else{
+            return "error";
+        }
+
 
     }
 }
