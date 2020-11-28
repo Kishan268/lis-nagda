@@ -100,11 +100,7 @@ class studentController extends Controller
                 'std_class_id'        => 'required|not_in:""',
                 'batch_id'            => 'required|not_in:""',
                 'section_id'          => 'required|not_in:""',
-<<<<<<< HEAD
-                'admision_no'         => 'required|unique:students_masts,admision_no',
-=======
                 'admision_no'         => 'required',
->>>>>>> 206960c549bb9a47ff68c1fc4a9e67df38634e92
                 'f_name'              => 'required',
                 'l_name'              => 'required',
                 's_mobile'            => 'required',
@@ -248,7 +244,8 @@ class studentController extends Controller
             'stduent_id' => $student->id,
             'user_flag'  => 'S',
             'mobile_no'  => $student->s_mobile,
-            'photo'  => $student->photo
+            'photo'  => $student->photo,
+            'student_id'=>$student->id
         ];
 
 

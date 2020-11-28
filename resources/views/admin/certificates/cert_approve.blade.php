@@ -13,9 +13,17 @@
         </div>
           <!-- Card Body -->
           <div class="card-body">
-              <form action="" method="post" id="form_submit" autocomplete="off" enctype="multipart/form-data">
+              <form action="{{route('certificate_req_approve',$certifReqApprove->cert_req_id)}}" method="post" id="form_submit" autocomplete="off" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
+                  <input type="hidden" name="cert_req_id" value="{{$certifReqApprove->cert_req_id}}">
+                  <input type="hidden" name="school_board" value="{{$settings->school_board}}">
+                  <input type="hidden" name="batch_id" value="{{$certifReqApprove->studentInfo->student_batch->id}}">
+                  <input type="hidden" name="stu_id" value="{{$certifReqApprove->studentInfo->id}}">
+                  <input type="hidden" name="cert_type" value="{{$certifReqApprove->cert_type}}">
+                  <input type="hidden" name="cert_type" value="{{$certifReqApprove->cert_type}}">
+                  <input type="hidden" name="reason" value="{{$certifReqApprove->reason}}">
+
                 <div class="row">
                   <div class="col-md-12">
                     <div class="row">               
@@ -27,6 +35,10 @@
                          <h2><u>{{$settings->title}}</u><br>Website : <a href="{{$settings->website}}">{{$settings->website}}</a> | Email : | Phone : {{$settings->tel1}}</h2>
                       
                       </div><hr>
+                    </div>
+                  </div>
+                   <div class="col-md-12" style="margin-left: 60px;">
+                    <div class="row mt-3">
                       <div class="col-md-6">
                          <h2>CBSE AFF. No.{{$settings->cbse_aff_no }} </h2>
                       
@@ -35,35 +47,53 @@
                          <h2 class="">School Code:-.{{$settings->school_code  }} </h2>
                       </div>
                        <div class="col-md-12 full-center mt-5" align="center">
-                         <h2 class=""><u>{{$certifReqApprove->cert_type }}</u> </h2>
+                         <h2 class=""><u><strong>{{$certifReqApprove->cert_type }}</strong></u> </h2>
                       </div>
-                      <div class="col-md-6">
-                         <h2>TC. No:- {{$certifReqApprove->studentInfo->student_batch->batch_name}}/{{$certifReqApprove->cert_req_id }} </h2>
+                      <div class="col-md-12">
+                        <div class="row mt-5">
+                          <div class="col-md-6">
+                            <h2>TC. No:- {{$certifReqApprove->studentInfo->student_batch->batch_name}}/{{$certifReqApprove->cert_req_id }} </h2>
                       
+                          </div>
+                          <div class="col-md-6 full-right">
+                             <h2 class="">Admission No:-{{$certifReqApprove->studentInfo->admision_no  }} </h2>
+                          </div>
+                        </div>
+                    </div>
+                   <div class="col-md-12">
+                      <div class="row ">
+                        <div class="col-md-12 ">
+                           1. Name of Pupil:- <strong>{{$certifReqApprove->studentInfo->f_name  }} {{$certifReqApprove->studentInfo->l_name  }}</strong><br>
+                           2. Father`s Name/Guardians` Name:- <strong>
+                            @foreach($certifReqApprove->gaudiantInfo as $gaudiantInfos) 
+                            {{$gaudiantInfos->relation_id == 1 ? $gaudiantInfos->g_name : ''}}@endforeach</strong><br>
+                           3. Mother`s Name:- @foreach($certifReqApprove->gaudiantInfo as $gaudiantInfos) 
+                            {{$gaudiantInfos->relation_id == 2 ? $gaudiantInfos->g_name : ''}}@endforeach</strong><br>
+                           4. Nationality:- <strong>{{$certifReqApprove->studentInfo->f_name  }} {{$certifReqApprove->studentInfo->l_name  }}</strong><br>
+                           5. Whether the candidate belongs to schedule tribe:- <strong>No</strong><br>
+                           6. Date of first admission in the with class:- <strong>{{date('Y-m-d',strtotime($certifReqApprove->studentInfo->created_at )) }} ({{$certifReqApprove->studentInfo->student_class->class_name  }}) </strong><br>
+                           7. Date of birth(according to admission register):- <strong>({{$certifReqApprove->studentInfo->student_class->class_name  }})  </strong><br>
+                           8.Class in which the Pupil last studied:- <strong>{{$certifReqApprove->studentInfo->f_name  }} {{$certifReqApprove->studentInfo->l_name  }}</strong><br>
+                           9. School/board Annual Examination last taken with result:- <strong>{{$settings->school_board}}</strong><br>
+                           10. Whether faild, if so,once/twice in the same class:- <strong>No</strong><br>
+                           11.Subjects studied:- <strong>Subject Names</strong><br>
+                           12.Third language in class VIII:- <strong>No</strong><br>
+                           13.Month up to which the (pupil has paid):- <strong> </strong><br>
+                           14.Total no. of working days present:- <strong>100 </strong><br>
+                           15.Wheather NCC cadet/boy scout/Girl Guide(details may be given) conduct:- <strong> </strong><br>
+                           16.Genral conduct:- <input type="text" name="general_conduct" required=""><br>
+                           17.Date of application for certificate:- <strong>{{date('Y-m-d',strtotime($certifReqApprove->created_at))  }} </strong><br>
+                           <input type="hidden" name="apply_date" value="{{date('Y-m-d',strtotime($certifReqApprove->created_at))  }}">
+                           18.Date of issue of certificate:- <input type="text" name="issue_date" class="datepicker" required=""><br>
+                           19.Reason for leaving the school:- <strong>{{$certifReqApprove->reason  }} </strong><br>
+                        </div>
                       </div>
-                      <div class="col-md-6 full-right">
-                         <h2 class="">Admission No:-{{$certifReqApprove->studentInfo->admision_no  }} </h2>
-                      </div>
-
-                      <div class="col-md-12 mt-5">
-                         1. Name of Pupul:- <strong>{{$certifReqApprove->studentInfo->f_name  }} {{$certifReqApprove->studentInfo->l_name  }}</strong><br>
-                         2. Father`s Name/Guardians` Name:- <strong>{{$certifReqApprove->studentInfo->f_name  }} {{$certifReqApprove->studentInfo->l_name  }}</strong><br>
-                         3. Mother`s Name:- <strong>{{$certifReqApprove->studentInfo->f_name  }} {{$certifReqApprove->studentInfo->l_name  }}</strong><br>
-                         4. Nationality:- <strong>{{$certifReqApprove->studentInfo->f_name  }} {{$certifReqApprove->studentInfo->l_name  }}</strong><br>
-                         5. Whether the candidate belongs to schedule tribe:- <strong>No</strong><br>
-                         6. Date of first admission in the with class:- <strong>{{date('Y-m-d',strtotime($certifReqApprove->studentInfo->created_at )) }} ({{$certifReqApprove->studentInfo->student_class->class_name  }}) </strong><br>
-                         7. Name of Pupul:- <strong>{{$certifReqApprove->studentInfo->f_name  }} {{$certifReqApprove->studentInfo->l_name  }}</strong><br>
-                         8. Name of Pupul:- <strong>{{$certifReqApprove->studentInfo->f_name  }} {{$certifReqApprove->studentInfo->l_name  }}</strong><br>
-                         9. Name of Pupul:- <strong>{{$certifReqApprove->studentInfo->f_name  }} {{$certifReqApprove->studentInfo->l_name  }}</strong><br>
-                         10. Name of Pupul:- <strong>{{$certifReqApprove->studentInfo->f_name  }} {{$certifReqApprove->studentInfo->l_name  }}</strong><br>
-                      </div>
+                    </div>
                   </div>
                   </div>
-                </div>
-                
-                <div class="row">
+                <div class="row mt-3">
                   <div class="col-md-12">
-                      <input type="submit" class="btn btn-success btn-sm" name="" value="Update">
+                      <input type="submit" class="btn btn-success btn-sm" name="" value="Approve">
                   </div>
                 </div>
               </form>

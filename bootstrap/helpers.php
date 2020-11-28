@@ -102,3 +102,9 @@ const STUDENTSTATUS = [
 	'P' => 'Pass',
 	'F' => 'Fail' 
 ];
+
+const CERTIFICATE = [
+	'1' => 'Transfer Certificate',
+	'2' => 'School Leaving Certificate',
+	'3' => 'Other' 
+];

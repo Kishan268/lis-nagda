@@ -4,7 +4,7 @@
        <div class="card shadow mb-4">
           <!-- Card Header - Dropdown -->
           <div class="card-header py-2 d-flex flex-row align-items-center justify-content-between">
-            <h6 style="font-size: 15px;" class="m-0 font-weight-bold text-primary">Approve Certificate<h4 class="panel-title">  <a href="" class="btn btn-info pull-right btn-sm border-radius "><i class="fa fa-print" aria-hidden="true"></i>Priint</a></h4></h6>
+            <h6 style="font-size: 15px;" class="m-0 font-weight-bold text-primary">Approve Certificate<h4 class="panel-title">  <a href="{{ URL::previous() }}" class="btn btn-info pull-right btn-sm border-radius ">Back</a></h4></h6>
           </div>
            <div class="app-title full-right">
            @if($message = Session::get('success'))   

@@ -49,7 +49,6 @@ class CertificateRequestController extends Controller
             'stu_id' =>Auth::user()->student_id,
             ];
             // dd($data);
-            // dd($data);
             $createcertiReq = CertificateRequest::create($data);
             if ($createcertiReq) {
                 return redirect()->route('certificate-request.index')->with('success','Certificate request send successfully');

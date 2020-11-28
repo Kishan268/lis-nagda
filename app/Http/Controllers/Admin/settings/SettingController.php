@@ -51,7 +51,8 @@ class SettingController extends Controller
             'country_name'=>'required',
             'address'=>'required',
             'zip_code'=>'required',
-            'school_code'=>'required'
+            'school_code'=>'required',
+            'school_board'=>'required',
             ]); 
 
          $data = [
@@ -71,7 +72,8 @@ class SettingController extends Controller
                 'school_code'=>$request->school_code,
                 'cbse_aff_no'=>$request->cbse_aff_no,
                 'mbse_aff_no'=>$request->mbse_aff_no,
-                'description'=>$request->description
+                'description'=>$request->description,
+                'school_board'=>$request->school_board
             ];
 
              if($request->file('logo')){
@@ -135,7 +137,8 @@ class SettingController extends Controller
             'country_name'=>'required',
             'address'=>'required',
             'zip_code'=>'required',
-            'school_code'=>'required'
+            'school_code'=>'required',
+            'school_board'=>'required',
             ]); 
 
          $data = [
@@ -155,7 +158,8 @@ class SettingController extends Controller
                 'school_code'=>$request->school_code,
                 'cbse_aff_no'=>$request->cbse_aff_no,
                 'mbse_aff_no'=>$request->mbse_aff_no,
-                'description'=>$request->description
+                'description'=>$request->description,
+                'school_board'=>$request->school_board
             ];
 
              if($request->file('logo')){

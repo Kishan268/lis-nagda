@@ -15,5 +15,7 @@ class CertificateRequest extends Model
     public function settingData(){
     	 return $this->belongsTo('App\Models\setting\Settings', 'user_id');	 
     }
-     
+    public function gaudiantInfo(){
+    	 return $this->hasMany('App\Models\student\studentsGuardiantMast', 's_id','stu_id');
+    } 
 }
