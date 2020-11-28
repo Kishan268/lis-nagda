@@ -81,7 +81,7 @@
                         </div>
                         <div class="col-md-4 form-group">
                             <label class="required"> Apply Date </label>
-                            <input type="text" name="apply_date" id="apply_date" readonly="" class="form-control datepicker" value="{{$certifReqApprove->apply_date}}">
+                            <input type="text" name="apply_date" id="apply_date" readonly="" data-date-format="yyyy-mm-dd" class="form-control datepicker" value="{{$certifReqApprove->apply_date}}">
                             @error('apply_date')
                               <span class="text-danger">
                                 <strong>{{$message}}</strong>
@@ -90,7 +90,7 @@
                         </div>
                          <div class="col-md-4 form-group">
                             <label class="required"> Issue Date </label>
-                            <input type="text" name="issue_date" id="issue_date " readonly="" class="form-control datepicker" value="{{old('issue_date') }}">
+                            <input type="text" name="issue_date" id="issue_date " readonly="" data-date-format="yyyy-mm-dd" class="form-control datepicker" value="{{old('issue_date') }}">
                             @error('issue_date')
                               <span class="text-danger">
                                 <strong>{{$message}}</strong>

@@ -32,7 +32,14 @@
                   <td>{{$certifReqs->cert_type}}</td>
                   <td>{{date('Y-m-d',strtotime($certifReqs->created_at))}}</td>
                   <td>{{$certifReqs->reason}}</td>
-                  <td><a href="" class="fa fa-eye"></a></td>
+                  <td>@if($certifReqs->status==1)
+                    <span style="color: green;">Wait for approval</span> 
+                    @elseif($certifReqs->status==2)
+                      <span style="color: red;"> Decline &nbsp;<a href="" class="fa fa-eye"></a></span> 
+                    @elseif($certifReqs->status==3)
+                    <span style="color: green;">Appoved</span> <a href="">(Download)<i class="fa fa-download"></i></a>
+                  @endif
+                </td>
               </tr>
               @endforeach
             </tbody>

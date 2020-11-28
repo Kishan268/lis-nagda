@@ -18,7 +18,7 @@
                 <div class="row">
                   <div class="col-md-12">
                        <div class="row">               
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                        <label class="red"> *</label>
                        <label for="name"> Certificate Type</label>
                        <select class="form-control input-small " id="cert_type" name="cert_type"  aria-label="Small">
@@ -34,10 +34,10 @@
                         </span>
                       @enderror
                     </div> 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                        <label class="red"> *</label>
                        <label for="name"> Apply Date</label>
-                       <input  type="text" class="form-control input-small datepicker" id="apply_date" name="apply_date"  aria-label="Small">
+                       <input  type="text" class="form-control input-small datepicker dob" id="apply_date" name="apply_date"  aria-label="Small" readonly="" data-date-format="yyyy-mm-dd">
                       @error('apply_date')
                         <span class="text-danger">
                           <strong>{{$message}}</strong>
@@ -45,7 +45,7 @@
                       @enderror
                     </div>
                     
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                          <label class="red"> *</label>
                          <label for="reason">Reason</label>
                          <textarea type="text" name="reason" class="form-control "  ></textarea> 
@@ -60,7 +60,7 @@
                   </div>
                 </div>
                 
-                <div class="row">
+                <div class="row mt-3">
                   <div class="col-md-12">
                       <input type="submit" class="btn btn-success btn-sm " name="" value="Send" >
                   </div>

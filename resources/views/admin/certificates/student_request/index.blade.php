@@ -38,8 +38,11 @@
                   <td>
                     @if($certifReqs->status==1)
                      <a class="btn btn-success" id="approve" href="{{route('certificate_approve',$certifReqs->cert_req_id)}}" >Go To Approve </a>|| <button class="btn btn-danger decline_request1" id="{{$certifReqs->cert_req_id}}" data-cert-id="{{$certifReqs->cert_req_id}}" data-stud-id="{{$certifReqs->studentInfo->id}}" data-toggle="modal" data-target="#exampleModal{{$certifReqs->cert_req_id}}">Decline </button>
+                    @elseif($certifReqs->status==2)
+                      <span style="color: red;">Decline</span>
                     @else
-                      Approved
+                     <span style="color: green;">Approved</span>
+                      
                     @endif
                    </td>
               </tr>
@@ -49,12 +52,45 @@
         </table> 
     </div>
   </div>
+
+
    <!-- Modal -->
-  <div class="modal fade decline_request1" id="decline_request" >
+ <div class="modal" id="declineModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Add Decline Reason</h4>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                @csrf
+                  <div class="modal-body">
+                     <label for="decline_reason">Enter Reason</label>
+                      <input type="text" name="decline_reason" class="form-control" id="cert_decline_reason" autocomplete="off">
+                      <input type="hidden" name="cert_id" class="form-control" id="cert_id" value="">
+                      <input type="hidden" name="stud_id" class="form-control" id="stud_id" value="">
+                  </div>
+                   <div class="modal-footer">
+                    <button  class="btn btn-primary btn-sm" type="submit" id="btnSubmit">Submit</button>
+                  </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+   <!-- Modal -->
+{{--   <div class="modal fade decline_request1" id="decline_request" >
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Declin Reason</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Decline Reason</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -74,15 +110,15 @@
         </form>
       </div>
     </div>
-  </div>
+  </div> --}}
 </div>
 <script >
 $(document).ready(function(){
 
-    $('.decline_request1').on('click',function(){
+    $(this).on('click','.decline_request1',function(){
         $('#cert_id').val($(this).data('cert-id'));
         $('#stud_id').val($(this).data('stud-id'));
-        $('#decline_request').modal('show');
+        $('#declineModal').modal('show');
     });
 
     @if($message = Session::get('success'))
@@ -94,12 +130,13 @@ $(document).ready(function(){
          $('#decline_request').modal('show');     
     @endif
 
-$('#btnSubmit').on('click',function(){
+  $('#btnSubmit').on('click',function(){
 
       var decline_reason = $('#cert_decline_reason').val();
       var cert_id = $('#cert_id').val();
       var stud_id = $('#stud_id').val();
-      // if(decline_reason !='' && cert_id !='' stud_id !=''){
+      var status= 2;
+      if(decline_reason != '' && cert_id != '' & stud_id != ''){
 
          $.ajax({
              type:'POST',
@@ -108,21 +145,23 @@ $('#btnSubmit').on('click',function(){
                 decline_reason:decline_reason,
                 cert_id:cert_id,
                 stud_id:stud_id, 
+                status:status, 
                 "_token": "{{ csrf_token() }}"
               },
                success:function(res){
                 if (res == 'success') {
-                $('#decline_request').empty();
-                // $('#decline_reason').reset();
-                $('#decline_request').modal('hide');
-                 location.reload(); 
+                  $('#decline_request').empty();
+                  $('#decline_request').modal('hide');
+                    alert('Reason send successfully...')
+
+                   location.reload(); 
               }
              }
            });
 
-      // }else{
-      //   alert('not valid request')
-      // }
+      }else{
+        alert('not valid request')
+      }
 
     });
 

@@ -362,9 +362,7 @@ Route::get('student/certificate/request/{id}','Admin\certificate\CertificateCont
 
 Route::get('student/certificate/request/','Admin\certificate\CertificateController@certRequest')->name('certificate_stud_req');
 
-Route::put('student/certificate/approve/','Admin\certificate\CertificateController@certRequestApprove')->name('certificate_req_approve');
-
-Route::post('student/certificate/declin/','Admin\certificate\CertificateController@cerReqDecliceReason')->name('req_declice_reason');
+Route::post('student/certificate/decline/','Admin\certificate\CertificateController@cerReqDecliceReason')->name('req_declice_reason');
 
 Route::post('get_students_for_certificate','Admin\certificate\CertificateController@getStudents')->name('get_students_for_certificate');
 Route::post('get_admission_no','Admin\certificate\CertificateController@getAdmissionNo')->name('get_admission_no');
