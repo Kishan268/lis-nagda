@@ -47,13 +47,13 @@
 						<div class="col-md-6 full-center">
 							<div class="row " align="center" >
 								<span class="student_image" style="border: 5px solid black; margin-right: 15px;margin-left: 142px;margin-top: 13px;" >
-									<img src="{{asset($getData->photo !=null ? 'storage/'.$getData->photo : 'storage/admin/student_demo.png')}}" style="width: 100px; height: 100px;">
+									<img src="{{asset('storage/admin/student_demo.png')}}" style="width: 100px; height: 100px;">
 								</span>	
 							</div>
 						</div>
-						<h1 align="center">{{$getData->f_name}}{{$getData->l_name}}</h1>
+						<h1 align="center">{{student_name($student)}}</h1>
 						<div class="designation" style="margin-left: 20px;">
-							@foreach($getData->studentsGuardiantMast as $value)
+							{{-- @foreach($student->studentsGuardiantMast as $value)
 								<h5>
 									@foreach($studentsGuardiant as $value2)
 										@if($value->relation_id == $value2->guardiant_relation->id)
@@ -66,16 +66,16 @@
 											@endif
 										@endif
 									@endforeach</h5>
-							@endforeach
-							<h5>Age &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{{$getData->age}}</h5>
-							<h5>Blood Group &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{{$getData->stdBloodGroup->blood_group_name}}</h5>
+							@endforeach --}}
+							<h5>Age &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{{$student->age}}</h5>
+							<h5>Blood Group &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{{$student->blood_id !=null ? Arr::get(BLOODGROUP,$student->blood_id) : ''}}</h5>
 							<h5>Class Teacher &nbsp;&nbsp;&nbsp;:&nbsp;XYZ</h5>
-							<h5>Address &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{{$getData->p_address}} , {{$getData->p_city->city_name}}, {{$getData->p_state->state_name}}, {{$getData->p_country->country_name}}, {{$getData->p_zip_code}}</h5>
+							<h5>Address &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{{$student->p_address}} , {{$student->p_city}}, {{$student->p_state}}, {{$student->p_country}}, {{$student->p_zip_code}}</h5>
 							<h5>Emergency Contact No. &nbsp;&nbsp;:
-								<?php $count = 1; ?>
-								@foreach($getData->studentsGuardiantMast as $value)
+							{{-- 	<?php $count = 1; ?> --}}
+								{{-- @foreach($student->studentsGuardiantMast as $value)
 								 {{$count++}}.&nbsp;{{$value->mobile}} <br>
-								@endforeach
+								@endforeach --}}
 							</h5>
 						</div>
 						{{-- <div class="social">

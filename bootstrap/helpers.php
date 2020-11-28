@@ -41,6 +41,15 @@ const GUARDIAN_RELATION = [
 	'3' => 'Guardian',
 	'4' => 'Other',
 ];
+const WORK_STATUS = [
+	'1' => 'Self Employed',
+	'2' => 'Job',
+	'3' => 'Retired'
+];
+const EMPLOYMENT_TYPE = [
+	'1' => 'Government',
+	'2' => 'Private'
+];
 
 
 const CASTCATEGORY = [
@@ -60,6 +69,12 @@ const STATUS = [
     'A' => 'Active',
     'P' => 'Pending',
     'S' => 'Suspend'
+];
+
+const STUDENTSTATUS = [
+	'R' => 'Running',
+	'P' => 'Pass',
+	'F' => 'Fail' 
 ];
 
 if(!function_exists('student_gender')){
@@ -97,8 +112,11 @@ if (!function_exists('file_upload')) {
         return $path;
     }
 }
-const STUDENTSTATUS = [
-	'R' => 'Running',
-	'P' => 'Pass',
-	'F' => 'Fail' 
-];
+
+if(!function_exists('file_name')){
+    function file_name($docs){
+        $file = explode('/', $docs);
+        $doc = explode('_', $file[3]);
+        return $doc[1];
+    }
+}

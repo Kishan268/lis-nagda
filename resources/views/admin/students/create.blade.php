@@ -18,7 +18,9 @@
 		<div class="col-md-12 col-sm-12 col-lg-12">
 			 <div class="card">
 		        <div class="card-header">
-	         		<h6 class="card-title">Add Student</h6>
+	         		<h6 class="card-title">Add Student
+	         				<a href="{{route('student_detail.index')}}" class="btn btn-sm btn-primary pull-right"> Back</a>
+	         		</h6>
 	          	</div>
 	          	<div class="card-body">
 	          		<div class="row ">
@@ -246,7 +248,7 @@
 														<select class="form-control" name="religion_id">
 															<option value="">Select Religion</option>
 															@foreach(RELIGION as $key => $value)
-																	<option value="{{$key}}" {{old('religion_id;;') == $key ? 'selected' : ''}}>{{$value}}</option>
+																	<option value="{{$key}}" {{old('religion_id') == $key ? 'selected' : ''}}>{{$value}}</option>
 															@endforeach
 														</select>
 														@error('religion_id')
@@ -307,7 +309,7 @@
 												<div class="row form-group" >
 													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label>Taluka(Tehsil)</label>
-														<input type="text" name="taluka" value="{{old('taluk')}}" class="form-control">
+														<input type="text" name="taluka" value="{{old('taluka')}}" class="form-control">
 														@error('taluka')
 															<span class="text-danger">
 																<strong>{{$message}}</strong>
@@ -405,7 +407,7 @@
 								        		<div class="form-group row relation">
 								        			<div class="col-sm-4 col-md-4 col-xs-6 ">
 								        				<label >Previous School (last studied)</label>
-								        				<input type="text" name="prev_school" class="form-control " id="prev_school">
+								        				<input type="text" name="prev_school" class="form-control " id="prev_school" value="{{old('prev_school')}}">
 								        			</div>
 								        			<div class="col-md-4 col-sm-6 form-group col-xs-6 ">
 								        				<label class=""> Year (left from Previous School)</label>
@@ -548,7 +550,7 @@
 														<div class="card-body">
 															<div class="row form-group">
 																<div class="col-md-12 ">
-																	<label><input type="checkbox" name="same_as" id="p_l_same" {{old('same_as') == '1' ? 'checked' : ''}} />
+																	<label><input type="checkbox" name="same_as" id="p_l_same" {{old('same_as') == 'on' ? 'checked' : ''}} />
 																	</label>
 																	<label>Same as Permanent Address</label><span class="text-muted">(Click to copy permanent address data)</span>
 																</div>
@@ -687,7 +689,7 @@
 												<div class="row">
 													<div class="col-md-12">                      	
 														<input type="hidden" name="studentid" id="studentid" value="">		
-														<table class="table table-bordered" style="" id="student_doc"m>
+														<table class="table table-bordered" style="" id="student_doc">
 															<thead>
 																<tr style="background-color: #e3f2fd;">
 																	<th>SNo.</th>
@@ -824,19 +826,6 @@ $(document).ready(function(){
 		}
 	} 
 
-	var i = 0;
-	$('#qual_field').append('<tr id="row'+i+'"><td class=""><input type="text" name="prev_school[]" class="form-control"></td><td class=""><input type="text" name="qual_clg[]" class="form-control"></td><td class=""><input type="text" name="qual_board[]" class="form-control"></td><td class=""><input type="text" name="qual_marks[]" class="form-control"></td><td class=""><input type="text" name="qual_years[]" class="form-control" ></td><td class=""><select class="form-control" name="qual_division[]"><option value="">Select Division</option><option value="1">1st</option><option value="2">2nd</option><option value="3">3rd</option></select></td><td><a class="btn btn-sm btn-success" id="add_row"><i class="fa fa-plus"></i></a></td></tr>');
-	i++;
-	 $('#add_row').click(function(){
-	 	$('#qual_field').append('<tr id="row'+i+'"><td class=""><input type="text" name="qual_name[]" class="form-control"></td><td class=""><input type="text" name="qual_clg[]"  class="form-control"></td><td class=""><input type="text" name="qual_board[]" class="form-control"></td><td class=""><input type="text" name="qual_marks[]" class="form-control"></td><td class=""><input type="text" name="qual_years[]" class="form-control"></td><td class=""><select class="form-control" name="qual_division[]"><option value="">Select Division</option><option value="1">1st</option><option value="2">2nd</option><option value="3">3rd</option></select></td><td><a class="btn btn-sm btn-danger btn_remove1" id="'+i+'"><i class="fa fa-minus"></i></a></td></tr>');
-	 	i++;
-	 });
-
-	$(document).on('click', '.btn_remove1', function(){
-		var button_id = $(this).attr("id");
-		//alert(button_id); 
-		$('#row'+button_id+'').remove();
-	});
 
 	var guard_info  = 0;
 	@if(old('relation') !=null)
@@ -849,7 +838,7 @@ $(document).ready(function(){
 	
 	var k =0;
 
-	var html_div ='<div class="form-group row relation"><div class="col-sm-6 form-group col-md-4 col-xs-6 "><label class="">Relation <strong class="text-danger">*</strong></label><select name="relation[]" class="form-control "><option value="">Select Relation</option>@foreach(GUARDIAN_RELATION as $key =>$val)<option value="{{$key}}">{{$val}}</option>@endforeach ></select></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="">Name <strong class="text-danger">*</strong></label><input type="text" name="g_name[]" class="form-control " value=""></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="required">Mobile <strong class="text-danger">*</strong></label><input type="text" name="g_mobile[]" class="form-control "></div></div><div class="row form-group"><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Work Status</label><select name="work_status[]" class="form-control"><option value="">Select Work Status</option><option value="0">Self Employed</option><option value="1">Job</option><option value="3">Retired</option></select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Employment Type</label><select name="employment_type[]" class="form-control"><option value="">Select Employment Type</option><option value="0">Government</option><option value="1">Private</option></select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Professtion Type</label><select name="profession_status[]" class="form-control"><option value="">Select Profession type</option>">@foreach($professtionType as $key =>$professtionTypes)<option value="{{$professtionTypes->id}}">{{$professtionTypes->professtion_types_name}}</option>@endforeach ></select></div></div><div class="form-group row"><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label>Employer</label><input type="text" name="employer[]" class="form-control"></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label>Designation</label><select class="form-control" name="designation_id[]"><option value="">Select Designation Name</option> @foreach($guardianDesignation as $key =>$guardianDesignations)<option value="{{$guardianDesignations->id}}">{{$guardianDesignations->guardian_designations_name}}</option>@endforeach </option></select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label >Photo</label><input type="file" name="g_photo[]" id="g_photo" accept="image/*"><input type="hidden" name="g_check[]" class="g_photo" value=""><input type="hidden" name="g_id[]" value=""></div><hr></div>';
+	var html_div ='<div class="form-group row relation"><div class="col-sm-6 form-group col-md-4 col-xs-6 "><label class="">Relation <strong class="text-danger">*</strong></label><select name="relation[]" class="form-control "><option value="">Select Relation</option>@foreach(GUARDIAN_RELATION as $key =>$val)<option value="{{$key}}">{{$val}}</option>@endforeach</select></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="">Name <strong class="text-danger">*</strong></label><input type="text" name="g_name[]" class="form-control " value=""></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="required">Mobile <strong class="text-danger">*</strong></label><input type="text" name="g_mobile[]" class="form-control "></div></div><div class="row form-group"><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Work Status</label><select name="work_status[]" class="form-control"><option value="">Select Work Status</option>@foreach(WORK_STATUS as $key =>$val)<option value="{{$key}}">{{$val}}</option>@endforeach</select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Employment Type</label><select name="employment_type[]" class="form-control"><option value="">Select Employment Type</option> @foreach(EMPLOYMENT_TYPE as $key =>$val)<option value="{{$key}}">{{$val}}</option>@endforeach </select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Professtion Type</label><select name="profession_status[]" class="form-control"><option value="">Select Profession type</option>">@foreach($professtionType as $key =>$professtionTypes)<option value="{{$professtionTypes->id}}">{{$professtionTypes->professtion_types_name}}</option>@endforeach ></select></div></div><div class="form-group row"><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label>Employer</label><input type="text" name="employer[]" class="form-control"></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label>Designation</label><select class="form-control" name="designation_id[]"><option value="">Select Designation Name</option> @foreach($guardianDesignation as $key =>$guardianDesignations)<option value="{{$guardianDesignations->id}}">{{$guardianDesignations->guardian_designations_name}}</option>@endforeach </option></select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label >Photo</label><input type="file" name="g_photo[]" id="g_photo" accept="image/*"><input type="hidden" name="g_check[]" class="g_photo" value=""><input type="hidden" name="g_id[]" value=""></div><hr></div>';
 
 
 	// for(var z = 0; z < guard_info; z++){

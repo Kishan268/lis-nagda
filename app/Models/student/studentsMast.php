@@ -71,7 +71,7 @@ class studentsMast extends Model
     	 return $this->belongsTo('App\Models\master\cityMast', 'l_city_id');
     }
 
-    public function studenst_doc(){
+    public function student_doc(){
     	 return $this->hasMany('App\Models\student\StudenstDoc', 's_id');
     }
     public function attendances(){
