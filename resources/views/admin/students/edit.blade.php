@@ -18,7 +18,7 @@
 		<div class="col-md-12 col-sm-12 col-lg-12">
 			 <div class="card">
 		        <div class="card-header">
-	         		<h6 class="card-title">Edits Student <a href="{{route('student_detail.index')}}" class="btn btn-sm btn-primary pull-right"> Back</a></h6>
+	         		<h6 class="card-title">Edit Student <a href="{{route('student_detail.index')}}" class="btn btn-sm btn-primary pull-right"> Back</a></h6>
 	          	</div>
 	          	<div class="card-body">
 	          		<div class="row ">
@@ -54,85 +54,90 @@
 									        	<h3 class="mb-3">Basic Details</h3>
 									        	<hr/>
 										        <div class="row form-group">
-													<div class="col-md-12">
-														<label >Student Photo</label>
-														<input type="file" name="s_photo" id="s_photo" accept="image/*" value="{{old('s_photo')}}">
-														@error('s_photo')
-															<span class="text-danger">
-																<strong>{{$message}}</strong>
-															</span>
-														@enderror
-													</div>
+										        	<div class="col-md-2">
+										        			<label class="font-weight-bold">Student Photo</label>
+										        			<img src="{{asset($student->photo !=null ? 'storage/'.$student->photo : 'img/student_demo.png')}}" style="width: 100px; height: 100px;">
+										        			<input type="file" name="s_photo" id="s_photo" accept="image/*" value="{{old('s_photo')}}" class="mt-5">
+																	@error('s_photo')
+																		<span class="text-danger">
+																			<strong>{{$message}}</strong>
+																		</span>
+																	@enderror
+
+										        	</div>
+										        	<div class="col-md-10">
+										        			<div class="row form-group">
+																			<div class="col-md-4 col-xs-6 col-sm-6 form-group">
+																				<label for="std_class" class="required">Class</label>
+																				<select class="form-control required" name="std_class_id" id="std_class_id" required="required">
+																					<option value="">Select Class</option>
+																					@foreach($classes as $class)
+																						<option value="{{$class->id}}" {{ ($student->std_class_id ?? old('std_class_id')) == $class->id ? 'selected' : ''}}>{{$class->class_name}}</option>
+																					@endforeach
+																				</select>
+																				@error('std_class_id')
+																					<span class="text-danger">
+																						<strong>{{$message}}</strong>
+																					</span>
+																				@enderror
+																			</div>
+																			<div class="col-md-4 col-xs-6 col-sm-6 form-group">
+																				<label class="required"> Batch</label>
+																				<select class="form-control required" name="batch_id" required="required" id="batch_id">
+																					
+																				</select>
+																				@error('batch_id')
+																					<span class="text-danger">
+																						<strong>{{$message}}</strong>
+																					</span>
+																				@enderror
+																			</div>
+																			<div class="col-md-4 col-xs-6 col-sm-6 form-group">
+																				<label class="required">Section</label>
+																				<select class="form-control required" name="section_id" id="section_id" required="required">
+																					
+																				</select>
+																				@error('section_id')
+																					<span class="text-danger">
+																						<strong>{{$message}}</strong>
+																					</span>
+																				@enderror
+																			</div>
+																			<div class="col-md-4 col-xs-6 col-sm-6 form-group">
+																				<label class="required">Admision No</label>
+																				<input type="text" name="admision_no" class="form-control" value="{{ $student->admision_no ?? old('admision_no')}}" required="required" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="{{old('s_mobile')}}">
+																				@error('admision_no')
+																					<span class="text-danger">
+																						<strong>{{$message}}</strong>
+																					</span>
+																				@enderror
+																			</div>	
+																			<div class="col-md-4 col-xs-6 col-sm-6 form-group">
+																					<label class="required">Admission Date</label>
+																					<input type="text" name="addm_date" class="form-control datepicker required addm_date"  data-date-format="yyyy-mm-dd"  value="{{$student->addm_date ?? old('addm_date')}}" placeholder="{{date('Y-m-d')}}" required="required">
+																					@error('addm_date')
+																						<span class="text-danger">
+																							<strong>{{$message}}</strong>
+																						</span>
+																					@enderror
+																				</div>
+																					
+																				<div class="col-md-4 col-sm-6 form-group col-xs-6">
+																					<label class="">Class Roll Number</label>
+																					<input type="text" name="roll_no" value="{{$student->roll_no ?? old('roll_no')}}" class="form-control" >
+																					@error('roll_no')
+																						<span class="text-danger">
+																							<strong>{{$message}}</strong>
+																						</span>
+																					@enderror
+																				</div>
+																								
+																		</div>
+										        	</div>
 
 												</div>
+												
 												<div class="row form-group">
-													<div class="col-md-3 col-xs-6 col-sm-6 form-group">
-														<label for="std_class" class="required">Class</label>
-														<select class="form-control required" name="std_class_id" id="std_class_id" required="required">
-															<option value="">Select Class</option>
-															@foreach($classes as $class)
-																<option value="{{$class->id}}" {{ ($student->std_class_id ?? old('std_class_id')) == $class->id ? 'selected' : ''}}>{{$class->class_name}}</option>
-															@endforeach
-														</select>
-														@error('std_class_id')
-															<span class="text-danger">
-																<strong>{{$message}}</strong>
-															</span>
-														@enderror
-													</div>
-													<div class="col-md-3 col-xs-6 col-sm-6 form-group">
-														<label class="required"> Batch</label>
-														<select class="form-control required" name="batch_id" required="required" id="batch_id">
-															
-														</select>
-														@error('batch_id')
-															<span class="text-danger">
-																<strong>{{$message}}</strong>
-															</span>
-														@enderror
-													</div>
-													<div class="col-md-3 col-xs-6 col-sm-6 form-group">
-														<label class="required">Section</label>
-														<select class="form-control required" name="section_id" id="section_id" required="required">
-															
-														</select>
-														@error('section_id')
-															<span class="text-danger">
-																<strong>{{$message}}</strong>
-															</span>
-														@enderror
-													</div>
-													<div class="col-md-3 col-xs-6 col-sm-6 form-group">
-														<label class="required">Admision No</label>
-														<input type="text" name="admision_no" class="form-control" value="{{ $student->admision_no ?? old('admision_no')}}" required="required" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="{{old('s_mobile')}}">
-														@error('admision_no')
-															<span class="text-danger">
-																<strong>{{$message}}</strong>
-															</span>
-														@enderror
-													</div>											
-												</div>
-												<div class="row form-group">
-													<div class="col-md-3 col-xs-6 col-sm-6 form-group">
-														<label class="required">Admission Date</label>
-														<input type="text" name="addm_date" class="form-control datepicker required addm_date"  data-date-format="yyyy-mm-dd"  value="{{$student->addm_date ?? old('addm_date')}}" placeholder="{{date('Y-m-d')}}" required="required">
-														@error('addm_date')
-															<span class="text-danger">
-																<strong>{{$message}}</strong>
-															</span>
-														@enderror
-													</div>
-														
-													<div class="col-md-3 col-sm-6 form-group col-xs-6">
-														<label class="">Class Roll Number</label>
-														<input type="text" name="roll_no" value="{{$student->roll_no ?? old('roll_no')}}" class="form-control" >
-														@error('roll_no')
-															<span class="text-danger">
-																<strong>{{$message}}</strong>
-															</span>
-														@enderror
-													</div>
-														
 													<div class="col-md-3 col-sm-6 form-group col-xs-6 has-success">
 														<label class="required">Student Status</label>
 														<select class="form-control required status" name="status" aria-invalid="false" required="required">
@@ -186,7 +191,7 @@
 													</div>
 													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label class="required">Date of Birth</label>
-														<input type="text" name="dob" class="form-control datepicker required" data-date-format="yyyy-mm-dd" placeholder="{{date('Y-m-d')}}" value="{{$student->dob ?? old('dob')}}" required="required">
+														<input type="text" name="dob" class="form-control datepicker required dob" data-date-format="yyyy-mm-dd" placeholder="{{date('Y-m-d')}}" value="{{$student->dob ?? old('dob')}}" required="required">
 														@error('dob')
 															<span class="text-danger">
 																<strong>{{$message}}</strong>
@@ -358,28 +363,28 @@
 													</div>
 												</div>
 												{{-- <div class="row" style="background: #4f5775;color: #fff; padding: 10px;border-radius: 10px;margin: 20px;">
-			                                         <div class="col-md-3 form-group">
-			                                              <label for="phone1">
-			                                             Student User Name
-			                                             </label>
-			                                             <input class="form-control required" id="username" value="{{old('username')}}" name="username" type="text" >
-			                                             <spam id="usererror" style="color: red; display: none;"></spam>
-			                                         </div>
-			                                         
-			                                          <div class="col-md-3 form-group">
-			                                              <label for="password">
-			                                              Password
-			                                             </label>
-			                                             <input class="form-control required"   id="password" name="password" type="password">
-			                                         </div>
-												</div> --}}
+                           <div class="col-md-3 form-group">
+                                <label for="phone1">
+                               Student User Name
+                               </label>
+                               <input class="form-control required" id="username" value="{{old('username')}}" name="username" type="text" >
+                               <spam id="usererror" style="color: red; display: none;"></spam>
+                           </div>
+                           
+                            <div class="col-md-3 form-group">
+                                <label for="password">
+                                Password
+                               </label>
+                               <input class="form-control required"   id="password" name="password" type="password">
+                           </div>
+		</div> --}}
 												<div class="row form-group">
 													<div class="col-md-3">
 														<label for="rte" class="required"> Teacher Ward </label>
 														<select class="form-control" name="teacher_ward" id="teacher_ward" required="required">
 														    <option value="">Select</option>
-														    <option value="1" {{($stduent->teacher_ward ?? old('teacher_ward') )== '1' ? 'selected' : ''}}>Yes</option>
-														    <option value="0" {{($stduent->teacher_ward ?? old('teacher_ward') )== '0' ? 'selected' : ''}}>No</option>
+														    <option value="1" {{($student->teacher_ward ?? old('teacher_ward') ) == '1' ? 'selected' : ''}}>Yes</option>
+														    <option value="0"  {{($student->teacher_ward ?? old('teacher_ward') ) == '0' ? 'selected' : ''}}>No</option>
 														</select>
 													</div>
 													<div class="col-md-3">
@@ -691,7 +696,7 @@
 														<table class="table table-bordered" style="" id="student_doc">
 															<thead>
 																<tr style="background-color: #e3f2fd;">
-																	<th>SNo.</th>
+														
 																	<th>Document Title  </th>
 																	<th>Document Description </th>
 																	<th>File </th>
@@ -701,7 +706,6 @@
 															<tbody id="docTBody">
 																
 
-																
 															</tbody>
 														</table>											
 													</div>												
@@ -731,10 +735,10 @@
 	<script >
 	$(document).ready(function(){	
 		swal({
-          text: "{{$message}}",
-          icon : 'success',
-        });
-       });
+        text: "{{$message}}",
+        icon : 'success',
+      });
+    });
 	</script>	
 @endif
 
@@ -771,12 +775,17 @@ $(document).ready(function() {
 	});
 });
 
-$(function () {
-	$(".datepicker").datepicker({ 
-		singleDatePicker: true,
-		showDropdowns: true,
-	});
-});
+$('.dob').on('blur',function(e){
+		e.preventDefault();
+		var c_d = new Date();
+		year = c_d.getFullYear() - 8;
+		date = new Date($(this).val());
+
+		age = Math.floor((c_d.getTime() - date.getTime()) / (365.25 * 24 * 60 * 60 * 1000));
+
+		$('.age').val(age).attr('readonly','true');
+})
+
 
 $('label.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;');
 $('th.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;');
@@ -811,7 +820,7 @@ $(document).ready(function(){
 	@endphp
 
 
-	$('#guard_info').append('<div id="row'+k+'"><div class="row form-group "><div class="col-xl-12 col-md-12 col-sm-12"><a href="#" class="pull-right btn btn-sm btn-success " style="margin:10px 10px 0px 0px" id="add_guar"><i class="fa fa-plus"></i> Add More</a></div></div><div class="form-group row relation"><div class="col-sm-6 form-group col-md-4 col-xs-6 "><label class="">Relation <strong class="text-danger">*</strong></label><select name="relation[]" class="form-control "><option value="">Select Relation</option>@foreach(GUARDIAN_RELATION as $key =>$val)<option value="{{$key}}" {{$student->studentsGuardiantMast[$k]->relation_id == $key ? 'selected' : ''}}>{{$val}}</option>@endforeach</select></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="">Name <strong class="text-danger">*</strong></label><input type="text" name="g_name[]" class="form-control " value="{{$student->studentsGuardiantMast[$k]->g_name}}"></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="required">Mobile <strong class="text-danger">*</strong></label><input type="text" name="g_mobile[]" class="form-control " value="{{$student->studentsGuardiantMast[$k]->g_mobile}}"></div></div><div class="row form-group"><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Work Status</label><select name="work_status[]" class="form-control"><option value="">Select Work Status</option>@foreach(WORK_STATUS as $key =>$val)<option value="{{$key}}" {{$student->studentsGuardiantMast[$k]->work_status == $key ? 'selected' : ''}}>{{$val}}</option>@endforeach</select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Employment Type</label><select name="employment_type[]" class="form-control"><option value="">Select Employment Type</option> @foreach(EMPLOYMENT_TYPE as $key =>$val)<option value="{{$key}}" {{$student->studentsGuardiantMast[$k]->employment_type == $key ? 'selected' : '' }} >{{$val}}</option>@endforeach </select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Professtion Type</label><select name="profession_status[]" class="form-control"><option value="">Select Profession type</option>">@foreach($professtionType as $key =>$professtionTypes)<option value="{{$professtionTypes->id}}" {{$student->studentsGuardiantMast[$k]->profession_status == $professtionTypes->id ? 'selected' : ''}} >{{$professtionTypes->professtion_types_name}}</option>@endforeach ></select></div></div><div class="form-group row"><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label>Employer</label><input type="text" name="employer[]" class="form-control" value="{{$student->studentsGuardiantMast[$k]->employer}}"></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label>Designation</label><select class="form-control" name="designation_id[]"><option value="">Select Designation Name</option> @foreach($guardianDesignation as $key =>$guardianDesignations)<option value="{{$guardianDesignations->id}}" {{$student->studentsGuardiantMast[$k]->designation == $guardianDesignations->id ? 'selected' : ''}}>{{$guardianDesignations->guardian_designations_name}}</option>@endforeach </option></select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label >Photo</label><input type="file" name="g_photo[]" id="g_photo" accept="image/*"><input type="hidden" name="g_check[]" class="g_photo" value=""><input type="hidden" name="g_id[]" value="{{$student->studentsGuardiantMast[$k]->id}}"></div><hr></div></div>');
+	$('#guard_info').append('<div id="row'+k+'"><div class="row form-group "><div class="col-xl-12 col-md-12 col-sm-12"><a href="#" class="pull-right btn btn-sm btn-success " style="margin:10px 10px 0px 0px" id="add_guar"><i class="fa fa-plus"></i> Add More</a></div></div><div class="form-group row relation"><div class="col-sm-6 form-group col-md-4 col-xs-6 "><label class="">Relation <strong class="text-danger">*</strong></label><select name="relation[]" class="form-control "><option value="">Select Relation</option>@foreach(GUARDIAN_RELATION as $key =>$val)<option value="{{$key}}" {{$student->studentsGuardiantMast[$k]->relation_id == $key ? 'selected' : ''}}>{{$val}}</option>@endforeach</select></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="">Name <strong class="text-danger">*</strong></label><input type="text" name="g_name[]" class="form-control " value="{{$student->studentsGuardiantMast[$k]->g_name}}"></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="required">Mobile <strong class="text-danger">*</strong></label><input type="text" name="g_mobile[]" class="form-control " value="{{$student->studentsGuardiantMast[$k]->g_mobile}}"></div></div><div class="row form-group"><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Work Status</label><select name="work_status[]" class="form-control"><option value="">Select Work Status</option>@foreach(WORK_STATUS as $key =>$val)<option value="{{$key}}" {{$student->studentsGuardiantMast[$k]->work_status == $key ? 'selected' : ''}}>{{$val}}</option>@endforeach</select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Employment Type</label><select name="employment_type[]" class="form-control"><option value="">Select Employment Type</option> @foreach(EMPLOYMENT_TYPE as $key =>$val)<option value="{{$key}}" {{$student->studentsGuardiantMast[$k]->employment_type == $key ? 'selected' : '' }} >{{$val}}</option>@endforeach </select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Professtion Type</label><select name="profession_status[]" class="form-control"><option value="">Select Profession type</option>">@foreach($professtionType as $key =>$professtionTypes)<option value="{{$professtionTypes->id}}" {{$student->studentsGuardiantMast[$k]->profession_status == $professtionTypes->id ? 'selected' : ''}} >{{$professtionTypes->professtion_types_name}}</option>@endforeach ></select></div></div><div class="form-group row"><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label>Employer</label><input type="text" name="employer[]" class="form-control" value="{{$student->studentsGuardiantMast[$k]->employer}}"></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label>Designation</label><select class="form-control" name="designation_id[]"><option value="">Select Designation Name</option> @foreach($guardianDesignation as $key =>$guardianDesignations)<option value="{{$guardianDesignations->id}}" {{$student->studentsGuardiantMast[$k]->designation == $guardianDesignations->id ? 'selected' : ''}}>{{$guardianDesignations->guardian_designations_name}}</option>@endforeach </option></select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label >Photo</label><input type="file" name="g_photo[]" id="g_photo" accept="image/*"> @if($student->studentsGuardiantMast[$k]->photo !=null)<a href="{{asset('storage/'.$student->studentsGuardiantMast[$k]->photo)}}" target="_blank">{{file_name($student->studentsGuardiantMast[$k]->photo)}}</a>@else <p>Not Uploaded</p> @endif<input type="hidden" name="g_check[]" class="g_photo" value=""><input type="hidden" name="g_id[]" value="{{$student->studentsGuardiantMast[$k]->id}}"></div><hr></div></div>');
 
 
 	// for(var z = 0; z < guard_info; z++){
@@ -828,7 +837,7 @@ $(document).ready(function(){
 	while ($k < $count_guard) {
 	@endphp
 
-	$('#guard_info').append('<div id="row{{$k}}"><div class="row form-group "><div class="col-xl-12 col-md-12 col-sm-12"><a href="#" class="pull-right btn btn-sm btn-danger btn_remove" style="margin:10px 10px 0px 0px" id="{{$k}}"><i class="fa fa-minus"></i></a></div></div><div class="form-group row relation"><div class="col-sm-6 form-group col-md-4 col-xs-6 "><label class="">Relation <strong class="text-danger">*</strong></label><select name="relation[]" class="form-control "><option value="">Select Relation</option>@foreach(GUARDIAN_RELATION as $key =>$val)<option value="{{$key}}" {{$student->studentsGuardiantMast[$k]->relation_id == $key ? 'selected' : ''}}>{{$val}}</option>@endforeach</select></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="">Name <strong class="text-danger">*</strong></label><input type="text" name="g_name[]" class="form-control " value="{{$student->studentsGuardiantMast[$k]->g_name}}"></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="required">Mobile <strong class="text-danger">*</strong></label><input type="text" name="g_mobile[]" class="form-control " value="{{$student->studentsGuardiantMast[$k]->g_mobile}}"></div></div><div class="row form-group"><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Work Status</label><select name="work_status[]" class="form-control"><option value="">Select Work Status</option>@foreach(WORK_STATUS as $key =>$val)<option value="{{$key}}" {{$student->studentsGuardiantMast[$k]->work_status == $key ? 'selected' : ''}}>{{$val}}</option>@endforeach</select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Employment Type</label><select name="employment_type[]" class="form-control"><option value="">Select Employment Type</option> @foreach(EMPLOYMENT_TYPE as $key =>$val)<option value="{{$key}}" {{$student->studentsGuardiantMast[$k]->employment_type == $key ? 'selected' : '' }}>{{$val}}</option>@endforeach </select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Professtion Type</label><select name="profession_status[]" class="form-control"><option value="">Select Profession type</option>">@foreach($professtionType as $key =>$professtionTypes)<option value="{{$professtionTypes->id}}" {{$student->studentsGuardiantMast[$k]->profession_status == $professtionTypes->id ? 'selected' : ''}}>{{$professtionTypes->professtion_types_name}}</option>@endforeach ></select></div></div><div class="form-group row"><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label>Employer</label><input type="text" name="employer[]" class="form-control" value="{{$student->studentsGuardiantMast[$k]->employer}}"></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label>Designation</label><select class="form-control" name="designation_id[]"><option value="">Select Designation Name</option> @foreach($guardianDesignation as $key =>$guardianDesignations)<option value="{{$guardianDesignations->id}}" {{$student->studentsGuardiantMast[$k]->designation == $guardianDesignations->id ? 'selected' : ''}}>{{$guardianDesignations->guardian_designations_name}}</option>@endforeach </option></select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label >Photo</label><input type="file" name="g_photo[]" id="g_photo" accept="image/*"><input type="hidden" name="g_check[]" class="g_photo" value=""><input type="hidden" name="g_id[]" value="{{$student->studentsGuardiantMast[$k]->id}}"></div><hr></div></div>');
+	$('#guard_info').append('<div id="row{{$k}}"><div class="row form-group "><div class="col-xl-12 col-md-12 col-sm-12"><a href="#" class="pull-right btn btn-sm btn-danger btn_remove" style="margin:10px 10px 0px 0px" id="{{$k}}"><i class="fa fa-minus"></i></a></div></div><div class="form-group row relation"><div class="col-sm-6 form-group col-md-4 col-xs-6 "><label class="">Relation <strong class="text-danger">*</strong></label><select name="relation[]" class="form-control "><option value="">Select Relation</option>@foreach(GUARDIAN_RELATION as $key =>$val)<option value="{{$key}}" {{$student->studentsGuardiantMast[$k]->relation_id == $key ? 'selected' : ''}}>{{$val}}</option>@endforeach</select></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="">Name <strong class="text-danger">*</strong></label><input type="text" name="g_name[]" class="form-control " value="{{$student->studentsGuardiantMast[$k]->g_name}}"></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="required">Mobile <strong class="text-danger">*</strong></label><input type="text" name="g_mobile[]" class="form-control " value="{{$student->studentsGuardiantMast[$k]->g_mobile}}"></div></div><div class="row form-group"><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Work Status</label><select name="work_status[]" class="form-control"><option value="">Select Work Status</option>@foreach(WORK_STATUS as $key =>$val)<option value="{{$key}}" {{$student->studentsGuardiantMast[$k]->work_status == $key ? 'selected' : ''}}>{{$val}}</option>@endforeach</select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Employment Type</label><select name="employment_type[]" class="form-control"><option value="">Select Employment Type</option> @foreach(EMPLOYMENT_TYPE as $key =>$val)<option value="{{$key}}" {{$student->studentsGuardiantMast[$k]->employment_type == $key ? 'selected' : '' }}>{{$val}}</option>@endforeach </select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label class="">Professtion Type</label><select name="profession_status[]" class="form-control"><option value="">Select Profession type</option>">@foreach($professtionType as $key =>$professtionTypes)<option value="{{$professtionTypes->id}}" {{$student->studentsGuardiantMast[$k]->profession_status == $professtionTypes->id ? 'selected' : ''}}>{{$professtionTypes->professtion_types_name}}</option>@endforeach ></select></div></div><div class="form-group row"><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label>Employer</label><input type="text" name="employer[]" class="form-control" value="{{$student->studentsGuardiantMast[$k]->employer}}"></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label>Designation</label><select class="form-control" name="designation_id[]"><option value="">Select Designation Name</option> @foreach($guardianDesignation as $key =>$guardianDesignations)<option value="{{$guardianDesignations->id}}" {{$student->studentsGuardiantMast[$k]->designation == $guardianDesignations->id ? 'selected' : ''}}>{{$guardianDesignations->guardian_designations_name}}</option>@endforeach </option></select></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label >Photo</label><input type="file" name="g_photo[]" id="g_photo" accept="image/*"> @if($student->studentsGuardiantMast[$k]->photo !=null)<a href="{{asset('storage/'.$student->studentsGuardiantMast[$k]->photo)}}" target="_blank">{{file_name($student->studentsGuardiantMast[$k]->photo)}}</a>@else <p>Not Uploaded</p> @endif<a href=""></a><input type="hidden" name="g_check[]" class="g_photo" value=""><input type="hidden" name="g_id[]" value="{{$student->studentsGuardiantMast[$k]->id}}"></div><hr></div></div>');
 
 @php
 	$k++;
@@ -858,21 +867,19 @@ $(document).ready(function(){
 	});
 
 
-    var j = 0;
-    @php
-    		$j = 0;
-    		$count_docs = count($student->student_doc);
-    @endphp
+var j = 0;
+@php
+		$j = 0;
+		$count_docs = count($student->student_doc);
+@endphp
 
-
-    $('#docTBody').append('<tr id="doc_row_'+j+'"><td id="sr_no">'+j+'</td><td><input id="doc_title" name="doc_title[]" class="form-control" type="text" placeholder="Enter doc title" value="{{$student->student_doc[$j]->doc_title}}" ></td><td><textarea id="doc_description" name="doc_description[]" class="form-control doc_description" placeholder="Enter doc description" value="" rows="2" cols="2">{{$student->student_doc[$j]->doc_description}}</textarea></td><td><input id="file_name" name="student_doc[]" class="form-control" type="file" placeholder="file" value="" ></td><td><button type="button" name="add_more_std_doc" id="add_doc" class="btn btn-success btn-sm" id="'+j+'"><i class="fa fa-plus"></i></button></td></tr>');
-
+$('#docTBody').append('<tr id="doc_row_'+j+'"><td><input id="doc_title" name="doc_title[]" class="form-control" type="text" placeholder="Enter doc title" value="{{$student->student_doc[$j]->doc_title}}" ></td><td><textarea id="doc_description" name="doc_description[]" class="form-control doc_description" placeholder="Enter doc description" value="" rows="2" cols="2">{{$student->student_doc[$j]->doc_description}}</textarea></td><td><input id="file_name" name="student_doc[]" class="form-control" type="file" placeholder="file" value="" > @if($student->student_doc[$j]->student_doc !=null)<a href="{{asset('storage/'.$student->student_doc[$j]->student_doc)}}" target="_blank">{{file_name($student->student_doc[$j]->student_doc)}}</a>@else <p>Not Uploaded</p> @endif</td><td><input type="hidden" name="student_doc_id[]" value="{{$student->student_doc[$j]->id}}"><button type="button" name="add_more_std_doc" id="add_doc" class="btn btn-success btn-sm" id="'+j+'"><i class="fa fa-plus"></i></button></td></tr>');
 
 @php
-$j++;
-while ($j < $count_guard) {
+	$j++;
+	while ($j < $count_docs) {
 @endphp
-	 $('#docTBody').append('<tr id="doc_row_{{$j}}"><td id="sr_no">{{$j}}</td><td><input id="doc_title" name="doc_title[]" class="form-control" type="text" placeholder="Enter doc title" value="{{$student->student_doc[$j]->doc_title}}" ></td><td><textarea id="doc_description" name="doc_description[]" class="form-control doc_description" placeholder="Enter doc description" value="" rows="2" cols="2">{{$student->student_doc[$j]->doc_description}}</textarea></td><td><input id="file_name" name="student_doc[]" class="form-control" type="file" placeholder="file" value="" ></td><td><button type="button"  class="btn btn-danger btn-sm remove_doc" id="{{$j}}"><i class="fa fa-minus"></i></button></td></tr>');
+	 $('#docTBody').append('<tr id="doc_row_{{$j}}"><td><input id="doc_title" name="doc_title[]" class="form-control" type="text" placeholder="Enter doc title" value="{{$student->student_doc[$j]->doc_title}}" ></td><td><textarea id="doc_description" name="doc_description[]" class="form-control doc_description" placeholder="Enter doc description" value="" rows="2" cols="2">{{$student->student_doc[$j]->doc_description}}</textarea></td><td><input id="file_name" name="student_doc[]" class="form-control" type="file" placeholder="file" value="" >@if($student->student_doc[$j]->student_doc !=null)<a href="{{asset('storage/'.$student->student_doc[$j]->student_doc)}}" target="_blank">{{file_name($student->student_doc[$j]->student_doc)}}</a>@else <p>Not Uploaded</p> @endif</td><td><input type="hidden" name="student_doc_id[]" value="{{$student->student_doc[$j]->id}}"><button type="button"  class="btn btn-danger btn-sm remove_doc" id="{{$j}}"><i class="fa fa-minus"></i></button></td></tr>');
 @php
 	$j++;
 }
@@ -881,8 +888,8 @@ j = "{{$j}}";
 
 
 $(document).on('click', '#add_doc', function(){
-  $('#docTBody').append('<tr id="doc_row_'+j+'"><td id="sr_no">'+j+'</td><td><input id="doc_title" name="doc_title[]" class="form-control" type="text" placeholder="Enter doc title" value="" ></td><td><textarea id="doc_description" name="doc_description[]" class="form-control doc_description" placeholder="Enter doc description" value="" rows="2" cols="2"></textarea></td><td><input id="file_name" name="student_doc[]" class="form-control" type="file" placeholder="file" value="" ></td><td><button type="button" class="btn btn-danger btn-sm remove_doc" id="'+j+'"><i class="fa fa-minus" ></i></button></td></tr>');
-
+  $('#docTBody').append('<tr id="doc_row_'+j+'"><td><input id="doc_title" name="doc_title[]" class="form-control" type="text" placeholder="Enter doc title" value="" ></td><td><textarea id="doc_description" name="doc_description[]" class="form-control doc_description" placeholder="Enter doc description" value="" rows="2" cols="2"></textarea></td><td><input id="file_name" name="student_doc[]" class="form-control" type="file" placeholder="file" value="" ></td><td><input type="hidden" value="" name="student_doc_id[]"><button type="button" class="btn btn-danger btn-sm remove_doc" id="'+j+'"><i class="fa fa-minus" ></i></button></td></tr>');
+  j++
 });
     
 
