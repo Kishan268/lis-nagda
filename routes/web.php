@@ -234,7 +234,10 @@ Route::post('student_manage_get_data', 'Admin\students\studentController@student
 Route::get('student-import-export', 'Admin\students\studentController@studentUploads')->name('student_import_export');
 
 Route::get('import-export', 'Admin\students\UserImportExportController@importExport')->name('import_export');
+
 Route::post('import-student', 'Admin\students\UserImportExportController@importStudent')->name('import_student');
+Route::post('import-student-batch-section-wise', 'Admin\students\UserImportExportController@importStudent')->name('import_student_batch_section_wise');
+
 Route::get('export-all-student-', 'Admin\students\UserImportExportController@exportAllStudent')->name('export_all_student');
 Route::get('download-student-sample', 'Admin\students\UserImportExportController@downloadStudentSample')->name('download_student_sample');
 Route::get('export-students-class-section-and-batch-wise', 'Admin\students\UserImportExportController@exportclassSectionBatchWise')->name('export_student_class_section_batch_wise');
@@ -360,6 +363,8 @@ Route::Resource('certificates','Admin\certificate\CertificateController');
 
 Route::get('student/certificate/request/{id}','Admin\certificate\CertificateController@certificateApprove')->name('certificate_approve');
 
+Route::get('student/certificate/show/{id}','Admin\certificate\CertificateController@certificateApproveReqShow')->name('certificate_req_show');
+
 Route::get('student/certificate/request/','Admin\certificate\CertificateController@certRequest')->name('certificate_stud_req');
 
 Route::post('student/certificate/decline/','Admin\certificate\CertificateController@cerReqDecliceReason')->name('req_declice_reason');
@@ -376,3 +381,4 @@ Route::get('section-fetch/{id}/{id1}','Admin\classes\ClassesController@section_f
 Route::Resource('profile','Admin\profile\ProfileController');
 
 Route::Resource('certificate-request','Admin\students\CertificateRequestController');
+Route::get('certificate/download/{id}','Admin\students\CertificateRequestController@downloadCerfificate')->name('centificate_download');

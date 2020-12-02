@@ -2,34 +2,35 @@
 
 namespace App\Http\Controllers\Admin\certificate;
 
+use Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\student\CertificateRequest;
 use App\Models\Certificate;
 use App\Models\setting\Settings;
-use Auth;
 use App\Models\student\studentsMast;
 use App\Models\master\studentClass;
 use App\Models\master\studentBatch;
 use App\Models\master\studentSectionMast;
+use App\Models\studentclass\AssignSubjectToClass;
+
 class CertificateController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         // dd(->where('batch_id',session('current_batch')));
-        $certifReq = Certificate::with(['studentInfo.student_class','studentInfo.student_section','studentInfo.student_batch'])->get();
+        $current_batch = session('current_batch');
+        $certifReq = Certificate::with(['studentInfo.student_class','studentInfo.student_section','studentInfo.student_batch'])
+                ->where('batch_id',$current_batch)
+                ->get();
+        // dd($certifReq);
             return view('admin.certificates.index',compact('certifReq'));
     }
 
     public function create()
     {
-        // $certifCreate = CertificateRequest::with(['studentInfo.student_class','studentInfo.student_section','studentInfo.student_batch','gaudiantInfo'])->where('cert_req_id',$id)->first();
-        // $settings = Settings::where('user_id',Auth::user()->id)->first();
+       
          $classes = studentClass::get();
          $batches = studentBatch::get();
          $sections = studentSectionMast::get();
@@ -75,9 +76,13 @@ class CertificateController extends Controller
     public function show($id)
     {
         $showRequest = Certificate::with(['studentInfo.student_class','studentInfo.student_section','studentInfo.student_batch','gaudiantInfo'])->where('cert_id',$id)->first();
-        // dd($showRequest);
+
+        $subjectName = AssignSubjectToClass::with('assign_subjectId.subject')->where('std_class_id',$showRequest->studentInfo->std_class_id)
+                    ->where('section_id',$showRequest->studentInfo->section_id)
+                    ->where('batch_id',$showRequest->studentInfo->batch_id)->first();
         $settings = Settings::where('user_id',Auth::user()->id)->first();
-        return view('admin.certificates.show',compact('showRequest','settings'));
+        
+        return view('admin.certificates.show',compact('showRequest','settings','subjectName'));
 
     }
 
@@ -114,6 +119,21 @@ class CertificateController extends Controller
         return view('admin.certificates.student_request.cert_approve',compact('certifReqApprove','settings' ,'classes','batches','sections','settings'));
 
     }
+    public function certificateApproveReqShow($id)
+    {
+        $showRequest = CertificateRequest::with(['studentInfo.student_class','studentInfo.student_section','studentInfo.student_batch','gaudiantInfo'])->where('cert_req_id',$id)->first();
+        // dd($showRequest);
+
+        $subjectName = AssignSubjectToClass::with('assign_subjectId.subject')->where('std_class_id',$showRequest->studentInfo->std_class_id)
+                    ->where('section_id',$showRequest->studentInfo->section_id)
+                    ->where('batch_id',$showRequest->studentInfo->batch_id)->first();
+        // dd($subjectName->assign_subjectId);
+
+
+        $settings = Settings::where('user_id',Auth::user()->id)->first();
+        return view('admin.certificates.student_request.show',compact('showRequest','settings','subjectName'));
+
+    }
 
    
     public function getStudents(Request $request){
@@ -135,7 +155,6 @@ class CertificateController extends Controller
     }
     public function cerReqDecliceReason(Request $request){
 
-        // dd($request);
         $updateStatus = CertificateRequest::where('stu_id',$request->stud_id)
                         ->where('cert_req_id',$request->cert_id)
                         ->update(['status'=> $request->status ,'decline_reason'=>$request->decline_reason]);

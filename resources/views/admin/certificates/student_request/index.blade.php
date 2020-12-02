@@ -34,7 +34,7 @@
                   <td>{{$certifReqs->studentInfo->f_name}} {{$certifReqs->studentInfo->l_name}}</td>
                   <td>{{$certifReqs->studentInfo->student_class->class_name}}</td>
                   <td>{{date('Y-m-d',strtotime($certifReqs->created_at))}}</td>
-                  <td><a href="{{route('certificates.show',$certifReqs->cert_req_id)}}"><i class="fa fa-eye"></i></a></td>
+                  <td><a href="{{route('certificate_req_show',$certifReqs->cert_req_id)}}"><i class="fa fa-eye"></i></a></td>
                   <td>
                     @if($certifReqs->status==1)
                      <a class="btn btn-success" id="approve" href="{{route('certificate_approve',$certifReqs->cert_req_id)}}" >Go To Approve </a>|| <button class="btn btn-danger decline_request1" id="{{$certifReqs->cert_req_id}}" data-cert-id="{{$certifReqs->cert_req_id}}" data-stud-id="{{$certifReqs->studentInfo->id}}" data-toggle="modal" data-target="#exampleModal{{$certifReqs->cert_req_id}}">Decline </button>

@@ -81,7 +81,13 @@ class studentsMast extends Model
       public function get_student_id(){
             return $this->belongsTo('App\Models\noticecircular\NoticeStudent','id','notice_student_id');
     }
-     public function user_data(){
+    public function user_data(){
             return $this->belongsTo('App\User','id','student_id');
+    }
+    public function settings(){
+        return $this->belongsTo('App\Models\setting\Settings','user_id','user_id');
+    }
+    public function sibling_admission(){
+        return $this->hasMany('App\Models\student\studentSiblings','s_id','id');
     }
 }

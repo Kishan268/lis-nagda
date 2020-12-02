@@ -24,11 +24,11 @@ class ExportStudentsBatchWise implements  FromCollection, WithHeadings,WithMappi
     {
 
         $data  = studentsMast::with('student_batch','student_section','student_class','p_country','p_state','p_city','studentsGuardiantMast')
-					->where('batch_id',$this->request->batch_id)
-					->where('std_class_id',$this->request->std_class_id)
-					->where('section_id',$this->request->section_id)
-					->where('user_id',Auth::user()->id)
-					->get();
+					       ->where('batch_id',$this->request->batch_id)
+					       ->where('std_class_id',$this->request->std_class_id)
+					       ->where('section_id',$this->request->section_id)
+					       ->where('user_id',Auth::user()->id)
+					       ->get();
         /*$data = StudentMast::with('qual_catg','qual_course','batch','reservation','country','language')->where('batch_id',$this->request->batch_id)->where('user_id',Auth::user()->id);
 
     	if($this->request->batch_id !='' && $this->request->qual_year !=''  && $this->request->semester !=''){
@@ -42,89 +42,125 @@ class ExportStudentsBatchWise implements  FromCollection, WithHeadings,WithMappi
     }
     public function map($data) : array
     {
-           // dd($data );
-      
-     if($data['reservation_class_id'] !=''){
-           $cast_category = castCategory::where('id',$data['reservation_class_id'])->first();
-           $data['reservation_class_id'] = $cast_category->caste_category_name;
+      // dd($data);
+      foreach ($data->studentsGuardiantMast as $key => $value) {
+         $data['g_name'] = $value->g_name;
       }
-      if($data['nationality_id'] !=''){
-           $cast_category = stdNationality::where('id',$data['nationality_id'])->first();
-           $data['nationality_id'] = $cast_category->nationality_name;
+      if ($data->gender) {
+        foreach (GENDER as $key => $value) {
+          if ($key == $data->gender ) {
+            $data['gender'] = $value;
+          }
+        }
       }
-    	return [
-			$data->student_class->class_name,
-			$data->student_batch->batch_name,
-	        $data->student_section->section_name,
-			$data->admision_no,
-			$data->roll_no,
-	    	$data->status == 'R' ? 'Running' : ($data->status == 'P' ? 'Pass' : $data->status == 'F' ? 'Fail':''),
-			$data->addm_date,
-			$data->email,
-			$data->f_name,
-			$data->m_name,
-			$data->l_name,
-	        $data->spec_ailment,
-			$data->dob,
-			$data->gender == 1 ? 'Male' : ($data->gender == 2 ? 'Female' : $data->gender == 3 ? 'Other':''),
-	        $data->reservation_class_id,
-	        $data->age,
-			$data->blood_group_id,
-			$data->nationality_id,
-			$data->p_address,
-			$data->p_city ? $data->p_city->city_name :'',
-			$data->p_state ? $data->p_state->state_name : '',
-			$data->p_zip_code,
-			$data->p_country ? $data->p_country->country_name : '',
-			$data->s_mobile,
-			$data->s_ssmid,
-	        $data->f_ssmid,
-	        $data->aadhar_card,
-			$data->bank_name,
-	        $data->bank_branch,
-	        $data->account_name,
-	        $data->account_no,
-			$data->ifsc_code
+      if (!empty($data->cast) ) {
+        foreach (RELIGION as $key => $value) {
+          if ($key == $data->cast ) {
+            $data['cast'] = $value;
+          }
+        }
+      }
+      if (!empty($data->reservation_class_id) ) {
+        foreach (CASTCATEGORY as $key => $value) {
+          if ($key == $data->reservation_class_id ) {
+            $data['reservation_class_id'] = $value;
+          }
+        }
+      }
+     if (!empty($data->sibling_admission)) {
+        $siblings = array();
+        foreach ($data->sibling_admission as $value) {
+            $siblings[] = $value->sibling_admission_no;
+        }
+      $data['sibling_admission_no'] = implode(',', $siblings);
+     }
 
-    		];
+     if ($data->blood_id) {
+       foreach (BLOODGROUP as $key => $value) {
+          if ($key == $data->blood_id ) {
+            $data['blood_id'] = $value;
+          }
+        }
+     }
+     if ($data->blood_id) {
+       foreach (STUDENTSTATUS as $key => $value) {
+          if ($key == $data->status ) {
+              $data['status'] = $key;
+          }
+        }
+     }
+
+      return [
+        // $data->student_class->class_name,
+        // $data->student_batch->batch_name,
+        // $data->student_section->section_name,
+        $data->admision_no ? $data->admision_no :'',
+        $data->s_ssmid ? $data->s_ssmid :'',
+        $data->f_ssmid ? $data->f_ssmid : '',
+        $data->f_name ? $data->f_name : '',
+        $data->m_name ? $data->m_name : '',
+        $data->l_name ? $data->l_name : '',
+        $data->dob ? $data->dob : '',
+        $data->addm_date ? $data->addm_date : '',
+        $data->medium ? $data->medium : '',
+        $data->gender ? $data->gender : '',
+        $data->g_name ? $data->g_name : '',
+        $data->g_name ? $data->g_name : '',
+        $data->s_mobile ? $data->s_mobile : '',
+        $data->optional_mobile_number ? $data->optional_mobile_number : '',
+        $data['reservation_class_id'] ? $data['reservation_class_id'] : '',
+        $data['cast'] ? $data['cast'] : '',
+        $data->aadhar_card ? $data->aadhar_card : '',
+        $data->p_address ? $data->p_address : '',
+        $data->p_city ? $data->p_city :'',
+        $data->p_state ? $data->p_state : '',
+        $data->p_country ? $data->p_country : '',
+        $data->family_income ? $data->family_income : '',
+        $data['sibling_admission_no'] ? $data['sibling_admission_no'] : '',
+        $data->bank_name ? $data->bank_name : '',
+        $data->ifsc_code ? $data->ifsc_code : '',
+        $data->account_no ? $data->account_no : '',
+        $data['blood_id'] ? $data['blood_id'] :'',
+        $data['status'] ? $data['status'] : '',
+        
+      
+
+      ];
     }
     public function headings(): array
     {
 
         return [
-
-            'Class Name',
-            'Batch Name',
-           	'Section Name',
-            'School Admission No',
-           	'Class roll no',
-            'Status',
-           	'Admission date',
-           	'Email',
-           	'First Name',
-           	'Middle Name',
-           	'Last Name',
-           	'Specific Ailment',
-           	'DOB',
-           	'Gender',
-            'Cast',
-            'age',
-           	'Blood Grp',
-           	'Nationality',
-           	'Address',
-           	'City',
-           	'State',
-           	'PIN',
-           	'Country',
-           	'Mobile',
-           	'Student SSMID',
-            'Family SSMID',
-           	'Aadhar Card Number',
-           	'Bank Name',
-            'Bank Branch',
-            'Account Name',
+           
+            'Admission Number',
+            'SSSMID',
+            'FAMILY ID',
+            'First Name',
+            'Middle Name',
+            'Last Name',
+            'Date of Birth',
+            'Date of Admission',
+            'Medium',
+            'Student Gender',
+            'Father Name',
+            'Mother Name',
+            'Mobile Number',
+            'Optional Mobile Number',
+            'Category',
+            'Religion',
+            'Aadhar Number',
+            'Address Line',
+            'City',
+            'State',
+            'Country',
+            'Family Income',
+            'Siblings Scholar Number',
+            'Bank Name',
+            'IFSC Code',
             'Account No',
-           	'IFSC code'
+            'Blood Group',
+            'Status',
+            'Subject (Optional)'
 
 
         ];

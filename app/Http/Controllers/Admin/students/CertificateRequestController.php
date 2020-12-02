@@ -6,6 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\student\CertificateRequest;
 use Auth;
+use App\Models\student\studentsMast;
+use App\Models\master\studentClass;
+use App\Models\master\studentBatch;
+use App\Models\master\studentSectionMast;
+use App\Models\studentclass\AssignSubjectToClass;
+use App\Models\Certificate;
+use App\Models\setting\Settings;
 class CertificateRequestController extends Controller
 {
     /**
@@ -19,23 +26,13 @@ class CertificateRequestController extends Controller
             return view('admin.students.certificate_request.index',compact('certifReq'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
         return view('admin.students.certificate_request.create');
         
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 
@@ -50,7 +47,6 @@ class CertificateRequestController extends Controller
             'apply_date' =>date('Y-m-d',strtotime($request->apply_date)),
             'stu_id' =>Auth::user()->student_id,
             ];
-            // dd($data);
             $createcertiReq = CertificateRequest::create($data);
             if ($createcertiReq) {
                 return redirect()->route('certificate-request.index')->with('success','Certificate request send successfully');
@@ -59,48 +55,39 @@ class CertificateRequestController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+         
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
         //
+    }
+
+    public function downloadCerfificate($id){
+
+       $downloadCert = CertificateRequest::with(['studentInfo.student_class','studentInfo.student_section','studentInfo.student_batch','gaudiantInfo'])->where('cert_req_id',$id)->first();
+
+        $subjectName = AssignSubjectToClass::with('assign_subjectId.subject')->where('std_class_id',$downloadCert->studentInfo->std_class_id)
+                    ->where('section_id',$downloadCert->studentInfo->section_id)
+                    ->where('batch_id',$downloadCert->studentInfo->batch_id)->first();
+        $settings = studentsMast::with('settings')->where('id',Auth::user()->id)->first();
+
+        
+        return view('admin.students.certificate_request.download-cert',compact('downloadCert','settings','subjectName'));
+
     }
 }
