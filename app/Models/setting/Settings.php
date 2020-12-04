@@ -8,4 +8,6 @@ class Settings extends Model
 {
     protected $table = 'settings';
     protected $guarded =[];
+
+    
 }
