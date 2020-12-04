@@ -104,9 +104,14 @@
 														@enderror
 													</div>
 													<div class="col-md-3 col-xs-6 col-sm-6 form-group">
-														<label class="required">Admision No</label>
-														<input type="text" name="admision_no" class="form-control" value="{{old('admision_no')}}" required="required" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="{{old('s_mobile')}}">
-														@error('admision_no')
+														<label class="required">Select Medium</label>
+														<select class="form-control required" name="medium" id="medium" required="medium">
+															<option value="">Select Medium</option>
+															@foreach(MEDIUM as $key=> $value)
+																<option value="{{$key}}" {{$key == old('medium') ? 'selected' : ''}}>{{$value}}</option>
+															@endforeach
+														</select>
+														@error('medium')
 															<span class="text-danger">
 																<strong>{{$message}}</strong>
 															</span>
@@ -114,6 +119,16 @@
 													</div>											
 												</div>
 												<div class="row form-group">
+													<div class="col-md-3 col-xs-6 col-sm-6 form-group">
+														<label class="required">Admision No</label>
+														<input type="text" name="admision_no" class="form-control" value="{{old('admision_no')}}" required="required" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="{{old('s_mobile')}}">
+														@error('admision_no')
+															<span class="text-danger">
+																<strong>{{$message}}</strong>
+															</span>
+														@enderror
+													</div>		
+
 													<div class="col-md-3 col-xs-6 col-sm-6 form-group">
 														<label class="required">Admission Date</label>
 														<input type="text" name="addm_date" class="form-control datepicker required addm_date"  data-date-format="yyyy-mm-dd"  value="{{old('addm_date')}}" placeholder="{{date('Y-m-d')}}" required="required">
@@ -187,7 +202,7 @@
 													</div>
 													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label class="required">Date of Birth</label>
-														<input type="text" name="dob" class="form-control datepicker required" data-date-format="yyyy-mm-dd" placeholder="{{date('Y-m-d')}}" value="{{old('dob')}}" required="required">
+														<input type="text" name="dob" class="form-control datepicker required dob" data-date-format="yyyy-mm-dd" placeholder="{{date('Y-m-d')}}" value="{{old('dob')}}" required="required">
 														@error('dob')
 															<span class="text-danger">
 																<strong>{{$message}}</strong>
@@ -243,6 +258,9 @@
 															</span>
 														@enderror
 													</div>
+													<div class="col-md-4 col-xs-6 col-sm-6 form-group "><label>Cast Name</label>
+					        							<input type="text" name="cast" class="form-control" id="cast" value="{{old('cast')}}" >
+					        						</div>
 													<div class="col-md-4 col-sm-6 form-group col-xs-6">
 														<label>Religion</label>
 														<select class="form-control" name="religion_id">
@@ -320,7 +338,8 @@
 														<label>Mother tongue</label>
 														<select name="language_id" class="form-control">
 														<option value="">Select Mother Tongue</option>
-														 	@foreach($studentMothertongues as $studentMothertongue)<option value="{{$studentMothertongue->id}}" {{old('language_id') == $studentMothertongue->id ? 'selected' : '' }}>{{$studentMothertongue->mothetongue_name}}</option>@endforeach >
+														 	@foreach($studentMothertongues as $studentMothertongue)<option value="{{$studentMothertongue->id}}" {{old('language_id') == $studentMothertongue->id ? 'selected' : '' }}>{{$studentMothertongue->mothetongue_name}}</option>
+														 	@endforeach 
 														</select>
 														@error('language_id')
 															<span class="text-danger">
@@ -357,6 +376,22 @@
 															</span>
 														@enderror
 													</div>
+												
+					        						<div class="col-md-3 col-xs-6 col-sm-6 form-group "><label>Family Income</label>
+					        							<input type="text" name="family_income" class="form-control" id="family_income" value="{{old('family_income')}}" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
+					        						</div>
+
+					        						<div class="col-md-6 col-sm-6 form-group col-xs-6">
+														<label>Siblings {{-- <span class="text-muted">(If student have sibling please select number wise)</span> --}}
+														</label>
+														<select name="siblings[]" class="form-control select2-multiple" multiple>
+														<option value="" >Select Siblings</option>
+															@foreach($students as $student)
+																<option value="{{$student->admision_no}}" {{(collect(old('siblings'))->contains($student->admision_no) ? 'selected' : '')}} }>{{$student->admision_no .' | '. student_name($student) }}</option>
+															@endforeach
+															 	
+														</select>														
+													</div>
 												</div>
 												<div class="row" style="background: #4f5775;color: #fff; padding: 10px;border-radius: 10px;margin: 20px;">
 			                                         <div class="col-md-3 form-group">
@@ -386,7 +421,8 @@
 													<div class="col-md-3">
 														<label for="rte"> CBSE  Registration no </label>
 														<input class="form-control" id="CBSC_reg" name="cbsc_reg" type="text" value="{{old('cbsc_reg')}}">	           
-													</div>			                                
+													</div>	
+
 												</div>
 									        </section>
 											<ul class="tab-links nav nav-tabs pull-right mt-3">
@@ -439,10 +475,7 @@
 					        						<div class="col-md-4 col-xs-6 col-sm-6 form-group ">
 					        							<label>Country</label>
 					        							<input type="text" class="form-control" name="acadmic_country" value="{{old('acadmic_country') ?? 'India'}}">					
-					        						</div>
-					        						<div class="col-md-4 col-xs-6 col-sm-6 form-group "><label>Cast</label>
-					        							<input type="text" name="acadmic_cast" class="form-control" id="acadmic_cast" value="{{old('acadmic_cast')}}">
-					        						</div>
+					        						</div>							
 					        						<div class="col-md-4 col-xs-6 col-sm-6 form-group ">
 					        							<label> Attendance Reg. No (In device) </label>
 					        							<input type="text" name="acadmic_attendance_reg_no" class="form-control" id="acadmic_attendance_reg_no" value="{{old('acadmic_attendance_reg_no')}}">
@@ -884,138 +917,6 @@ $(document).ready(function(){
 
 });
 
-
-
-	// get State when select country code..........................
-// 	$('#p_country_id').on('change',function(){
-// 	 	var country_id = $(this).val();
-// 		if(country_id !='' ){
-// 			$.ajax({
-// 				type:'POST',
-
-// 				url: "{{route('get_p_state')}}",
-// 				data: {country_id:country_id, "_token": "{{ csrf_token() }}",},
-// 				success:function(res){
-// 					// $('#p_state_id').empty().html(res);
-// 					$("#p_state_id").empty();
-// 	                $("#p_state_id").append('<option>Select</option>');
-// 	                $.each(res,function(key,value){
-// 	            		$("#p_state_id").append('<option value="'+value.id+'">'+value.state_name+'</option>');
-// 	        		});
-// 				}
-// 			});
-// 		}else{
-// 			alert('please select city field');
-// 		}	 
-// 	});
-// 	$('#p_state_id').on('change',function(){
-// 	 	var state_id = $(this).val();
-// 		 if(state_id !='' ){
-// 			$.ajax({
-// 				type:'POST',
-
-// 				url: "{{route('get_p_city')}}",
-// 				data: {state_id:state_id, "_token": "{{ csrf_token() }}",},
-// 				success:function(res){
-// 					// $('#p_state_id').empty().html(res);
-// 					$("#p_city_id").empty();
-// 	                $("#p_city_id").append('<option>Select</option>');
-// 	                $.each(res,function(key,value){
-// 	            		$("#p_city_id").append('<option value="'+value.id+'">'+value.city_name+'</option>');
-// 	        		});
-// 				}
-// 			});
-// 		}else{
-// 			alert('please select state field');
-// 		}
-// 		});
-// 	// get State city when select country code..........................
-// 	$('#l_country_id').on('change',function(){
-// 	 var country_id = $(this).val();
-// 		 if(country_id !='' ){
-// 			$.ajax({
-// 				type:'POST',
-
-// 				url: "{{route('get_p_state')}}",
-// 				data: {country_id:country_id, "_token": "{{ csrf_token() }}",},
-// 				success:function(res){
-// 					// $('#p_state_id').empty().html(res);
-// 					$("#l_state_id").empty();
-// 	                $("#l_state_id").append('<option>Select</option>');
-// 	                $.each(res,function(key,value){
-// 	            		$("#l_state_id").append('<option value="'+value.id+'">'+value.state_name+'</option>');
-// 	        		});
-// 				}
-// 			});
-// 		}else{
-// 			alert('please select city field');
-// 		}
-// 		});
-// 	$('#l_state_id').on('change',function(){
-// 	 var state_id = $(this).val();
-// 		 if(state_id !='' ){
-// 			$.ajax({
-// 				type:'POST',
-// 				url: "{{route('get_p_city')}}",
-// 				data: {state_id:state_id, "_token": "{{ csrf_token() }}",},
-// 				success:function(res){
-// 					// $('#p_state_id').empty().html(res);
-// 					$("#l_city_id").empty();
-// 	                $("#l_city_id").append('<option>Select</option>');
-// 	                $.each(res,function(key,value){
-// 	            		$("#l_city_id").append('<option value="'+value.id+'">'+value.city_name+'</option>');
-// 	        		});
-// 				}
-// 			});
-// 		}else{
-// 			alert('please select state field');
-// 		}
-// 		});
-// 	// get State and country when select country code..........................
-// 	$('#acadmic_city_id').on('change',function(){
-// 	 var state_id = $(this).val();
-// 		 if(state_id !='' ){
-// 			$.ajax({
-// 				type:'POST',
-
-// 				url: "{{route('get_academic_state')}}",
-// 				data: {state_id:state_id, "_token": "{{ csrf_token() }}",},
-// 				success:function(res){
-// 					// $('#p_state_id').empty().html(res);
-// 					$("#acadmic_state_id").empty();
-// 	                $("#acadmic_state_id").append('<option>Select</option>');
-// 	                $.each(res,function(key,value){
-// 	            		$("#acadmic_state_id").append('<option value="'+value.country_id+'">'+value.state_name+'</option>');
-// 	        		});
-// 				}
-// 			});
-// 		}else{
-// 			alert('please select state field');
-// 		}
-// 		});
-// 	$('#acadmic_state_id').on('change',function(){
-// 	 var country_id = $(this).val();
-// 		 if(country_id !='' ){
-// 			$.ajax({
-// 				type:'POST',
-// 				url: "{{route('get_academic_country')}}",
-// 				data: {country_id:country_id, "_token": "{{ csrf_token() }}",},
-// 				success:function(res){
-// 					// $('#p_state_id').empty().html(res);
-// 					$("#acadmic_country_id").empty();
-// 	                $("#acadmic_country_id").append('<option>Select</option>');
-// 	                $.each(res,function(key,value){
-// 	            		$("#acadmic_country_id").append('<option value="'+value.id+'">'+value.country_name+'</option>');
-// 	        		});
-// 				}
-// 			});
-// 		}else{
-// 			alert('please select country field');
-// 		}
-// });
-
-
-/* add table row For student document..................................*/
     $(document).ready(function(){
 	    var count = 1;
 	    $(document).on('click', '#add_more_std_doc', function(){

@@ -1,42 +1,22 @@
 @extends('layouts.main')
-@section('title','Welcom: To Admin Panel')
-
 @section('content')
-
- <main class="app-content">
-	  <div class="app-title">
-	    <div>
-	      <h1><i class="fa fa-dashboard"></i>ACL</h1>
-	    </div>
-	    <ul class="app-breadcrumb breadcrumb">
-	      <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-	      <li class="breadcrumb-item"><a href="#">ACL</a></li>
-	    </ul>
-	  </div>
-	  @if(session('success'))
-         <div class="alert alert-danger">
-            {{session('success')}}
-        </div>
-      @endif
-	   <div class="row">
-		<div class="col-md-12 m-auto">
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
 			<div class="card">
 				<div class="card-header">
 					<div class="row">
-						<div class="col-md-12 col-xl-12 col-sm-12 d-inline-flex radio-group" style=" ">
+						<a style="background: #5bc0de" data = 'role' class="col-md-3  text-center btn big active_class get_table"  id="roles_table">
+						Roles</a>
 
-							<a style="background: #5bc0de;margin-right: 20px;max-width: 336px;" data = 'role' class="col-md-4  text-center btn big active_class get_table"  id="roles_table">
-							Roles</a>
+						<a style="background: #5bc0de;" data = 'permissions_table' class="col-md-3 text-center btn big get_table" id="permissions_table">
+						Permissions</a>
 
-							<a style="background: #5bc0de;margin-right: 20px;max-width: 336px;" data = 'permissions_table' class="col-md-4 text-center btn big get_table" id="permissions_table">
-							Permissions</a>
-
-							<a style="background: #5bc0de;max-width: 336px;" data="user" class="col-md-4 text-center btn big get_table" id="user_table">
-							Users</a>
-						</div>
-			       	</div>				
+						<a style="background: #5bc0de;" data="user" class="col-md-3 text-center btn big get_table" id="user_table">
+						Users</a>
+					</div>
 				</div>
-				<div class="card-body " >
+				<div class="card-body">
 					<div class="row">
 						<div class="col-sm-12 col-md-12 col-xl-12  table-responsive " id="mytable1">
 							<a style="margin-left: 18px;margin-bottom: 10px;" href="{{route('admin.create')}}" id="add" type="button" class="btn btn-primary fa fa-plus">Add</a>
@@ -127,8 +107,6 @@
 		</div>
 	</div>
 </div>
-</main>			
-
 <script>
 	$(document).ready(function(){
 		$('#role_table').DataTable();

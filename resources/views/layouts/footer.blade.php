@@ -61,6 +61,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
 <script src="{{asset('js/helpers.js')}}"></script>
  <script type="text/javascript">
   $(document).ready(function(){
@@ -68,6 +72,9 @@
         $(function () {
             $(".datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
         });
+
+         $('.select2-multiple').select2();
+
         $('li a').click(function() {
             var $this = $(this);
             // e.preventDefault();

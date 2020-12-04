@@ -6,8 +6,9 @@
 		$('#std_class_id').on('change',function(e){
 			e.preventDefault();
 			var std_class_id = $(this).val();
-
-			batch_fetch(std_class_id,select_batch_id);
+			if(std_class_id !=''){
+				batch_fetch(std_class_id,select_batch_id);
+			}
 		});
 
 		
@@ -31,14 +32,12 @@
 		@endif
 
 
-	
-		
 
-		if(old_class_id !=null){
+		if(old_class_id !=''){
 			batch_fetch(old_class_id,select_batch_id,old_batch_id);
 		}
 
-		if(old_class_id !=null && old_batch_id !=null){
+		if(old_class_id !='' && old_batch_id !=''){
 			section_fetch(old_class_id,old_batch_id,select_section_id,old_section_id);
 		}
 

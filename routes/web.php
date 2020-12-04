@@ -79,6 +79,9 @@ Route::group(['middleware' => ['auth','role:superadmin']], function () {
 Route::get('admission-inquiry-data', 'Frontend\AdmissionForm@getadmissionInquiryFormData')->name('admission_inquiry_data');
 
 Route::get('id-card', 'Admin\students\IdCardController@index')->name('id_card');
+
+Route::get('id-card-format', 'Admin\students\IdCardController@id_card_format')->name('id-card-format');
+
 Route::post('get-id-card', 'Admin\students\IdCardController@getIdCard')->name('get_id_card');
 
 Route::get('pdf','Admin\students\IdCardController@pdfview')->name('pdf');
@@ -326,7 +329,8 @@ Route::get('sms-compoe','Admin\composeSmsAndEmail\EmailAndSMSController@smsCompo
 Route::post('get_students_for_sms_compose','Admin\composeSmsAndEmail\EmailAndSMSController@getStudentsForSmsCompose')->name('get_students_for_sms_compose');
 Route::post('send_sms','Admin\composeSmsAndEmail\EmailAndSMSController@sendSms')->name('send_sms');
 Route::get('sms-compoe-report','Admin\composeSmsAndEmail\EmailAndSMSController@smsDeliveryReport')->name('send_sms_delivery_report');
-Route::get('gallery','Admin\gallery\GalleryController@index');
+Route::get('gallery','Admin\gallery\GalleryController@index')->name('gallery');
+
 Route::get('gallery-folder','Admin\gallery\GalleryController@galleryFolder')->name('gallery_folder');
 Route::post('gallery-folder-create','Admin\gallery\GalleryController@createGalleryFolder')->name('create_gallery_folder');
 Route::any('gallery-image-video-add/{id}','Admin\gallery\GalleryController@addGalleryImageVideo')->name('gallery_image_video_add');
@@ -378,3 +382,6 @@ Route::get('section-fetch/{id}/{id1}','Admin\classes\ClassesController@section_f
 Route::Resource('profile','Admin\profile\ProfileController');
 
 Route::Resource('certificate-request','Admin\students\CertificateRequestController');
+
+
+Route::get('gallery_test','Admin\gallery\GalleryController@gallery_test')->name('gallery_test');

@@ -51,6 +51,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.css">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 <style type="text/css">
 
 html {
@@ -192,7 +193,7 @@ p {
       </div>
  --}}
  @role('superadmin')
-     <li class="nav-item">
+     <li class="nav-item ">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
       <i class="fas fa-fw fa-users"></i>
       <span>Manage Student</span>
@@ -289,8 +290,8 @@ p {
             {{-- <a class="collapse-item" href="{{route('state')}}">State</a> --}}
             {{-- <a class="collapse-item" href="{{route('cities')}}">City</a> --}}
             {{-- <a class="collapse-item" href="{{route('mothetongue')}}">Mothetongue</a> --}}
-            <a class="collapse-item" href="{{route('professtiontype')}}">Professtion Type</a>
-            <a class="collapse-item" href="{{route('gaurdian_designation')}}">Gaurdian Designation</a>
+            <a class="collapse-item" href="{{route('professtiontype')}}">Profession Type</a>
+            <a class="collapse-item" href="{{route('gaurdian_designation')}}">Designation</a>
         </div>
     </div>
   </li>
@@ -342,7 +343,7 @@ p {
       <span>ACL</span></a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="{{url('gallery')}}">
+    <a class="nav-link" href="{{route('gallery')}}">
       <i class="fas fa-fw fa-picture-o"></i>
       <span>Gallery</span></a>
   </li>

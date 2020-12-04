@@ -1,90 +1,59 @@
  @extends('layouts.main')
  @section('content')
-
 <div class="container">
-	 <div class="col-lg-12">
-{{-- @include('layouts.comman') --}}
-@include('admin.students.header')
-
-
-<div class="container">
-	<div class="row mt-2">
-    <div class="col-lg-12">
-    </div>
-</div>
-
-<div class="container">
-	<div class="row mt-2">
-    <div class="col-lg-12">
-
-      <!-- Default Card Example -->
-      <div class="card mb-4">
-        <div class="card-header">
-          <div class="panel-heading">
-				<h4 class="panel-title">ID-Card</h4>
-			</div>
-        </div>
-        <div class="card-body">
-         	<div class="col-md-12">
-		<div class="panel panel-default">
-			
-			<div class="panel-body">				
-				<div class="row">								
-					<div class="col-md-4">
+	<div class="row mb-4">
+		<div class="col-md-12">@include('admin.students.header')</div>
+	</div>
+	<div class="row mb-4">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<h5 class="card-title">ID Card <a href="{{route('id-card-format')}}" class="btn bt-sm  btn-primary pull-right">Id Card Format</a></h5>
+				</div>
+				<div class="card-body">
+					<div class="row mb-4">
+						<div class="col-md-4 form-group">
+							<label>Admission Number </label>
+							<input type="text" name="admision_no " class="form-control" id="admision_no" placeholder="Search Id Card">
+						</div>
 						
-						<input type="text" name="roll_no " class="form-control" id="roll_no" placeholder="Enter roll no..">
+						<div class="col-md-3 form-group pt-2">
+							<button class="btn btn-sm btn-primary mt-4" id="btnFilter">View ID-Card</button>
+							
+						</div>
 					</div>
-					
-					<div class="col-md-3">
-						<button class="btn btn-sm btn-primary" id="btnFilter">View ID-Card</button>
+					<div class="mt-4" id="idCardDiv">
 						
 					</div>
-
-				</div>
-				<br>
-				<div class="row">
-					<div class="col-md-12 table-responsive" id="tableFilter">
-						<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
-							<div class="card-body">
-					         	<div class="col-md-12">
-									<div class="panel panel-default">
-										<div class="panel-body">
-										</div>
-									</div>
-								</div>
-							</div>
-					</div>
-				</div> 
-					
-				</div>
 				</div>
 			</div>
 		</div>
 	</div>
-        </div>
-      </div>
+</div>
 
-  </div>
-</div>
-</div>
 <script>
 	$(document).ready(function(){
 		
 		$('#btnFilter').on('click',function(e){
 			e.preventDefault();
-			var roll_no = $('#roll_no').val();
-			alert(roll_no);
-			 if(roll_no !=''){
+			var admision_no = $('#admision_no').val();
+			// alert(admision_no);
+			 if(admision_no !=''){
 				$.ajax({
 					type:'POST',
 					url: "{{route('get_id_card')}}",
-					data: {roll_no:roll_no, "_token": "{{ csrf_token() }}",},
+					data: {admision_no:admision_no, "_token": "{{ csrf_token() }}",},
 					success:function(res){
-						$('#tableFilter').empty().html(res);
+						if(res =="error"){
+							alert('student id card not found. Admission no wrong')
+						}else{
+							$('#idCardDiv').empty().html(res);
+
+						}
 					}
 				});
 			}else{
-				alert('please select all field');
+				alert('Enter Admission Number');
 			}
 
 		});

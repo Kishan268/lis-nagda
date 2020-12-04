@@ -37,11 +37,8 @@
                           <div class="col-md-4 form-group">
                             <label class="required"> Batch</label>
                             <select class="form-control required" name="batch_id" required="required" id="batch_id">
-                              <option value="">Select Class</option>
-
-                              @foreach($batches as $batche)
-                                <option value="{{$batche->id}}" {{old('batches_id') == $batche->id ? 'selected' : ''}}>{{$batche->batch_name}}</option>
-                              @endforeach
+                         
+                             
                             </select>
                             @error('batch_id')
                               <span class="text-danger">
@@ -53,10 +50,7 @@
                             <label class="required">Section</label>
 
                             <select class="form-control required" name="section_id" id="section_id" required="required">
-                              <option value="">Select Class</option>
-                              @foreach($sections as $section)
-                                <option value="{{$section->id}}" {{old('section_id') == $section->id ? 'selected' : ''}}>{{$section->section_name}}</option>
-                              @endforeach
+                            
                             </select>
                             @error('section_id')
                               <span class="text-danger">
@@ -162,7 +156,7 @@
           </div>    
   </div>
 </div>
-
+@include('layouts.common')
 <style >
   .border-radius{
     border-radius: 4px;
@@ -276,7 +270,7 @@ $(document).on('change','#section_id',function(){
            $("#students").empty();
            $("#students").append('<option>Select</option>');
            $.each(res,function(key,value){
-           $("#students").append('<option value="'+value.id+'">'+value.f_name+'</option>');
+           $("#students").append('<option value="'+value.id+'">'+value.f_name + ' '+ value.l_name+'</option>');
         });
        }
      });

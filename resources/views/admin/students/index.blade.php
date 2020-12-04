@@ -10,36 +10,12 @@
 		<div class="col-md-12 col-sm-12 col-lg-12">
 			 <div class="card">
 		        <div class="card-header">
-					<h4 class="card-title">Student List</h4>
+					<h4 class="card-title">Student List <a href="{{route('student_detail.create')}}" class="btn btn-sm btn-success pull-right">Add Student</a></h4>
 		        </div>
        			<div class="card-body">         			
-					<div class="row">								
-						<div class="col-md-3 form-group">
-							<select class="form-control" name="std_class_id" autocomplete="off" id="std_class_id"> 
-								<option value="">Select Class</option>
-								@foreach($classes as $key=>$class)
-									<option value="{{$class->id}}">{{$class->class_name}}</option>
-								@endforeach
-							</select>
-						</div>
-						<div class="col-md-3 form-group">
-							<select class="form-control" name="batch_id" autocomplete="off" id="batch_id">
-								 
-							</select>
-						</div>
-						<div class="col-md-3 form-group">
-							<select class="form-control" name="section_id" autocomplete="off" id="section_id"> 
-								
-							</select>
-						</div>
-						<div class="col-md-3 form-group">
-							<button class="btn btn-sm btn-primary" id="btnFilter">Search</button>
-							<a href="{{route('student_detail.create')}}" class="btn btn-sm btn-success pull-right">Add Student</a>
-						</div>
-
-					</div>
+					@include('layouts.filter_common')
 				
-					<div class="row mt-3">
+					<div class="row mt-3 mb-5">
 						<div class="col-md-12 table-responsive" id="tableFilter">
 							<table class="table table-striped table-bordered" >
 								<thead>
@@ -62,7 +38,7 @@
 								</tbody>
 							</table>						
 						</div> 
-					</div>
+					</div>					
 		        </div>
 		    </div>
 		</div>
@@ -71,17 +47,13 @@
 @include('layouts.common')
 <script>
 	$(document).ready(function(){
-		$('#qual_catg').on('change',function(e){
-			e.preventDefault();
-			var batch_id = $(this).val();
-			qual_course(qual_catg_code);
-			qual_docs(qual_catg_code);
-		});
+
 		$('#btnFilter').on('click',function(e){
 			e.preventDefault();
-			var batch_id = $('select[name="batch_id"] option:selected').val();
+			var batch_id 	 = $('select[name="batch_id"] option:selected').val();
 			var std_class_id = $('select[name="std_class_id"] option:selected').val();
-			var section_id = $('select[name="section_id"] option:selected').val();
+			var section_id 	 = $('select[name="section_id"] option:selected').val();
+			var medium		 = $('select[name="medium"] option:selected').val();
 			var status = 'R';
 			var user_id = 'user_id';
 
@@ -89,9 +61,8 @@
 			 if(section_id !=''  && batch_id !='' && std_class_id != '' ){
 				$.ajax({
 					type:'POST',
-
 					url: "{{route('student_filter')}}",
-					data: {batch_id:batch_id,std_class_id: std_class_id, section_id:section_id,user_id:user_id,page:page,status:status, "_token": "{{ csrf_token() }}",},
+					data: {batch_id:batch_id,std_class_id: std_class_id, section_id:section_id,user_id:user_id,page:page,medium:medium,status:status, "_token": "{{ csrf_token() }}"},
 					success:function(res){
 						$('#tableFilter').empty().html(res);
 					}
@@ -101,6 +72,7 @@
 			}
 
 		});
+
 	});
 </script>
  @endsection

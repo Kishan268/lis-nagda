@@ -84,4 +84,7 @@ class studentsMast extends Model
      public function user_data(){
             return $this->belongsTo('App\User','id','student_id');
     }
+    public function siblings(){
+        return $this->hasMany('App\Models\student\StudentSiblings','s_id');
+    }
 }

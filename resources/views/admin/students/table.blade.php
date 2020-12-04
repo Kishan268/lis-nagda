@@ -1,12 +1,11 @@
-<table class="table table-striped table-bordered mytable">
+<table class="table table-hover table-bordered mytable">
 	<thead>
 		<tr>
-			{{-- @if($page == 'student_detail')
+			@if($page == 'student_manage')
 				<th><input type="checkbox" name="selectAll" class="selectAll"></th>
 			@else
 				<th>#</th>
-			@endif --}}
-			<th>#</th>
+			@endif
 			<th>Photo</th>
 			<th>Admission Number</th>
 			<th>Roll Number</th>
@@ -21,13 +20,13 @@
 		@php $count = 0; @endphp
 		@foreach($students as $student)
 		<tr>
-			{{-- @if($page == 'student_detail')
+			@if($page == 'student_manage')
 				<td><input type="checkbox" name="checked[]" class="check" value="{{$student->id}}"></td>
-			@else --}}
+			@else
 				<td>{{++$count}}</td>				
-			{{-- @endif --}}
+			@endif
 			<td class="text-center sorting_1 odd">
-				<img src="{{asset($student->photo !=null ? 'storage/'.$student->photo : 'storage/admin/student_demo.png')}}" style="width: 30px; height: 30px;">
+				<img src="{{asset($student->photo !=null ? 'storage/'.$student->photo : 'img/student_demo.png')}}" style="width: 30px; height: 30px;">
 			</td>
 			<td>{{ $student->admision_no }}</td>
 			<td>{{ $student->roll_no }}</td>
@@ -47,6 +46,7 @@
 					<span class="mr">
 					<a href="{{route('student_detail.edit', $student->id)}}" ><i class="  fa fa-edit text-green" style="font-size: 16px;"></i></a></span>
 				@endif
+
 				{{-- @if($page == 'student_detail') <span class="mr" >
 					<a href="javascript:$('#delform_{{$student->id}}').submit();"  onclick="return confirm('Are you sure?')" ><i class=" fa fa-trash text-red" style="font-size: 16px;" ></i></a>
 				</span>
@@ -71,9 +71,8 @@
 	}
 </style>
 <script >
-	$('.mytable').DataTable({
-		lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-		searching:true,
-		scrolling:true,
-	});
+	$(document).ready(function(){
+		$('.mytable').DataTable();
+
+	})
 </script>

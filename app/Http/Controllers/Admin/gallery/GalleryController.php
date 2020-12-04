@@ -110,4 +110,8 @@ class GalleryController extends Controller
     	 return redirect()->back()->with('success','Gallery image upload successfully');
 
     }
+    public function gallery_test(){
+
+       return view('admin.gallery.test');
+    } 
 }

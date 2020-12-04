@@ -20,7 +20,7 @@
 						<table class="table table-striped table-bordered">
 							<thead>
 								<tr>
-									<th><input type="checkbox" name="all" class="selectAll"></th>
+									<th><input type="checkbox" name="all" class="selectAll" autocomplete="off"></th>
 									<th>Name</th>
 									<th>Status</th>
 								</tr>
@@ -99,6 +99,7 @@
 				success:function(res){
 					if(res == 'success'){
 						$.notify("Staff today attendance successfully submitted",'success');
+						location.reload();
 						
 					}else if(res =='warning'){
 						$.notify("Staff today attendance already submitted");
