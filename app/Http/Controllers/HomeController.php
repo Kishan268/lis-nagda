@@ -32,27 +32,31 @@ class HomeController extends Controller
         $user = Auth::user()->roles;
         $getNotication = NoticeCircular::with('get_circular_id')->get();
         // $classBatch = array();
-        // $classBatchId = array();
-        $classBatchId1 = array();
+        $batchId = array();
+        $classesId = array();
         foreach ($getNotication as  $value) {
-           $classBatch = $value->get_circular_id;
-            foreach ($classBatch as  $value1) { 
-                $classBatchId = $value1;
-                foreach ($classBatchId as  $value11) { 
-                    $classBatchId1[] = $value11;
-                }
+            foreach ( $value->get_circular_id as  $value1) { 
+                $batchId[] = $value1->batch_id;
+                $classesId[] = $value1->classes_id; 
             }
-
         }
-        // dd($classBatchId1);
-        $currentdate = date("Y-m-d");
-        $birthUsers = studentsMast::whereDate('dob',date('Y-m-d'))->get();
+        // get data for show notice for perticular students..............
+        $userMast = studentsMast::whereIn('batch_id',$batchId)->whereIn('std_class_id',$classesId)->get();
+        $currentUser = array();
+        foreach ($userMast as  $userData) {
+            $currentUser[] = $userData->id;
+        }                
+        // end show notice for perticular students..............
+        // dd( $getNotication );
+        $authId = Auth::user()->id; 
+        //compare birthday date.............
+        $birthUsers = studentsMast::select('id','f_name','m_name','l_name','dob')->where(\DB::raw('substr(dob, 6, 9)'), '=' , date('m-d'))->get();
         $students = studentsMast::where('batch_id',session('current_batch'))->count();
         $studentBatch = studentBatch::get();
 
         $teachers = Teacher::get();
 
-        return view('home',compact('getNotication','birthUsers','currentdate','students','studentBatch','teachers'));
+        return view('home',compact('getNotication','birthUsers','students','studentBatch','teachers','userMast','currentUser'));
 
     }
 

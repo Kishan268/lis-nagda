@@ -51,93 +51,105 @@
 		          					<div class="tab-content mt-4 p-2" style="font-size: 15px !important; background-color: whitesmoke !important;" >
 										<div class="tab-pane tab  active" id="basic_details" >
 											<section>
-									        	<h3 class="mb-3">Basic Details</h3>
-									        	<hr/>
-										        <div class="row form-group">
-										        	<div class="col-md-2">
-										        			<label class="font-weight-bold">Student Photo</label>
-										        			<img src="{{asset($student->photo !=null ? 'storage/'.$student->photo : 'img/student_demo.png')}}" style="width: 100px; height: 100px;">
-										        			<input type="file" name="s_photo" id="s_photo" accept="image/*" value="{{old('s_photo')}}" class="mt-5">
-																	@error('s_photo')
-																		<span class="text-danger">
-																			<strong>{{$message}}</strong>
-																		</span>
-																	@enderror
+							        	<h3 class="mb-3">Basic Details</h3>
+							        	<hr/>
+								        <div class="row form-group">
+								        	<div class="col-md-2">
+								        			<label class="font-weight-bold">Student Photo</label>
+								        			<img src="{{asset($student->photo !=null ? 'storage/'.$student->photo : 'img/student_demo.png')}}" style="width: 100px; height: 100px;">
+								        			<input type="file" name="s_photo" id="s_photo" accept="image/*" value="{{old('s_photo')}}" class="mt-5">
+															@error('s_photo')
+																<span class="text-danger">
+																	<strong>{{$message}}</strong>
+																</span>
+															@enderror
 
-										        	</div>
-										        	<div class="col-md-10">
-										        			<div class="row form-group">
-																			<div class="col-md-4 col-xs-6 col-sm-6 form-group">
-																				<label for="std_class" class="required">Class</label>
-																				<select class="form-control required" name="std_class_id" id="std_class_id" required="required">
-																					<option value="">Select Class</option>
-																					@foreach($classes as $class)
-																						<option value="{{$class->id}}" {{ ($student->std_class_id ?? old('std_class_id')) == $class->id ? 'selected' : ''}}>{{$class->class_name}}</option>
-																					@endforeach
-																				</select>
-																				@error('std_class_id')
-																					<span class="text-danger">
-																						<strong>{{$message}}</strong>
-																					</span>
-																				@enderror
-																			</div>
-																			<div class="col-md-4 col-xs-6 col-sm-6 form-group">
-																				<label class="required"> Batch</label>
-																				<select class="form-control required" name="batch_id" required="required" id="batch_id">
-																					
-																				</select>
-																				@error('batch_id')
-																					<span class="text-danger">
-																						<strong>{{$message}}</strong>
-																					</span>
-																				@enderror
-																			</div>
-																			<div class="col-md-4 col-xs-6 col-sm-6 form-group">
-																				<label class="required">Section</label>
-																				<select class="form-control required" name="section_id" id="section_id" required="required">
-																					
-																				</select>
-																				@error('section_id')
-																					<span class="text-danger">
-																						<strong>{{$message}}</strong>
-																					</span>
-																				@enderror
-																			</div>
-																			<div class="col-md-4 col-xs-6 col-sm-6 form-group">
-																				<label class="required">Admision No</label>
-																				<input type="text" name="admision_no" class="form-control" value="{{ $student->admision_no ?? old('admision_no')}}" required="required" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="{{old('s_mobile')}}">
-																				@error('admision_no')
-																					<span class="text-danger">
-																						<strong>{{$message}}</strong>
-																					</span>
-																				@enderror
-																			</div>	
-																			<div class="col-md-4 col-xs-6 col-sm-6 form-group">
-																					<label class="required">Admission Date</label>
-																					<input type="text" name="addm_date" class="form-control datepicker required addm_date"  data-date-format="yyyy-mm-dd"  value="{{$student->addm_date ?? old('addm_date')}}" placeholder="{{date('Y-m-d')}}" required="required">
-																					@error('addm_date')
-																						<span class="text-danger">
-																							<strong>{{$message}}</strong>
-																						</span>
-																					@enderror
-																				</div>
-																					
-																				<div class="col-md-4 col-sm-6 form-group col-xs-6">
-																					<label class="">Class Roll Number</label>
-																					<input type="text" name="roll_no" value="{{$student->roll_no ?? old('roll_no')}}" class="form-control" >
-																					@error('roll_no')
-																						<span class="text-danger">
-																							<strong>{{$message}}</strong>
-																						</span>
-																					@enderror
-																				</div>
-																								
-																		</div>
-										        	</div>
+								        	</div>
+								        	<div class="col-md-10">
+								        			<div class="row form-group">
+																	<div class="col-md-4 col-xs-6 col-sm-6 form-group">
+																		<label for="std_class" class="required">Class</label>
+																		<select class="form-control required" name="std_class_id" id="std_class_id" required="required">
+																			<option value="">Select Class</option>
+																			@foreach($classes as $class)
+																				<option value="{{$class->id}}" {{ ($student->std_class_id ?? old('std_class_id')) == $class->id ? 'selected' : ''}}>{{$class->class_name}}</option>
+																			@endforeach
+																		</select>
+																		@error('std_class_id')
+																			<span class="text-danger">
+																				<strong>{{$message}}</strong>
+																			</span>
+																		@enderror
+																	</div>
+																	<div class="col-md-4 col-xs-6 col-sm-6 form-group">
+																		<label class="required"> Batch</label>
+																		<select class="form-control required" name="batch_id" required="required" id="batch_id">
+																			
+																		</select>
+																		@error('batch_id')
+																			<span class="text-danger">
+																				<strong>{{$message}}</strong>
+																			</span>
+																		@enderror
+																	</div>
+																	<div class="col-md-4 col-xs-6 col-sm-6 form-group">
+																		<label class="required">Section</label>
+																		<select class="form-control required" name="section_id" id="section_id" required="required">
+																			
+																		</select>
+																		@error('section_id')
+																			<span class="text-danger">
+																				<strong>{{$message}}</strong>
+																			</span>
+																		@enderror
+																	</div>
+																	<div class="col-md-4 col-xs-6 col-sm-6 form-group">
+																		<label class="required">Select Medium</label>
+																		<select class="form-control required" name="medium" id="medium" required="medium">
+																			<option value="">Select Medium</option>
+																			@foreach(MEDIUM as $key=> $value)
+																				<option value="{{$key}}" {{$key == (old('medium') ?? $student->medium) ? 'selected' : ''}} >{{$value}}</option>
+																			@endforeach
+																		</select>
+																		@error('medium')
+																			<span class="text-danger">
+																				<strong>{{$message}}</strong>
+																			</span>
+																		@enderror
+																	</div>
+																	<div class="col-md-4 col-xs-6 col-sm-6 form-group">
+																		<label class="required">Admision No</label>
+																		<input type="text" name="admision_no" class="form-control" value="{{ $student->admision_no ?? old('admision_no')}}" required="required" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="{{old('s_mobile')}}">
+																		@error('admision_no')
+																			<span class="text-danger">
+																				<strong>{{$message}}</strong>
+																			</span>
+																		@enderror
+																	</div>	
+																	<div class="col-md-4 col-xs-6 col-sm-6 form-group">
+																			<label class="required">Admission Date</label>
+																			<input type="text" name="addm_date" class="form-control datepicker required addm_date"  data-date-format="yyyy-mm-dd"  value="{{$student->addm_date ?? old('addm_date')}}" placeholder="{{date('Y-m-d')}}" required="required">
+																			@error('addm_date')
+																				<span class="text-danger">
+																					<strong>{{$message}}</strong>
+																				</span>
+																			@enderror
+																		</div>	
+																</div>
+								        	</div>
 
 												</div>
 												
-												<div class="row form-group">
+												<div class="row form-group">														
+													<div class="col-md-3 col-sm-6 form-group col-xs-6">
+														<label class="">Class Roll Number</label>
+														<input type="text" name="roll_no" value="{{$student->roll_no ?? old('roll_no')}}" class="form-control" >
+														@error('roll_no')
+															<span class="text-danger">
+																<strong>{{$message}}</strong>
+															</span>
+														@enderror
+													</div>
 													<div class="col-md-3 col-sm-6 form-group col-xs-6 has-success">
 														<label class="required">Student Status</label>
 														<select class="form-control required status" name="status" aria-invalid="false" required="required">
@@ -247,6 +259,10 @@
 															</span>
 														@enderror
 													</div>
+													<div class="col-md-4 col-xs-6 col-sm-6 form-group "><label>Cast Name</label>
+			        							<input type="text" name="cast" class="form-control" id="cast" value="{{old('cast') ?? $student->cast}}" >
+			        						</div>
+
 													<div class="col-md-4 col-sm-6 form-group col-xs-6">
 														<label>Religion</label>
 														<select class="form-control" name="religion_id">
@@ -361,7 +377,26 @@
 															</span>
 														@enderror
 													</div>
-												</div>
+													<div class="col-md-3 col-xs-6 col-sm-6 form-group ">
+														<label>Family Income</label>
+			        							<input type="text" name="family_income" class="form-control" id="family_income" value="{{old('family_income') ?? $student->family_income}}" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">
+			        						</div>
+
+					        				<div class="col-md-6 col-sm-6 form-group col-xs-6">
+														<label>Siblings {{-- <span class="text-muted">(If student have sibling please select number wise)</span> --}}</label>
+														<select name="siblings[]" class="form-control select2-multiple" multiple>
+														<option value="" >Select Siblings</option>
+															@foreach($students as $studentData)
+																<option value="{{$studentData->admision_no}}"  {{in_array($studentData->admision_no,$studentSiblings->toArray()) ? 'selected' : ''}} {{(collect(old('siblings'))->contains($studentData->admision_no) ? 'selected' : '')}}>{{$studentData->admision_no .' | '. student_name($studentData) }}</option>
+															@endforeach
+															 	
+														</select>														
+													</div>
+												
+												 </div>
+
+
+
 												{{-- <div class="row" style="background: #4f5775;color: #fff; padding: 10px;border-radius: 10px;margin: 20px;">
                            <div class="col-md-3 form-group">
                                 <label for="phone1">

@@ -41,6 +41,13 @@
                           </select>
                         
                         </div> 
+                        <div class="col-md-3 col-xs-6 col-sm-6 form-group">
+                            <select class="form-control required" name="medium" id="medium" required="medium">
+                              @foreach(MEDIUM as $key=> $value)
+                                <option value="{{$key}}" {{$key == 'EM' ? 'selected' : ''}}>{{$value}}</option>
+                              @endforeach
+                            </select>
+                          </div>    
                         <div class="col-md-3">
                           <select autocomplete="off" class="form-control" name="teacher_id" id="teacher_id"> 
                             <option value="">Select Teacher</option>
@@ -93,13 +100,14 @@
        var class_id = $('#std_class_id').val();
        var batch_id = $('#batch_id').val();
        var section_id = $('#section_id').val();
+       var medium = $('#medium').val();
 
-          if(teacher_id !=''&& class_id !=''&& batch_id !=''&& section_id !=''){
+          if(teacher_id !=''&& class_id !=''&& batch_id !=''&& section_id !='' && medium !=''){
             $.ajax({
               type:'POST',
 
               url: "{{route('get_subject_assign_to_teacher')}}",
-              data: {teacher_id:teacher_id,class_id:class_id,section_id:section_id,batch_id:batch_id, "_token": "{{ csrf_token() }}",},
+              data: {teacher_id:teacher_id,class_id:class_id,section_id:section_id,batch_id:batch_id,medium:medium, "_token": "{{ csrf_token() }}",},
               success:function(res){
 
                 $("#assigned_subject_id").empty();
@@ -125,12 +133,13 @@
        var batch_id = $('#batch_id').val();
        var section_id = $('#section_id').val();
        var teacher_id = $('#teacher_id').val();
-      if(teacher_id !=''&& class_id !=''&& batch_id !=''&& section_id !=''&& all_subject_id !=''){
+        var medium = $('#medium').val();
+      if(teacher_id !=''&& class_id !=''&& batch_id !=''&& section_id !=''&& all_subject_id !='' && medium !=''){
         $.ajax({
           type:'POST',
 
           url: "{{route('assign_subject_to_teacher')}}",
-          data: {teacher_id:teacher_id,all_subject_id: all_subject_id,batch_id: batch_id,class_id: class_id,section_id: section_id, "_token": "{{ csrf_token() }}",},
+          data: {teacher_id:teacher_id,all_subject_id: all_subject_id,batch_id: batch_id,class_id: class_id,section_id: section_id,medium:medium, "_token": "{{ csrf_token() }}",},
           success:function(res){
             $.notify("Subject Assigned Successfully",'success');
              location.reload();

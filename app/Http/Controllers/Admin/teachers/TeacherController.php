@@ -186,7 +186,8 @@ class TeacherController extends Controller
                 'batch_id'       => 'required',
                 'class_id'       => 'required',
                 'section_id'     => 'required',
-                'teacher_id'     => 'required'
+                'teacher_id'     => 'required',
+                'medium'        =>  'required'
         ]);
         $data['user_id']  = Auth::user()->id;
         $lastId = AssignSubjectToTeacher::create($data);
@@ -212,6 +213,7 @@ class TeacherController extends Controller
                         ->where('class_id',$request->class_id)
                         ->where('batch_id',$request->batch_id)
                         ->where('section_id',$request->section_id)
+                        ->where('medium',$request->medium)
                         ->where('teacher_id',$request->teacher_id)
                         ->get();
             $get_assign_subject = [];            

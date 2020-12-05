@@ -18,22 +18,33 @@
 		<div class="col-md-12 m-auto">
 			<div class="card">
 				<div class="card-header">
-					<div class="row">
+					<h5 class="card-title">Create Permission</h5>
+				</div>
+				<div class="card-body">
 						<form style="width:100%;" class="form-block" method="post" action="{{route('permissions.store')}}">
 							{{csrf_field()}}
-							<div class="form-group" style="margin-left: 20px;text-align: center;">	
-								<label  for="name">Permission Name</label>
-								<input style="max-width: 20%;position: relative;left: 425px;" class="form-control" type="text" name="name" >
-								@error('name')
-									<span class="invalid-feedback d-block" role="alert">
-									<strong>{{ $message }}</strong>
-									</span>
-								@enderror
-								<input  style="margin-top: 10px;" class="btn btn-primary" type="submit" name="submit" value="Submit">
-							</div>
+					<div class="row mb-5">
+						<div class="col-md-8">
+							<label  for="name">Permission Name</label>
+							<input class="form-control" type="text" name="name" >
+							@error('name')
+								<span class="invalid-feedback d-block" role="alert">
+								<strong>{{ $message }}</strong>
+								</span>
+							@enderror
+						</div>
+						<div class="col-md-2 pt-3">
+							<input class="btn btn-sm btn-primary mt-3" type="submit" name="submit" value="Submit">
+						</div>
+					</div>
 						</form>		
+					<div class="row">
+						@foreach($permissions as $permission)
+						<div class="col-md-3 form-group"><span class="btn btn-sm btn-info">{{$permission->name}}</span></div>
+						@endforeach
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>

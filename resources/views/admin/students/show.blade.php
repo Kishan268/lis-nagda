@@ -9,224 +9,228 @@
 
 <div class="container">
 
-  <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      @include('admin.students.header')
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          @include('admin.students.header')
+        </div>
     </div>
-  </div>
-  <div class="row mb-4">
-    <div class="col-md-12 col-sm-12 col-lg-12">
-       <div class="card">
-            <div class="card-header">
-              <h6 class="card-title">Show Student <a href="{{route('student_detail.index')}}" class="btn btn-sm btn-primary pull-right"> Back</a></h6>
-              </div>
-              <div class="card-body">
-                <div class="row ">
-                  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-4">
-              <div class="tabs">
-                <ul class="nav nav-tabs tab-links">
-                  <li class="nav-item active">
-                      <a class="nav-link active" href="#basic_details">Basic Details</a>
-                  </li>
-                  <li class="nav-item"> 
-                      <a class="nav-link" href="#academic_dtl" >Academic Details</a>
-                  </li>
-                  <li class="nav-item"> 
-                      <a class="nav-link" href="#guardian_info" >Guardian Info</a>
-                  </li>
-                  <li class="nav-item"> 
-                      <a class="nav-link" href="#student_address" >Student Address</a>
-                  </li>
-                  <li class="nav-item"> 
-                      <a class="nav-link" href="#bank_details">Bank Details</a>
-                  </li>
-                  <li class="nav-item"> 
-                      <a class="nav-link" href="#student_document" >Student Document</a>
-                  </li>
-                </ul>
+    <div class="row mb-4">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="card-title">Show Student <a href="{{route('student_detail.index')}}" class="btn btn-sm btn-primary pull-right"> Back</a></h6>
+                </div>
+                <div class="card-body">
+                    <div class="row ">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-4">
+                            <div class="tabs">
+                                <ul class="nav nav-tabs tab-links">
+                                    <li class="nav-item active">
+                                      <a class="nav-link active" href="#basic_details">Basic Details</a>
+                                    </li>
+                                    <li class="nav-item"> 
+                                      <a class="nav-link" href="#academic_dtl" >Academic Details</a>
+                                    </li>
+                                    <li class="nav-item"> 
+                                      <a class="nav-link" href="#guardian_info" >Guardian Info</a>
+                                    </li>
+                                    <li class="nav-item"> 
+                                      <a class="nav-link" href="#student_address" >Student Address</a>
+                                    </li>
+                                    <li class="nav-item"> 
+                                      <a class="nav-link" href="#bank_details">Bank Details</a>
+                                    </li>
+                                    <li class="nav-item"> 
+                                      <a class="nav-link" href="#student_document" >Student Document</a>
+                                    </li>
+                                </ul>
                     
-                  <div class="tab-content mt-4 p-2" style="font-size: 15px !important; background-color: whitesmoke !important;" >
-                    <div class="tab-pane tab  active" id="basic_details" >
-                      <section>
-                         <h3 class="mb-3">Basic Details</h3>
-                         <hr>
-                        <div class="row form-group">
-                          <div class="col-md-2">
-                            <label class="">Student Photo</label>
-                            <img src="{{asset($student->photo !=null ? 'storage/'.$student->photo : 'img/student_demo.png')}}" style="width: 100px; height: 100px;">
-                          </div>
-                            <div class="col-md-10">
-                                 <div class="row form-group">
-                                    <div class="col-md-4 col-xs-6 col-sm-6 form-group">
-                                      <label for="std_class" class="required">Class</label>
-                                        <input type="text" readonly  name="" readonly="" value="{{$student->student_class->class_name}}" class="form-control">
-                                    
-                                    </div>
-                                    <div class="col-md-4 col-xs-6 col-sm-6 form-group">
-                                      <label class="required"> Batch</label>
-                                       <input type="text" readonly  name="" readonly="" value="{{$student->student_batch->batch_name}}" class="form-control">
-                                     
-                                    </div>
-                                    <div class="col-md-4 col-xs-6 col-sm-6 form-group">
-                                      <label class="required">Section</label>
-                                       <input type="text" readonly  name="" readonly="" value="{{$student->student_section->section_name}}" class="form-control">
-                                     
-                                    </div>
-                                    <div class="col-md-4 col-xs-6 col-sm-6 form-group">
-                                      <label class="required">Admision No</label>
-                                      <input type="text" readonly name="admision_no" class="form-control" value="{{$student->admision_no}}" >
-                                      
-                                    </div>  
-                                    <div class="col-md-4 col-xs-6 col-sm-6 form-group">
-                                      <label class="required">Admission Date</label>
-                                      <input type="text" readonly name="addm_date" class="form-control  required addm_date"  data-date-format="yyyy-mm-dd"  value="{{$student->addm_date}}" >
-                                      
-                                    </div>
-                                      
-                                    <div class="col-md-4 col-sm-6 form-group col-xs-6">
-                                      <label class="">Class Roll Number</label>
-                                      <input type="text" readonly name="roll_no" value="{{$student->roll_no}}"class="form-control" >
-                                      
-                                    </div>                    
-                                  </div>
-                                </div>
-                              </div>
-                                  <div class="row form-group">
-                                    
-                                      
-                                    <div class="col-md-3 col-sm-6 form-group col-xs-6 has-success">
-                                      <label class="required">Student Status</label>
-                                     <input type="text" readonly name="roll_no" value="{{Arr::get(STUDENTSTATUS,$student->status)}}"class="form-control" >
-                                    </div>
-                                                          
-                                    <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                                      <label class="required">First Name</label>
-                                      <input type="text" readonly name="f_name" id="f_name" value="{{$student->f_name}}" class="form-control" required="required">
-                                      
-                                    </div>                
-                                    <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                                      <label>Middle Name</label>
-                                      <input type="text" readonly name="m_name" id="m_name" value="{{$student->m_name}}" class="form-control">
-                                      
-                                    </div>                  
-                                    <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                                      <label class="required">Last Name</label>
-                                      <input type="text" readonly name="l_name" id="l_name" value="{{$student->l_name}}" class="form-control required" required="required">
-                                      
-                                    </div>
-                                  
-                                    <div class="col-md-3 col-sm-6 form-group col-xs-6 passout_date" style="display: none;">
-                                      <label class="required">Passout Date</label>
-                                      <input type="text"  name="passout_date" class="form-control" readonly="true" data-date-format="yyyy-mm-dd" value="{{date('d-m-Y',strtotime($student->passout_date))}}"  >
-                                    </div>
+                            <div class="tab-content mt-4 p-2" style="font-size: 15px !important; background-color: whitesmoke !important;" >
+                                <div class="tab-pane tab  active" id="basic_details" >
+                                    <section>
+                                        <h3 class="mb-3">Basic Details</h3>
+                                        <hr>
+                                        <div class="row form-group">
+                                            <div class="col-md-2">
+                                                <label class="">Student Photo</label>
+                                                <img src="{{asset($student->photo !=null ? 'storage/'.$student->photo : 'img/student_demo.png')}}" style="width: 100px; height: 100px;">
+                                            </div>
+                                            <div class="col-md-10">
+                                                <div class="row form-group">
+                                                    <div class="col-md-4 col-xs-6 col-sm-6 form-group">
+                                                        <label for="std_class" class="required">Class</label>
+                                                        <input type="text" readonly  name="" readonly="" value="{{$student->student_class->class_name}}" class="form-control">
+                                                    </div>
+                                                    <div class="col-md-4 col-xs-6 col-sm-6 form-group">
+                                                        <label class="required"> Batch</label>
+                                                        <input type="text" readonly  name="" readonly="" value="{{$student->student_batch->batch_name}}" class="form-control">
+                                                    </div>
+                                                    <div class="col-md-4 col-xs-6 col-sm-6 form-group">
+                                                        <label class="required">Section</label>
+                                                        <input type="text" readonly  name="" readonly="" value="{{$student->student_section->section_name}}" class="form-control">
+                                                    </div>
+                                                    <div class="col-md-4 col-xs-6 col-sm-6 form-group">
+                                                        <label class="required">Select Medium</label>
+                                                        <input type="text" readonly="" name="" value="{{$student->medium !=null ? Arr::get(MEDIUM,$student->medium) : ''}} " class="form-control">           
+                                                    </div>
 
-                                    <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                                      <label class="required">Mobile Number</label>
-                                      <input type="text" readonly name="s_mobile" class="form-control required"  value="{{$student->s_mobile}}" required="required"> 
-                                     
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                                      <label class="required">Date of Birth</label>
-                                      <input type="text"  name="dob" class="form-control" data-date-format="yyyy-mm-dd" value="{{date('d-m-Y', strtotime($student->dob))}}" readonly>
-                                     
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                                      <label class="">Birth Place</label>
-                                      <input type="text" readonly name="birth_place" class="form-control birth_place required" placeholder="" id="birth_place" value="{{$student->birth_place}}">
-                                      
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                                      <label>Email Address</label>
-                                      <input type="text" readonly name="email" class="form-control required" value="{{$student->email}}"> 
-                                      
-                                     
-                                    </div>
-                                  </div>  
-                                               
-                       
-                        <div class="row form-group">
-                          <div class="col-md-4 col-sm-6 form-group col-xs-6">
-                            <label class="required">Gender</label>
-                            <input type="text" readonly="" name="" value="{{Arr::get(GENDER,$student->gender)}}" class="form-control">
-                          </div>
-                          <div class="col-md-4 col-sm-6 form-group col-xs-6">
-                            <label class="required">Cast Category</label>
-                             <input type="" name="" value="{{Arr::get(CASTCATEGORY,$student->reservation_class_id)}}" class="form-control" readonly>
-                          </div>
-                          <div class="col-md-4 col-sm-6 form-group col-xs-6">
-                            <label>Religion</label>
-                            <input type="text" readonly="" name="" value="{{$student->religion_id !=null ? Arr::get(RELIGION,$student->religion_id) : ''}} " class="form-control">
-                          </div>
-                        </div>  
-                        <div class="row form-group">
-                          <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                            <label>Blood Group</label>
-                            <input type="" name="" value="{{$student->blood_id !=null ? Arr::get(BLOODGROUP,$student->blood_id) : ''}}" class="form-control" readonly>
-                          </div>
-                          <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                            <label>Specific Ailment</label>
-                            <input type="text" readonly name="spec_ailment" class="form-control" placeholder="Mole on nose. etc" value="{{$student->spec_ailment}}">
-                           
-                          </div>
-                          <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                            <label>Age</label>
-                            <input type="text" readonly  value="{{$student->age}}" name="age" class="form-control age">
-                           
-                          </div>
-                          <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                            <label>Nationality</label>
-                            <input type="text" readonly  name="" readonly="" value="{{$student->stdNationality !=null ? $student->stdNationality->nationality_name : ''}}" class="form-control">
-                           
-                          </div>
-                        </div>
-                        <div class="row form-group" >
-                          <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                            <label>Taluka(Tehsil)</label>
-                            <input type="text" readonly name="taluka" value="{{$student->taluka}}" class="form-control">
-                           
-                          </div>
-                          <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                            <label>Mother tongue</label>
-                            
-                              <input type="" name="" class="form-control" value="{{$student->mothetongueMast !=null ? $student->mothetongueMast->mothetongue_name : ''}}" readonly>
-                         
-                          </div>
-                          <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                            <label>Student SSMID</label>
-                            <input type="text" name="s_ssmid" class="form-control"  value="{{$student->s_ssmid}}" readonly>
-                          </div>
-                          <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                            <label>Family SSMID</label>
-                              <input type="text" name="f_ssmid" class="form-control" value="{{$student->f_ssmid}}" readonly="">
-                            
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                            <label>Aadhar Card Number</label>
-                           <input type="text" name="aadhar_card" class="form-control" value="{{$student->aadhar_card}}" readonly="">
-                          </div>
-                        </div>
-               
-                        <div class="row form-group">
-                          <div class="col-md-3">
-                            <label for="rte" class="required"> Teacher Ward </label>
-                             <input type="" name="" class="form-control" value="{{$student->teacher_ward == '1' ? 'Yes' :'No'}}" readonly="">
-                          </div>
-                          <div class="col-md-3">
-                            <label for="rte"> CBSE  Registration no </label>
-                            <input class="form-control" id="CBSC_reg" name="cbsc_reg" type="text" value="{{$student->cbsc_reg}}" readonly="">
-                                
-                          </div>                                      
-                        </div>
-                          </section>
-                      <ul class="tab-links nav nav-tabs pull-right mt-3">
-                        <li class="nav-item">
-                          <a href="#next_tab2" class="nav-link btn btn-sm bg-success text-white nextButton">Next</a>
-                        </li>
-                      </ul>
+                                                    <div class="col-md-4 col-xs-6 col-sm-6 form-group">
+                                                        <label class="required">Admision No</label>
+                                                        <input type="text" readonly name="admision_no" class="form-control" value="{{$student->admision_no}}" >
 
-                          </div>
+                                                    </div>  
+                                                    <div class="col-md-4 col-xs-6 col-sm-6 form-group">
+                                                        <label class="required">Admission Date</label>
+                                                        <input type="text" readonly name="addm_date" class="form-control  required addm_date"  data-date-format="yyyy-mm-dd"  value="{{$student->addm_date}}" >
+
+                                                    </div>                                                  
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">                                         
+                                            <div class="col-md-4 col-sm-6 form-group col-xs-6">
+                                                <label class="">Class Roll Number</label>
+                                                <input type="text" readonly name="roll_no" value="{{$student->roll_no}}"class="form-control" >
+                                            </div>   
+                                      
+                                            <div class="col-md-4 col-sm-6 form-group col-xs-6 has-success">
+                                                <label class="required">Student Status</label>
+                                                <input type="text" readonly name="roll_no" value="{{Arr::get(STUDENTSTATUS,$student->status)}}"class="form-control" >
+                                            </div>
+
+                                            <div class="col-md-4 col-sm-6 form-group col-xs-6">
+                                                <label class="required">First Name</label>
+                                                <input type="text" readonly name="f_name" id="f_name" value="{{$student->f_name}}" class="form-control" required="required">
+
+                                            </div>                
+                                            <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                                <label>Middle Name</label>
+                                                <input type="text" readonly name="m_name" id="m_name" value="{{$student->m_name}}" class="form-control">
+
+                                            </div>                  
+                                            <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                                <label class="required">Last Name</label>
+                                                <input type="text" readonly name="l_name" id="l_name" value="{{$student->l_name}}" class="form-control required" required="required">
+
+                                            </div>
+
+                                            <div class="col-md-3 col-sm-6 form-group col-xs-6 passout_date" style="display: none;">
+                                                <label class="required">Passout Date</label>
+                                                <input type="text"  name="passout_date" class="form-control" readonly="true" data-date-format="yyyy-mm-dd" value="{{date('d-m-Y',strtotime($student->passout_date))}}"  >
+                                            </div>
+
+                                            <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                                <label class="required">Mobile Number</label>
+                                                <input type="text" readonly name="s_mobile" class="form-control required"  value="{{$student->s_mobile}}" required="required"> 
+
+                                            </div>
+                                            <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                                <label class="required">Date of Birth</label>
+                                                <input type="text"  name="dob" class="form-control" data-date-format="yyyy-mm-dd" value="{{date('d-m-Y', strtotime($student->dob))}}" readonly>
+
+                                            </div>
+                                            <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                                <label class="">Birth Place</label>
+                                                <input type="text" readonly name="birth_place" class="form-control birth_place required" placeholder="" id="birth_place" value="{{$student->birth_place}}">
+
+                                            </div>
+                                            <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                                <label>Email Address</label>
+                                                <input type="text" readonly name="email" class="form-control required" value="{{$student->email}}">
+                                            </div>
+                                        </div>  
+                                        <div class="row form-group">
+                                            <div class="col-md-4 col-sm-6 form-group col-xs-6">
+                                            <label class="required">Gender</label>
+                                            <input type="text" readonly="" name="" value="{{Arr::get(GENDER,$student->gender)}}" class="form-control">
+                                            </div>
+                                            <div class="col-md-4 col-sm-6 form-group col-xs-6">
+                                            <label class="required">Cast Category</label>
+                                            <input type="" name="" value="{{Arr::get(CASTCATEGORY,$student->reservation_class_id)}}" class="form-control" readonly>
+                                            </div>
+                                            <div class="col-md-4 col-sm-6 form-group col-xs-6">
+                                            <label>Religion</label>
+                                            <input type="text" readonly="" name="" value="{{$student->religion_id !=null ? Arr::get(RELIGION,$student->religion_id) : ''}} " class="form-control">
+                                            </div>
+                                        </div>  
+                                        <div class="row form-group">
+                                            <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                            <label>Blood Group</label>
+                                            <input type="" name="" value="{{$student->blood_id !=null ? Arr::get(BLOODGROUP,$student->blood_id) : ''}}" class="form-control" readonly>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                            <label>Specific Ailment</label>
+                                            <input type="text" readonly name="spec_ailment" class="form-control" placeholder="Mole on nose. etc" value="{{$student->spec_ailment}}">
+
+                                            </div>
+                                            <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                            <label>Age</label>
+                                            <input type="text" readonly  value="{{$student->age}}" name="age" class="form-control age">
+
+                                            </div>
+                                            <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                            <label>Nationality</label>
+                                            <input type="text" readonly  name="" readonly="" value="{{$student->stdNationality !=null ? $student->stdNationality->nationality_name : ''}}" class="form-control">
+
+                                            </div>
+                                        </div>
+                                        <div class="row form-group" >
+                                            <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                            <label>Taluka(Tehsil)</label>
+                                            <input type="text" readonly name="taluka" value="{{$student->taluka}}" class="form-control">
+
+                                            </div>
+                                            <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                            <label>Mother tongue</label>
+
+                                            <input type="" name="" class="form-control" value="{{$student->mothetongueMast !=null ? $student->mothetongueMast->mothetongue_name : ''}}" readonly>
+
+                                            </div>
+                                            <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                            <label>Student SSMID</label>
+                                            <input type="text" name="s_ssmid" class="form-control"  value="{{$student->s_ssmid}}" readonly>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                            <label>Family SSMID</label>
+                                            <input type="text" name="f_ssmid" class="form-control" value="{{$student->f_ssmid}}" readonly="">
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-3 col-sm-6 form-group col-xs-6">
+                                            <label>Aadhar Card Number</label>
+                                            <input type="text" name="aadhar_card" class="form-control" value="{{$student->aadhar_card}}" readonly="">
+                                            </div>
+
+                                            <div class="col-md-3 col-xs-6 col-sm-6 form-group ">
+                                            <label>Family Income</label>
+                                            <input type="text" name="family_income" class="form-control" id="family_income" value="{{$student->family_income}}" readonly="readonly">
+                                            </div>
+
+                                            <div class="col-md-6 col-sm-6 form-group col-xs-6">
+                                            <label>Siblings </label>
+                                            <textarea name="siblings" class="form-control" id="siblings" readonly="readonly">{{$sibling_name}}</textarea>
+
+                                            </div>
+                                        </div>               
+                                        <div class="row form-group">
+                                            <div class="col-md-3">
+                                            <label for="rte" class="required"> Teacher Ward </label>
+                                            <input type="" name="" class="form-control" value="{{$student->teacher_ward == '1' ? 'Yes' :'No'}}" readonly="">
+                                            </div>
+                                            <div class="col-md-3">
+                                            <label for="rte"> CBSE  Registration no </label>
+                                            <input class="form-control" id="CBSC_reg" name="cbsc_reg" type="text" value="{{$student->cbsc_reg}}" readonly="">
+                                            </div>                                      
+                                        </div>
+                                      </section>
+                                  <ul class="tab-links nav nav-tabs pull-right mt-3">
+                                    <li class="nav-item">
+                                      <a href="#next_tab2" class="nav-link btn btn-sm bg-success text-white nextButton">Next</a>
+                                    </li>
+                                  </ul>
+
+                        </div>
                         <div class="tab-pane tab" id="academic_dtl">
                         <h3 class="mb-3">Academic Details</h3>
                         <hr>

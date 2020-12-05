@@ -1,146 +1,75 @@
- @extends('layouts.main')
- @section('content')
+@extends('layouts.main')
+@section('content')
 
-
-	<div class="row mt-2">
-    <div class="col-lg-12">
-
-      <!-- Default Card Example -->
-      <div class="card mb-4">
-        <div class="card-header">
-          <div class="panel-heading">
-				<h4 class="panel-title">Add Image  <a href="{{ URL::previous() }}" class="btn btn-info pull-right">Back</a></h4>
-			</div>
-        </div>
-        <div class="card-body">
-         	<div class="col-md-12">
-		<div class="panel panel-default">
-			<div class="">
-			     @if($message = Session::get('success'))   
-			      	<div class="alert alert-success">{{ $message }}</div>
-			     @endif
-			  </div>	
-			<div class="panel-body">
-				<br>
-				<div class="row">
-					<div class="col-md-12 table-responsive" id="tableFilter">
-						<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
-							<div class="card-body">
-					         	<div class="col-md-12">
-									<div class="panel panel-default">
-										<div class="panel-body">
-											<div class="row">
-											<form class="form-horizontal" enctype="multipart/form-data" method="post" action="{{route('gallery_image_upload')}}">
-											@csrf
-										     <div class="fileupload fileupload-new" data-provides="fileupload">
-					                        <div>
-					                          <div class="fileupload-new">
-					                            <!-- <input name="file[]" type="file" id="file"/> -->
-					                          </div>
-					                          <br>
-					                         
-					                          <div id="filediv" style="display: block;">
-					                          	<input name="gallery_image_file[]" type="file" id="gallery_image_file" multiple><br><br>
-					                          	<input type="hidden" name="folder_id" value="{{$galleryFolder->id}}">
-					                          	<input type="hidden" name="folder_name" value="{{$galleryFolder->folder_name}}">
-					                          </div>
-					                         {{--  <input type="button" id="add_more" class="btn btn-info" value="Add "> --}}
-					                          <!--  <span class="fileupload-exists">Change</span> -->
-					                          <input type="submit" value="Upload " id="upload" name="submit" class="btn btn-primary" style="padding-left:32px; padding-right:25px;">
-					                          <br>
-					                          <br>@error('gallery_image_file')
-					                              <span class="text-danger">
-					                                <strong>{{$message}}</strong>
-					                              </span>
-					                            @enderror
-					                        </div>
-					                      </div>
-					                    </form>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-					</div>
-				</div> 
-			
+<div class="container">
+	<div class="row mb-5">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<h5 class="card-title">
+						Upload Multiple Image
+						<a href="{{route('gallery_image_video_add',$galleryFolder->id)}}" class="btn btn-sm btn-primary pull-right">Back</a>
+					</h5>
 				</div>
+				<div class="card-body">
+					<div class="row">
+						<form class="form-horizontal" enctype="multipart/form-data" method="post" action="{{route('gallery_image_upload')}}">
+						@csrf
+							<div class="col-md-12 form-group">							   
+			                    <input name="gallery_image_file[]" type="file" id="gallery_image_file" multiple>
+
+			                    @error('gallery_image_file')
+	                              <span class="text-danger">
+	                                <strong>{{$message}}</strong>
+	                              </span>
+	                            @enderror
+			                   
+			                </div>
+			                   
+			                <div class="col-md-12 form-group">
+			                	 <input type="hidden" name="folder_id" value="{{$galleryFolder->id}}">
+			                    <input type="hidden" name="folder_name" value="{{$galleryFolder->folder_name}}">
+			                	<input type="submit" value="Upload " id="upload" name="submit" class="btn btn-primary">
+			                </div>		                     
+		               	</form>
+					</div>
 				</div>
 			</div>
 		</div>
-
 	</div>
-</div>
-<div class="row mt-2">
-    <div class="col-lg-12">
-      <!-- Default Card Example -->
-      <div class="card mb-4">
-        <div class="card-header">
-          <div class="panel-heading">
-				<h4 class="panel-title"> Upload Image Zip File  </h4>
-			</div>
-        </div>
-        <div class="card-body">
-         	<div class="col-md-12">
-		<div class="panel panel-default">
-			
-			<div class="panel-body">	
-				<br>
-			<div class="row">
-					<div class="col-md-12 table-responsive" id="tableFilter">
-						<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
-							<div class="card-body">
-					         	<div class="col-md-12">
-									<div class="panel panel-default">
-										<div class="panel-body">
-											<div class="row">
-											<form class="form-horizontal" enctype="multipart/form-data" method="post" action="{{route('gallery_zip_upload')}}">
-											@csrf
-										     <div class="fileupload fileupload-new" data-provides="fileupload">
-					                        <div>
-					                          <div class="fileupload-new">
-					                            <!-- <input name="file[]" type="file" id="file"/> -->
-					                          </div>
-					                          <br>
-					                         
-					                          <div id="filediv" style="display: block;">
-					                          	<input name="gallery_image" type="file" id="gallery_image" ><br><br>
-					                          	<input type="hidden" name="folder_id" value="{{$galleryFolder->id}}">
-					                          	<input type="hidden" name="folder_name" value="{{$galleryFolder->folder_name}}">
-
-					                            @error('gallery_image')
-					                              <span class="text-danger">
-					                                <strong>{{$message}}</strong>
-					                              </span>
-					                            @enderror
-					                          </div>
-					                          
-					                          <!--  <span class="fileupload-exists">Change</span> -->
-					                          <input type="submit" value="Upload " id="upload" name="submit" class="btn btn-primary" style="padding-left:32px; padding-right:25px;">
-					                          <br>
-					                          <br>
-					                          <div style="color:red;">
-					                              
-					                          </div>
-					                        </div>
-					                      </div>
-					                    </form>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-					</div>
-				</div> 
-			
+	<div class="row mb-4">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<h5 class="card-title">Upload Image Zip File</h5>
 				</div>
-		</div>
+				<div class="card-body">
+					<div class="row">
+						<form class="form-horizontal" enctype="multipart/form-data" method="post" action="{{route('gallery_zip_upload')}}">
+						@csrf
+							<div class="col-md-12 form-group">							   
+			                   <input name="gallery_image" type="file" id="gallery_image" >
 
+			                    @error('gallery_image')
+	                              <span class="text-danger">
+	                                <strong>{{$message}}</strong>
+	                              </span>
+	                            @enderror
+			                   
+			                </div>
+			                   
+			                <div class="col-md-12 form-group">
+			                	<input type="hidden" name="folder_id" value="{{$galleryFolder->id}}">
+						        <input type="hidden" name="folder_name" value="{{$galleryFolder->folder_name}}">
+
+			                    <input type="submit" value="Upload " id="upload" name="submit" class="btn btn-primary">
+			                </div>		                     
+		               	</form>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
-    </div>
- </div>
-    </div>
- </div>
 
- @endsection
+@endsection

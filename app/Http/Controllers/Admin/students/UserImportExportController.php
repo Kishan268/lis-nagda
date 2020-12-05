@@ -24,7 +24,7 @@ use App\Models\master\cityMast;
 use App\Models\master\mothetongueMast;
 use Illuminate\Support\Facades\Hash;
 use App\Models\student\studentsGuardiantMast;
-use App\Models\student\studentSiblings;
+use App\Models\student\StudentSiblings;
 
 class UserImportExportController extends Controller
 {
@@ -380,7 +380,7 @@ class UserImportExportController extends Controller
                             'status'  => 1,
                             
                         ];
-                        studentSiblings::create($siblings);
+                        StudentSiblings::create($siblings);
                     }
 
                     if ($father_name) {
@@ -406,7 +406,7 @@ class UserImportExportController extends Controller
                         'mobile_no'  => $mobile_number ? $mobile_number :'',
                         ];
                         $createUser = User::create($studentData2);
-
+                         $user->attachRole('3');
 
         // send user name and password using email and SMS..................
                         if ( $createUser) {

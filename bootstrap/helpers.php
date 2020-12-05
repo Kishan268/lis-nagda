@@ -12,6 +12,10 @@ const GENDER = [
     2 => 'Female',
     3 => 'Other'
 ];
+const MEDIUM = [
+    'EM' => 'English Medium',
+    'HM' => 'Hindi Medium'
+];
 
 const BLOODGROUP = [
 	'1'	=> 'A+',
@@ -85,7 +89,7 @@ if(!function_exists('student_gender')){
 
 if(!function_exists('batches')){
 	function batches(){
-		return studentBatch::select('id','batch_name')->get();
+		return studentBatch::select('id','batch_name')->orderBy('batch_name','desc')->get();
 	}
 }
 
@@ -112,11 +116,7 @@ if (!function_exists('file_upload')) {
         return $path;
     }
 }
-const STUDENTSTATUS = [
-	'R' => 'Running',
-	'P' => 'Pass',
-	'F' => 'Fail' 
-];
+
 
 const CERTIFICATE = [
 	'1' => 'Transfer Certificate',

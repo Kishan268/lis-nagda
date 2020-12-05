@@ -55,6 +55,14 @@
 		                                <strong>{{ $message }}</strong>
 		                            </span>
 		                        @enderror
+							</div>	
+							<div class="col-md-3 col-xs-6 col-sm-6 form-group">
+								<label>Select Medium</label>
+								<select class="form-control required" name="medium" id="medium" required="medium">
+									@foreach(MEDIUM as $key=> $value)
+										<option value="{{$key}}" {{$key == 'EM' ? 'selected' : ''}}>{{$value}}</option>
+									@endforeach
+								</select>
 							</div>				
 						</div>
 						<div class="row">

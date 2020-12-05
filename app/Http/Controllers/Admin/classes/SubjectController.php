@@ -139,7 +139,7 @@ class SubjectController extends Controller
             'std_class_id' =>'required',
             'batch_id'     =>'required',
             'section_id'   =>'required',
-            
+            'medium'       =>'required',            
         ]);
         $request->validate([
             'mendatory_subject_id' =>'required|array'
@@ -148,7 +148,7 @@ class SubjectController extends Controller
         $data['user_id']= Auth()->user()->id;
 
         // return $request->all();
-        $old = AssignSubjectToClass::where(['std_class_id' => $request->std_class_id , 'batch_id' => $request->batch_id, 'section_id' => $request->section_id])->first();
+        $old = AssignSubjectToClass::where(['std_class_id' => $request->std_class_id , 'batch_id' => $request->batch_id, 'section_id' => $request->section_id,'medium' => $request->medium])->first();
 
 
         if(empty($old)){

@@ -2,32 +2,20 @@
  @section('content')
 
 <div class="container">
-   <div class="col-lg-12">
-    @include('admin.notice-circular.header')
-
-    </div>
-</div>
-
-<div class="container">
-    <div class="row mt-2">
-    <div class="col-lg-12">
-      <div class="container">
-          <div class="app-title">
-           @if($message = Session::get('success'))
-                  
-            <div class="alert alert-success">
-              {{ $message }}
-            </div>
-                @endif
-          </div>
+    <div class="app-title">
+     @if($message = Session::get('success'))
+            
+      <div class="alert alert-success">
+        {{ $message }}
       </div>
-
+          @endif
+    </div>
       <div class="row mt-2">
           <div class="col-lg-12">
             <div class="card mb-4">
               <div class="card-header">
                 <div class="panel-heading">
-                      <h4 class="panel-title">Notice & Circular</h4>
+                      <h4 class="panel-title">Notice & Circular <a href="{{ URL::previous() }}" class="btn btn-sm btn-primary pull-right "> Back</a></h4>
                   </div>
               </div>
               <div class="card-body">
@@ -54,12 +42,9 @@
                     <div class="input-icon datetime-pick date-only">
                       <div class="">
                             <input class="form-control" type="text" value="{{$getAllSendData->date_from_display}}" name="date_from_display" readonly="">
-                           
                         </div>
-                      
                     </div>
                 </div>
-
                 <div class="col-md-4">
                     <label class="red">*</label>
                     <label for="diaplaydate">Date to be To displayed</label>
@@ -72,21 +57,16 @@
                   <div class="col-md-12">
                     <label for="circulardescription">Description</label>
                      <input class="form-control" type="text" value="{{$getAllSendData->circular_description}}" name="circular_description">
-                    
                 </div>
-
                 <div class="col-md-4 mt-2">
                      <input class="btn btn-primary" type="submit" value="Update">
                 </div>
-               
             </form>
             </div>
-           
-          </strong>
+          </div>
+        </div>
       </div>
-</div>
-</div>
-</div>
+    </div>
 </div>
 <style >
     .mr{

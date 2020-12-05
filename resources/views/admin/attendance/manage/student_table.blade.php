@@ -11,21 +11,21 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach($attendance_students as $attendance_student)
+		@foreach($attendances as $attendance)
 			<tr>
 				<td>
-					<input type="checkbox" name="s_id[]"  class="check" value="{{$attendance_student->s_id}}" 
-						{{$attendance_student->present == 'P' ? 'checked="checked"' : '' }}
+					<input type="checkbox" name="s_id[]"  class="check" value="{{$attendance->student->id}}" 
+						{{$attendance->present == 'P' ? 'checked="checked"' : '' }}
 
 					>
 					{{-- <button class="btn btn-sm btn-success">P</i></button>	
 					<button class="btn btn-sm btn-danger">A</i></button>	 --}}
 				</td>
-				<td>{{$attendance_student->f_name .' '. $attendance_student->l_name }}</td>
-				<td>{{$attendance_student->roll_no}}</td>
-				<td>{{$attendance_student->attendance_date}}</td>
+				<td>{{student_name($attendance->student)}}</td>
+				<td>{{$attendance->student->roll_no}}</td>
+				<td>{{$attendance->student->attendance_date}}</td>
 				<td>
-					{{$attendance_student->present}}
+					{{$attendance->present}}
 				</td>
 			</tr>
 		@endforeach

@@ -11,5 +11,8 @@ class ClassBatchId extends Model
 
     public function get_classes(){
   		return $this->belongsTo('App\Models\master\studentClass','classes_id','id');
+   	} 
+   	public function get_users(){
+  		return $this->belongsTo('App\Models\students\studentsMast','classes_id','id');
    	}
 }

@@ -12,7 +12,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">Assign Section
-                        <a href="{{route('subject_assign')}}" class="btn btn-sm btn-primary pull-right">Back</a>
+                        <a href="{{route('section')}}" class="btn btn-sm btn-primary pull-right">Back</a>
                     </h5>
                 </div>
                 <div class="card-body">
@@ -58,6 +58,7 @@
                                 </span>
                             @enderror
                         </div>
+                        
                         <div class="col-md-3 col-lg-3 col-sm-12 form-group">
                             <button class="btn btn-sm btn-primary mt-2" id="btnFilter">Show Selected List</button>
                         </div>

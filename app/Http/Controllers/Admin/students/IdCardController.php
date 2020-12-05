@@ -21,23 +21,15 @@ class IdCardController extends Controller
     }
     public function getIdCard(Request $request){
 
-    	$student = studentsMast::where('roll_no',$request->roll_no)->first();
-        // return ;
-    	// $getData = studentsMast::with('studentsGuardiantMast','stdBloodGroup','p_country','p_state','p_city')->first();
+    	$student = studentsMast::with('student_class','student_batch')->where('admision_no',$request->admision_no)->first();
 
-    	// $guardiantData  = array();
-    	// $guardiantId  = array();
-    	// // dd($getData	);
-    	// foreach ($getData->studentsGuardiantMast as $value) {
-    	// 	$guardiantData[] = $value->guardiant_relation;
-    	// }
-    	// foreach ($guardiantData as $value2) {
-    	// 	$guardiantId[] = $value2->id;
-    	// }
+        if(!empty($student)){
+    	   return view('admin.students.ID-card.format.id_card',compact('student'));
 
-    	// $studentsGuardiant = studentsGuardiantMast::with('guardiant_relation')->whereIn('relation_id',$guardiantId)->get();
+        }else{
+            return "error";
+        }
 
-    	return view('admin.students.ID-card.id-card-template',compact('student'));
     }
 
     public function pdfview(Request $request)
@@ -60,5 +52,8 @@ class IdCardController extends Controller
      	return $pdf->download('id-card.pdf');
       
 
+    }
+    public function id_card_format(){
+        return view('admin.students.ID-card.format.index');
     }
 }

@@ -14,7 +14,7 @@ use App\Models\master\studentSectionMast;
 use App\Models\StudentAttendance;
 use App\Models\StaffAttendance;
 use App\Helpers\Helpers;
-
+use Arr;
 
 class AttendanceController extends Controller
 {
@@ -32,10 +32,10 @@ class AttendanceController extends Controller
 
     public function studentFetch(Request $request){
 
-        $students = studentsMast::select('id','f_name','l_name','roll_no','std_class_id','batch_id','section_id')
-        						->where('batch_id',$request->batch_id)
+        $students = studentsMast::select('id','f_name','l_name','roll_no','std_class_id','batch_id','section_id')->where('batch_id',$request->batch_id)
                                 ->where('std_class_id',$request->std_class_id)
                                 ->where('section_id',$request->section_id)
+                                ->where('medium',$request->medium)
                                 ->where('user_id',Auth::user()->id)
                                 ->get();
 
@@ -94,13 +94,13 @@ class AttendanceController extends Controller
                 //     ];
                 //     $user->notify(new attendanceNotifications($message));
                 // }
-                $message = [
-                        'id' => '',
-                        'title' => 'attendance Submit',
-                        'url' => 'attendance/dashboard',
-                        'message' => 'Students attendance submitted' 
-                    ];
-                $user->notify(new attendanceNotifications($message));
+                // $message = [
+                //         'id' => '',
+                //         'title' => 'attendance Submit',
+                //         'url' => 'attendance/dashboard',
+                //         'message' => 'Students attendance submitted' 
+                //     ];
+                // $user->notify(new attendanceNotifications($message));
                 return 'success';
             }else{
                 return "warning";
@@ -175,14 +175,14 @@ class AttendanceController extends Controller
                     StaffAttendance::create($data);
                 }
                 // if(Auth::user()->hasRole('teacher')){
-                    $user = User::find(Auth::user()->parent_id);
-                    $message = [
-                        'id' => '',
-                        'title' => 'attendance Submit',
-                        'url' => 'attendance/dashboard',
-                        'message' => 'Staff attendance submitted' 
-                    ];
-                     $user->notify(new attendanceNotifications($message));
+                    // $user = User::find(Auth::user()->parent_id);
+                    // $message = [
+                    //     'id' => '',
+                    //     'title' => 'attendance Submit',
+                    //     'url' => 'attendance/dashboard',
+                    //     'message' => 'Staff attendance submitted' 
+                    // ];
+                    //  $user->notify(new attendanceNotifications($message));
                 // }
                 return 'success';
             }else{
@@ -275,30 +275,26 @@ class AttendanceController extends Controller
 
 	public function manageStudentFilter(Request $request){
 
-		$students = studentsMast::select('id','f_name','l_name','roll_no','std_class_id','batch_id','section_id')
-        						->where('batch_id',$request->batch_id)
-                                ->where('std_class_id',$request->std_class_id)
-                                ->where('section_id',$request->section_id)
-                                ->where('user_id',Auth::user()->id)
-                        		->get();
-
-        // $students = $students->where('user_id',Auth::user()->id);
-        // dd($students);
-        // if(Auth::user()->hasRole('lawcollege')){
-            // $students = $students->where('user_id',Auth::user()->id);
-        // }else{
-        //     $students = $students->where('user_id',Auth::user()->parent_id);
-        // } 
-// dd($request);
-
-         if(count($students) !=0){
-            $attendance_students = StudentAttendance::with('student')->where('attendance_date',$request->attendance_date)->whereIn('s_id',collect($students)->pluck('id'))->get();
-            // dd($attendance_students);
-            // $attendance_students = StudentAttendance::where('attendance_date',$request->attendance_date)->whereIn('s_id',collect($students)->pluck('id'))->get();
-        }else{
-            $attendance_students = [];
-        }
-        return view('admin.attendance.manage.student_table',compact('students','attendance_students'));     
+		// $students = studentsMast::select('id','f_name','l_name','roll_no','std_class_id','batch_id','section_id','medium')
+		// 	->with(['attendances' => function($q){
+  //               $q->first();
+  //           }])->whereHas('attendances',function($q) use($request){
+  //               $q->where('attendance_date',$request->attendance_date);
+  //           })
+  //               ->where('batch_id',$request->batch_id)
+  //               ->where('std_class_id',$request->std_class_id)
+  //               ->where('section_id',$request->section_id)
+  //               ->where('medium',$request->medium)
+  //               ->where('user_id',Auth::user()->id)
+  //       		->get();
+         // return $students;
+         $attendances = StudentAttendance::with(['student' => function($q){
+            $q->select('id','f_name','l_name','roll_no','std_class_id','batch_id','section_id','medium');
+         }])->whereHas('student', function($q)use($request){
+            $q->where(['std_class_id'=>$request->std_class_id,'batch_id'=>$request->batch_id,'section_id'=> $request->section_id,'medium' => $request->medium]);
+         })->where('attendance_date',$request->attendance_date)->get();
+         // return $attendances;
+        return view('admin.attendance.manage.student_table',compact('attendances'));     
 	}
 
 	public function attendanceUpdate(Request $request){
@@ -307,14 +303,8 @@ class AttendanceController extends Controller
         $total_students = $request->total_student;
  		$user_id = Auth::user()->id;
         $submitted_by = $user_id;
-        // if(Auth::user()->hasRole('lawcollege')){
-            // $user_id = Auth::user()->id;
-            // $submitted_by = $user_id;
-        // }else{
-        //     $user_id = Auth::user()->parent_id;
-        //     $submitted_by = Auth::user()->id;
-        // }  
      
+     // return $total_students;
         $data = [
             'user_id'         => $user_id,
             'submitted_by'    => $submitted_by,
@@ -326,11 +316,11 @@ class AttendanceController extends Controller
         else{
             $absent_students = $total_students;
         }
-            foreach ($absent_students as $absent_student) {
-                $data['s_id'] = $absent_student;
-                $data['present'] = 'A';
-                StudentAttendance::where('s_id',$absent_student)->where('attendance_date',$request->attendance_date)->update(['present' => 'A']);
-            }
+        foreach ($absent_students as $absent_student) {
+            $data['s_id'] = $absent_student;
+            $data['present'] = 'A';
+            StudentAttendance::where('s_id',$absent_student)->where('attendance_date',$request->attendance_date)->update(['present' => 'A']);
+        }
         if($present_students !=null){
             foreach ($present_students as $present_student) {       
                 $data['s_id'] = $present_student;
@@ -344,41 +334,39 @@ class AttendanceController extends Controller
 
     public function report_generate(Request $request){
 
+        // return $request->all();
+
        $data =  $request->validate([
             'std_class_id' => 'required|not_in:""',
             'batch_id' => 'required|not_in:""',
             'section_id' => 'required|not_in:""',
+            'medium' => 'required|not_in:""',
             'attendance_date' => 'required',
         ],
         [
-            'std_class_id.*' => 'Qualification Type field is required', 
-            'std_class_id.*' => 'Qualification subcategory field is required', 
+            'std_class_id.*' => 'Class field is required', 
             
         ]
     );
 
         $date = $this->date_month_year($request->attendance_date);
+
+        
         $month = $date['month'];
         $year = $date['year'];
         $monthStart = $date['monthStart'];
         $monthEnd = $date['monthEnd'];
-      
-
-
-        // $students = $this->filter($request)->with(['attendances' => function($query) use ($year, $month){
-        //     $query->whereYear('attendance_date',$year)->whereMonth('attendance_date',$month);
-        // }])->get();
+     
         $students = studentsMast::with('attendances')->select('id','f_name','l_name','roll_no','std_class_id','batch_id','section_id')
-                                ->where('batch_id',$request->batch_id)
-                                ->where('std_class_id',$request->std_class_id)
-                                ->where('section_id',$request->section_id)
-                                ->where('user_id',Auth::user()->id)
-                                ->get();      
-        
-// dd($students);
+                    ->where('batch_id',$request->batch_id)
+                    ->where('std_class_id',$request->std_class_id)
+                    ->where('section_id',$request->section_id)
+                    ->where('user_id',Auth::user()->id)
+                    ->get();      
+
         $academic_dates = Helpers::academic_dates($month,$year);
         $monthDates = Helpers::month_dates($monthStart,$monthEnd);
-        // dd($students);
+    
 
         $headerData = [
             'monthYear' => $date['month1']->format('F, Y')
@@ -386,16 +374,16 @@ class AttendanceController extends Controller
 
         // $qual = QualMast::find($request->qual_code);
 
-        // $filter = [
-        //     'qual' => $qual->qual_catg_desc,
-        //     'qual_catg' => $qual->qual_desc,
-        //     'year' => $request->year,
-        //     'semester'=>$request->semester,
-        //     'batch' => BatchMast::find($request->batch)->name
-        // ];
+        // return $request->all();
+        $filter = [
+            'class_name'    => studentClass::find($request->std_class_id)->class_name,
+            'batch_name'    => studentBatch::find($request->batch_id)->batch_name,
+            'section_name'  => studentSectionMast::find($request->section_id)->section_name,
+            'medium_name'   => Arr::get(MEDIUM,$request->medium)
+        ];  
 
         // return  view('attendance.report.clone',compact('monthDates','academic_dates','students','headerData','filter','data'));
-        return  view('admin.attendance.report.monthly_report',compact('monthDates','academic_dates','students','headerData'));
+        return  view('admin.attendance.report.monthly_report',compact('monthDates','academic_dates','students','headerData','filter'));
 
         $exportData = [
             'monthDates' => $monthDates,

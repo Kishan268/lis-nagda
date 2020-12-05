@@ -138,7 +138,7 @@ class ClassesController extends Controller
     public function batch_fetch($std_class_id){
 
         return SectionManage::select('id','class_id','batch_id')->with(['batch_name' => function($q){
-            $q->select('id','batch_name');
+            $q->select('id','batch_name')->orderBy('batch_name','desc');
         }])->where('class_id',$std_class_id)->groupBy('batch_id')->get();
 
     }   

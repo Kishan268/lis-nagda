@@ -171,25 +171,38 @@ $('th.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;');
 <script type="text/javascript">
 
 $(document).ready(function(){
-    $("#course").hide();
-    $("#batch").hide();
-    $("#dept_id").hide();
-    $("#session_id").hide();
-    $("#message-block").hide();
-    $("#reciver_list").hide();
     $("#course_batches_div").hide();
-    $("#course_batches_par_div").hide();
+    $("#faculty_data").hide();
+    // $("#batch").hide();
+    // $("#dept_id").hide();
+    // $("#session_id").hide();
+    // $("#message-block").hide();
+    // $("#reciver_list").hide();
+    // $("#course_batches_div").hide();
+    // $("#course_batches_par_div").hide();
 
     $('#sendtype').on('change', function(){
       var type = $(this).val();
       
-       if (type == 1) 
+       if (type == 0) 
+       {
+        $(".notice_circular").hide();
+        $(".container notice_circular").show();
+        $("#course_batches_div").hide();
+        $("#faculty_data").hide();
+
+        }
+      if (type == 1) 
        {
         $(".notice_circular").show();
+        $("#course_batches_div").hide();
+        $("#faculty_data").hide();
+
         }
       
       if (type == 2) {
         $(".notice_circular").show();
+        $("#faculty_data").show();
           $.ajax({
               type: "GET",
               url: "{{route('get_all_classes')}}",
@@ -207,6 +220,7 @@ $(document).ready(function(){
           })
       }
     if (type == 3) {
+        $("#course_batches_div").hide();
         var val ='send_to_faculty';
           $.ajax({
             type: "POST",
@@ -220,24 +234,7 @@ $(document).ready(function(){
         })
     }
     });
-    $("#course_batches_chosen,#myid").on('click blur', function(){
-        var val = $('#myid').select2()
-        $.ajax({
-            type: "GET",
-            url: "{{route('course_batches_chosen')}}",
-            data: {"_token": "{{ csrf_token() }}"},
-            success: function(data){
-                $("#course_batches_div").show();
-                $(".select-chosen").show();
-                $(".select-chosen").empty();
-                $.each(data,function(key,value){
-
-                $(".select-chosen").append('<option value="'+value.id+'">'+value.class_name.class_name+'--' +value.batch_name.batch_name+'--' +value.section_names.section_name+'</option>');
-
-                 });
-            }
-        })
-    }); 
+   
 
 
   $('#FrmImgUpload').on('submit',(function(e) {
@@ -260,7 +257,7 @@ $(document).ready(function(){
               $.notify("Notice added Succesfully",'success');
                setTimeout(function () {
                     location.reload(true);
-                  }, 3000);
+                  }, 2000);
            }, 
         });
        

@@ -34,6 +34,11 @@ use App\Models\sendmessage\SendMessage;
 use App\Models\AssignSubjectGroupStudent;
 
 
+use App\Models\student\StudentMastPrevReocrd;
+use App\Models\student\StudentSiblings;
+
+
+
 class studentController extends Controller
 {
 
@@ -57,12 +62,13 @@ class studentController extends Controller
          $this->guardianDesignation   = guardianDesignation::get();
          $this->studentGenders        = Helpers::studentGender();
          $this->studentsGuardiantDetails = studentsGuardiantMast::get();
+
     }
     public function index()
     {
-         $classes = $this->classes;
-         $studentData = $this->studentData;
-            return view('admin.students.index',compact('studentData','classes'));
+        $classes = $this->classes;
+        $studentData = $this->studentData;
+        return view('admin.students.index',compact('studentData','classes'));
     }
 
     
@@ -73,14 +79,19 @@ class studentController extends Controller
         $studentMothertongues  = $this->studentMothertongues;
         $professtionType       = $this->professtionType;
         $guardianDesignation   = $this->guardianDesignation;
-        $studentNationalites   = $this->studentNationalites ;
-        return view('admin.students.create',compact('classes','studentNationalites','studentMothertongues','professtionType','guardianDesignation'));
+        $studentNationalites   = $this->studentNationalites;
+
+        $students = studentsMast::select('id','admision_no','f_name','m_name','l_name')->where('status','R')->get();
+
+        return view('admin.students.create',compact('classes','studentNationalites','studentMothertongues','professtionType','guardianDesignation','students'));
 
     }
-
+    
     
     public function store(Request $request)
     {
+
+        // return $request->all();
 
         $data = $this->validation($request);
 
@@ -90,6 +101,8 @@ class studentController extends Controller
 
 
         $student  = studentsMast::create($data);
+
+        //Student Guardians Details Create
 
         foreach ($request->relation as $key => $relation) {
             $guardian = [
@@ -103,25 +116,40 @@ class studentController extends Controller
                 'designation'       => $request->designation_id[$key],
                 's_id'       => $student->id
             ];
-            if($request->g_photo[$key] !=null){
+            if($request->hasFile('g_photo.'.$key)){
                 $guardian['photo'] =  file_upload($request->g_photo[$key],'student_guard');
             }
 
             studentsGuardiantMast::create($guardian);
         }
 
-
+        //Student document create
         foreach ($request->doc_title as $key => $doc_title) {
             $docs = [
                 'doc_title'         => $doc_title,
                 'doc_description'   => $request->doc_description[$key],
                 's_id'       => $student->id
             ];
-            if($request->student_doc[$key] !=null){
+
+            if($request->hasFile('student_doc.'.$key)){
                // dd($request->student_doc[$key]);
                 $docs['student_doc'] =  file_upload($request->student_doc[$key],'student_doc');
             }
             StudenstDoc::create($docs);
+        }
+
+
+        //Student sibligs create
+
+        foreach ($request->siblings as $key => $sibling) {
+            $siblings = [
+                's_id'                  =>  $student->id,
+                'sibling_admission_no'  =>  $sibling,
+                'sibling_no'            =>  $key + 1,
+                'status'                => 'A'
+            ];
+
+            StudentSiblings::create($siblings);
         }
 
 
@@ -139,8 +167,8 @@ class studentController extends Controller
         ];
 
 
-            $user =   User::create($account_create);  
-            $user->attachRole('3');
+        $user =   User::create($account_create);  
+        $user->attachRole('3');
             // $sendData = [
             //     'message' => 'Hello '.student_name($student).' welcome to lis nagada school',
             //     'mobile' => $data['s_mobile'] 
@@ -155,10 +183,17 @@ class studentController extends Controller
     public function show($id)
     {
 
-        $student = studentsMast::with(['student_class','student_batch','student_section','studentsGuardiantMast.professtion_type','studentsGuardiantMast.guardian_designation','student_doc','stdNationality','mothetongueMast'])->where('id',$id)->first();
+        $student = studentsMast::with(['student_class','student_batch','student_section','studentsGuardiantMast.professtion_type','studentsGuardiantMast.guardian_designation','student_doc','stdNationality','mothetongueMast','siblings.sibling_detail'])->where('id',$id)->first();
         // return $student;
-
-        return view('admin.students.show',compact('student'));
+        $sibling_name =[];
+        foreach ($student->siblings as $sibling) {
+            if($sibling->sibling_detail !=null){
+                $sibling_name[] = $sibling->sibling_detail->admision_no.' | '.student_name($sibling->sibling_detail);
+            }
+        }
+        $sibling_name =  implode(', ', $sibling_name);
+       
+        return view('admin.students.show',compact('student','sibling_name'));
     }
 
     
@@ -170,10 +205,17 @@ class studentController extends Controller
         $guardianDesignation   = $this->guardianDesignation;
 
         $studentNationalites   = $this->studentNationalites ;
+
+
+        $students = studentsMast::select('id','admision_no','f_name','m_name','l_name')->where('status','R')->get();
+        // return $students;
+
         $student = studentsMast::with(['student_class','student_batch','student_section','studentsGuardiantMast','student_doc','stdNationality','mothetongueMast'])->where('id',$id)->first();
+        $studentSiblings = StudentSiblings::where('s_id',$id)->pluck('sibling_admission_no');
+        // return $studentSiblings;
          // return $student;
 
-        return view('admin.students.edit',compact('classes','studentNationalites','studentMothertongues','professtionType','guardianDesignation','student'));
+        return view('admin.students.edit',compact('classes','studentNationalites','studentMothertongues','professtionType','guardianDesignation','student','students','studentSiblings'));
 
     }
 
@@ -267,7 +309,20 @@ class studentController extends Controller
                 StudenstDoc::find($deleteDocs->id)->delete();
         }
 
-    
+            StudentSiblings::where('s_id',$id)->delete();
+        if($request->siblings !=null){
+            foreach ($request->siblings as $key => $sibling) {
+                $siblings = [
+                    's_id'                  =>  $student->id,
+                    'sibling_admission_no'  =>  $sibling,
+                    'sibling_no'            =>  $key + 1,
+                    'status'                => 'A'
+                ];
+                StudentSiblings::create($siblings);
+            }
+
+        }
+        
         return redirect()->back()->with('success','Student Updated successfully');
 
     }
@@ -285,6 +340,7 @@ class studentController extends Controller
                 'std_class_id'        => 'required|not_in:""',
                 'batch_id'            => 'required|not_in:""',
                 'section_id'          => 'required|not_in:""',
+                'medium'              => 'required|not_in:""',
                 'admision_no'         => 'required|unique:students_masts,admision_no,'.$id,
                 'f_name'              => 'required',
                 'l_name'              => 'required',
@@ -322,6 +378,7 @@ class studentController extends Controller
             'std_class_id'  => $request->std_class_id,
             'batch_id'      => $request->batch_id,
             'section_id'    => $request->section_id,
+            'medium'        => $request->medium,
             'admision_no'   => $request->admision_no,
             'addm_date'     => $request->addm_date,
             'roll_no'       => $request->roll_no,
@@ -355,7 +412,7 @@ class studentController extends Controller
             'acadmic_state' => $request->acadmic_state,
             'acadmic_pin'   => $request->acadmic_pin,
             'acadmic_country'=> $request->acadmic_country,
-            'acadmic_cast'  => $request->acadmic_cast,
+            'cast'          => $request->cast,
             'acadmic_attendance_reg_no'=> $request->acadmic_attendance_reg_no,
             'acadmic_remark'=> $request->acadmic_remark,
             'p_address'     => $request->p_address,
@@ -374,7 +431,9 @@ class studentController extends Controller
             'account_name'  => $request->account_name,
             'account_no'    => $request->account_no,
             'ifsc_code'     => $request->ifsc_code,
-            'user_id'       => Auth::user()->id
+            'user_id'       => Auth::user()->id,
+            'family_income' => $request->family_income,
+
         ];
 
         return $data;
@@ -394,10 +453,19 @@ class studentController extends Controller
     public function student_filter(Request $request){
 
 // dd($request);
-        $students = studentsMast::with(['student_class'])
-                                ->where(['batch_id'=>$request->batch_id,'std_class_id' => $request->std_class_id,'section_id' => $request->section_id,'status'=>$request->status])->get();
         $page = request()->page; 
-        return view('admin.students.table',compact('students','page'));
+        if($request->status == 'D' || $request->status == 'R'){
+            $students = studentsMast::with(['student_class'])->where(['batch_id'=>$request->batch_id, 'std_class_id' => $request->std_class_id, 'section_id' => $request->section_id, 'medium'=> $request->medium, 'status'=>$request->status])->get();
+            return view('admin.students.table',compact('students','page'));
+        }else{
+            $students = StudentMastPrevReocrd::with('student_detail')->whereHas('student_detail',function($q)use($request){
+                $q->where(['medium'=> $request->medium]);
+            })->has('student_detail')->where(['batch_id'=>$request->batch_id, 'std_class_id' => $request->std_class_id, 'section_id' => $request->section_id, 'status'=>$request->status])->get();
+            return view('admin.students.previous-student-detail.table',compact('students'));
+        }
+
+
+        
     }
 
 // get city state country..............................
@@ -425,35 +493,29 @@ class studentController extends Controller
 
     // get previous student details......................
     public function previousStudentRecord(){
-        $classes = $this->classes;
-         $batches = $this->batches;
-         $sections = $this->sections;
-         $studentData = $this->studentData;
-            return view('admin.students.previous-student-detail.index',compact('studentData','classes','sections','batches'));
+        $classes = $this->classes;  
+
+        return view('admin.students.previous-student-detail.index',compact('classes'));
     }
 
     // get previous student details......................
     public function studentsManage(){
-         $classes = $this->classes;
-         $batches = $this->batches;
-         $sections = $this->sections;
-         $studentData = $this->studentData;
-            return view('admin.students.student-manage.index',compact('studentData','classes','sections','batches'));
+        $classes = $this->classes;
+        // $page = 'student_manage';
+        return view('admin.students.student-manage.index',compact('classes'));
     }
 
     //  students Manage Get Data student details......................
     public function studentsManageGetData(Request $request){
-         $classes = $this->classes;
-         $batches = $this->batches;
-         $sections = $this->sections;
+ 
          $studentData = $this->studentData;
          $students = studentsMast::where('batch_id',$request->batch_id)
                                 ->where('std_class_id',$request->std_class_id)
                                 ->where('section_id',$request->section_id)
                                 ->where('user_id',Auth::user()->id)
                                 ->get();
-        $page = request()->page; 
-          return view('admin.students.student-manage.table',compact('students','page','studentData','classes','sections','batches'));
+        $page = 'student_manage';
+        return view('admin.students.table',compact('students','page','studentData','classes','sections','batches'));
     }
 
      // get previous student details......................

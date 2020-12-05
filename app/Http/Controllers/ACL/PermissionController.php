@@ -29,7 +29,8 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('acl.permissions.create');
+        $permissions = Permission::all();
+        return view('acl.permissions.create',compact('permissions'));
     }
 
     /**
@@ -45,7 +46,9 @@ class PermissionController extends Controller
         $name = $request->name;
 
         $role = Permission::create(['name' => $name]);
-        return redirect('admin');
+        // return redirect('admin');
+        return redirect()->back();
+
     }
 
     /**

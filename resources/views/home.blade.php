@@ -92,7 +92,7 @@
               </div>
             </div>
           </div>
-          @endrole
+      @endrole
 </div>
        
 
@@ -178,12 +178,50 @@
     
           </div>
           <!-- Card Body -->
+        @role('sudents')
+          <div class="card-body">
+              <div class="chart-pie pt-4 pb-2">
+                <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
+                  <?php $count = 1; ?>
+                  @if(in_array(Auth::user()->id, $currentUser))
+                  @foreach($getNotication as $getNotications)
+                    @if(date("Y-m-d") <= $getNotications->date_to_display && $getNotications->date_to_display == 'C')
+                      {{$count++}}.Notice Title:- {{$getNotications->circular_title}} <br>
+                      &nbsp;&nbsp;Notice Description:- {{$getNotications->circular_description}} <br>
+                      &nbsp;&nbsp;Notice File:- <br><a href=""><img src="{{asset($getNotications->file !=null ? 'storage/'.$getNotications->file : 'img/student_demo.png')}}" style="width: 100px; height: 100px;"></a> <br><hr><hr>
+                      {{-- <a href="">Wishes</a> --}}
+                      @endif
+                  @endforeach
+                  @endif
+                  </marquee>    
+              </div>              
+          </div>
+          @endrole
+          @role('superadmin')
           <div class="card-body">
               <div class="chart-pie pt-4 pb-2">
                 <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
                   <?php $count = 1; ?>
                   @foreach($getNotication as $getNotications)
-                    @if(date("Y-m-d") <= $getNotications->date_to_display)
+                    @if(date("Y-m-d") <= $getNotications->date_to_display )
+                      {{$count++}}.Notice Title:- {{$getNotications->circular_title}} <br>
+                      &nbsp;&nbsp;Notice Description:- {{$getNotications->circular_description}} <br>
+                      &nbsp;&nbsp;Notice File:- <br><a href=""><img src="{{asset($getNotications->file !=null ? 'storage/'.$getNotications->file : 'img/student_demo.png')}}" style="width: 100px; height: 100px;"></a> <br><hr><hr>
+                      {{-- <a href="">Wishes</a> --}}
+                      @endif
+                  
+                  @endforeach
+                  </marquee>    
+              </div>              
+          </div>
+          @endrole
+          @role('teachers')
+          <div class="card-body">
+              <div class="chart-pie pt-4 pb-2">
+                <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
+                  <?php $count = 1; ?>
+                  @foreach($getNotication as $getNotications)
+                    @if(date("Y-m-d") <= $getNotications->date_to_display && $getNotications->date_to_display == 'S')
                       {{$count++}}.Notice Title:- {{$getNotications->circular_title}} <br>
                       &nbsp;&nbsp;Notice Description:- {{$getNotications->circular_description}} <br>
                       &nbsp;&nbsp;Notice File:- <br><a href=""><img src="{{asset($getNotications->file !=null ? 'storage/'.$getNotications->file : 'img/student_demo.png')}}" style="width: 100px; height: 100px;"></a> <br><hr><hr>
@@ -193,9 +231,9 @@
                   </marquee>    
               </div>              
           </div>
+          @endrole
         </div>
-      </div>
-
+      </div> 
        <div class="col-xl-4 col-lg-5">
         <div class="card shadow mb-4">
           <!-- Card Header - Dropdown -->
@@ -203,11 +241,11 @@
               <h6 class="m-0 font-weight-bold text-primary">Today's Birthday</h6>           
           </div>
           <!-- Card Body -->
-          <div class="card-body">
+           <div class="card-body">
               <div class="chart-pie pt-4 pb-2">
                 <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
                 @foreach($birthUsers as $birthUser)
-                    Name:- {{$birthUser->f_name. ' ' .$birthUser->l_name}} ({{date('d-M-Y',strtotime($birthUser->dob))}})<br>
+                    Name:- {{$birthUser->f_name. ' ' .$birthUser->l_name}} ({{date('d-M-Y',strtotime($birthUser->dob))}})<br><hr><hr>
                     {{-- <a href="">Wishes</a> --}}
                 @endforeach
                 </marquee>
