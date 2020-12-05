@@ -257,7 +257,12 @@
 </style>
 <script>
 
-  
+  $(function () {
+  $(".datepicker").datepicker({ 
+    singleDatePicker: true,
+    showDropdowns: true,
+  });
+});
 </script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script type="text/javascript" src="https://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.js"></script>

@@ -7,7 +7,7 @@
 			</th>
 			<th>Roll Number</th>
 			<th>Name</th>
-			<th>Email</th>
+			<th>Email/Mobile</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -17,7 +17,7 @@
 				<td colspan="10">No Data found</td>
 				@endif
 				<td>
-					<input type="checkbox" name="s_id[]"  class="check" value="{{$student->user_data['id']}}" 
+					<input type="checkbox" name="reciver_id[]"  class="check" value="{{$student->id}}" 
 						@if(!empty($attendance_students))
 						@foreach($attendance_students as $attendance_student)
 							@if($attendance_student->s_id == $student->id)
@@ -26,9 +26,9 @@
 						@endforeach
 					@endif checked="">
 				</td>
-				<td>{{$student->roll_no}}</td>
+				<td>{{$student->admision_no}}</td>
 				<td>{{$student->f_name .' '. $student->l_name }}</td>
-				<td>{{$student->email }}</td>
+				<td>{{$composeType == 'S' ? $student->s_mobile : $student->email}}</td>
 				
 			</tr>
 		@endforeach

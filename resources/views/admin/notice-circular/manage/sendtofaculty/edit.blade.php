@@ -53,7 +53,7 @@
                     <label for="diaplaydate">Date to be From displayed</label>
                     <div class="input-icon datetime-pick date-only">
                       <div class="">
-                            <input class="form-control" type="text" value="{{$getAllSendData->date_from_display}}" name="date_from_display">
+                            <input class="form-control" type="text" value="{{$getAllSendData->date_from_display}}" name="date_from_display" readonly="">
                            
                         </div>
                       
@@ -65,7 +65,7 @@
                     <label for="diaplaydate">Date to be To displayed</label>
                     <div class="input-icon datetime-pick date-only">                    
                       <div class="">
-                          <input class="form-control" type="text" value="{{$getAllSendData->date_to_display}}" name="date_to_display">
+                          <input class="form-control" type="text" value="{{$getAllSendData->date_to_display}}" name="date_to_display" readonly="">
                     </div>
                 </div>
                 </div>

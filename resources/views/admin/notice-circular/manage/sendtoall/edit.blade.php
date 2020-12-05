@@ -1,26 +1,19 @@
  @extends('layouts.main')
  @section('content')
-
-<div class="container">
-   <div class="col-lg-12">
-    @include('admin.notice-circular.header')
-
-    </div>
-</div>
+@include('admin.notice-circular.header')
 
 <div class="container">
     <div class="row mt-2">
-    <div class="col-lg-12">
-      <div class="container">
-          <div class="app-title">
-           @if($message = Session::get('success'))
-                  
-            <div class="alert alert-success">
-              {{ $message }}
+        <div class="container">
+            <div class="app-title">
+             @if($message = Session::get('success'))
+                    
+              <div class="alert alert-success">
+                {{ $message }}
+              </div>
+                  @endif
             </div>
-                @endif
-          </div>
-      </div>
+        </div>
 
       <div class="row mt-2">
           <div class="col-lg-12">
@@ -37,7 +30,7 @@
                 <div class="col-md-4">
                   <form action="{{route('sent-to-all-update',$getAllSendData->id)}}" method="post" role="form" enctype="multipart/form-data">
                   @csrf
-               @method('PUT')
+                  @method('PUT')
              
                    <label class="red">*</label>   
                    <label for="circulartitle">Title</label>

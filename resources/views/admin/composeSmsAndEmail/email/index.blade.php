@@ -2,77 +2,74 @@
  @section('content') 
  <meta name="csrf-token" content="{{ csrf_token() }}" /> 
 <div class="container">
-    <div class="row mt-2">
-    <div class="col-lg-12">
-      <div class="container">
-          <div class="app-title">
-           @if($message = Session::get('success'))
-                  
-            <div class="alert alert-success">
-              {{ $message }}
-            </div>
-                @endif
-          </div>
+    
+    <div class="app-title">
+     @if($message = Session::get('success'))
+            
+      <div class="alert alert-success">
+        {{ $message }}
       </div>
+          @endif
+    </div>
 
-      <div class="row mt-2">
-          <div class="col-lg-12">
-            <div class="card mb-4">
-              <div class="card-header">
-                <div class="panel-heading">
-                      <h4 class="panel-title"> Email Compose <a href="{{ URL::previous() }}"><button class="btn btn-success" style="float:right;">Back</button></a></h4>
-                  </div>
-              </div>
-              <div class="card-body">
-              <div class="panel panel-default">
-              <form method="post" id="FrmImgUpload" action="javascript:void(0)" enctype="multipart/form-data">
+<div class="row mt-2">
+    <div class="col-lg-12">
+      <div class="card mb-4">
+        <div class="card-header">
+          <div class="panel-heading">
+                <h4 class="panel-title"> Email Compose <a href="{{ URL::previous() }}"><a href="{{route('send_email_delivery_report')}}"><button class="btn btn-success" style="float:right;">Mail Delivery Report</button></a></h4>
+            </div>
+        </div>
+        <div class="card-body">
+          <div class="panel panel-default">
+            <form method="post" id="FrmImgUpload" action="javascript:void(0)" enctype="multipart/form-data">
                @csrf
                 <div class="row">
                     <div class="col-md-3">
-                      <label>Select Option</label>
                       <select class="form-control" name="sendtype" id="sendtype">
                         <option value="0">--Select--</option>
-                        <option value="1">Send to All</option>
-                        <option value="2">Send to Students</option>
-                        <option value="3">Send to All Faculty</option>
+                        <option value="A">Send to All</option>
+                        <option value="S">Send to Students</option>
+                        <option value="T">Send to All Faculty</option>
                       </select>
                       </div>
                       <div class="col-md-9" id="class_batch_section" style="display: none;">
-                        <div class="row">
-                          <div class="col-md-4">
-                          <label>Select Batch</label>
-                            <select class="form-control" name="batch_id">
-                              <option value="">Select Batch</option>
-                              @foreach($batches as $key=>$batch)
-                              <option value="{{$batch->id}}">{{$batch->batch_name}}</option>
-                            @endforeach
-                               
-                            </select>
-                          </div>
-
+                       <div class="row">
                           <div class="col-md-3">
-                          <label>Select Class</label>
-                            <select class="form-control" name="std_class_id"> 
+                            <select class="form-control" name="std_class_id" id="std_class_id">
                               <option value="">Select Class</option>
-                                @foreach($classes as $key=>$class)
+                                @foreach($classes as $class)
                                   <option value="{{$class->id}}">{{$class->class_name}}</option>
                                 @endforeach
                               </select>
-
-                            </select>
-                          </div>
-
+                            @error('std_class_id')
+                              <span class="text-danger">
+                                <strong>{{$message}}</strong>
+                              </span>
+                            @enderror
+                          </div>                
                           <div class="col-md-3">
-                          <label>Select Section</label>
-                            <select class="form-control" name="section_id" id="section_id"> 
-                              <option value="">Select Section</option>
-                              @foreach($sections as $key=>$section)
-                                <option value="{{$section->id}}">{{$section->section_name}}</option>
-                              @endforeach
+                            <select class="form-control" name="batch_id" id="batch_id">
+                               
                             </select>
+                            @error('batch_id')
+                              <span class="text-danger">
+                                <strong>{{$message}}</strong>
+                              </span>
+                            @enderror
                           </div>
-                        </div>
+                          <div class="col-md-3">
+                            <select class="form-control" name="section_id" id="section_id"> 
+                              
+                            </select>
+                            @error('section_id')
+                              <span class="text-danger">
+                                <strong>{{$message}}</strong>
+                              </span>
+                            @enderror
                       </div>
+                  </div>
+                </div>
                 <hr>
                 </div>
                  <div class="container mt-3" id="students_data">
@@ -118,8 +115,8 @@
     </form>
 </div>
 </div>
-</div>
-</div>
+
+@include('layouts.common')
 
 
 <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
@@ -151,7 +148,7 @@
             $("#faculty_data").hide();
 
           }
-           if (type == 1) 
+           if (type == 'A') 
            {
             $("#message-block").show();
             $("#course").hide();
@@ -167,7 +164,7 @@
           //  $("#transStu").hide();
             }
           
-          if (type == 2) {
+          if (type == 'S') {
             $("#course").show();
             $("#batch").show();
             $("#course_batches_section").show();
@@ -179,7 +176,7 @@
 
           }
           
-          if (type == 3) {
+          if (type == 'T') {
             $("#course").hide();
             $("#batch").hide();
             $(".notice_circular_for_all_faculties").show();
@@ -232,39 +229,38 @@
             // }
         }); 
        
-      $('#FrmImgUpload').on('submit',(function(e) {
-          $.ajaxSetup({
-            headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-          });
-          e.preventDefault();
-
-          var formData = new FormData(this);
-          var subject = $('#subject').val();
-          var compose_mail_content = $('#compose_mail_content').val();
-          var attechment = $('#attechment').val();
-          if(subject != '' && compose_mail_content != '' && attechment != ''){
-            $.ajax({
-               type:'POST',
-               url: "{{route('send_email')}}",
-               data:formData,
-               cache:false,
-               contentType: false,
-               processData: false,
-               success:function(data){
-                  $.notify("Message send Succesfully",'success');
-                   setTimeout(function () {
-                        location.reload(true);
-                      }, 3000);
-               }, 
+  $('#FrmImgUpload').on('submit',(function(e) {
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      e.preventDefault();
+      var formData = new FormData(this);
+      var subject = $('#subject').val();
+      var compose_mail_content = $('#compose_mail_content').val();
+      var attechment = $('#attechment').val();
+      if(subject != '' && compose_mail_content != '' && attechment != ''){
+        $.ajax({
+           type:'POST',
+           url: "{{route('send_email')}}",
+           data:formData,
+           cache:false,
+           contentType: false,
+           processData: false,
+           success:function(data){
+              $.notify("Email send Succesfully",'success');
+               setTimeout(function () {
+                    location.reload(true);
+                  }, 3000);
+           }, 
         });
        }else{
           $.notify("Please select all * fields");
 
        } 
     }));
-   $(document).on('click','.selectAll' ,function(){  
+      $(document).on('click','.selectAll' ,function(){  
        if ($(this).is( ":checked" )) {
         $('body .check').prop('checked',true);
 

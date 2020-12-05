@@ -11,7 +11,7 @@ class SendMessage
 
         $ch = curl_init(); 
 
-        curl_setopt($ch, CURLOPT_URL, 'http://login.yourbulksms.com/api/sendhttp.php?authkey=11456AxEiTIeN5ca87c66&mobiles='.$sendData['mobile'].'&message=' . rawurlencode($sendData['message']).'&sender=ADLAWS&route=4&country=91');
+        curl_setopt($ch, CURLOPT_URL, env(SMS_PPI) .$sendData['mobile'].'&message=' . rawurlencode($sendData['message']).'&sender=ADLAWS&route=4&country=91');
 
         $curl_scraped_page = curl_exec($ch);
 

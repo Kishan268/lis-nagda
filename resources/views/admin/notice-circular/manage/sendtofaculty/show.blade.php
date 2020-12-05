@@ -81,8 +81,8 @@
                           <tr>
                             <th>#</th>
                             <th>User Name</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
+                            <th> Name</th>
+                            <th>Email</th>
                             <th>Mobile</th>
                           </tr>
                         </thead>
@@ -91,11 +91,11 @@
                           @foreach($getAllstudents as $student)
                           <tr>
                             <td>{{$count++}}</td>
-                            <td>{{ $student->username}}</td>
-                            <td>{{ $student->f_name }}</td>
-                            <td> {{ $student->l_name }}</td>
+                            <td>{{ $student->facultyInfo->username}}</td>
+                            <td>{{ $student->facultyInfo->name }}</td>
+                            <td> {{ $student->facultyInfo->email }}</td>
                             <td>
-                              {{ $student->s_mobile }} 
+                              {{ $student->facultyInfo->s_mobile }} 
                             </td>
                             
                           </tr>

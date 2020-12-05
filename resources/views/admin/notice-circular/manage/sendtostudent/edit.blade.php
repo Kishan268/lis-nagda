@@ -1,12 +1,7 @@
  @extends('layouts.main')
  @section('content')
+ @include('admin.notice-circular.header')
 
-<div class="container">
-   <div class="col-lg-12">
-    @include('admin.notice-circular.header')
-
-    </div>
-</div>
 
 <div class="container">
     <div class="row mt-2">

@@ -174,12 +174,23 @@
         <div class="card shadow mb-4">
           <!-- Card Header - Dropdown -->
           <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-              <h6 class="m-0 font-weight-bold text-primary">Notice & Circular</h6>           
+                <h6 class="m-0 font-weight-bold text-primary">Notice & Circular &nbsp; </h6>   
+    
           </div>
           <!-- Card Body -->
           <div class="card-body">
               <div class="chart-pie pt-4 pb-2">
-
+                <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
+                  <?php $count = 1; ?>
+                  @foreach($getNotication as $getNotications)
+                    @if(date("Y-m-d") <= $getNotications->date_to_display)
+                      {{$count++}}.Notice Title:- {{$getNotications->circular_title}} <br>
+                      &nbsp;&nbsp;Notice Description:- {{$getNotications->circular_description}} <br>
+                      &nbsp;&nbsp;Notice File:- <br><a href=""><img src="{{asset($getNotications->file !=null ? 'storage/'.$getNotications->file : 'img/student_demo.png')}}" style="width: 100px; height: 100px;"></a> <br><hr><hr>
+                      {{-- <a href="">Wishes</a> --}}
+                      @endif
+                  @endforeach
+                  </marquee>    
               </div>              
           </div>
         </div>
@@ -196,7 +207,8 @@
               <div class="chart-pie pt-4 pb-2">
                 <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
                 @foreach($birthUsers as $birthUser)
-                {{$birthUser->name}} ({{date('d-M-Y',strtotime($birthUser->dob))}})
+                    Name:- {{$birthUser->f_name. ' ' .$birthUser->l_name}} ({{date('d-M-Y',strtotime($birthUser->dob))}})<br>
+                    {{-- <a href="">Wishes</a> --}}
                 @endforeach
                 </marquee>
               </div>              

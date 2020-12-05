@@ -8,7 +8,7 @@
     <div class="card mb-4">
       <div class="card-header">
         <div class="panel-heading">
-              <h4 class="panel-title">  SMS Report 
+              <h4 class="panel-title">  Email Report 
                  <a href="{{ URL::previous() }}"><button class="btn btn-success" style="float:right;">Back</button></a>
               </h4>
           </div>          
@@ -23,40 +23,29 @@
 						<th>User Name</th>
 						<th>Type</th>
 						<th>Date</th>
-						<th>Mobile No </th>
+						<th> Email </th>
 						<th>Status </th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php $count = 1; ?>
-					@if(!empty($getComposeSms))
-
-						@foreach($getComposeSms as $value)
-						<tr>
+					@foreach($getComposeSms as $value)
+					<tr>
 						@if(empty($getComposeSms))
 							<td colspan="10">No Data found</td>
 						@endif
-						{{-- {{dd($value->compose_sms_id)}} --}}
 						@if(in_array($value->compose_sms_id, $receiverIds))
-						<td>{{$count++}}</td>
-						<td>{{$value->get_user ? $value->get_user->username : ''}}</td>
-						<td> <?php if($value->get_user ){ ?>
-							{{ $value->get_user->user_flag == 'S' ? 'Student': 'Teacher'}}
-						<?php }  ?>
-						</td>
-						<td> <?php if($value->get_user ){ ?>{{date('Y-m-d',strtotime($value->get_user->created_at))}}<?php }  ?>
-							
-						</td>
-						<td>
-							<?php if($value->get_user ){ ?>{{$value->get_user->mobile_no}}<?php }  ?>
-								
-						</td>
-						<td><?php if($value->get_user ){ ?>{{$value->get_user->mobile_no ? 'Send' : 'Faild'}}<?php }  ?></td>
+						
+							<td>{{$count++}}</td>
+							<td>{{$value->get_user->username}}</td>
+							<td>{{$value->get_user->user_flag == 'S' ? 'Student': 'Teacher'  }}</td>
+							<td>{{date('Y-m-d',strtotime($value->get_user->created_at))}}</td>
+							<td>{{$value->get_user->email}}</td>
+							<td>{{$value->get_user->email ? 'Send' : 'Faild'}}</td>
 						@endif
+
 					</tr>
-						@endforeach
-						@else
-					@endif
+					@endforeach
 				</tbody>
 			</table>
             </div>

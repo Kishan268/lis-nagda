@@ -1,12 +1,7 @@
  @extends('layouts.main')
  @section('content')
+@include('admin.notice-circular.header')
 
-<div class="container">
-   <div class="col-lg-12">
-    @include('admin.notice-circular.header')
-
-    </div>
-</div>
 
 <div class="container">
     <div class="row mt-2">
@@ -80,7 +75,7 @@
                         <thead>
                           <tr>
                             <th>#</th>
-                            <th>User Name</th>
+                            {{-- <th>User Name</th> --}}
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Mobile</th>
@@ -91,7 +86,7 @@
                           @foreach($getAllstudents as $student)
                           <tr>
                             <td>{{$count++}}</td>
-                            <td>{{ $student->username}}</td>
+                            {{-- <td>{{ $student->username}}</td> --}}
                             <td>{{ $student->f_name }}</td>
                             <td> {{ $student->l_name }}</td>
                             <td>

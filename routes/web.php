@@ -301,6 +301,7 @@ Route::group(['middleware' => ['auth','role:superadmin']], function () {
 
 Route::Resource('notice-circular','Admin\noticeCircular\NoticeCircularController');
 Route::get('course_batches_chosen','Admin\noticeCircular\NoticeCircularController@getBtachSectionClass')->name('course_batches_chosen');
+Route::get('get_all_classes','Admin\noticeCircular\NoticeCircularController@getAllClasses')->name('get_all_classes');
 Route::post('get_s_data','Admin\noticeCircular\NoticeCircularController@getSdata')->name('get_s_data');
 Route::post('get_faculty_data','Admin\noticeCircular\NoticeCircularController@getFacultydata')->name('get_faculty_data');
 
@@ -310,6 +311,8 @@ Route::get('sent-to-all-edit/{id}','Admin\noticeCircular\NoticeCircularControlle
 Route::put('sent-to-all-update/{id}','Admin\noticeCircular\NoticeCircularController@sentToAllupdate')->name('sent-to-all-update');
 
 Route::post('get_send_to_student_data','Admin\noticeCircular\NoticeCircularController@getSendStudentData')->name('get_send_to_student_data');
+
+Route::post('get_student_data_for_notice_circul','Admin\noticeCircular\NoticeCircularController@getSendToStudentsData')->name('get_student_data_for_notice_circul');
 Route::get('sent-to-student-show/{id}','Admin\noticeCircular\NoticeCircularController@sentToStudentShow')->name('sent-to-student-show');
 Route::get('sent-to-student-edit/{id}','Admin\noticeCircular\NoticeCircularController@sentToStudentEdit')->name('sent-to-student-edit');
 Route::put('sent-to-student-update/{id}','Admin\noticeCircular\NoticeCircularController@sentToStudentupdate')->name('sent-to-student-update');
@@ -328,7 +331,8 @@ Route::post('send_email','Admin\composeSmsAndEmail\EmailAndSMSController@sendEma
 Route::get('sms-compoe','Admin\composeSmsAndEmail\EmailAndSMSController@smsCompose')->name('sms_compoe');
 Route::post('get_students_for_sms_compose','Admin\composeSmsAndEmail\EmailAndSMSController@getStudentsForSmsCompose')->name('get_students_for_sms_compose');
 Route::post('send_sms','Admin\composeSmsAndEmail\EmailAndSMSController@sendSms')->name('send_sms');
-Route::get('sms-compoe-report','Admin\composeSmsAndEmail\EmailAndSMSController@smsDeliveryReport')->name('send_sms_delivery_report');
+Route::get('sms-delivery-report','Admin\composeSmsAndEmail\EmailAndSMSController@smsDeliveryReport')->name('send_sms_delivery_report');
+Route::get('email-delivery-report','Admin\composeSmsAndEmail\EmailAndSMSController@emailDeliveryReport')->name('send_email_delivery_report');
 Route::get('gallery','Admin\gallery\GalleryController@index');
 Route::get('gallery-folder','Admin\gallery\GalleryController@galleryFolder')->name('gallery_folder');
 Route::post('gallery-folder-create','Admin\gallery\GalleryController@createGalleryFolder')->name('create_gallery_folder');
