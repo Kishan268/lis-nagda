@@ -10,7 +10,7 @@
 	    </div>
 	    <ul class="app-breadcrumb breadcrumb">
 	      <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-	      <li class="breadcrumb-item"><a href="#">ACL</a></li>
+	      <li class="breadcrumb-item"><a href="#">ACL/{{request()->segment(count(request()->segments()))}}</a></li>
 	    </ul>
 	  </div>
 	 <div class="container">
@@ -21,7 +21,7 @@
 					<h5 class="card-title">Create Permission</h5>
 				</div>
 				<div class="card-body">
-						<form style="width:100%;" class="form-block" method="post" action="{{route('permissions.store')}}">
+					<form style="width:100%;" class="form-block" method="post" action="{{route('permissions.store')}}">
 							{{csrf_field()}}
 					<div class="row mb-5">
 						<div class="col-md-8">
@@ -44,11 +44,10 @@
 						@endforeach
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
-	 </div>
+</div>
 </main>			
 
 @endsection

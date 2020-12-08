@@ -32,6 +32,8 @@ use App\Models\master\guardianDesignation;
 // use App\Models\master\SendCode1;
 use App\Models\sendmessage\SendMessage;
 use App\Models\AssignSubjectGroupStudent;
+use Carbon\Carbon;
+use Arr;
 
 
 use App\Models\student\StudentMastPrevReocrd;
@@ -539,4 +541,60 @@ class studentController extends Controller
     public function updateProfile(Request $request){
         dd($request);
     }
+    public function showAttendence(){
+        return view('admin.students.student-attendance.attendance');
+    }
+    public function viewAttendence(Request $request){
+        // dd($request);
+        // return $request->attendance_date;
+        $date = $this->date_month_year($request->attendance_date);
+
+        // return $date;
+        $month = $date['month'];
+        $year = $date['year'];
+        $monthStart = $date['monthStart'];
+        $monthEnd = $date['monthEnd'];
+     
+        $students = studentsMast::where('id',Auth::user()->student_id)->with('attendances')->select('id','f_name','l_name','roll_no','std_class_id','batch_id','section_id')->get();      
+
+        $academic_dates = Helpers::academic_dates($month,$year);
+        $monthDates = Helpers::month_dates($monthStart,$monthEnd);
+    
+
+        $headerData = [
+            'monthYear' => $date['month1']->format('F, Y')
+        ];
+// dd($students);
+        // $qual = QualMast::find($request->qual_code);
+
+        // return $request->all();
+        $filter = [
+            'class_name'    => studentClass::find($students[0]->std_class_id)->class_name,
+            'batch_name'    => studentBatch::find($students[0]->batch_id)->batch_name,
+            'section_name'  => studentSectionMast::find($students[0]->section_id)->section_name,
+            'medium_name'   => Arr::get(MEDIUM,$request->medium)
+        ];  
+// dd($filter);
+        // return  view('attendance.report.clone',compact('monthDates','academic_dates','students','headerData','filter','data'));
+        // return  view('admin.attendance.report.monthly_report',compact('monthDates','academic_dates','students','headerData','filter'));
+        return view('admin.students.student-attendance.show',compact('monthDates','academic_dates','students','headerData','filter'));
+    }
+    public function date_month_year($attendance_date){
+        $year = date('Y',strtotime($attendance_date));
+        $month = date('m',strtotime($attendance_date));   
+
+        $month1 = Carbon::createFromFormat('Y-m', date('Y-m',strtotime($attendance_date)));
+// return $month1;
+        // dd($month1);
+        $monthStart = $month1->startOfMonth()->copy();
+        $monthEnd = $month1->endOfMonth()->copy();
+        return $data = [
+            'year' => $year,
+            'month' => $month,
+            'month1' => $month1,
+            'monthStart' => $monthStart,
+            'monthEnd'  => $monthEnd,
+        ]; 
+    }
+
 }

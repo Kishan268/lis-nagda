@@ -11,18 +11,17 @@
       <div class="panel panel-default">
              <div class="row">
                 <div class="col-md-4">
-                   <label for="circulartitle">Title</label>
-                    <input class="form-control" type="text" value="{{$getAllSendData->circular_title}}" readonly="">
+                  <label for="circulartitle">Title</label>
+                  <input class="form-control" type="text" value="{{$getAllSendData->circular_title}}" readonly="">
                 </div>
                 <div class="col-md-4">
                     <label for="diaplaydate">Date to be From displayed</label>
                     <div class="input-icon datetime-pick date-only">
                       <div class="">
-                          <input class="form-control" type="text" value="{{$getAllSendData->date_from_display}}" readonly="">
-                        </div>
+                        <input class="form-control" type="text" value="{{$getAllSendData->date_from_display}}" readonly="">
+                      </div>
                     </div>
                 </div>
-
                 <div class="col-md-4">
                     <label for="diaplaydate">Date to be To displayed</label>
                     <div class="input-icon datetime-pick date-only">                 
@@ -34,7 +33,6 @@
                 <div class="col-md-12">
                     <label for="circulardescription">Description</label>
                      <input class="form-control" type="text" value="{{$getAllSendData->circular_description}}" readonly="">
-                    
                 </div>
             </div>
             <div class="row mt-3">
@@ -57,16 +55,13 @@
                               {{-- <td>{{ $student->username}}</td> --}}
                               <td>{{ $student->f_name }}</td>
                               <td> {{ $student->l_name }}</td>
-                              <td>
-                                {{ $student->s_mobile }} 
-                              </td>
-                              
+                              <td>{{ $student->s_mobile }} </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table> 
+                  </div>
                 </div>
-              </div>
             </div>
         </div>
     </div>

@@ -106,7 +106,9 @@ Route::get('/prnpriview','Admin\students\IdCardController@prnpriview');
     Route::resource('/users', 'ACL\UserController');
     Route::get('/destroy/{id}', 'ACL\UserController@destroy')->name('destroy');
     Route::post('/changes_role','ACL\UserController@changesRole')->name('changesRole');
-    Route::post('/changePermission','ACL\UserController@changePermission')->name('changePermission');   
+    Route::post('/changePermission','ACL\UserController@changePermission')->name('changePermission');
+
+    Route::post('show-user-role-permission','ACL\UserController@showUserRolePermission')->name('showUserRolePermission');   
 
     //Start AccountController
 
@@ -380,9 +382,6 @@ Route::post('student/certificate/decline/','Admin\certificate\CertificateControl
 Route::post('get_students_for_certificate','Admin\certificate\CertificateController@getStudents')->name('get_students_for_certificate');
 Route::post('get_admission_no','Admin\certificate\CertificateController@getAdmissionNo')->name('get_admission_no');
 
-});
-
-
 
 Route::get('batch-fetch/{id}','Admin\classes\ClassesController@batch_fetch')->name('batch-fetch');
 Route::get('section-fetch/{id}/{id1}','Admin\classes\ClassesController@section_fetch')->name('section-fetch');
@@ -391,6 +390,13 @@ Route::Resource('profile','Admin\profile\ProfileController');
 Route::Resource('certificate-request','Admin\students\CertificateRequestController');
 
 Route::get('gallery_test','Admin\gallery\GalleryController@gallery_test')->name('gallery_test');
+});
+
+
+
 
 Route::get('certificate/download/{id}','Admin\students\CertificateRequestController@downloadCerfificate')->name('centificate_download');
+
+Route::get('attendence','Admin\students\studentController@showAttendence')->name('attendence');
+Route::post('attendence-show','Admin\students\studentController@viewAttendence')->name('attendence_show');
 

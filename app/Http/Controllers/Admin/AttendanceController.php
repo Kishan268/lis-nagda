@@ -350,8 +350,6 @@ class AttendanceController extends Controller
     );
 
         $date = $this->date_month_year($request->attendance_date);
-
-        
         $month = $date['month'];
         $year = $date['year'];
         $monthStart = $date['monthStart'];

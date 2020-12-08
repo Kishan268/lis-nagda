@@ -5,12 +5,9 @@
 
  <main class="app-content">
 	  <div class="app-title">
-	    <div>
-	      <h1><i class="fa fa-dashboard"></i>ACL</h1>
-	    </div>
 	    <ul class="app-breadcrumb breadcrumb">
 	      <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-	      <li class="breadcrumb-item"><a href="#">ACL</a></li>
+	      <li class="breadcrumb-item"><a href="{{ URL::previous() }}"><i class="fa fa-arrow-left fa-lg "></i></a>&nbsp;&nbsp;<a href="#">ACL</a></li>
 	    </ul>
 	  </div>
 	  <div class="container">

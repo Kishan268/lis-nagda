@@ -402,7 +402,7 @@ p {
       <span>Manage Profile</span></a>
     </li>   
     <li class="nav-item active">
-    <a class="nav-link" href="{{url('profile')}}">
+    <a class="nav-link" href="{{route('attendence')}}">
       <i class="fas fa-fw fa-bars fa-sm fa-fw mr-2 text-green-400" ></i>
       <span>Show Attendance</span></a>
     </li>    
