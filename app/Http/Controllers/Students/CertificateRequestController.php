@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\students;
+namespace App\Http\Controllers\Students;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -15,21 +15,17 @@ use App\Models\Certificate;
 use App\Models\setting\Settings;
 class CertificateRequestController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function index()
     {
-        $certifReq = CertificateRequest::get();
-            return view('admin.students.certificate_request.index',compact('certifReq'));
+        $certifReq = CertificateRequest::where('stu_id',Auth::user()->student_id)->get();
+            return view('students.certificate.index',compact('certifReq'));
     }
 
     
     public function create()
     {
-        return view('admin.students.certificate_request.create');
+        return view('students.certificate.create');
         
     }
 
@@ -87,7 +83,7 @@ class CertificateRequestController extends Controller
         $settings = studentsMast::with('settings')->where('id',Auth::user()->id)->first();
 
         
-        return view('admin.students.certificate_request.download-cert',compact('downloadCert','settings','subjectName'));
+        return view('students.certificate.download-cert',compact('downloadCert','settings','subjectName'));
 
     }
 }

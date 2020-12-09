@@ -57,7 +57,6 @@
 
 		function filter_students(){
 			var attendance_date = $('input[name="attendance_date"]').val();
-alert(attendance_date);
 			 if(attendance_date != '' ){
 				$.ajax({
 					type:'POST',

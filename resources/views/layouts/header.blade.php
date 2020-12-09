@@ -396,21 +396,36 @@ p {
 
 @role('students')
 
+   
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#profile" aria-expanded="true" aria-controls="profile">
+      <i class="fa fa-clock-o sidebar-nav-icon" ></i>
+      <span> Profile</span>
+    </a>
+    <div id="profile" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <a class="collapse-item" href="{{route('profile.index')}}">Manage Profile</a>
+        <a class="collapse-item" href="{{route('show_student_profile')}}">Show Personal Info</a>
+      </div>
+    </div>
+  </li>
+   <li class="nav-item active">
+    <a class="nav-link" href="{{route('id_card')}}">
+      <i class="fas fa-fw fa-certificate fa-sm fa-fw mr-2 " ></i>
+      <span>ID-Card</span></a>
+    </li>
     <li class="nav-item active">
-    <a class="nav-link" href="{{url('profile')}}">
-      <i class="fas fa-fw fa-user fa-sm fa-fw mr-2 text-green-400" ></i>
-      <span>Manage Profile</span></a>
-    </li>   
+    <a class="nav-link" href="{{route('certificate-request.index')}}">
+      <i class="fas fa-fw fa-certificate fa-sm fa-fw mr-2 text-green-400" ></i>
+      <span>Certificate</span></a>
+    </li>  
+   
     <li class="nav-item active">
     <a class="nav-link" href="{{route('attendence')}}">
       <i class="fas fa-fw fa-bars fa-sm fa-fw mr-2 text-green-400" ></i>
       <span>Show Attendance</span></a>
     </li>    
-    <li class="nav-item active">
-    <a class="nav-link" href="{{route('certificate-request.index')}}">
-      <i class="fas fa-fw fa-certificate fa-sm fa-fw mr-2 text-green-400" ></i>
-      <span>Certificate</span></a>
-    </li> 
+        
 @endrole
 @role('students','teachers')
 <li class="nav-item active">
@@ -610,14 +625,33 @@ p {
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                 @role('superadmin','teachers')
+                  <img src="{{asset(Auth::user()->photo !=null ? 'storage/'.Auth::user()->photo : 'storage/admin/student_demo.png')}}"  class="img-profile rounded-circle ">
+                 @endrole
+                 @role('students')
+                  <img src="{{asset(Auth::user()->photo !=null ? 'storage/'.Auth::user()->photo : 'storage/admin/student_demo.png')}}"  class="img-profile rounded-circle ">
+                 @endrole
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-               
+              @role('students')
+                 <a class="dropdown-item" href="{{url('your-profile')}}">
+                  <i class="fas fa-user fa-sm fa-fw mr-2 text-green-400" style="color: green;"></i>
+                  Profile
+                </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-envelope fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Change Password
+                </a>
+              @endrole
+              @role('superadmin')
                  <a class="dropdown-item" href="{{url('profile')}}">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-green-400" style="color: green;"></i>
                   Profile
+                </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-envelope fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Change Password
                 </a>
                 <a class="dropdown-item" href="{{route('settings.index')}}">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -634,26 +668,21 @@ p {
                 <a class="dropdown-item" href="{{route('email_compose')}}">
                   <i class="fas fa-envelope fa-sm fa-fw mr-2 text-gray-400"></i>
                   Compose Email
-                </a> 
+                </a>
+
+
+                @endrole
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                    <a class="dropdown-item" href="{{ route('logout') }}"
-                             onclick="event.preventDefault();
-                                           document.getElementById('logout-form').submit();">
-                              <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-red-400" style="color: red;"></i>
-                      Logout
-                          </a>
-
-                          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                              @csrf
-                          </form>
-                 
+                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-red-400" style="color: red;"></i>Logout</a>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                          @csrf
+                      </form>
                 </a>
               </div>
             </li>
-
           </ul>
-
         </nav>
         <!-- End of Topbar -->
 <style type="text/css">

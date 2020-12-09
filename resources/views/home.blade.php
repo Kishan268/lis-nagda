@@ -10,7 +10,7 @@
             <h1 class=" mb-0 text-gray-800 bread-text" >Dashboard</h1>
             {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
           </div>
-        @role('superadmin')
+        @role('superadmin','teachers')
           <!-- Content Row -->
           <div class="row">
             <!-- Earnings (Monthly) Card Example -->
@@ -92,8 +92,7 @@
               </div>
             </div>
           </div>
-      @endrole
-</div>
+      </div>
        
 
 
@@ -168,7 +167,9 @@
           </div>
         </div>
       </div>
+  @endrole
    </div>
+
    <div class="row">
       <div class="col-xl-4 col-lg-5">
         <div class="card shadow mb-4">
@@ -178,7 +179,7 @@
     
           </div>
           <!-- Card Body -->
-        @role('sudents')
+        @role('students')
           <div class="card-body">
               <div class="chart-pie pt-4 pb-2">
                 <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
@@ -253,6 +254,8 @@
           </div>
         </div>
       </div>
+   @role('superadmin')
+
       <div class="col-md-4 col-lg-4">
         <div class="card shadow mb-4">
           <!-- Card Header - Dropdown -->
@@ -266,7 +269,8 @@
             </div>
           </div>
         </div>
-      </div>  
+      </div> 
+      @endrole 
    </div>
    <div class="row">
      <div class="col-md-12">
@@ -282,8 +286,6 @@
      </div>
    </div>
 
-  </div>
-  </div>
   </div>
 
 <script>

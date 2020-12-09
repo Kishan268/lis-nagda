@@ -54,9 +54,9 @@
 
 				<div class="container-fluid">
 				    <div class="row">
-				            <div class="col-md-12">
+				            {{-- <div class="col-md-12">
 				               <h4><p class="pull-right">Print Date: {{date('d-m-Y')}}</p></h4>
-				            </div>
+				            </div> --}}
 				        <div class="col-md-12 text-center">
 				            <h3>Lakshya International School, Nagda</h3>
 				            <h4>Monthly Attendance</h4>
@@ -166,9 +166,9 @@
 				                </tbody>
 				            </table>
 				        </div>
-				        <div class="col-md-12">
+				       {{--  <div class="col-md-12">
 				            <h5>Printed By: {{Auth::user()->name}}</h5>
-				        </div>
+				        </div> --}}
 				    </div>
 				</div>
 						

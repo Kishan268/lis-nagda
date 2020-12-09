@@ -35,7 +35,7 @@
                   <td>@if($certifReqs->status==1)
                     <span style="color: green;">Wait for approval</span> 
                     @elseif($certifReqs->status==2)
-                      <span style="color: red;"> Decline &nbsp;<a href="{{route('certificate-request.show',$certifReqs->cert_req_id)}}" class="fa fa-eye"></a></span> 
+                      <span style="color: red;"> Decline &nbsp;<a data-toggle="modal"  data-target="#decline_reason" class="fa fa-eye text-primary decline_reason" data-decline="{{$certifReqs->decline_reason}}" ></a></span> 
                     @elseif($certifReqs->status==3)
                     <span style="color: green;">Appoved</span> <a href="{{route('centificate_download',$certifReqs->cert_req_id)}}" target="_blank">(Download)<i class="fa fa-download"></i></a>
                   @endif
@@ -48,4 +48,30 @@
   </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="decline_reason" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Decline Reason</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <span id="dec-reason" style="color: red;"></span>
+      </div>
+     
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('.decline_reason').on('click',function(){
+      var dec = $(this).attr('data-decline');
+      $("#dec-reason").html('Your request decline regarding this:- '+dec);
+
+    });
+  });
+</script>
 @endsection
