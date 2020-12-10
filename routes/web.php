@@ -381,7 +381,7 @@ Route::post('get_admission_no','Admin\certificate\CertificateController@getAdmis
 
 
 Route::get('batch-fetch/{id}','Admin\classes\ClassesController@batch_fetch')->name('batch-fetch');
-Route::get('section-fetch/{id?}/{id1?}','Admin\classes\ClassesController@section_fetch')->name('section-fetch');
+Route::get('section-fetch/{id}/{id1?}','Admin\classes\ClassesController@section_fetch')->name('section-fetch');
 Route::Resource('profile','Admin\profile\ProfileController');
 
 Route::Resource('certificate-request','Admin\students\CertificateRequestController');

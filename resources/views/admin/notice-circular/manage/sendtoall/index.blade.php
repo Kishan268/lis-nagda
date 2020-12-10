@@ -6,7 +6,6 @@
 			<th>Description</th>
 			<th>Publish Start Date</th>
 			<th>Publish End Date</th>
-			<th>Created Date</th>
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -19,7 +18,6 @@
 			<td>{{ $student->circular_description }}</td>
 			<td>{{ $student->date_from_display }}</td>
 			<td>{{ $student->date_to_display }}</td>
-			<td>{{ $student->created_at }}</td>
 			<td class="actions">                       	
 				<a class="btn btn-xs btn-primary" title="" data-toggle="tooltip" href="{{route('sent-to-all-show', $student->id)}}" data-original-title="view">
 				<i class="fa fa-eye"></i>

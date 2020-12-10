@@ -40,29 +40,29 @@
                             @endforeach
                             </select>
                         </div>
-                             @error('class_from')
-                              <span class="text-danger">
-                                <strong>{{$message}}</strong>
-                              </span>
-                            @enderror
+                         @error('class_from')
+                          <span class="text-danger">
+                            <strong>{{$message}}</strong>
+                          </span>
+                        @enderror
                     </div>
                     <div class="col-md-4">
                         <label class="red"> *</label>
                         <label for="class_to">Class To </label>                
                         <div class="input-group">
-                           <span class="input-group-addon"></span>
-                           <select class="form-control onlyDigit input-sm" id="class_to"  name="class_to"  value="{{old('class_to')}}">
+                          <span class="input-group-addon"></span>
+                          <select class="form-control onlyDigit input-sm" id="class_to"  name="class_to"  value="{{old('class_to')}}">
                             <option value=""> Select Class</option>
-                            @foreach($class as $classes)
-                            <option value="{{$classes->id}}"> {{$classes->class_name}}</option>
-                            @endforeach
-                            </select>
+                              @foreach($class as $classes)
+                                <option value="{{$classes->id}}"> {{$classes->class_name}}</option>
+                              @endforeach
+                          </select>
                         </div>
-                            @error('class_to')
-                              <span class="text-danger">
-                                <strong>{{$message}}</strong>
-                              </span>
-                            @enderror
+                        @error('class_to')
+                          <span class="text-danger">
+                            <strong>{{$message}}</strong>
+                          </span>
+                        @enderror
                     </div>
                     <div class="col-md-6">
                         <label class="red"> *</label>
@@ -79,9 +79,9 @@
                         <label for="name">Departure Time</label>
                          <input type="text" name="deprature_time" class="form-control timepicker" value="{{old('deprature_time')}}" readonly="">
                           @error('deprature_time')
-                          <span class="text-danger">
-                            <strong>{{$message}}</strong>
-                          </span>
+                            <span class="text-danger">
+                              <strong>{{$message}}</strong>
+                            </span>
                           @enderror
                     </div>
                     <div class="col-md-6">
@@ -127,7 +127,7 @@
                     <div class="col-md-6">
                         <label class="red"> *</label>
                         <label for="name">Start Date</label>
-                         <input type="text" name="start_date" class="form-control " value="{{old('start_date')}}" required="true" readonly="true" id="txtFromDate">
+                         <input type="text" name="start_date" class="form-control datepicker" value="{{old('start_date')}}" required="true" readonly="true" id="" data-date-format="yyyy-mm-dd" placeholder="YYYY-mm-dd">
                          @error('start_date')
                           <span class="text-danger">
                             <strong>{{$message}}</strong>
@@ -139,7 +139,7 @@
                          <label class="red"> *</label>
                          <label for="name">End Date</label>
 
-                         <input type="text" name="end_date" class="form-control " value="{{old('end_date')}}" required="true" readonly="true" id="txtToDate">
+                         <input type="text" name="end_date" class="form-control datepicker" value="{{old('end_date')}}" required="true" readonly="true" id="" data-date-format="yyyy-mm-dd" placeholder="YYYY-mm-dd">
                          @error('end_date')
                           <span class="text-danger">
                             <strong>{{$message}}</strong>
@@ -207,7 +207,12 @@
       }
 </style>
 <script>
-
+$(function () {
+  $(".datepicker").datepicker({ 
+    singleDatePicker: true,
+    showDropdowns: true,
+  });
+});
   $(document).on('click','#submit',function(event){
     event.preventDefault();
     console.log( $('#form_submit').serialize() )

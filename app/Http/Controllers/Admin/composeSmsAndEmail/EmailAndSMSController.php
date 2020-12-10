@@ -53,113 +53,169 @@ class EmailAndSMSController extends Controller
     	// $userRole = Auth::user()->roles;
     	if ($request->type =='student') {
     	
-    	 $getData = studentsMast::where('batch_id',$request->batch_id)
-                                ->where('std_class_id',$request->std_class_id)
-                                ->where('section_id',$request->section_id)
-                                ->where('user_id',Auth::user()->id)
-                                ->get();
+    	   $getData = studentsMast::where('batch_id',$request->batch_id)
+                        ->where('std_class_id',$request->std_class_id)
+                        ->where('section_id',$request->section_id)
+                        ->where('user_id',Auth::user()->id)
+                        ->get();
+                        // dd( $getData);
        	$type ='student';
-         return view('admin.composeSmsAndEmail.student-table',compact('getData','type'));                       
+        $composeType = 'E';
+         return view('admin.composeSmsAndEmail.student-table',compact('getData','type','composeType'));                       
 
-    	}else{
+    	}elseif($request->type =='faculty'){
     		$getData = User::where('user_flag','T')->get();
     		$type ='faculty';
-         return view('admin.composeSmsAndEmail.staff-table',compact('getData','type'));                       
+            $composeType = 'E';
+
+         return view('admin.composeSmsAndEmail.staff-table',compact('getData','type','composeType'));                       
     	}
     }
 
     public function sendEmail(Request $request){
-   		
+   		// dd($request);
+
    		if($request->attechment !=null){
-           //  $verify = $request->validate([
-           //      'attechment'  => 'required|mimes:doc,docx,pdf,txt,xlsx,jpeg,png,jpg|max:2048',
-           //  ]);
-           //  $filename = time().'.'.$request->attechment->getClientOriginalName();
-           //  $image = $request->attechment->storeAs('public/emailComposeAttechment_'.Auth::user()->id.'/emailComposeAttechment', $filename);
-           // $data['attechment'] = 'emailComposeAttechment_'.Auth::user()->id.'/emailComposeAttechment'.$filename;
-	   		$filename        = $request->file('attechment')->getClientOriginalName();
-	        $extension       = $request->file('attechment')->getClientOriginalExtension();
-	        $fileNameToStore = $filename;          
-	        $path            = $request->file('attechment')->store('emailComposeAttechment_'.Auth::user()->id, 'public');
 
-	        $data['attechment']    = $fileNameToStore;
-        }else{
-            $data['attechment'] = 'null';
-        }
-        $data['user_id']  = Auth::user()->id;
-        $data['batch_id'] = $request->batch_id;
-        $data['class_id'] = $request->std_class_id;
-        $data['section_id'] = $request->section_id;
-        $data['subject']  = $request->subject;
-        $data['compose_mail_content'] = $request->compose_mail_content;
-        if($request->sendtype == 1){
-            $data['sender_type'] = 'send_to_all';
-        }else if($request->sendtype == 2){
-            $data['sender_type'] = 'send_to_students';
-            $data['student_ids'] =  implode(',', $request->s_id);
+            $data['attechment'] =  file_upload($request->attechment,'EmailCompose');
 
-        }else if($request->sendtype == 3){
-            $data['sender_type'] = 'send_to_all_faculty';
-            $data['staff_ids']   =  implode(',', $request->faculty_id);
-        }
-
-        $lastId = ComposeEmail::create($data)->id;
-        if ($request->sendtype == 2) {
-            $getComposeEmail = ComposeEmail::where('id',$lastId)->first();
-            $studentIds = $getComposeEmail->student_ids;
-            $studentIdsArray = explode(',', $studentIds);
-            $getUser = studentsMast::whereIn('id',$studentIdsArray)->get();
-
-            foreach ($getUser as  $getUsers) {
-                // Send sms...........................................
-               /* $studentsEmail = $getUsers->email;
-                $content = File::get('storage/'.$path);
-                $applicantData = ([
-                    'data' => $data,
-                    'file' => $content,
-                    'exe' => $extension,
-                ]);
-                Mail::to($studentsEmail)->send(new ComposeMail($applicantData));*/
+            }else{
+                $data['attechment'] = 'null';
             }
-       }else if ($request->sendtype == 3) {
-            $getComposeSms = ComposeEmail::where('id',$lastId)->first();
-            $staffIds = $getComposeSms->staff_ids;
-            $staffIdsArray = explode(',', $staffIds);
-            $getStaff = User::where('user_flag','T')->whereIn('id',$staffIdsArray)->get();
+ 
+            $data['user_id']  = Auth::user()->id;
+            $data['clas_batch_section'] =json_encode($request->clas_batch_section,true);
+            $data['compose_mail_content'] = $request->compose_mail_content;
 
-            foreach ($getStaff as  $getStaffs) {
-            // Send email...........................................
-               /*$teacherEmail = $getStaffs->email;
-               $content = File::get('storage/'.$path);
-                $applicantData = ([
-                    'data' => $data,
-                    'file' => $content,
-                    'exe' => $extension,
-                ]);
-                Mail::to($teacherEmail)->send(new ComposeMail($applicantData));*/
-            }
-       }else if ($request->sendtype ==1) {
-            
-            $getAll = User::where('user_flag','T')->where('user_flag','S')->get();
 
-             foreach ($getAll as  $getAlls) {
-                $allEmail = $getAlls->email;
-                // Send mail...........................................
-               /* $content = File::get('storage/'.$path);
-                $applicantData = ([
-                    'data' => $data,
-                    'file' => $content,
-                    'exe' => $extension,
-                ]);
-                
-                Mail::to($allEmail)->send(new ComposeMail($applicantData));
-                */
+       if ($request->sendtype =='A') {
+
+            $composeSmsEmail = [
+                    'user_id' => Auth::user()->id,
+                   'send_to'  => $request->sendtype,
+                   'body' => $data['compose_mail_content'],
+                   'subject'  => $request->subject,
+                   'attachment'  => $data['attechment'],
+                   'compose_type' => 'E',
+                   ];
+            $composeLastId = ComposeSmsEmailMast::create( $composeSmsEmail)->id;     
+            $getAll = User::get();
+
+             foreach ($getAll as $key => $getAlls) {
+                if (!empty($getAlls->user_flag)) {
+                     $data = [
+                        'compose_sms_id'=>$composeLastId,
+                        'receiver_id' =>$getAlls->id
+                   ];
+                    $getStudents = ComposeSmsEmail::create($data)->compose_sms_id;
+                 // Send sms...........................................
+                    // $getComposeEmail = ComposeSmsEmail::where('compose_sms_id',$getStudents)
+                    //                     ->where('receiver_id',$getAlls->id)
+                    //                     ->first();
+                    // $studentIds = $getComposeEmail->receiver_id;
+
+                    // $studentsMast = user::where('parent_id',$studentIds)->first();
+
+                    // $email = $studentsMast->email;
+                    // $content = File::get('storage/'.$data['attechment']);
+                    // $applicantData = ([
+                    //     'data' => $data,
+                    //     'file' => $content,
+                    //     'exe' => $extension,
+                    // ]);
+                    // Mail::to($email)->send(new ComposeMail($applicantData));
                 }
+            }
 
-       }   
-   
+       }else if ($request->sendtype == 'S') {
+        
+                $composeSmsEmail = [
+                           'user_id' => Auth::user()->id,
+                           'send_to'  => $request->sendtype,
+                           'body' => $data['compose_mail_content'],
+                           'subject'  => $request->subject,
+                           'attachment'  => $data['attechment'],
+                           'compose_type' => 'E',
+                           'course_batches' => $data['clas_batch_section'],
+                           ];
+                $composeLastId = ComposeSmsEmailMast::create( $composeSmsEmail)->id;         
+           $count1 = count($request->reciver_id);
+           // dd( $count1);
+            if($count1 != 0){
+                $y = 0;
+                while($y < $count1){
+                    if($request->reciver_id[$y] !=''){
+                        $data3 = array(
+                          'compose_sms_id'=>$composeLastId,
+                          'receiver_id' =>$request->reciver_id[$y]
+                           
+                        );
 
+                        $getStudentsId = ComposeSmsEmail::create($data3)->compose_sms_id;
+                        // satrt code for send mail..........................
+                        // $getComposeEmail = ComposeSmsEmail::where('compose_sms_id',$getStudentsId)
+                        //                 ->where('receiver_id',$request->reciver_id)
+                        //                 ->first();
+                        // $studentIds = $getComposeEmail->receiver_id;
+
+                        // $studentsMast = studentsMast::where('id',$studentIds)->first();
+                        // $email = $studentsMast->email;
+                        // $content = File::get('storage/'.$data['attechment']);
+                        // $applicantData = ([
+                        //     'data' => $data,
+                        //     'file' => $content,
+                        //     'exe' => $extension,
+                        // ]);
+                        // Mail::to($email)->send(new ComposeMail($applicantData));
+                        // fend dode for send mail...........................
+                        
+                    }             
+                    $y++; 
+                }
+            } 
+       }else if ($request->sendtype == 'T') {
+
+           $composeSmsEmail = [
+                       'user_id' => Auth::user()->id,
+                       'send_to'  => $request->sendtype,
+                       'body' => $data['compose_mail_content'],
+                       'subject'  => $request->subject,
+                       'attachment'  => $data['attechment'],
+                       'compose_type' => 'E',
+                       ];
+            $composeLastId = ComposeSmsEmailMast::create( $composeSmsEmail)->id;
+            $count1 = count($request->reciver_id);
+            if($count1 != 0){
+                $y = 0;
+                while($y < $count1){
+                    if($request->reciver_id[$y] !=''){
+                        $data3 = array(
+                            'compose_sms_id'=>$composeLastId,
+                            'receiver_id' =>$request->reciver_id[$y]
+                        );
+                        $getStaffs = ComposeSmsEmail::create($data3)->compose_sms_id;
+                        //send email......................
+                        // $getComposeEmail = ComposeSmsEmail::where('compose_sms_id',$getStaffs)
+                        //                 ->where('receiver_id',$request->reciver_id)
+                        //                 ->first();
+                        // $studentIds = $getComposeEmail->receiver_id;
+
+                        // $studentsMast = user::where('parent_id',$studentIds)->first();
+                        // $email = $studentsMast->email;
+                        // $content = File::get('storage/'.$data['attechment']);
+                        // $applicantData = ([
+                        //     'data' => $data,
+                        //     'file' => $content,
+                        //     'exe' => $extension,
+                        // ]);
+                        // Mail::to($email)->send(new ComposeMail($applicantData));
+                    }             
+                    $y++; 
+                }
+            }
+        } 
       return "success";
+
     }
 // end code for compose mail..................................
 
@@ -173,78 +229,87 @@ class EmailAndSMSController extends Controller
         return view('admin.composeSmsAndEmail.sms.index',compact('classes','sections','batches','teacher'));
     }   
     public function getStudentsForSmsCompose(Request $request){
+
         if ($request->type =='student') {
         
-         $getData = studentsMast::with('user_data')->where('batch_id',$request->batch_id)
-                                ->where('std_class_id',$request->std_class_id)
-                                ->where('section_id',$request->section_id)
-                                ->where('user_id',Auth::user()->id)
-                                ->get();
-                                // dd($getData);
-        $type ='student';
-         return view('admin.composeSmsAndEmail.student-table',compact('getData','type'));                       
+            $getData = studentsMast::with('user_data')->where('batch_id',$request->batch_id)
+                    ->where('std_class_id',$request->std_class_id)
+                    ->where('section_id',$request->section_id)
+                    ->where('user_id',Auth::user()->id)
+                    ->get();
+            $type ='student';
+            $composeType = 'S';
+             return view('admin.composeSmsAndEmail.student-table',compact('getData','type','composeType'));                       
 
-        }else{
-            $getData = User::where('user_flag','T')->get();
-            $type ='faculty';
-         return view('admin.composeSmsAndEmail.staff-table',compact('getData','type'));                       
-        }
+            }else{
+                $getData = User::where('user_flag','T')->get();
+                $composeType = 'S';
+                $type ='faculty';
+             return view('admin.composeSmsAndEmail.staff-table',compact('getData','type','composeType'));                       
+            }
     } 
     public function sendSms(Request $request){
+
+        // dd($request);
+        // dd($request);
     	$data['user_id']  = Auth::user()->id;
-        $data['batch_id'] = $request->batch_id;
-        $data['class_id'] = $request->std_class_id;
-        $data['section_id'] = $request->section_id;
+        $data['clas_batch_section'] =json_encode($request->clas_batch_section,true);
         $data['compose_sms_content'] = $request->compose_sms_content;
-        if($request->sendtype == 1){
-            $data['sender_type'] = 'send_to_all';
-        }else if($request->sendtype == 2){
-            $data['sender_type'] = 'send_to_students';
-            $data['student_ids'] =  implode(',', $request->s_id);
-
-        }else if($request->sendtype == 3){
-            $data['sender_type'] = 'send_to_all_faculty';
-            $data['staff_ids']   =  implode(',', $request->faculty_id);
-        }
 
 
-       if ($request->sendtype ==1) {
+       if ($request->sendtype =='A') {
+
+            $composeSmsEmail = [
+                   'user_id' => Auth::user()->id,
+                   'send_to'  => $request->sendtype,
+                   'body' => $data['compose_sms_content'],
+                   'compose_type' => 'S'
+                   ];
+            $composeLastId = ComposeSmsEmailMast::create( $composeSmsEmail)->id;     
             $getAll = User::get();
-             foreach ($getAll as  $getAlls) {
-                $data['reciver_id'] = $getAlls->id;
 
-                $lastId = ComposeSms::create($data)->id;
+             foreach ($getAll as $key => $getAlls) {
+                if (!empty($getAlls->user_flag)) {
+                     $data = [
+                        'compose_sms_id'=>$composeLastId,
+                        'receiver_id' =>$getAlls->id
+                   ];
+                    $getStudents = ComposeSmsEmail::create($data);
 
                 $getMobile = $getAlls->mobile_no;
                 // Send sms...........................................
-                /*$sendData = [
-                        'message' =>$data['compose_sms_content'],
-                        'mobile' => $getMobile 
-                    ]; 
-                    $sendMessage = SendMessage::sendCode($sendData);
-                    if ($sendMessage) {
-                        $user = User::find($getStaffs->id)->update(['compose_message_sent' => '1']);
-                    } */ 
+                // $sendData = [
+                //         'message' =>$data['compose_sms_content'],
+                //         'mobile' => $getMobile 
+                //     ]; 
+                //     $sendMessage = SendMessage::sendCode($sendData);
+                //     if ($sendMessage) {
+                //         $user = User::find($getStaffs->id)->update(['compose_message_sent' => '1']);
+                //     }  
                 }
+            }
 
-       }else if ($request->sendtype == 2) {
-      
-           $count1 = count($request->s_id);
+       }else if ($request->sendtype == 'S') {
+            $composeSmsEmail = [
+                       'user_id' => Auth::user()->id,
+                       'send_to'  => $request->sendtype,
+                       'body' => $data['compose_sms_content'],
+                       'compose_type' => 'S',
+                       'course_batches' => $data['clas_batch_section'],
+                       ];
+            $composeLastId = ComposeSmsEmailMast::create( $composeSmsEmail)->id;         
+           $count1 = count($request->reciver_id);
             if($count1 != 0){
                 $y = 0;
                 while($y < $count1){
-                    if($request->s_id[$y] !=''){
+                    if($request->reciver_id[$y] !=''){
                         $data3 = array(
-                           'user_id'  => Auth::user()->id,
-                           'sender_type'  => $data['sender_type'],
-                           'batch_id'  => $data['batch_id'],
-                           'class_id'  => $data['class_id'],
-                           'section_id'  => $data['section_id'],
-                           'compose_sms_content' => $data['compose_sms_content'],
-                            'reciver_id'    => $request->s_id[$y]
+                          'compose_sms_id'=>$composeLastId,
+                          'receiver_id' =>$request->reciver_id[$y]
+                           
                         );
-
-                        $getStudents = ComposeSms::create($data3);
+                        $getStudents = ComposeSmsEmail::create($data3);
+                        
                         //send sms......................
                         // $studentMast = User::where('user_flag','S')->where('id',$request->s_id[$y])->first();
                         // $studentMobile = $studentMast->mobile_no;
@@ -260,21 +325,26 @@ class EmailAndSMSController extends Controller
                     $y++; 
                 }
             } 
-       }else if ($request->sendtype == 3) {
-           
-            $count1 = count($request->faculty_id);
+       }else if ($request->sendtype == 'T') {
+
+           $composeSmsEmail = [
+                       'user_id' => Auth::user()->id,
+                       'send_to'  => $request->sendtype,
+                       'body' => $data['compose_sms_content'],
+                       'compose_type' => 'S',
+                       ];
+            $composeLastId = ComposeSmsEmailMast::create( $composeSmsEmail)->id;
+            $count1 = count($request->reciver_id);
             if($count1 != 0){
                 $y = 0;
                 while($y < $count1){
-                    if($request->faculty_id[$y] !=''){
+                    if($request->reciver_id[$y] !=''){
                         $data3 = array(
-                           'user_id'  => Auth::user()->id,
-                           'sender_type'  => $data['sender_type'],
-                           'compose_sms_content' => $data['compose_sms_content'],
-                            'reciver_id'    => $request->faculty_id[$y]
+                            'compose_sms_id'=>$composeLastId,
+                            'receiver_id' =>$request->reciver_id[$y]
                         );
-
-                        $getStaffs = ComposeSms::create($data3);
+                        // dd($data3);
+                        $getStaffs = ComposeSmsEmail::create($data3);
                         //send sms......................
 
                         // $teacherMast = User::where('user_flag','T')->where('id',$request->faculty_id[$y])->first();
@@ -291,6 +361,8 @@ class EmailAndSMSController extends Controller
                     $y++; 
                 }
             } 
+       }else{
+        return "error";
        }
       
       return "success";
@@ -298,19 +370,43 @@ class EmailAndSMSController extends Controller
 
     public function smsDeliveryReport(){
 
-        $getComposeSms = ComposeSms::with('get_user')->orderBy('id', 'DESC')->get();
-        $getStaffId = [];
-        $getstudent = [];
-        // foreach ($getComposeSms as $getId) {
-        //     foreach ($getId['get_compose_sms'] as $getstudents) {
-        //         $getReciverId [] = $getstudents;
-        //         $composeSmsId [] = $getstudents->compose_sms_id;
+        $getComposeSms = ComposeSmsEmail::with('get_user')->get();
+        $receiverIds = [];
+        $compose_sms_id = [];
 
-        //     }
-        // } 
-        // $getAll = ComposeSms::whereIn('reciver_id',$getReciverId)->get();
-        // dd($getAll);
-        return view('admin.composeSmsAndEmail.sms.delivery-record',compact('getComposeSms')); 
+        foreach ($getComposeSms as $value) {
+                $compose_sms_id[]  = $value->compose_sms_id;
+            
+        }
+        $compose = ComposeSmsEmailMast::whereIn('id',$compose_sms_id)->where('compose_type','S')->get();
+        foreach ($compose as $composes) {
+                $receiverIds[]  = $composes->id;
+            
+        }
+        // dd($getComposeSms);
+        
+        $composeType = 'S';
+        return view('admin.composeSmsAndEmail.sms.delivery-record',compact('getComposeSms','composeType','receiverIds')); 
+    }
+    public function emailDeliveryReport(){
+
+        $getComposeSms = ComposeSmsEmail::with('get_user')->get();
+        $receiverIds = [];
+        $compose_sms_id = [];
+        foreach ($getComposeSms as $value) {
+                $compose_sms_id[]  = $value->compose_sms_id;
+            
+        }
+        $compose = ComposeSmsEmailMast::whereIn('id',$compose_sms_id)->where('compose_type','E')->get();
+        foreach ($compose as $composes) {
+                $receiverIds[]  = $composes->id;
+            
+        }
+        // dd($receiverIds);
+
+        $composeType = 'S';
+
+        return view('admin.composeSmsAndEmail.email.email-delivery-record',compact('getComposeSms','composeType','receiverIds')); 
     }
     //end code for compose SMS..................................
 }

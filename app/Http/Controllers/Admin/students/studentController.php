@@ -32,6 +32,8 @@ use App\Models\master\guardianDesignation;
 // use App\Models\master\SendCode1;
 use App\Models\sendmessage\SendMessage;
 use App\Models\AssignSubjectGroupStudent;
+use Carbon\Carbon;
+use Arr;
 
 
 use App\Models\student\StudentMastPrevReocrd;
@@ -88,7 +90,7 @@ class studentController extends Controller
         return view('admin.students.create',compact('classes','studentNationalites','studentMothertongues','professtionType','guardianDesignation','students','bus_fees'));
 
     }
-
+    
     
     public function store(Request $request)
     {
@@ -564,4 +566,5 @@ class studentController extends Controller
     public function student_basic_detls_fetch(Request $request){
 
     }
+
 }

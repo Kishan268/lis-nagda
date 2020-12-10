@@ -10,7 +10,7 @@
             <h1 class=" mb-0 text-gray-800 bread-text" >Dashboard</h1>
             {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
           </div>
-        @role('superadmin')
+        @role('superadmin','teachers')
           <!-- Content Row -->
           <div class="row">
             <!-- Earnings (Monthly) Card Example -->
@@ -92,8 +92,7 @@
               </div>
             </div>
           </div>
-          @endrole
-</div>
+      </div>
        
 
 
@@ -168,23 +167,74 @@
           </div>
         </div>
       </div>
+  @endrole
    </div>
+
    <div class="row">
       <div class="col-xl-4 col-lg-5">
         <div class="card shadow mb-4">
           <!-- Card Header - Dropdown -->
           <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-              <h6 class="m-0 font-weight-bold text-primary">Notice & Circular</h6>           
+                <h6 class="m-0 font-weight-bold text-primary">Notice & Circular &nbsp; </h6>   
+    
           </div>
           <!-- Card Body -->
+        @role('students')
           <div class="card-body">
               <div class="chart-pie pt-4 pb-2">
-
+                <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
+                  <?php $count = 1; ?>
+                  @if(in_array(Auth::user()->id, $currentUser))
+                  @foreach($getNotication as $getNotications)
+                    @if(date("Y-m-d") <= $getNotications->date_to_display && $getNotications->date_to_display == 'C')
+                      {{$count++}}.Notice Title:- {{$getNotications->circular_title}} <br>
+                      &nbsp;&nbsp;Notice Description:- {{$getNotications->circular_description}} <br>
+                      &nbsp;&nbsp;Notice File:- <br><a href=""><img src="{{asset($getNotications->file !=null ? 'storage/'.$getNotications->file : 'img/student_demo.png')}}" style="width: 100px; height: 100px;"></a> <br><hr><hr>
+                      {{-- <a href="">Wishes</a> --}}
+                      @endif
+                  @endforeach
+                  @endif
+                  </marquee>    
               </div>              
           </div>
+          @endrole
+          @role('superadmin')
+          <div class="card-body">
+              <div class="chart-pie pt-4 pb-2">
+                <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
+                  <?php $count = 1; ?>
+                  @foreach($getNotication as $getNotications)
+                    @if(date("Y-m-d") <= $getNotications->date_to_display )
+                      {{$count++}}.Notice Title:- {{$getNotications->circular_title}} <br>
+                      &nbsp;&nbsp;Notice Description:- {{$getNotications->circular_description}} <br>
+                      &nbsp;&nbsp;Notice File:- <br><a href=""><img src="{{asset($getNotications->file !=null ? 'storage/'.$getNotications->file : 'img/student_demo.png')}}" style="width: 100px; height: 100px;"></a> <br><hr><hr>
+                      {{-- <a href="">Wishes</a> --}}
+                      @endif
+                  
+                  @endforeach
+                  </marquee>    
+              </div>              
+          </div>
+          @endrole
+          @role('teachers')
+          <div class="card-body">
+              <div class="chart-pie pt-4 pb-2">
+                <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
+                  <?php $count = 1; ?>
+                  @foreach($getNotication as $getNotications)
+                    @if(date("Y-m-d") <= $getNotications->date_to_display && $getNotications->date_to_display == 'S')
+                      {{$count++}}.Notice Title:- {{$getNotications->circular_title}} <br>
+                      &nbsp;&nbsp;Notice Description:- {{$getNotications->circular_description}} <br>
+                      &nbsp;&nbsp;Notice File:- <br><a href=""><img src="{{asset($getNotications->file !=null ? 'storage/'.$getNotications->file : 'img/student_demo.png')}}" style="width: 100px; height: 100px;"></a> <br><hr><hr>
+                      {{-- <a href="">Wishes</a> --}}
+                      @endif
+                  @endforeach
+                  </marquee>    
+              </div>              
+          </div>
+          @endrole
         </div>
-      </div>
-
+      </div> 
        <div class="col-xl-4 col-lg-5">
         <div class="card shadow mb-4">
           <!-- Card Header - Dropdown -->
@@ -192,17 +242,20 @@
               <h6 class="m-0 font-weight-bold text-primary">Today's Birthday</h6>           
           </div>
           <!-- Card Body -->
-          <div class="card-body">
+           <div class="card-body">
               <div class="chart-pie pt-4 pb-2">
                 <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
                 @foreach($birthUsers as $birthUser)
-                {{$birthUser->name}} ({{date('d-M-Y',strtotime($birthUser->dob))}})
+                    Name:- {{$birthUser->f_name. ' ' .$birthUser->l_name}} ({{date('d-M-Y',strtotime($birthUser->dob))}})<br><hr><hr>
+                    {{-- <a href="">Wishes</a> --}}
                 @endforeach
                 </marquee>
               </div>              
           </div>
         </div>
       </div>
+   @role('superadmin')
+
       <div class="col-md-4 col-lg-4">
         <div class="card shadow mb-4">
           <!-- Card Header - Dropdown -->
@@ -216,7 +269,8 @@
             </div>
           </div>
         </div>
-      </div>  
+      </div> 
+      @endrole 
    </div>
    <div class="row">
      <div class="col-md-12">
@@ -232,8 +286,6 @@
      </div>
    </div>
 
-  </div>
-  </div>
   </div>
 
 <script>

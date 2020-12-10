@@ -11,15 +11,17 @@
 	<tbody>
 		@php $count = 0; @endphp
 		@foreach($studentsMast as $student)
-		<tr>
-			<td><input type="checkbox" name="s_id[]" class="check" value="{{$student->id}}"></td>
-			<td>{{ $student->roll_no }}</td>
-			<td>{{ $student->f_name  }} {{ $student->l_name }}</td>
-			<td>
-				{{ $student->s_mobile }} 
-			</td>
-			
-		</tr>
+			@foreach($student as $students)
+				<tr>
+					<td><input type="checkbox" name="s_id[]" class="check" value="{{$students->id}}"></td>
+					<td>{{ $students->admission_no }}</td>
+					<td>{{ $students->f_name  }} {{ $students->l_name }}</td>
+					<td>
+						{{ $students->s_mobile }} 
+					</td>
+					
+				</tr>
+			@endforeach
 		@endforeach
 	</tbody>
 </table> 

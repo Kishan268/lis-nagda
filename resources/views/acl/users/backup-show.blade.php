@@ -5,12 +5,12 @@
 
  <main class="app-content">
     <div class="app-title">
-{{--       <div>
+      <div>
         <h1><i class="fa fa-dashboard"></i>ACL</h1>
-      </div> --}}
+      </div>
       <ul class="app-breadcrumb breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ URL::previous() }}"><i class="fa fa-arrow-left fa-lg "></i></a>&nbsp; &nbsp;</li>
-        <li class="breadcrumb-item"><a href="#">ACL/{{request()->segment(1)}}/show roles & permissions</a></li>
+        <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+        <li class="breadcrumb-item"><a href="#">ACL</a></li>
       </ul>
     </div>
     <div class="col-md-12 m-auto">
@@ -19,65 +19,70 @@
           <div class="row">
             <div class="col-md-12 col-xl-12 col-sm-12 d-inline-flex radio-group" style=" ">
 
-                <a  data = 'role' class="col-md-6 col-sm-6 text-center btn big active_class get_table roles_table btn btn-outline-info active">
+                <a style="background: #5bc0de;margin-right: 20px;max-width: 90px;" data = 'role' class="col-md-6 col-sm-6 text-center btn big active_class get_table roles_table">
                 Roles</a>
 
-                <a  data = 'permissions_table' class=" btn btn-outline-info col-md-6 col-sm-6 text-center btn big get_table permissions_table inactive">
-                Permissionss</a>
-                 
+                <a style="background: #5bc0de;margin-right: 20px;max-width: 100px;" data = 'permissions_table' class="col-md-6 col-sm-6 text-center btn big get_table permissions_table">
+                Permissions</a>
+                <?php if($type != 'A') { ?>
+                  <a style="background: #5bc0de;margin-right: 20px;max-width: 100px;" data = 'users_table' class="col-md-6 col-sm-6 text-center btn big get_table users_table">
+                  Users</a>
+                <?php } ?>  
             </div>
           </div>        
         </div>
 
-         <div class="card-body "  >
+        <div class="card-body "  >
           <div class="row mytable1">
           <div class="col-md-12 m-auto">
             <div class="card">
               <div class="card-header">
                 <div class="row">
-                  <div class="col-md-6 col-sm-6">
-                    <label>Assign Roles to user:</label> 
+                  <div class="col-md-3 col-sm-3">
+                    <label>Name</label><br>
                     <span><?php echo($data['user']['name']);?></span>
                     <input id="id" type="hidden" name="id" value="<?php echo($data['user']['id']);?>">
                   </div>
-                </div>
-              </div>
-                <div class="col-sm-9 col-md-9">
-                    <?php
-                    foreach($data['role'] as $roles){ ?>
-                        <input class="taskchecker" 
-                        type="checkbox" name="role_val" <?php if(in_array($roles->id,$role_ids)){echo 'checked'; }?> value="{{$roles->id}}" disabled>&nbsp;&nbsp;{{$roles->name}}<br>
-                      <label class="checkbox-inline">
-                      </label>
-                   <?php } ?>
-                </div>
+                  <div class="col-sm-9 col-md-9">
+                    <label>Roles</label>
+                    <form>
+                      <?php
+                      foreach($data['role'] as $roles){ ?>
+                        <label class="checkbox-inline">
+                          <input class="taskchecker" 
+                          type="checkbox" name="role_val" <?php if(in_array($roles->id,$role_ids)){echo 'checked'; }?> value="{{$roles->id}}">{{$roles->name}}
+                        </label>
+                     <?php } ?>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div style="display: none;" class="row mytable2" >
-          
           <div class="col-md-12 m-auto">
             <div class="card">
-               <div class="card-header">
+              <div class="card-header">
                 <div class="row">
-                  <div class="col-md-6 col-sm-6">
-                    <label>Assign Permissions to user:</label> 
-                    <span><?php echo($data['user']['name']);?></span>
-                    <input id="id" type="hidden" name="id" value="<?php echo($data['user']['id']);?>">
+                  <div class="col-md-3 col-sm-3">
+                    <label>Name</label><br>
+                    <span><?php echo $data['user']['name'] ; ?></span>
+                    <input id="id" type="hidden" name="id" value="<?php echo $data['user']['id'] ; ?>">
+                  </div>
+                  <div class="col-sm-9 col-md-9">
+                    <label>Permissions</label>
+                    <form>
+                    <?php foreach($data['permissions'] as $permission){ ?>
+                        <label class="checkbox-inline">
+                          <input name="permission_id" class="taskchecker1" <?php if(in_array($permission->id,$permission_ids)){echo 'checked'; }?>
+                          type="checkbox" value="{{$permission->id}}">{{$permission->name}}
+                        </label>
+                    <?php } ?>
+                    </form>
                   </div>
                 </div>
               </div>
-              <div class="col-sm-9 col-md-9">
-                <?php foreach($data['permissions'] as $permission){ ?>
-                    <input name="permission_id" class="taskchecker1" <?php if(in_array($permission->id,$permission_ids)){echo 'checked'; }?>
-                      type="checkbox" value="{{$permission->id}}" disabled>&nbsp;&nbsp;{{$permission->name}}<br>
-                    <label class="checkbox-inline">
-                      
-                    </label>
-                <?php } ?>
-             </div>
             </div>
           </div>
         </div>
@@ -122,11 +127,6 @@
 </main>     
 <script>
   $(document).ready(function(){
-
-    $('.btn').click(function(){
-    $('.btn').removeClass('active').addClass('inactive');
-     $(this).removeClass('inactive').addClass('active');
-    });
     $('#role_table2').DataTable();
 
     $(".taskchecker").on("change", function() {

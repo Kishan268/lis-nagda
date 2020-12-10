@@ -61,6 +61,7 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $data = $request->validate([
             'name'          => 'required|string|max:255|min:3',
             'email'         => 'required|email|max:255|unique:users',
@@ -71,11 +72,13 @@ class TeacherController extends Controller
         $data['parent_id']  = Auth::user()->id;
         $data['password']   = Hash::make($request->password);
         $data['username']   = $request->name;
+
         $insertDatainUsrTbl = User::create($data);
         $lastId = $insertDatainUsrTbl->id;
         $teacherData['id']   = $lastId;
         $teacherData['parent_id']   = $data['parent_id'];
         $insertDatainTeacherTbl    = Teacher::create($teacherData);
+
         // $data->Teacher()->sync($lastId);
          // send user name and password using email and SMS..................
           /*  if ( $insertDatainUsrTbl) {

@@ -29,14 +29,16 @@ class UserController extends Controller
   
     public function create()
     {
-        return view('acl.users.create');
+        $role        = Role::get();
+        return view('acl.users.create',compact('role'));
     }
 
     public function store(Request $request)
     {
         $this->validate($request,[ 'name' =>'required',
-                                   'email' => 'required|email|unique:users,email',
-                                   'mobile_no'=>'required|numeric'
+                                   'email' => 'required|email',
+                                   'mobile_no'=>'required|numeric',
+                                   'role'=>'required|numeric'
                                  ]);
         $password = substr($request->name,0,4).'1234';
         $name['name']     = strtolower($request->name);
@@ -49,8 +51,8 @@ class UserController extends Controller
                 'password' => Hash::make($password),
                 'mobile_no' => $request->mobile_no,
                 );
-        $data['acc_type'] = 'B';
-        User::insert($data);
+        $user = User::insert($data);
+        // $user->attachRole(3);
 
         $dta = array(
             'password' => $password, 
@@ -66,6 +68,7 @@ class UserController extends Controller
    
     public function show($id)
     {
+        // dd('');
         $data  = array();
         $data['user']        = User::find($id);
         $data['role']        = Role::get();
@@ -84,7 +87,6 @@ class UserController extends Controller
             $role_ids[] = $roles->role_id; 
         }
 
-// dd($role_ids);
         return view('acl.users.show',compact('data','permission_ids','user','role_ids','type'));
     }
 
@@ -124,17 +126,47 @@ class UserController extends Controller
 
         $user = User::where('id', '=', $userId)->firstOrFail();
         $user->roles()->sync($roleId);
-        dd($user);
         return 'success';
         
     }
 
     public function changePermission(Request $request){
-        
         $user         = User::findOrFail($request->userId);
+        // dd($user);
         $permissionid = $request->permissionId;
         $user->syncPermissions($permissionid);
         return 'success';
+    }
+    public function showUserRolePermission(Request $request){
+        // dd($request);
+        $id = $request->id;
+        $data  = array();
+        $data['user']        = User::find($id);
+        $data['role']        = Role::get();
+        $data['permissions'] = Permission::get();
+        $permission          = DB::table('permissions')->where('id',$id)->get();
+        $role                = DB::table('role_user')->where('user_id',$id)->get();
+        $user                = User::where('id',$id)->get();      
+        $type                = $data['user']->acc_type;  
+// dd($user);
+        $permission_ids = array();
+        $role_ids = array();
+        foreach ($permission as $ids) {
+            $permission_ids[] = $ids->id; 
+        }
+        foreach ($role as $roles) {
+            $role_ids[] = $roles->role_id; 
+        }
+
+       if ($request->val == 'role') {
+
+            return view('acl.users.assign-role',compact('data','permission_ids','user','role_ids','type'));
+
+       }elseif($request->val == 'permission'){
+
+            return view('acl.users.assign-permission',compact('data','permission_ids','user','role_ids','type'));
+       }
+
     }
 }
 

@@ -39,11 +39,11 @@ class AdmissionForm extends Controller
     public function admissionInquiryForm(Request $request){
     	$data = $request->validate([
 					'your_name'=>'required',
-					'your_email'=>'required',
+					'your_email'=>'required|email',
 					'child_name'=>'required',
-					'child_age'=>'required',
+					'child_age'=>'required|numeric',
 					'child_class'=>'required',
-					'mobile_no'=>'required'
+					'mobile_no'=>'required|min:10|max:12|numeric'
 				]);
         $create_stud = AdmissionInquiryForm::create($data);
         if ( $create_stud) {

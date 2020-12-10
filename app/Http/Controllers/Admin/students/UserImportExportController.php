@@ -406,7 +406,7 @@ class UserImportExportController extends Controller
                         'mobile_no'  => $mobile_number ? $mobile_number :'',
                         ];
                         $createUser = User::create($studentData2);
-
+                         $user->attachRole('3');
 
         // send user name and password using email and SMS..................
                         if ( $createUser) {

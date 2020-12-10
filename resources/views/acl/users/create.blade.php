@@ -6,11 +6,13 @@
  <main class="app-content">
 	  <div class="app-title">
 	    <div>
-	      <h1><i class="fa fa-dashboard"></i>ACL</h1>
+	      {{-- <h1><i class="fa fa-dashboard"></i>ACL</h1> --}}
 	    </div>
 	    <ul class="app-breadcrumb breadcrumb">
-	      <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-	      <li class="breadcrumb-item"><a href="#">ACL</a></li>
+	      <li class="breadcrumb-item"> <a href="{{ URL::previous() }}"><i class="fa fa-arrow-left fa-lg "></i></a></li>
+	      <li class="breadcrumb-item"><a href="#">ACL/{{request()->segment(count(request()->segments()))}}</a>
+          {{-- <a href="{{ URL::previous() }}" class="full-right"> Back</a> --}}
+        </li>
 	    </ul>
 	  </div>
 	  <div class="container">
@@ -18,7 +20,7 @@
     <div class="col-md-12 m-auto">
       <div class="card">
         <div style="padding-top: 30px;padding-bottom: 30px;">
-          <form>
+          <form action="{{route('users.store')}}" method="post" id="form_submit" autocomplete="off" enctype="multipart/form-data">
           {{csrf_field()}}
           
              <div class="form-group row">
@@ -34,56 +36,69 @@
                     @enderror
                 </div>
             </div>
-                    <div class="form-group row">
-                        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+            <div class="form-group row">
+                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                <div class="col-md-6">
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                    @error('email')
+                        <span class="text-danger" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="mobile" class="col-md-4 col-form-label text-md-right">{{ __('Mobile No') }}</label>
 
-                        <div class="col-md-6">
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                <div class="col-md-6">
+                    <input id="mobile" type="text" class="form-control @error('mobile_no') is-invalid @enderror" name="mobile_no" value="{{ old('mobile_no') }}" required autocomplete="mobile_no" autofocus>
 
-                            @error('email')
-                                <span class="text-danger" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
+                    @error('mobile_no')
+                        <span class="text-danger" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="mobile" class="col-md-4 col-form-label text-md-right">{{ __('Select Role') }}</label>
 
-                    <div class="form-group row">
-                        <label for="mobile" class="col-md-4 col-form-label text-md-right">{{ __('Mobile No') }}</label>
+                <div class="col-md-6">
+                   <select  class="form-control @error('role') is-invalid @enderror" name="role">
+                     <option>Select</option>
+                      @foreach($role as $roles)
+                        <option value="{{$roles->id}}">{{$roles->name}}</option>
+                      @endforeach
+                   </select>
+                    @error('role')
+                        <span class="text-danger" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
-                        <div class="col-md-6">
-                            <input id="mobile" type="text" class="form-control @error('mobile_no') is-invalid @enderror" name="mobile_no" value="{{ old('mobile_no') }}" required autocomplete="mobile_no" autofocus>
+                <div class="col-md-6">
+                    <input id="password" type="password" placeholder="Password  Will Be Automatically Generate" class="form-control @error('password') is-invalid @enderror" disabled="" name="password" required autocomplete="new-password">
 
-                            @error('mobile_no')
-                                <span class="text-danger" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                
-                  <div class="form-group row">
-                      <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                      <div class="col-md-6">
-                          <input id="password" type="password" placeholder="Password  Will Be Automatically Generate" class="form-control @error('password') is-invalid @enderror" disabled="" name="password" required autocomplete="new-password">
-
-                          @error('password')
-                              <span class="text-danger" role="alert">
-                                  <strong>{{ $message }}</strong>
-                              </span>
-                          @enderror
-                      </div>
-                  </div>                       
-                  <div class="form-group row mb-0">
-                      <div class="col-md-6 offset-md-4">
-                          <button type="submit" id="submit" class="btn btn-primary">
-                              {{ __('Register') }}
-                          </button>
-                      </div>
+                    @error('password')
+                        <span class="text-danger" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>                       
+              <div class="form-group row mb-0">
+                  <div class="col-md-6 offset-md-4">
+                      <button type="submit" id="submit" class="btn btn-primary">
+                          {{ __('Register') }}
+                      </button>
                   </div>
-                  </div>
-              </form>
+              </div>
+              </div>
+          </form>
         </div>
       </div>
     </div>
@@ -121,17 +136,21 @@
 </div>
 
 <script >
-	$(document).on('click','#submit',function(event){
+	$(document).on('click','#submit11',function(event){
         event.preventDefault();
         $.ajax({
             url: "{{ route('users.store') }}",
             type: 'POST',
             data: $('form').serialize(),
             success: function (data) {
+               if (data) {
                 $('#myModal').modal('show');
-               $('#email_mod').val((data['email']));
-               $('#mobile_no').val((data['mobile_no']));
-               $('#pass_mod').val((data['password']));
+                 $('#email_mod').val((data['email']));
+                 $('#mobile_no').val((data['mobile_no']));
+                 $('#pass_mod').val((data['password']));
+               }else{
+                alert('Fill all mandatory the fields ')
+               }
             }
         })
     });
