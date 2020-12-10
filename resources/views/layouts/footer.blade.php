@@ -68,7 +68,9 @@
 <script src="{{asset('js/helpers.js')}}"></script>
  <script type="text/javascript">
   $(document).ready(function(){
-        $('.mytable').DataTable();
+        $('.mytable').DataTable({
+          "ordering": false
+        });
         $(function () {
             $(".datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
         });

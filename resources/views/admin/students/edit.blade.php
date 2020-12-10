@@ -425,7 +425,27 @@
 													<div class="col-md-3">
 														<label for="rte"> CBSE  Registration no </label>
 														<input class="form-control" id="CBSC_reg" name="cbsc_reg" type="text" value="{{$student->cbsc_reg ?? old('cbsc_reg')}}">	           
-													</div>			                                
+													</div>		
+
+													<div class="col-md-3">
+														<label for="bus_fee_allocate">Bus Fee Allocate</label>
+														<select class="form-control" name="bus_fee_allocate" id="bus_fee_allocate" required="required">
+														    <option value="0" {{old('bus_fee_allocate') == '0' ? 'selected' : ''}}>No</option>
+														    <option value="1" {{(($student->bus_fee_id !=null) ?? old('bus_fee_allocate') )  ? 'selected' :''}}>Yes</option>
+														</select>
+													           
+													</div>	
+	
+													<div class="col-md-3" style="display: none" id="busFeeDIV">
+														<label for="bus_fee_id" class="required"> Bus Fee Structure</label>
+														<select class="form-control" name="bus_fee_id" id="bus_fee_id" >
+														    <option value="" >Select Bus Fee Struture</option>
+															@foreach($bus_fees as $bus_fee)
+																<option value="{{$bus_fee->bus_fee_id}}" {{$bus_fee->bus_fee_id == (old('bus_fee_id') ?? $student->bus_fee_id) ? 'selected' : ''}}>{{$bus_fee->bus_fee_title}}</option>
+														    @endforeach
+														</select>
+													</div>
+														                                
 												</div>
 									        </section>
 											<ul class="tab-links nav nav-tabs pull-right mt-3">
@@ -826,6 +846,28 @@ $('label.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;')
 $('th.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;');
 
 $(document).ready(function(){
+
+	$('#bus_fee_allocate').on('change',function(e){
+		e.preventDefault();
+		var bus_fee_allocate = $(this).val();
+		bus_fee_show(bus_fee_allocate);
+	})
+
+	var bus_fee_allocate = "{{$student->bus_fee_id !=null ? '1' : (old('bus_fee_allocate') !=null ? old('bus_fee_allocate') : '0' ) }}";
+	if(bus_fee_allocate !=''){
+		 bus_fee_show(bus_fee_allocate);
+	}
+
+
+	function bus_fee_show(bus_fee_allocate){
+		if(bus_fee_allocate == '1'){
+			$('#busFeeDIV').show();
+		}else{
+			$('#busFeeDIV').hide();
+		}
+	}
+
+
 	$('.status').on('change',function(e){
 		e.preventDefault();
 		var status = $(this).val();

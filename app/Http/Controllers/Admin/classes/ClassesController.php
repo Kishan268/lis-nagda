@@ -142,8 +142,7 @@ class ClassesController extends Controller
         }])->where('class_id',$std_class_id)->groupBy('batch_id')->get();
 
     }   
-    public function section_fetch($std_class_id,$batch_id){
-        
+    public function section_fetch($std_class_id,$batch_id = null){
         return SectionManage::select('id','class_id','batch_id','section_id')->with(['section_names' => function($q){
             $q->select('id','section_name');
         }])->where(['class_id' => $std_class_id,'batch_id' => $batch_id])->get();

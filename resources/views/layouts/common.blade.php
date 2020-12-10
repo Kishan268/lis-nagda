@@ -7,6 +7,10 @@
 			e.preventDefault();
 			var std_class_id = $(this).val();
 			if(std_class_id !=''){
+				if(std_class_id == 'all'){
+					$('#tableRowData').show();
+            		$('#tableData').empty();
+				}
 				batch_fetch(std_class_id,select_batch_id);
 			}
 		});

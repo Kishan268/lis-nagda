@@ -381,7 +381,7 @@ Route::post('get_admission_no','Admin\certificate\CertificateController@getAdmis
 
 
 Route::get('batch-fetch/{id}','Admin\classes\ClassesController@batch_fetch')->name('batch-fetch');
-Route::get('section-fetch/{id}/{id1}','Admin\classes\ClassesController@section_fetch')->name('section-fetch');
+Route::get('section-fetch/{id?}/{id1?}','Admin\classes\ClassesController@section_fetch')->name('section-fetch');
 Route::Resource('profile','Admin\profile\ProfileController');
 
 Route::Resource('certificate-request','Admin\students\CertificateRequestController');
@@ -389,4 +389,17 @@ Route::Resource('certificate-request','Admin\students\CertificateRequestControll
 Route::get('gallery_test','Admin\gallery\GalleryController@gallery_test')->name('gallery_test');
 
 Route::get('certificate/download/{id}','Admin\students\CertificateRequestController@downloadCerfificate')->name('centificate_download');
+
+
+
+
+//Route for Transport
+    
+Route::resource('transport','Admin\transport\TransportController');
+Route::get('bus_fee_index','Admin\transport\TransportController@bus_fee_index')->name('bus_fee_index');
+Route::get('bus_fee_create','Admin\transport\TransportController@bus_fee_create')->name('bus_fee_create');
+Route::post('bus_fee_store','Admin\transport\TransportController@bus_fee_store')->name('bus_fee_store');
+Route::get('bus_fee_edit/{id}','Admin\transport\TransportController@bus_fee_edit')->name('bus_fee_edit');
+Route::patch('bus_fee_update/{id}','Admin\transport\TransportController@bus_fee_update')->name('bus_fee_update');
+
 

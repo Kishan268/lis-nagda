@@ -81,11 +81,54 @@ const STUDENTSTATUS = [
 	'F' => 'Fail' 
 ];
 
-if(!function_exists('student_gender')){
-	function student_gender(){
-		return 'hello';
-	}
-}
+const FINE_TYPES = [
+	1 => 'Fixed',
+	2 => 'Per Day'
+];
+
+const FINE = [
+	1 => 'Amount',
+	2 => 'Percentage'
+];
+
+
+const HEAD_TYPES = [
+	1 => 'Permanent',
+	2 => 'Temporary'
+];
+	
+const CURRENCY = [
+	'I' => 'INR',
+	'U' => 'USD'
+];
+
+const RECIEPT_HEADER_NAME = [
+	1 => 'Lakshya International School, Nagda'
+];
+const COURSE_SELECTION = [
+	1 => 'Single Course',
+	2 => 'Multiple Courses'
+];
+const INCLUDE_RTE = [
+	0 => 'RTE',
+	1 => 'Without RTE'
+];
+
+
+const INSTALMENT_MODE = [
+	1  => 'One Time',
+	2  => '2 Instalments',
+	3  => '3 Instalments'
+	// 4  => '4 Instalments',
+	// 5  => '5 Instalments',
+	// 6  => '6 Instalments',
+	// 7  => '7 Instalments',
+	// 8  => '8 Instalments',
+	// 9  => '9 Instalments',
+	// 10 => '10 Instalments',
+	// 11 => '11 Instalments',
+	// 12 => '12 Instalments',
+];
 
 if(!function_exists('batches')){
 	function batches(){

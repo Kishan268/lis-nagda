@@ -37,18 +37,21 @@ class FeesController extends Controller
     public function create()
     {    
          $classes = studentClass::get();
-         $batches = studentBatch::get();
          $sections = studentSectionMast::get();
-         $headerName = Helpers::headerName();
-         $currencyCode = Helpers::currencyCode();
-         $courseSelection = Helpers::courseSelection();
+
+
+         // $headerName = Helpers::headerName();
+         // $currencyCode = Helpers::currencyCode();
          $studentGender = Helpers::studentGender();
          $castCategory = Helpers::castCategory();
          $Include = Helpers::Include();
-         // dd($Include);
-         $feesHeadMast = FeesHeadMast::get();
 
-        return view ('admin.fees.create',compact('classes','batches','sections','headerName','currencyCode','feesHeadMast','courseSelection','studentGender','castCategory','Include'));
+         $batches = studentBatch::select('id','batch_name')->orderBy('batch_name')->get();
+
+         // dd($Include);
+         $fee_heads = FeesHeadMast::where('status','A')->orderBy('head_sequence_order')->get();
+
+        return view ('admin.fees.create',compact('classes','batches','sections','fee_heads','studentGender','castCategory','Include'));
         
     }
 
@@ -60,7 +63,34 @@ class FeesController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        dd($request->all());
+            $fees_mast = [
+                'fees_name'         => $request->fees_name,
+                'fees_amt'          => $request->fees_amt,
+                'receipt_head_id'   => $request->receipt_head_id,
+                'currency_code'     => $request->currency_code,
+                'no_of_instalment'  => $request->no_of_instalment,
+                'courseselection'   => $request->courseselection,
+                'online_discount'   => $request->online_discount,
+                'is_fees_student_assign'   => $request->is_fees_student_assign,
+                'courseselection'   => $request->courseselection,
+
+
+
+            ];
+
+
+
+
+
+
+
+
+
+
+
+
+        die;
         $data['fees_name']    = $request->name;
         $data['fees_amt']       = $request->amount;
         $data['header_name_to_be_display_reci'] = $request->tmpinst_name;

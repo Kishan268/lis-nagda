@@ -14,8 +14,8 @@
   <div class="card-body">
     <div class="row">
         <div class="col-xl-3 col-md-6 mb-4">
-          <a href="{{route('fees_dashboard')}}" class="">
-              <div class="card {{Request::url() == Route('fees_dashboard') ? 'border-left-success bg-primary text-white' : 'border-left-primary'}} shadow h-100 py-2">
+          <a href="{{route('transport.index')}}" class="">
+              <div class="card {{Request::url() == Route('transport.index') ? 'border-left-success bg-primary text-white' : 'border-left-primary'}} shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
@@ -32,23 +32,23 @@
           </div>
 
           <div class="col-xl-3 col-md-6 mb-4">
-          <a href="{{route('fees.index')}}" class="">
-              <div class="card {{Request::url() == Route('fees.index') ? 'border-left-success bg-primary text-white' : 'border-left-primary'}} shadow h-100 py-2">
+          <a href="{{route('bus_fee_index')}}" class="">
+              <div class="card {{Request::url() == Route('bus_fee_index') ? 'border-left-success bg-primary text-white' : 'border-left-primary'}} shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold  text-uppercase mb-1">Fees</div>
+                      <div class="text-xs font-weight-bold  text-uppercase mb-1">Bus Fee Structure</div>
                      
                     </div>
                     <div class="col-auto">
-                      <i class="fa fa-users fa-2x text-gray-300"></i>
+                      <i class="fa fa-trucks fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
               </div>
             </a>
           </div>
-
+{{-- 
           <div class="col-xl-3 col-md-6 mb-4">
           <a href="{{route('fees-heads.index')}}" class="">
               <div class="card {{Request::url() == Route('fees-heads.index') ? 'border-left-success bg-primary text-white' : 'border-left-primary'}} shadow h-100 py-2">
@@ -98,7 +98,7 @@
                 </div>
               </div>
             </a>
-          </div> 
+          </div>  --}}
           {{-- <div class="col-xl-3 col-md-6 mb-4">
           <a href="{{route('home')}}" class="">
               <div class="card {{Request::url() == Route('home') ? 'border-left-success bg-primary text-white' : 'border-left-primary'}} shadow h-100 py-2">
@@ -116,7 +116,7 @@
             </a>
           </div> --}}
 
-      <div class="col-xl-3 col-md-6 mb-4">
+    {{--   <div class="col-xl-3 col-md-6 mb-4">
       <a href="#" class="">
           <div class="card {{Request::url() == route('id_card') ? 'border-left-success bg-primary text-white' : 'border-left-primary'}} shadow h-100 py-2">
             <div class="card-body">
@@ -131,23 +131,7 @@
             </div>
           </div>
         </a>
-      </div>      
-     {{--  <div class="col-xl-3 col-md-6 mb-4">
-      <a href="#" class="">
-          <div class="card {{Request::url() == route('id_card') ? 'border-left-success bg-primary text-white' : 'border-left-primary'}} shadow h-100 py-2">
-            <div class="card-body">
-              <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                  <div class="text-xs font-weight-bold  text-uppercase mb-1">BUS FEES</div>
-                </div>
-                <div class="col-auto">
-                  <i class="fa fa-id-card fa-2x text-gray-300"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </a>
-      </div> --}}              
-</div>
-</div>
+      </div>    --}}
+    </div>
+  </div>
 </div>

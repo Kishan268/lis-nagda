@@ -12,6 +12,7 @@ function batch_fetch(std_class_id,select_id,old_batch_id = null){
 				});
 			}else{
 				$(select_id).empty();
+				$('#section_id').empty();
 			}
 			
 		}

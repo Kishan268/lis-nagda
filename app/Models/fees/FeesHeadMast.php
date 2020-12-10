@@ -8,8 +8,8 @@ class FeesHeadMast extends Model
 {
     protected $table = 'fees_head_masts';
     protected $guarded =[];
-
-    public function Fine_type(){
-  		return $this->hasMany('App\Models\fees\FineType','fees_head_mast_id','id');
+    protected $primaryKey = 'fees_head_id';
+    public function fine_type(){
+  		return $this->hasMany('App\Models\fees\FineType','fine_type_id','fees_head_id');
    	}
 }

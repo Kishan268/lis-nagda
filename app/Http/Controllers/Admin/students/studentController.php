@@ -37,7 +37,7 @@ use App\Models\AssignSubjectGroupStudent;
 use App\Models\student\StudentMastPrevReocrd;
 use App\Models\student\StudentSiblings;
 
-
+use App\Models\transport\BusFeeStructure;
 
 class studentController extends Controller
 {
@@ -66,6 +66,7 @@ class studentController extends Controller
     }
     public function index()
     {
+        // return studentsMast::select('id','f_name','m_name','l_name','dob')->where(\DB::raw('substr(dob, 6, 9)'), '=' , date('m-d'))->get();
         $classes = $this->classes;
         $studentData = $this->studentData;
         return view('admin.students.index',compact('studentData','classes'));
@@ -83,7 +84,8 @@ class studentController extends Controller
 
         $students = studentsMast::select('id','admision_no','f_name','m_name','l_name')->where('status','R')->get();
 
-        return view('admin.students.create',compact('classes','studentNationalites','studentMothertongues','professtionType','guardianDesignation','students'));
+        $bus_fees = BusFeeStructure::where('bus_fee_status','A')->get();
+        return view('admin.students.create',compact('classes','studentNationalites','studentMothertongues','professtionType','guardianDesignation','students','bus_fees'));
 
     }
 
@@ -140,16 +142,17 @@ class studentController extends Controller
 
 
         //Student sibligs create
+        if($request->siblings !=null){
+            foreach ($request->siblings as $key => $sibling) {
+                $siblings = [
+                    's_id'                  =>  $student->id,
+                    'sibling_admission_no'  =>  $sibling,
+                    'sibling_no'            =>  $key + 1,
+                    'status'                => 'A'
+                ];
 
-        foreach ($request->siblings as $key => $sibling) {
-            $siblings = [
-                's_id'                  =>  $student->id,
-                'sibling_admission_no'  =>  $sibling,
-                'sibling_no'            =>  $key + 1,
-                'status'                => 'A'
-            ];
-
-            StudentSiblings::create($siblings);
+                StudentSiblings::create($siblings);
+            }
         }
 
 
@@ -175,7 +178,7 @@ class studentController extends Controller
             // ]; 
 
     //            $sendMessage = SendMessage::sendCode($sendData);
-    return redirect()->back()->with('success','Student added successfully');
+        return redirect()->back()->with('success','Student added successfully');
 
     }
 
@@ -214,8 +217,8 @@ class studentController extends Controller
         $studentSiblings = StudentSiblings::where('s_id',$id)->pluck('sibling_admission_no');
         // return $studentSiblings;
          // return $student;
-
-        return view('admin.students.edit',compact('classes','studentNationalites','studentMothertongues','professtionType','guardianDesignation','student','students','studentSiblings'));
+        $bus_fees = BusFeeStructure::where('bus_fee_status','A')->get();
+        return view('admin.students.edit',compact('classes','studentNationalites','studentMothertongues','professtionType','guardianDesignation','student','students','studentSiblings','bus_fees'));
 
     }
 
@@ -223,7 +226,8 @@ class studentController extends Controller
     public function update(Request $request, $id)
     {
         $data = $this->validation($request,$id);
-        
+    
+
         $student = studentsMast::with(['studentsGuardiantMast','student_doc'])->where('id',$id)->first();
       
 
@@ -436,6 +440,15 @@ class studentController extends Controller
 
         ];
 
+
+        if($request->bus_fee_allocate == '1'){
+            $request->validate([
+                'bus_fee_id' => 'required|not_in:""',
+            ]);
+            $data['bus_fee_id'] = $request->bus_fee_id;
+        }else{
+            $data['bus_fee_id'] = null;            
+        }
         return $data;
     }
 
@@ -452,17 +465,25 @@ class studentController extends Controller
 
     public function student_filter(Request $request){
 
-// dd($request);
         $page = request()->page; 
-        if($request->status == 'D' || $request->status == 'R'){
-            $students = studentsMast::with(['student_class'])->where(['batch_id'=>$request->batch_id, 'std_class_id' => $request->std_class_id, 'section_id' => $request->section_id, 'medium'=> $request->medium, 'status'=>$request->status])->get();
-            return view('admin.students.table',compact('students','page'));
+        if($page == 'basic_data_fetch'){
+// dd($request->all());
+            $students = studentsMast::where(['batch_id'=>$request->batch_id, 'std_class_id' => $request->std_class_id, 'section_id' => $request->section_id, 'medium'=> $request->medium, 'status'=>$request->status])->orderBy('f_name')->get();
+            return view('admin.fees.student_list_table',compact('students'));
+            
         }else{
-            $students = StudentMastPrevReocrd::with('student_detail')->whereHas('student_detail',function($q)use($request){
-                $q->where(['medium'=> $request->medium]);
-            })->has('student_detail')->where(['batch_id'=>$request->batch_id, 'std_class_id' => $request->std_class_id, 'section_id' => $request->section_id, 'status'=>$request->status])->get();
-            return view('admin.students.previous-student-detail.table',compact('students'));
+            if($request->status == 'D' || $request->status == 'R'){
+            $students = studentsMast::with(['student_class'])->where(['batch_id'=>$request->batch_id, 'std_class_id' => $request->std_class_id, 'section_id' => $request->section_id, 'medium'=> $request->medium, 'status'=>$request->status])->get();
+                return view('admin.students.table',compact('students','page'));
+            }else{
+                $students = StudentMastPrevReocrd::with('student_detail')->whereHas('student_detail',function($q)use($request){
+                    $q->where(['medium'=> $request->medium]);
+                })->has('student_detail')->where(['batch_id'=>$request->batch_id, 'std_class_id' => $request->std_class_id, 'section_id' => $request->section_id, 'status'=>$request->status])->get();
+                return view('admin.students.previous-student-detail.table',compact('students'));
+            }
         }
+
+        
 
 
         
@@ -538,5 +559,9 @@ class studentController extends Controller
     }
     public function updateProfile(Request $request){
         dd($request);
+    }
+
+    public function student_basic_detls_fetch(Request $request){
+
     }
 }

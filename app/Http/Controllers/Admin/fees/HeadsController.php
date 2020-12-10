@@ -16,11 +16,10 @@ class HeadsController extends Controller
      */
     public function index()
     {
-        $headTypes = Helpers::headTypes();
-        $fineTypes = Helpers::fineTypes();
-        $fine = Helpers::fine();
-        $feesHeadMast = FeesHeadMast::with('Fine_type')->get();
-        return view ('admin.fees.heads.index',compact('headTypes','fineTypes','fine','feesHeadMast'));
+       
+        $fees_heads = FeesHeadMast::with('fine_type')->orderBy('head_sequence_order','ASC')->get();
+        // return $fees_heads;
+        return view ('admin.fees.heads.index',compact('fees_heads'));
         
     }
 
@@ -29,9 +28,8 @@ class HeadsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create(){   
+        return view ('admin.fees.heads.create');
     }
 
     /**
@@ -43,28 +41,60 @@ class HeadsController extends Controller
     public function store(Request $request)
     {
         
-        $data['name'] = $request->head_name;
-        $data['amount'] = $request->head_amt;
-        $data['head_type'] = $request->headtype;
-        $data['head_sq_no'] = $request->head_sequence_order;
-        $data['refundable_status'] = $request->refundable;
-        $data['type'] = $request->applicable_on;
-        $data['instalment_applicable_status'] = $request->is_installable;
-        $lastId = FeesHeadMast::create($data)->id;
+        // return $request->all();
 
-        for ($i=0; $i < count($request->fine_type); $i++) { 
-            
-            $data2 = array(
-                'fees_head_mast_id'=>$lastId,
-                'fine_type'=>$request->fine_type[$i],
-                'fine_amount_status'=>$request->fine[$i],
-                'no_of_days'=>$request->fine_day[$i],
-                'fine_amount'=>$request->fine_amount[$i]
-            );
-            
-            FineType::create($data2);
+        $data = [
+            'head_name'             => $request->head_name,
+            'head_amt'              => $request->head_amt,
+            'headtype'              => $request->headtype,
+            'head_sequence_order'   => $request->head_sequence_order,
+            'refundable'            => $request->refundable !=null ? $request->refundable :'0',
+            'is_installable'        => $request->is_installable !=null ? $request->is_installable :'0',
+            'applicable_on'         => $request->applicable_on,
+            'status'                => $request->status,
+
+        ];
+
+
+
+
+        // $data['name'] = $request->head_name;
+        // $data['amount'] = $request->head_amt;
+        // $data['head_type'] = $request->headtype;
+        // $data['head_sq_no'] = $request->head_sequence_order;
+        // $data['refundable_status'] = $request->refundable;
+        // $data['type'] = $request->applicable_on;
+        // $data['instalment_applicable_status'] = $request->is_installable;
+        $fees_head = FeesHeadMast::create($data);
+
+        foreach ($request->fine_type as $key => $fine_type) {
+            if($request->fine_type !=null){
+                $fineTypeData = [
+                    'fees_head_id'  => $fees_head->fees_head_id,
+                    'fine_type'     => $fine_type,
+                    'fine'          => $request->fine[$key],
+                    'fine_day'      => $request->fine_day[$key],
+                    'fine_amt'      => $request->fine_amount[$key],
+                    'status'        => $request->status,
+                ]; 
+                FineType::create($fineTypeData);
+            }
         }
-        return redirect()->back()->with('success','Heads added successfully');
+
+
+        // for ($i=0; $i < count($request->fine_type); $i++) { 
+            
+        //     $data2 = array(
+        //         'fees_head_mast_id'=>$lastId,
+        //         'fine_type'=>$request->fine_type[$i],
+        //         'fine_amount_status'=>$request->fine[$i],
+        //         'no_of_days'=>$request->fine_day[$i],
+        //         'fine_amount'=>$request->fine_amount[$i]
+        //     );
+            
+        //     FineType::create($data2);
+        // }
+        return redirect()->back()->with('success','Fees Head created successfully');
     }
 
     /**
