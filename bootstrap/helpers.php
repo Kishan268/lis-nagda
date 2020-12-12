@@ -146,13 +146,12 @@ if (!function_exists('student_name')) {
 
 if (!function_exists('file_upload')) {
     function file_upload($file,$folder,$field_name =null,$data = []){
-        
         if(!empty($data) !=0){
             if($data->$field_name != null){
                Storage::delete('public/'.$data->$field_name);
             }
         }
-
+// dd($file);
         $name =  time().'_'.$file->getClientOriginalName();
         $file->storeAs('public/'.date('Y').'/'.date('M').'/'.$folder, $name);
         $path = date('Y').'/'.date('M').'/'.$folder.'/'.$name;
@@ -161,12 +160,6 @@ if (!function_exists('file_upload')) {
 }
 
 
-const CERTIFICATE = [
-	'1' => 'Transfer Certificate',
-	'2' => 'School Leaving Certificate',
-	'3' => 'Other' 
-];
-
 if(!function_exists('file_name')){
     function file_name($docs){
         $file = explode('/', $docs);
@@ -174,3 +167,25 @@ if(!function_exists('file_name')){
         return $doc[1];
     }
 }
+
+//For Certificate types created by kishan
+const CERTIFICATE = [
+	'1' => 'Transfer Certificate',
+	'2' => 'School Leaving Certificate',
+	'3' => 'Other' 
+];
+//For Employees types created by kishan
+
+const EMP_TYPE = [
+	'T' => 'Teacher',
+	'H' => 'HR',
+	'A' => 'Accountant' 
+];
+//For QUALIFICATION_NAMES  created by kishan
+
+const QUALIFICATION_NAMES = [
+	'1' => 'Diploma',
+	'2' => 'Under Graduate',
+	'3' => 'Master', 
+	'4' => 'PHD' 
+];

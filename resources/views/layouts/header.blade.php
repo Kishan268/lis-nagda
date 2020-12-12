@@ -373,6 +373,18 @@ p {
         </div>
     </div>
   </li>
+   <li class="nav-item">
+    <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#hrms" aria-expanded="true" aria-controls="hrms">
+      <i class="fas fa-fw fa-truck"></i>
+      <span>HRMS</span>
+    </a>
+    <div id="hrms" class="collapse" aria-labelledby="headingTwo" data-parent="#hrms">
+        <div class="bg-white py-2 collapse-inner rounded siderbar1">
+           {{-- <a class="collapse-item" href="{{route('employees.index')}}">Dashboard </a> --}}
+           <a class="collapse-item" href="{{route('employees.index')}}">Employee</a>
+        </div>
+    </div>
+  </li>
 @endrole
 @ability('teachers','superadmin')
   <!-- Nav Item - Pages Collapse Menu -->
