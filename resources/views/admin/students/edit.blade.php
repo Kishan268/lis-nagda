@@ -415,11 +415,11 @@
 		</div> --}}
 												<div class="row form-group">
 													<div class="col-md-3">
-														<label for="rte" class="required"> Teacher Ward </label>
-														<select class="form-control" name="teacher_ward" id="teacher_ward" required="required">
+														<label for="rte" class="required"> Staff Ward </label>
+														<select class="form-control" name="staff_ward" id="staff_ward" required="required">
 														    <option value="">Select</option>
-														    <option value="1" {{($student->teacher_ward ?? old('teacher_ward') ) == '1' ? 'selected' : ''}}>Yes</option>
-														    <option value="0"  {{($student->teacher_ward ?? old('teacher_ward') ) == '0' ? 'selected' : ''}}>No</option>
+														    <option value="1" {{($student->staff_ward ?? old('staff_ward') ) == '1' ? 'selected' : ''}}>Yes</option>
+														    <option value="0"  {{($student->staff_ward ?? old('staff_ward') ) == '0' ? 'selected' : ''}}>No</option>
 														</select>
 													</div>
 													<div class="col-md-3">

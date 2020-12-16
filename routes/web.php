@@ -107,6 +107,8 @@ Route::get('/prnpriview','Admin\students\IdCardController@prnpriview');
     Route::get('/destroy/{id}', 'ACL\UserController@destroy')->name('destroy');
     Route::post('/changes_role','ACL\UserController@changesRole')->name('changesRole');
     Route::post('/changePermission','ACL\UserController@changePermission')->name('changePermission');   
+     Route::post('show-user-role-permission','ACL\UserController@showUserRolePermission')->name('showUserRolePermission');   
+
 
     //Start AccountController
 
@@ -303,8 +305,7 @@ Route::group(['middleware' => ['auth','role:superadmin']], function () {
 
 
 Route::Resource('notice-circular','Admin\noticeCircular\NoticeCircularController');
-Route::get('course_batches_chosen','Admin\noticeCircular\NoticeCircularController@getBtachSectionClass')->name('course_batches_chosen');
-Route::post('get_s_data','Admin\noticeCircular\NoticeCircularController@getSdata')->name('get_s_data');
+Route::get('get_all_classes','Admin\noticeCircular\NoticeCircularController@getAllClasses')->name('get_all_classes');
 Route::post('get_faculty_data','Admin\noticeCircular\NoticeCircularController@getFacultydata')->name('get_faculty_data');
 
 Route::post('get_send_to_all_data','Admin\noticeCircular\NoticeCircularController@getSendAllData')->name('get_send_to_all_data');
@@ -312,7 +313,12 @@ Route::get('sent-to-all-show/{id}','Admin\noticeCircular\NoticeCircularControlle
 Route::get('sent-to-all-edit/{id}','Admin\noticeCircular\NoticeCircularController@sentToAllEdit')->name('sent-to-all-edit');
 Route::put('sent-to-all-update/{id}','Admin\noticeCircular\NoticeCircularController@sentToAllupdate')->name('sent-to-all-update');
 
+Route::post('get_all_classes','Admin\noticeCircular\NoticeCircularController@getAllClasses')->name('get_all_classes');
+
 Route::post('get_send_to_student_data','Admin\noticeCircular\NoticeCircularController@getSendStudentData')->name('get_send_to_student_data');
+
+Route::post('get_student_data_for_notice_circul','Admin\noticeCircular\NoticeCircularController@getSendToStudentsData')->name('get_student_data_for_notice_circul');
+
 Route::get('sent-to-student-show/{id}','Admin\noticeCircular\NoticeCircularController@sentToStudentShow')->name('sent-to-student-show');
 Route::get('sent-to-student-edit/{id}','Admin\noticeCircular\NoticeCircularController@sentToStudentEdit')->name('sent-to-student-edit');
 Route::put('sent-to-student-update/{id}','Admin\noticeCircular\NoticeCircularController@sentToStudentupdate')->name('sent-to-student-update');
@@ -382,6 +388,7 @@ Route::post('get_admission_no','Admin\certificate\CertificateController@getAdmis
 
 Route::get('batch-fetch/{id}','Admin\classes\ClassesController@batch_fetch')->name('batch-fetch');
 Route::get('section-fetch/{id}/{id1?}','Admin\classes\ClassesController@section_fetch')->name('section-fetch');
+
 Route::Resource('profile','Admin\profile\ProfileController');
 
 Route::Resource('certificate-request','Admin\students\CertificateRequestController');
@@ -389,6 +396,19 @@ Route::Resource('certificate-request','Admin\students\CertificateRequestControll
 Route::get('gallery_test','Admin\gallery\GalleryController@gallery_test')->name('gallery_test');
 
 Route::get('certificate/download/{id}','Admin\students\CertificateRequestController@downloadCerfificate')->name('centificate_download');
+
+
+
+
+
+Route::Resource('certificate-request','Students\CertificateRequestController');
+Route::Resource('your-profile','Students\ProfileController');
+Route::get('attendence','Students\ProfileController@showAttendence')->name('attendence');
+Route::post('attendence-show','Students\ProfileController@viewAttendence')->name('attendence_show');
+Route::get('your-profile-show','Students\ProfileController@showProfile')->name('show_student_profile');
+Route::get('id-card','Students\ProfileController@getStudentIdCard')->name('id_card');
+
+
 
 
 

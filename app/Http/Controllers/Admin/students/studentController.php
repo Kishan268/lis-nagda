@@ -367,7 +367,7 @@ class studentController extends Controller
                 'l_state'             => 'required|min:3|max:25',
                 'l_country'           => 'required|min:3|max:57',
                 'l_zip_code'          => 'required|min:6|max:7',
-                'teacher_ward'        => 'required|not_in:""'
+                'staff_ward'        => 'required|not_in:""'
 
             ],
             [
@@ -409,7 +409,7 @@ class studentController extends Controller
             's_ssmid'       => $request->s_ssmid,
             'f_ssmid'       => $request->f_ssmid,
             'aadhar_card'   => $request->aadhar_card,
-            'teacher_ward'  => $request->teacher_ward,
+            'staff_ward'    => $request->staff_ward,
             'cbsc_reg'      => $request->cbsc_reg,
             'prev_school'   => $request->prev_school,
             'year_of_prev_school'=> $request->year_of_prev_school,

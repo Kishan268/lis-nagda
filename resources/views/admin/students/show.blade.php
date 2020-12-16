@@ -215,8 +215,8 @@
                                         </div>               
                                         <div class="row form-group">
                                             <div class="col-md-3">
-                                            <label for="rte" class="required"> Teacher Ward </label>
-                                            <input type="" name="" class="form-control" value="{{$student->teacher_ward == '1' ? 'Yes' :'No'}}" readonly="">
+                                            <label for="rte" class="required"> Staff Ward </label>
+                                            <input type="" name="" class="form-control" value="{{$student->staff_ward == '1' ? 'Yes' :'No'}}" readonly="">
                                             </div>
                                             <div class="col-md-3">
                                             <label for="rte"> CBSE  Registration no </label>
