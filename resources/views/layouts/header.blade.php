@@ -206,7 +206,8 @@ p {
             <a class="collapse-item" href="{{route('student_manage')}}">Manage Students</a>
             <a class="collapse-item" href="{{route('student_import_export')}}">Upload Students</a>
             <a class="collapse-item" href="{{route('id_card')}}">ID Card</a>
-            {{-- <a class="collapse-item" href="#">Records</a> --}}
+            <a class="collapse-item" href="#">Records</a>
+            <a class="collapse-item" href="#">Results</a>
           </div>
     </div>
   </li>
@@ -292,6 +293,8 @@ p {
             {{-- <a class="collapse-item" href="{{route('mothetongue')}}">Mothetongue</a> --}}
             <a class="collapse-item" href="{{route('professtiontype')}}">Profession Type</a>
             <a class="collapse-item" href="{{route('gaurdian_designation')}}">Designation</a>
+            <a class="collapse-item" href="{{route('discount.index')}}">Discount</a>
+            <a class="collapse-item" href="{{route('discount_type.index')}}">Discount Type</a>
         </div>
     </div>
   </li>

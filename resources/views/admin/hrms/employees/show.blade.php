@@ -41,9 +41,6 @@
                                     </li>
                                 </ul>
                     
-                                <form action="" method="post" enctype="multipart/form-data" autocomplete="off">
-                                    
-
                                     <div class="tab-content mt-4 p-2" style="font-size: 15px !important; background-color: whitesmoke !important;" >
                                         <div class="tab-pane tab  active" id="basic_details" >
                                             <section>
@@ -51,117 +48,117 @@
                                                 <hr/>
                                                 <div class="row form-group">
                                                     <div class="col-md-6">
-                                                        <label >Employee Photo</label>
-                                                        <img src="{{asset($editEmp->photo !=null ? 'storage/'.$editEmp->photo : 'img/student_demo.png')}}" style="width: 30px; height: 30px;">
+                                                        <label >Employee Photo</label>&nbsp;&nbsp;<br>
+                                                        <img src="{{asset($showEmp->photo !=null ? 'storage/'.$showEmp->photo : 'img/student_demo.png')}}" style="width: 50px; height: 50px;">
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label >Employee Signature</label>
-                                                         <img src="{{asset($editEmp->photo !=null ? 'storage/'.$editEmp->photo : 'img/student_demo.png')}}" style="width: 30px; height: 30px;">
+                                                        <label >Employee Signature</label>&nbsp;&nbsp;<br>
+                                                         <img src="{{asset($showEmp->photo !=null ? 'storage/'.$showEmp->photo : 'img/student_demo.png')}}" style="width: 50px; height: 50px;">
                                                     </div>
                                                 </div>
                                                 <div class="row form-group">
                                                     <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                                                        <label class="required">Full Name</label>
-                                                        <input type="text" name="name" id="name" value="{{$editEmp->name}}" class="form-control required" required="required" readonly="">
+                                                        <label class="">Full Name</label>
+                                                        <input type="text" name="name" id="name" value="{{$showEmp->name}}" class="form-control "  readonly="">
                                                       
                                                     </div>  
                                                     <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                                                        <label class="required">Mobile Number</label>
-                                                        <input type="text" name="mobile" class="form-control required" readonly=""> 
+                                                        <label class="">Mobile Number</label>
+                                                        <input type="text" name="mobile" class="form-control " readonly=""> 
                                                         
                                                     </div>
                                                     <div class="col-md-3 col-sm-6 form-group col-xs-6">
-                                                        <label class="required">Mobile Number2</label>
-                                                        <input type="text" name="mobile1" class="form-control required"  value="{{$editEmp->mobile1}}" readonly=""> 
+                                                        <label class="">Mobile Number2</label>
+                                                        <input type="text" name="mobile1" class="form-control "  value="{{$showEmp->mobile1}}" readonly=""> 
                                                        
                                                     </div>
                                                     <div class="col-md-3 col-sm-6 form-group col-xs-6">
                                                         <label>Email Address</label>
-                                                        <input type="text" name="email" class="form-control required" value="{{$editEmp->email}}" readonly=""> 
+                                                        <input type="text" name="email" class="form-control " value="{{$showEmp->email}}" readonly=""> 
                                                     </div>
                                                     <div class="col-md-3 col-sm-3 form-group col-xs-6">
-                                                        <label class="required">Date of Birth</label>
-                                                        <input type="text" name="dob" class="form-control  required dob" data-date-format="yyyy-mm-dd" placeholder="{{date('Y-m-d')}}" value="{{$editEmp->dob}}" required="required" readonly="">
+                                                        <label class="">Date of Birth</label>
+                                                        <input type="text" name="dob" class="form-control   dob" data-date-format="yyyy-mm-dd" placeholder="{{date('Y-m-d')}}" value="{{$showEmp->dob}}"    readonly="">
                                                     </div>
                                                     
                                                     <div class="col-md-3 col-sm-3 form-group col-xs-6">
-                                                        <label class="required">Gender</label>
+                                                        <label class="">Gender</label>
                                                         
-                                                         <input type="text" readonly="" name="" value="{{Arr::get(GENDER,$editEmp->gender)}}" class="form-control">
+                                                         <input type="text" readonly="" name="" value="{{Arr::get(GENDER,$showEmp->gender)}}" class="form-control">
                                                     </div>
                                                     <div class="col-md-3 col-sm-3 form-group col-xs-6">
                                                         <label>Religion</label>
-                                                       <input type="text" readonly="" name="" value="{{$editEmp->religion_id !=null ? Arr::get(RELIGION,$editEmp->religion_id) : ''}} " class="form-control">
+                                                       <input type="text" readonly="" name="" value="{{$showEmp->religion_id !=null ? Arr::get(RELIGION,$showEmp->religion_id) : ''}} " class="form-control">
                                                     </div>
                                                 
                                                     <div class="col-md-3 col-sm-6 form-group col-xs-6">
                                                         <label>Blood Group</label>
-                                                        <input type="" name="" value="{{$editEmp->blood_group !=null ? Arr::get(BLOODGROUP,$editEmp->blood_group) : ''}}" class="form-control" readonly>
+                                                        <input type="" name="" value="{{$showEmp->blood_group !=null ? Arr::get(BLOODGROUP,$showEmp->blood_group) : ''}}" class="form-control" readonly>
                                                     </div>
                                                     <div class="col-md-3 col-sm-6 form-group col-xs-6">
                                                         <label>Age</label>
-                                                        <input type="text" value="{{$editEmp->age}}" name="age" class="form-control age" readonly="">
+                                                        <input type="text" value="{{$showEmp->age}}" name="age" class="form-control age" readonly="">
                                                     </div>
                                                     <div class="col-md-3 col-xs-6 col-sm-6 form-group">
-                                                        <label class="required">Joining Date</label>
-                                                        <input type="text" name="joining_date" class="form-control datepicker required joining_date"  data-date-format="yyyy-mm-dd"  value="{{$editEmp->joining_date}}" placeholder="{{date('Y-m-d')}}" readonly="">
+                                                        <label class="">Joining Date</label>
+                                                        <input type="text" name="joining_date" class="form-control   joining_date"  data-date-format="yyyy-mm-dd"  value="{{$showEmp->joining_date}}" placeholder="{{date('Y-m-d')}}" readonly="">
                                                     </div>
                                                     <div class="col-md-3 col-xs-6 col-sm-6 form-group">
-                                                        <label class="required">Year Of Experience</label>
-                                                        <input type="text" name="year_of_experince" value="{{$editEmp->addhar_card}}" class="form-control" readonly="">
+                                                        <label class="">Year Of Experience</label>
+                                                        <input type="text" name="year_of_experince" value="{{$showEmp->addhar_card}}" class="form-control" readonly="">
                                                     </div>
                                                     <div class="col-md-3 col-xs-6 col-sm-6 form-group">
-                                                        <label class="required">Employee Type</label>
+                                                        <label class="">Employee Type</label>
                                                         
-                                                        <input type="" name="" value="{{$editEmp->emp_type !=null ? Arr::get(EMP_TYPE,$editEmp->emp_type) : ''}}" class="form-control" readonly>
+                                                        <input type="" name="" value="{{$showEmp->emp_type !=null ? Arr::get(EMP_TYPE,$showEmp->emp_type) : ''}}" class="form-control" readonly>
                                                     </div>
                                                 </div>
                                                     
                                                 <div class="form-group row">
                                                     <div class="col-md-3 col-sm-6 form-group col-xs-6">
                                                         <label>Aadhar Card Number</label>
-                                                        <input type="text" name="addhar_card" value="{{$editEmp->addhar_card}}" class="form-control" readonly="">
+                                                        <input type="text" name="addhar_card" value="{{$showEmp->addhar_card}}" class="form-control" readonly="">
                                                     </div>
                                                     <div class="col-md-3 col-sm-6 form-group col-xs-6">
                                                         <label>Pan Card Number</label>
-                                                        <input type="text" name="pan_card" value="{{$editEmp->pan_card}}" class="form-control" readonly="">
+                                                        <input type="text" name="pan_card" value="{{$showEmp->pan_card}}" class="form-control" readonly="">
                                                     </div>
                                                     <div class="col-md-3 col-sm-6 form-group col-xs-6">
                                                         <label>Voter ID Number</label>
-                                                        <input type="text" name="voter_id" value="{{$editEmp->voter_id}}" class="form-control" readonly="">
+                                                        <input type="text" name="voter_id" value="{{$showEmp->voter_id}}" class="form-control" readonly="">
                                                     </div>
                                                     <div class="col-md-3 col-sm-6 form-group col-xs-6">
                                                         <label>Driving Licence</label>
-                                                        <input type="text" name="driving_licence" value="{{$editEmp->driving_licence}}" class="form-control" readonly="">
+                                                        <input type="text" name="driving_licence" value="{{$showEmp->driving_licence}}" class="form-control" readonly="">
                                                     </div>
                                                     <div class="col-md-3 col-sm-6 form-group col-xs-6">
                                                         <label>Passport ID</label>
-                                                        <input type="text" name="passport_id" value="{{$editEmp->passport_id}}" class="form-control" readonly="">
+                                                        <input type="text" name="passport_id" value="{{$showEmp->passport_id}}" class="form-control" readonly="">
                                                     </div>
                                                     
                                                     <div class="col-md-3 col-sm-6 form-group col-xs-6">
                                                         <label>Old PF Number</label>
-                                                        <input type="text" name="old_pf_number" value="{{$editEmp->old_pf_number}}" class="form-control" readonly="">
+                                                        <input type="text" name="old_pf_number" value="{{$showEmp->old_pf_number}}" class="form-control" readonly="">
                                                     </div>
                                                     <div class="col-md-3 col-sm-6 form-group col-xs-6">
                                                         <label>New PF Number</label>
-                                                        <input type="text" name="new_pf_number" value="{{$editEmp->new_pf_number}}" class="form-control" readonly="">
+                                                        <input type="text" name="new_pf_number" value="{{$showEmp->new_pf_number}}" class="form-control" readonly="">
                                                     </div>
                                                     <div class="col-md-3 col-sm-6 form-group col-xs-6">
                                                         <label>New Uan Number</label>
-                                                        <input type="text" name="old_uan_number" value="{{$editEmp->old_uan_number}}" class="form-control" readonly="">
+                                                        <input type="text" name="old_uan_number" value="{{$showEmp->old_uan_number}}" class="form-control" readonly="">
                                                     </div>
                                                     <div class="col-md-3 col-sm-6 form-group col-xs-6">
                                                         <label>Old Uan Number</label>
-                                                        <input type="text" name="new_uan_number" value="{{$editEmp->new_uan_number}}" class="form-control" readonly="">
+                                                        <input type="text" name="new_uan_number" value="{{$showEmp->new_uan_number}}" class="form-control" readonly="">
                                                     </div>
                                                     <div class="col-md-3 col-sm-6 form-group col-xs-6">
                                                         <label>Old Esi Number</label>
-                                                        <input type="text" name="old_esi_number" value="{{$editEmp->old_esi_number}}" class="form-control" readonly="">
+                                                        <input type="text" name="old_esi_number" value="{{$showEmp->old_esi_number}}" class="form-control" readonly="">
                                                     </div>
                                                     <div class="col-md-3 col-sm-6 form-group col-xs-6">
                                                         <label>New Esi Number</label>
-                                                        <input type="text" name="new_esi_number" value="{{$editEmp->new_esi_number}}" class="form-control" readonly="">
+                                                        <input type="text" name="new_esi_number" value="{{$showEmp->new_esi_number}}" class="form-control" readonly="">
                                                     </div>
                                                 </div>
                                                 
@@ -177,9 +174,8 @@
                                             <hr>
                                             <section>
                                               <div class="row" >
-                                                    <div class="col-md-12 col-xl-12 col-sm-12" style="border:1px solid #eee9e9; " id="acadmic_dtl" >
-
-                                                    </div>
+                                                <div class="col-md-12 col-xl-12 col-sm-12"  id="acadmic_dtl" >
+                                                </div>
                                               </div>
                                             </section>
                                             <ul class="tab-links nav nav-tabs pull-right mt-3">
@@ -202,28 +198,28 @@
                                                 <div class="card-body">
                                                     <div class="row form-group">
                                                         <div class="col-md-4 ">
-                                                            <label class="required">Address Line</label> 
-                                                            <input type="text" class="form-control" name="p_address" id="p_address" value="{{$editEmp->p_address}}" readonly="">
+                                                            <label class="">Address Line</label> 
+                                                            <input type="text" class="form-control" name="p_address" id="p_address" value="{{$showEmp->p_address}}" readonly="">
 
                                                         </div>
                                                         <div class="col-md-4 ">
-                                                            <label class="required">City Name</label>
-                                                            <input type="text" class="form-control" id="p_city" name="p_city" value="{{$editEmp->p_city}}" readonly="">     
+                                                            <label class="">City Name</label>
+                                                            <input type="text" class="form-control" id="p_city" name="p_city" value="{{$showEmp->p_city}}" readonly="">     
                                                         </div>
                                                         
                                                         <div class="col-md-4 ">
-                                                            <label class="required">State Name</label>
-                                                            <input type="text" class="form-control" name="p_state" id="p_state" value="{{$editEmp->p_state ?? 'Madhya Pradesh'}}"  readonly="">
+                                                            <label class="">State Name</label>
+                                                            <input type="text" class="form-control" name="p_state" id="p_state" value="{{$showEmp->p_state ?? 'Madhya Pradesh'}}"  readonly="">
                                                         </div>
                                                     </div>
                                                     <div class="row">       
                                                         <div class="col-md-4 ">
-                                                            <label class="required">Zip Code</label>
-                                                            <input type="text" name="p_zip_code" class="form-control" id="p_zip_code" value="{{$editEmp->p_zip_code}}" readonly="">
+                                                            <label class="">Zip Code</label>
+                                                            <input type="text" name="p_zip_code" class="form-control" id="p_zip_code" value="{{$showEmp->p_zip_code}}" readonly="">
                                                         </div>
                                                         <div class="col-md-4 ">
-                                                            <label class="required">Country Name</label>
-                                                            <input type="text" class="form-control" name="p_country" id="p_country" value="{{$editEmp->p_country ?? 'India'}}" readonly="">
+                                                            <label class="">Country Name</label>
+                                                            <input type="text" class="form-control" name="p_country" id="p_country" value="{{$showEmp->p_country ?? 'India'}}" readonly="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -235,34 +231,34 @@
                                                     <div class="card-body">
                                                        {{--  <div class="row form-group">
                                                             <div class="col-md-12 ">
-                                                                <label><input type="checkbox" name="same_as" id="p_l_same" {{$editEmp->same_as == 1 ? 'checked' : ''}} />
+                                                                <label><input type="checkbox" name="same_as" id="p_l_same" {{$showEmp->same_as == 1 ? 'checked' : ''}} />
                                                                 </label>
                                                                 <label>Same as Permanent Address</label><span class="text-muted">(Click to copy permanent address data)</span>
                                                             </div>
                                                         </div> --}}
                                                         <div class="row form-group">
                                                             <div class="col-md-4 ">
-                                                                <label class="required">Address Line</label>
-                                                                <input type="text" class="form-control loc_addr" name="l_address" id="l_address" value="{{$editEmp->l_address}}" readonly="">
+                                                                <label class="">Address Line</label>
+                                                                <input type="text" class="form-control loc_addr" name="l_address" id="l_address" value="{{$showEmp->l_address}}" readonly="">
                                                             </div>                                              
                                                             <div class="col-md-4 ">
-                                                                <label class="required">City Name</label>
-                                                                <input type="text" class="form-control loc_addr" name="l_city" id="l_city" value="{{$editEmp->l_city}}" readonly="">
+                                                                <label class="">City Name</label>
+                                                                <input type="text" class="form-control loc_addr" name="l_city" id="l_city" value="{{$showEmp->l_city}}" readonly="">
                                                             </div>              
                                                             <div class="col-md-4 ">
-                                                                <label class="required">State Name</label>
-                                                                <input type="text" class="form-control loc_addr" name="l_state" id="l_state"  value="{{$editEmp->l_state ?? 'Madhya Pradesh'}}" readonly="">
+                                                                <label class="">State Name</label>
+                                                                <input type="text" class="form-control loc_addr" name="l_state" id="l_state"  value="{{$showEmp->l_state ?? 'Madhya Pradesh'}}" readonly="">
                                                             </div>
 
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-4 ">
-                                                                <label class="required">Zip Code</label>
-                                                                <input type="text" name="l_zip_code" class="form-control loc_addr" id="l_zip_code" value="{{$editEmp->l_zip_code}}" readonly="">
+                                                                <label class="">Zip Code</label>
+                                                                <input type="text" name="l_zip_code" class="form-control loc_addr" id="l_zip_code" value="{{$showEmp->l_zip_code}}" readonly="">
                                                             </div>
                                                             <div class="col-md-4 ">
-                                                                <label class="required">Country Name</label>
-                                                                <input type="text" class="form-control loc_addr" name="l_country" id="l_country" value="{{$editEmp->l_country ?? 'India'}}" readonly="">
+                                                                <label class="">Country Name</label>
+                                                                <input type="text" class="form-control loc_addr" name="l_country" id="l_country" value="{{$showEmp->l_country ?? 'India'}}" readonly="">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -284,27 +280,27 @@
                                                 <div class="row form-group">
                                                     <div class="col-md-6 col-sm-6 form-group col-xs-6">
                                                         <label>Bank Name</label>
-                                                        <input type="text" name="bank_name" class="form-control" value="{{$editEmp->bank_name}}" readonly=""> 
+                                                        <input type="text" name="bank_name" class="form-control" value="{{$showEmp->bank_name}}" readonly=""> 
 
                                                     </div>
                                                     <div class="col-md-6 col-sm-6 form-group col-xs-6">
                                                         <label>Branch</label>
-                                                        <input type="text" name="bank_branch" class="form-control" value="{{$editEmp->bank_branch}}" readonly="">
+                                                        <input type="text" name="bank_branch" class="form-control" value="{{$showEmp->bank_branch}}" readonly="">
                                                     </div>
 
                                                 </div>
                                                 <div class="row form-group">
                                                     <div class="col-md-4 col-sm-6 form-group col-xs-6">
                                                         <label>Account Name</label>
-                                                        <input type="text" name="account_name" class="form-control" value="{{$editEmp->account_name}}" readonly="">
+                                                        <input type="text" name="account_name" class="form-control" value="{{$showEmp->account_name}}" readonly="">
                                                     </div>
                                                     <div class="col-md-4 col-sm-6 form-group col-xs-6">
                                                         <label>Account Number</label>
-                                                        <input type="text" name="account_no" class="form-control" value="{{$editEmp->account_no}}" readonly="">
+                                                        <input type="text" name="account_no" class="form-control" value="{{$showEmp->account_no}}" readonly="">
                                                     </div>
                                                     <div class="col-md-4 col-sm-6 form-group col-xs-6">
                                                         <label>IFSC CODE</label>
-                                                        <input type="text" name="ifsc_code" class="form-control" id="ifsc_code" value="{{$editEmp->ifsc_code}}" readonly="">
+                                                        <input type="text" name="ifsc_code" class="form-control" id="ifsc_code" value="{{$showEmp->ifsc_code}}" readonly="">
                                                     </div>
                                                 </div>
                                             </section>
@@ -342,13 +338,12 @@
                                                 <li class="nav-item">
                                                     <a href="#back_tab1" class="nav-link btn btn-sm text-white bg-primary prevButton">Prev</a>
                                                 </li>
-                                                <li class="nav-item">
+{{--                                                 <li class="nav-item">
                                                     <input type="submit" name="submit" value="Submit"  class="btn bg-success text-white">
-                                                </li>
+                                                </li> --}}
                                             </ul>                               
                                         </div>
-                                    </div>
-                                </form>     
+                                    </div>    
                             </div>
                         </div>
                     </div>
@@ -413,8 +408,6 @@ $('.dob').on('blur',function(e){
         $('.age').val(age).attr('readonly','true');
 });
 
-$('label.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;');
-$('th.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;');
 
 $(document).ready(function(){
 
@@ -454,11 +447,11 @@ $(document).ready(function(){
    var k =0;
     @php 
         $k =0;
-        $count_acadmic_dtl = count($editEmp->emp_qaul);
+        $count_acadmic_dtl = count($showEmp->emp_qaul);
     @endphp
 
 
-    $('#acadmic_dtl').append('<div id="row'+k+'"><div class="row form-group "><div class="form-group row qual_name"><div class="col-sm-6 form-group col-md-4 col-xs-6 "><label class="">Qualification Name <strong class="text-danger">*</strong></label><input type="" name="" value="{{$editEmp->emp_qaul[$k]->qual_name !=null ? Arr::get(QUALIFICATION_NAMES,$editEmp->emp_qaul[$k]->qual_name) : ''}}" class="form-control" readonly></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="">Percent <strong class="text-danger">*</strong></label><input type="text" name="percent[]" class="form-control " value="{{$editEmp->emp_qaul[$k]->percent}}" readonly=""></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="required">Grade <strong class="text-danger">*</strong></label><input type="text" name="grade[]" class="form-control " value="{{$editEmp->emp_qaul[$k]->grade}}" readonly=""></div><div class="col-sm-6 form-group col-md-4 col-xs-6 "><label class="">Year Of Passing <strong class="text-danger">*</strong></label></label><input type="text" name="year_of_passing[]" class="form-control " value="{{$editEmp->emp_qaul[$k]->grade}} " readonly=""></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label >Qualification Doc</label><br><img src="{{asset($editEmp->photo !=null ? 'storage/'.$editEmp->photo : 'img/student_demo.png')}}" style="width: 30px; height: 30px;" ></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="required">Qualification Description<strong class="text-danger">*</strong></label><textarea type="text" name="qual_desc[]" class="form-control " value="{{$editEmp->emp_qaul[$k]->qual_desc}}" readonly="">{{$editEmp->emp_qaul[$k]->qual_desc}}</textarea></div><hr></div></div>');
+    $('#acadmic_dtl').append('<div id="row'+k+'"><div class=""><div class="form-group row qual_name"><div class="col-sm-6 form-group col-md-4 col-xs-6 "><label class="">Qualification Name </label><input type="" name="" value="{{$showEmp->emp_qaul[$k]->qual_name !=null ? Arr::get(QUALIFICATION_NAMES,$showEmp->emp_qaul[$k]->qual_name) : ''}}" class="form-control" readonly></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="">Percent </label><input type="text" name="percent[]" class="form-control " value="{{$showEmp->emp_qaul[$k]->percent}}" readonly=""></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="">Grade </label><input type="text" name="grade[]" class="form-control " value="{{$showEmp->emp_qaul[$k]->grade}}" readonly=""></div><div class="col-sm-6 form-group col-md-4 col-xs-6 "><label class="">Year Of Passing </label></label><input type="text" name="year_of_passing[]" class="form-control " value="{{$showEmp->emp_qaul[$k]->grade}} " readonly=""></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label >Qualification Doc</label><br><img src="{{asset($showEmp->photo !=null ? 'storage/'.$showEmp->photo : 'img/student_demo.png')}}" style="width: 50px; height: 50px;" ></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="">Qualification Description<strong class="text-danger"></strong></label><textarea type="text" name="qual_desc[]" class="form-control " value="{{$showEmp->emp_qaul[$k]->qual_desc}}" readonly="">{{$showEmp->emp_qaul[$k]->qual_desc}}</textarea></div><hr></div></div>');
 
 
     // for(var z = 0; z < acadmic_dtl; z++){
@@ -475,7 +468,7 @@ $(document).ready(function(){
     while ($k < $count_acadmic_dtl) {
     @endphp
 
-    $('#acadmic_dtl').append('<div id="row{{$k}}"><div class="row form-group "><div class="form-group row qual_name"><div class="col-sm-6 form-group col-md-4 col-xs-6 "><label class="">Qualification Name <strong class="text-danger">*</strong></label><select name="qual_name[]" class="form-control " readonly="">@foreach(QUALIFICATION_NAMES as $key =>$val)<option value="{{$key}}" {{$editEmp->emp_qaul[$k]->qual_name == $key ? 'selected' : ''}}>{{$val}}</option>@endforeach</select></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="">Percent <strong class="text-danger">*</strong></label><input type="text" name="percent[]" class="form-control " value="{{$editEmp->emp_qaul[$k]->percent}}" readonly=""></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="required">Grade <strong class="text-danger">*</strong></label><input type="text" name="grade[]" class="form-control " value="{{$editEmp->emp_qaul[$k]->grade}}" readonly=""></div><div class="col-sm-6 form-group col-md-4 col-xs-6 "><label class="">Year Of Passing <strong class="text-danger">*</strong></label></label><input type="text" name="year_of_passing[]" class="form-control " value="{{$editEmp->emp_qaul[$k]->grade}}" readonly=""></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label >Qualification Doc</label><br><img src="{{asset($editEmp->photo !=null ? 'storage/'.$editEmp->photo : 'img/student_demo.png')}}" style="width: 30px; height: 30px;"></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="required">Qualification Description<strong class="text-danger">*</strong></label><textarea type="text" name="qual_desc[]" class="form-control " value="{{$editEmp->emp_qaul[$k]->qual_desc}}" readonly="">{{$editEmp->emp_qaul[$k]->qual_desc}}</textarea></div><hr></div></div>');
+    $('#acadmic_dtl').append('<div id="row{{$k}}"><div class=""><div class="form-group row qual_name"><div class="col-sm-6 form-group col-md-4 col-xs-6 "><label class="">Qualification Name <strong class="text-danger"></strong></label><select name="qual_name[]" class="form-control " readonly="">@foreach(QUALIFICATION_NAMES as $key =>$val)<option value="{{$key}}" {{$showEmp->emp_qaul[$k]->qual_name == $key ? 'selected' : ''}}>{{$val}}</option>@endforeach</select></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="">Percent <strong class="text-danger"></strong></label><input type="text" name="percent[]" class="form-control " value="{{$showEmp->emp_qaul[$k]->percent}}" readonly=""></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="">Grade <strong class="text-danger"></strong></label><input type="text" name="grade[]" class="form-control " value="{{$showEmp->emp_qaul[$k]->grade}}" readonly=""></div><div class="col-sm-6 form-group col-md-4 col-xs-6 "><label class="">Year Of Passing <strong class="text-danger"></strong></label></label><input type="text" name="year_of_passing[]" class="form-control " value="{{$showEmp->emp_qaul[$k]->grade}}" readonly=""></div><div class="col-md-4 col-xs-6 col-sm-6 form-group "><label >Qualification Doc</label><br><img src="{{asset($showEmp->photo !=null ? 'storage/'.$showEmp->photo : 'img/student_demo.png')}}" style="width: 50px; height: 50px;"></div><div class="col-md-4 col-sm-6 form-group col-xs-6 "><label class="">Qualification Description<strong class="text-danger"></strong></label><textarea type="text" name="qual_desc[]" class="form-control " value="{{$showEmp->emp_qaul[$k]->qual_desc}}" readonly="">{{$showEmp->emp_qaul[$k]->qual_desc}}</textarea></div><hr></div></div>');
 
     @php
     $k++;
@@ -492,16 +485,16 @@ $(document).ready(function(){
 var j = 0;
 @php
         $j = 0;
-        $count_docs = count($editEmp->emp_doc);
+        $count_docs = count($showEmp->emp_doc);
 @endphp
 
-$('#docTBody').append('<tr id="doc_row_'+j+'"><td><input id="doc_name" name="doc_name[]" class="form-control" type="text" placeholder="Enter doc title" value="{{$editEmp->emp_doc[$j]->doc_name}}" readonly=""></td><td><textarea id="doc_desc" name="doc_desc[]" class="form-control doc_desc" placeholder="Enter doc description" value="" rows="2" cols="2" readonly="">{{$editEmp->emp_doc[$j]->doc_desc}}</textarea></td><td><img src="{{asset($editEmp->emp_doc[$j]->doc_file !=null ? 'storage/'.$editEmp->emp_doc[$j]->doc_file : 'img/student_demo.png')}}" style="width: 50px; height: 50px;"> </td></tr>');
+$('#docTBody').append('<tr id="doc_row_'+j+'"><td><input id="doc_name" name="doc_name[]" class="form-control" type="text" placeholder="Enter doc title" value="{{$showEmp->emp_doc[$j]->doc_name}}" readonly=""></td><td><textarea id="doc_desc" name="doc_desc[]" class="form-control doc_desc" placeholder="Enter doc description" value="" rows="2" cols="2" readonly="">{{$showEmp->emp_doc[$j]->doc_desc}}</textarea></td><td><img src="{{asset($showEmp->emp_doc[$j]->doc_file !=null ? 'storage/'.$showEmp->emp_doc[$j]->doc_file : 'img/student_demo.png')}}" style="width: 50px; height: 50px;"> </td></tr>');
 
 @php
     $j++;
     while ($j < $count_docs) {
 @endphp
-     $('#docTBody').append('<tr id="doc_row_{{$j}}"><td><input id="doc_name" name="doc_name[]" class="form-control" type="text" placeholder="doc title" value="{{$editEmp->emp_doc[$j]->doc_name}}" readonly=""></td><td><textarea id="doc_desc" name="doc_desc[]" class="form-control doc_desc" placeholder="doc description" value="" rows="2" cols="2" readonly="">{{$editEmp->emp_doc[$j]->doc_desc}}</textarea></td><td><img src="{{asset($editEmp->emp_doc[$j]->doc_file !=null ? 'storage/'.$editEmp->emp_doc[$j]->doc_file : 'img/student_demo.png')}}" style="width: 50px; height: 50px;"> </td></tr>');
+     $('#docTBody').append('<tr id="doc_row_{{$j}}"><td><input id="doc_name" name="doc_name[]" class="form-control" type="text" placeholder="doc title" value="{{$showEmp->emp_doc[$j]->doc_name}}" readonly=""></td><td><textarea id="doc_desc" name="doc_desc[]" class="form-control doc_desc" placeholder="doc description" value="" rows="2" cols="2" readonly="">{{$showEmp->emp_doc[$j]->doc_desc}}</textarea></td><td><img src="{{asset($showEmp->emp_doc[$j]->doc_file !=null ? 'storage/'.$showEmp->emp_doc[$j]->doc_file : 'img/student_demo.png')}}" style="width: 50px; height: 50px;"> </td></tr>');
 @php
     $j++;
 }

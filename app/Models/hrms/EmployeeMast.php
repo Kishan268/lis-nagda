@@ -15,4 +15,8 @@ class EmployeeMast extends Model
     public function emp_qaul(){
     	 return $this->hasMany('App\Models\hrms\EmpQualification','emp_id','id');
     }
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Role');
+    }
 }

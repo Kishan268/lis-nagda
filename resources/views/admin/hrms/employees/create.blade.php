@@ -18,7 +18,7 @@
 			<div class="card">
 		       <div class="card-header">
 	         		<h6 class="card-title">Add Employee
-	         			<a href="{{route('employees.index')}}" class="btn btn-sm btn-primary pull-right"> Back</a>
+	         			<a href="{{route('employees.index')}}" class="btn btn-outline-primary pull-right"> Back</a>
 	         		</h6>
 	          	</div>
 	          	<div class="card-body">
@@ -85,8 +85,8 @@
 														@enderror
 													</div>	
 													<div class="col-md-3 col-sm-6 form-group col-xs-6">
-														<label class="required">Mobile Number</label>
-														<input type="text" name="mobile" class="form-control required" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="{{old('mobile')}}" required="required"> 
+														<label class="">Mobile Number</label>
+														<input type="text" name="mobile" class="form-control required" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="{{old('mobile')}}" > 
 														@error('mobile')
 															<span class="text-danger">
 																<strong>{{$message}}</strong>
@@ -94,8 +94,8 @@
 														@enderror
 													</div>
 													<div class="col-md-3 col-sm-6 form-group col-xs-6">
-														<label class="required">Mobile Number2</label>
-														<input type="text" name="mobile1" class="form-control required" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="{{old('mobile1')}}" > 
+														<label class="">Mobile Number2</label>
+														<input type="text" name="mobile1" class="form-control " oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="{{old('mobile1')}}" > 
 														@error('mobile1')
 															<span class="text-danger">
 																<strong>{{$message}}</strong>
@@ -194,7 +194,7 @@
 													</div>
 													<div class="col-md-3 col-xs-6 col-sm-6 form-group">
 														<label class="required">Employee Type</label>
-														<select class="form-control required" name="emp_type" id="emp_type" >
+														<select class="form-control required" name="emp_type" id="emp_type" required="emp_type">
 														<option value="">Select employee type</option>
 														@foreach(EMP_TYPE as $key => $value)
 															<option value="{{$key}}" {{old('emp_type') == $key ? 'selected' : ''}}>{{$value}}</option>
@@ -338,72 +338,13 @@
 										      <a class="btn btn-success nextButton" href="#next_Basic_details">Next</a>
 										    </div> --}}
 			          					</div>
-			          				{{-- <div class="tab-pane tab" id="academic_dtl">
-									    	<h3 class="mb-3">Academic Details</h3>
-									    	<hr>
-										   <section>									        	
-								        		<div class="form-group row relation">
-								        			<div class="col-sm-4 col-md-4 col-xs-6 ">
-								        				<label >Previous School (last studied)</label>
-								        				<input type="text" name="prev_school" class="form-control " id="prev_school" value="{{old('prev_school')}}">
-								        			</div>
-								        			<div class="col-md-4 col-sm-6 form-group col-xs-6 ">
-								        				<label class=""> Year (left from Previous School)</label>
-							        					<input type="text" name="year_of_prev_school" class="form-control" id="year_of_prev_school" value="{{old('year_of_prev_school')}}">
-						        					</div>
-					        						<div class="col-md-4 col-sm-6 form-group col-xs-6 ">
-							        					<label class="">Address 
-							        					</label>
-							        					<textarea class="form-control" name="address" id="acadmic_address">{{old('acadmic_address')}}</textarea>
-							        				</div>								        					
-						        				</div>
-						        				<div class="row form-group">
-						        					<div class="col-md-4 col-xs-6 col-sm-6 form-group ">
-						        						<label class="">City</label>
-						        						<input type="text" class="form-control" name="acadmic_city" value="{{old('acadmic_city')}}">
-
-						        					</div>
-						        					<div class="col-md-4 col-xs-6 col-sm-6 form-group ">
-						        						<label class="">State</label>
-						        						<input type="text" class="form-control" name="acadmic_state" value="{{old('acadmic_state') ?? 'Madhya Pradesh'}}">
-						        						
-						        					</div>
-						        					<div class="col-md-4 col-xs-6 col-sm-6 form-group ">
-						        						<label class="">Pin Code</label>
-						        						<input type="text" name="acadmic_pin" class="form-control" id="acadmic_pin" value="{{old('acadmic_pin')}}">
-					        						</div>
-					        					</div>
-					        					<div class="form-group row">
-					        						<div class="col-md-4 col-xs-6 col-sm-6 form-group ">
-					        							<label>Country</label>
-					        							<input type="text" class="form-control" name="acadmic_country" value="{{old('acadmic_country') ?? 'India'}}">					
-					        						</div>							
-					        						<div class="col-md-4 col-xs-6 col-sm-6 form-group ">
-					        							<label> Attendance Reg. No (In device) </label>
-					        							<input type="text" name="acadmic_attendance_reg_no" class="form-control" id="acadmic_attendance_reg_no" value="{{old('acadmic_attendance_reg_no')}}">
-					        						</div>
-					        						<div class="col-md-4 col-sm-6 form-group col-xs-6 ">
-							        					<label class="">Remark </label>
-							        					<textarea class="form-control" name="acadmic_remark" id="acadmic_remark">{{old('acadmic_remark')}}</textarea>
-							        				</div>
-					        							<hr>
-				        						</div>
-								    		</section>	
-								    		<ul class="tab-links nav nav-tabs pull-right mt-3">
-												<li class="nav-item">
-													<a href="#back_tab1" class="nav-link btn btn-sm bg-primary text-white  prevButton">Prev</a>
-												</li>
-												<li class="nav-item">
-													<a href="#next_tab2" class="nav-link btn btn-sm bg-success  text-white nextButton">Next</a>
-												</li>
-											</ul>									    	
-									   </div>	    --}}
+			          				
 									   <div class="tab-pane tab" id="academic_dtl">
 										    <h3 class="mb-3">Academic Details</h3>
 										    <hr>
 										    <section>
 										      <div class="row" >
-										        	<div class="col-md-12 col-xl-12 col-sm-12" style="border:1px solid #eee9e9; " id="acadmic_dtl" >
+										        	<div class="col-md-12 col-xl-12 col-sm-12"  id="acadmic_dtl" >
 
 										        	</div>
 										      </div>
@@ -624,7 +565,7 @@
 												<div class="row">
 													<div class="col-md-12">                      	
 														<input type="hidden" name="employeeId" id="employeeId" value="">		
-														<table class="table table-bordered" style="" id="emp_document">
+														<table class="table table-striped table-bordered" style="" id="emp_document" res>
 															<thead>
 																<tr style="background-color: #e3f2fd;">
 																	<th>SNo.</th>
@@ -646,18 +587,18 @@
 																		@enderror
 																	</td>
 																	<td> 
-																		<textarea id="doc_description" name="doc_description[]" class="form-control doc_description" placeholder="Enter doc description" value="{{ old('doc_description[]') }}" rows="2" cols="2"></textarea> 
+																		<textarea id="doc_desc" name="doc_desc[]" class="form-control doc_desc" placeholder="Enter doc description" value="{{ old('doc_desc[]') }}" rows="2" cols="2"></textarea> 
 																	</td>
 																	<td> 
-																		<input id="file_name" name="emp_document[]" class="form-control" type="file" placeholder="file" value="{{ old('emp_document[]') }}" >
-																		@error('emp_document')
+																		<input id="file_name" name="doc_file[]" class="form-control" type="file" placeholder="file" value="{{ old('doc_file[]') }}" >
+																		@error('doc_file')
 																			<span class="text-danger" role="alert">
 																				<strong>{{ $message }}</strong>
 																			</span>
 																		@enderror
 																	</td>
 																	<td>
-																		<button type="button" name="add_more_emp_doc" id="add_more_emp_doc" class="btn btn-success btn-xs">+</button>
+																		<button type="button" name="add_more_emp_doc" id="add_more_emp_doc" class="btn btn-outline-success btn-sm">+</button>
 																	</td>
 																</tr>
 															</tbody>
@@ -670,7 +611,7 @@
 													<a href="#back_tab1" class="nav-link btn btn-sm text-white bg-primary prevButton">Prev</a>
 												</li>
 												<li class="nav-item">
-													<input type="submit" name="submit" value="Submit"  class="btn bg-success text-white">
+													<input type="submit" name="submit" value="Submit"  class="btn btn-outline-success ">
 												</li>
 											</ul>								
 										</div>
@@ -802,7 +743,7 @@ $(document).ready(function(){
 
 
 	// for(var z = 0; z < guard_info; z++){
-		$('#acadmic_dtl').append('<div id="row'+k+'"><div class="row form-group "><div class="col-xl-12 col-md-12 col-sm-12"><a href="#" class="pull-right btn btn-sm btn-success " style="margin:10px 10px 0px 0px" id="add_guar"><i class="fa fa-plus"></i> Add More</a></div></div>'+html_div+'</div>');
+		$('#acadmic_dtl').append('<div id="row'+k+'"><div class="row form-group "><div class="col-xl-12 col-md-12 col-sm-12"><a href="#" class="pull-right btn btn-outline-success btn-sm " style="margin:10px 10px 0px 0px" id="add_guar"><i class="fa fa-plus"></i> Add More</a></div></div>'+html_div+'</div>');
 
 	// }
 		
@@ -848,10 +789,10 @@ $(document).ready(function(){
 	       html_code += '<tr id="'+count+'">';
 	       html_code += '<td><span id="sr_no">'+count+'</span></td>';
 	       html_code += '<td><input type="text" name="doc_title[]" id="doc_title'+count+'" data-srno="'+count+'" class="form-control input-sm timepicker"  placeholder="Enter doc titleti"/></td>';
-	       html_code += '<td ><textarea name="doc_description[]"  id="doc_description'+count+'" data-srno="'+count+'" class="form-control input-sm"  placeholder="Enter mode of Conveyance"/></textarea></td>';
-	        html_code += '<td><input type="file" name="emp_document[]" id="file_name'+count+'" data-srno="'+count+'" class="form-control input-sm"/></td>';
+	       html_code += '<td ><textarea name="doc_desc[]"  id="doc_desc'+count+'" data-srno="'+count+'" class="form-control input-sm"  placeholder="Enter mode of Conveyance"/></textarea></td>';
+	        html_code += '<td><input type="file" name="doc_file[]" id="file_name'+count+'" data-srno="'+count+'" class="form-control input-sm"/></td>';
 
-	       html_code += '<td><button type="button" name="add_more_emp_doc" id="'+count+'" class="btn btn-danger btn-xs add_more_emp_doc">X</button></td>';
+	       html_code += '<td><button type="button" name="add_more_emp_doc" id="'+count+'" class="btn btn-outline-danger btn-sm btn-xs add_more_emp_doc">X</button></td>';
 	       html_code += '</tr>';
 	       $('#emp_document').append(html_code);
 	    

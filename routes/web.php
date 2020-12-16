@@ -243,7 +243,7 @@ Route::get('import-export', 'Admin\students\UserImportExportController@importExp
 Route::post('import-student', 'Admin\students\UserImportExportController@importStudent')->name('import_student');
 Route::post('import-student-batch-section-wise', 'Admin\students\UserImportExportController@importStudent')->name('import_student_batch_section_wise');
 
-Route::get('export-all-student-', 'Admin\students\UserImportExportController@exportAllStudent')->name('export_all_student');
+Route::get('export-all-student', 'Admin\students\UserImportExportController@exportAllStudent')->name('export_all_student');
 Route::get('download-student-sample', 'Admin\students\UserImportExportController@downloadStudentSample')->name('download_student_sample');
 Route::get('export-students-class-section-and-batch-wise', 'Admin\students\UserImportExportController@exportclassSectionBatchWise')->name('export_student_class_section_batch_wise');
 //batch wise export....................................
@@ -420,6 +420,11 @@ Route::patch('bus_fee_update/{id}','Admin\transport\TransportController@bus_fee_
 //End Route for Transport
 
 //Route for Employee created by kishan
-
 Route::resource('/employees','Admin\hrms\EmployeesController');
+// Route::get('/employees/dasboard','Admin\hrms\EmployeesController@employeesDasboard')->name('employees.dasboard');
+
+//Route for Employee created by kishan
+Route::resource('/discount','Admin\master\DiscountController');
+Route::get('/discount-type','Admin\master\DiscountController@descountTypeIndex')->name('discount_type.index');
+Route::post('/discount-type','Admin\master\DiscountController@descountTypeCreate')->name('discount_type_create');
 // Route::get('/employees/dasboard','Admin\hrms\EmployeesController@employeesDasboard')->name('employees.dasboard');

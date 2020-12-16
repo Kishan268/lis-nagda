@@ -397,7 +397,7 @@ class UserImportExportController extends Controller
                          studentsGuardiantMast::create($guardian);
                     } 
                     if ($lastId) {
-                       $studentData2 = [
+                       $accountCreate = [
                         'username' => $first_name.$last_name,
                         'name' => $first_name.$last_name,
                         'password' => Hash::make($first_name.'@'.$admission_number),
@@ -405,21 +405,21 @@ class UserImportExportController extends Controller
                         'user_flag'  => 'S',
                         'mobile_no'  => $mobile_number ? $mobile_number :'',
                         ];
-                        $createUser = User::create($studentData2);
-                         $user->attachRole('3');
+                        $createUser = User::create($accountCreate);
+                        $user->attachRole('3');
 
         // send user name and password using email and SMS..................
                         if ( $createUser) {
                           
                            /* $userNamePassword['base_url'] =  url('/login');
-                            $userNamePassword['username']=$studentData2['username'];
-                            $userNamePassword['email'] = $studentData2['email'];
+                            $userNamePassword['username']=$accountCreate['username'];
+                            $userNamePassword['email'] = $accountCreate['email'];
                             $userNamePassword['password'] = $randomletter;
                             Mail::to($userNamePassword['email'])->send(new UserNamePassword($userNamePassword));
 
                             $sendData = [
                                 'message' =>'Welcome to the LIS, Nagda School, Your Login Username or Password here. UserName:-'.$userNamePassword['username'].' , Password:'.$userNamePassword['password'].' Click '.$userNamePassword['base_url'].'',
-                                'mobile' => $studentData2['mobile_no'] 
+                                'mobile' => $accountCreate['mobile_no'] 
                             ]; 
 
                             $sendMessage = SendMessage::sendCode($sendData);*/

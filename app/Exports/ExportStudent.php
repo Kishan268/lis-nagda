@@ -17,6 +17,7 @@ use \Crypt;
 use App\Models\master\castCategory;
 use App\Models\master\stdNationality;
 use App\Models\student\studentsGuardiantMast;
+use App\Models\student\StudentSiblings;
 
 class ExportStudent implements FromCollection, WithHeadings, WithMapping 
 {

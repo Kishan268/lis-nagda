@@ -19,6 +19,7 @@ class EmployeesController extends Controller
     public function index()
     {
         $employeeData = EmployeeMast::get();
+        
         return view('admin.hrms.employees.index',compact('employeeData'));
     }
 
@@ -32,6 +33,26 @@ class EmployeesController extends Controller
     
     public function store(Request $request)
     {
+
+        $account_create = [
+            'username' => $request->username,
+            'name' =>  $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'user_flag'  => $request->emp_type,
+            'mobile_no'  => $request->s_mobile,
+        ];
+
+        $user =   User::create($account_create);
+
+        if($request->emp_type == 'T'){  
+            $user->attachRole('2');
+        }elseif($request->emp_type == 'H'){
+            $user->attachRole('4');
+        }elseif($request->emp_type == 'A'){
+            $user->attachRole('5');
+        }
+
         $data = $this->validation($request);
         if($request->hasFile('photo')){
             $data['photo'] =  file_upload($request->photo,'Employees_profile');
@@ -40,19 +61,19 @@ class EmployeesController extends Controller
             $data['signature'] =  file_upload($request->signature,'Employees_signature');
         }
 
-     // dd( $request->all());
+        $data['user_id'] = $user->id;
+
         $empId  = EmployeeMast::create($data)->id;
-        // $emp  = 1;
         //Employee document create
         foreach ($request->doc_title as $key => $doc_name) {
             $docs = [
                 'doc_name'   => $doc_name,
-                'doc_desc'   => $request->doc_description[$key],
+                'doc_desc'   => $request->doc_desc[$key],
                 'emp_id'     => $empId
             ];
-            if($request->hasFile('emp_document.'.$key)){
-               // dd($request->emp_document[$key]);
-                $docs['doc_file'] =  file_upload($request->emp_document[$key],'Employees_doc');
+            if($request->hasFile('doc_file.'.$key)){
+               // dd($request->doc_file[$key]);
+                $docs['doc_file'] =  file_upload($request->doc_file[$key],'Employees_doc');
             }
             EmpDocument::create($docs);
         }
@@ -68,29 +89,13 @@ class EmployeesController extends Controller
                     'emp_id'         => $empId
                 ];
                 if($request->hasFile('qual_doc.'.$key)){
-                   // dd($request->emp_document[$key]);
+                   // dd($request->doc_file[$key]);
                     $qual['qual_doc'] =  file_upload($request->qual_doc[$key],'EmplQualificationDoc');
                  }
                 EmpQualification::create($qual);
             }
 
-        $account_create = [
-            'username' => $request->username,
-            'name' =>  $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'emp_id' => $empId,
-            'user_flag'  => $request->emp_type,
-            'mobile_no'  => $request->s_mobile,
-        ];
-        $user =   User::create($account_create);
-        if($request->emp_type == 'T'){  
-            $user->attachRole('2');
-        }elseif($request->emp_type == 'H'){
-            $user->attachRole('4');
-        }elseif($request->emp_type == 'A'){
-            $user->attachRole('5');
-        }
+        
         // $sendData = [
         //     'message' => 'Hello '.student_name($student).' welcome to lis nagada school',
         //     'mobile' => $data['s_mobile'] 
@@ -103,16 +108,13 @@ class EmployeesController extends Controller
     
     public function show($id)
     {
-        $editEmp = EmployeeMast::with(['emp_doc','emp_qaul'])->where('id',$id)->first();
-        // return $student;
-        
-        return view('admin.hrms.employees.show',compact('editEmp'));
+        $showEmp = EmployeeMast::with(['emp_doc','emp_qaul'])->where('id',$id)->first();
+        return view('admin.hrms.employees.show',compact('showEmp'));
     }
 
    
     public function edit($id)
     {
-         
         $editEmp = EmployeeMast::with(['emp_doc','emp_qaul'])->where('id',$id)->first();
             return view('admin.hrms.employees.edit',compact('editEmp'));
     }
@@ -120,7 +122,9 @@ class EmployeesController extends Controller
     
     public function update(Request $request, $id)
     {
-        // dd($request->all());
+               // dd($request->emp_doc[$key]);
+
+        // return $request->file();
         $data = $this->validation($request,$id);
         $employee = EmployeeMast::with(['emp_qaul','emp_doc'])->where('id',$id)->first();
         if($request->hasFile('photo')){
@@ -129,14 +133,11 @@ class EmployeesController extends Controller
         if($request->hasFile('signature')){
             $data['signature'] =  file_upload($request->signature,'Employees_signature','signature',$employee);
         }
-        // return $request->g_id;
        
-
         EmployeeMast::where('id',$id)->update($data);
         
          //Employee qualification update............
         foreach ($request->qual_name as $key => $qual_name) {
-            $empQualInfo = [];
             $qual = [
                 'qual_name'      => $qual_name,
                 'percent'        => $request->percent[$key],
@@ -145,12 +146,16 @@ class EmployeesController extends Controller
                 'qual_desc'      => $request->qual_desc[$key],
                 'emp_id'         => $id
             ];
+            // return $request->qual_id;
             if($request->qual_id[$key] !=null){
                 $empQualInfo = EmpQualification::where('qual_id',$request->qual_id[$key])->first();
-            }
-            if($request->hasFile('qual_doc.'.$key)){
-               // dd($request->emp_document[$key]);
-                $qual['qual_doc'] =  file_upload($request->qual_doc[$key],'EmplQualificationDoc','EmplQualificationDoc',$empQualInfo);
+            // dd($empQualInfo);
+            }else{
+                $empQualInfo = [];
+                
+            }if($request->hasFile('qual_doc.'.$key)){
+               // dd($request->doc_file[$key]);
+               $qual['qual_doc'] =  file_upload($request->qual_doc[$key],'EmplQualificationDoc','EmplQualificationDoc',$empQualInfo);
             }if(!empty($empQualInfo)){
                 $empQualInfo->update($qual);
             }else{
@@ -162,18 +167,17 @@ class EmployeesController extends Controller
         foreach ($request->doc_name as $key => $doc_name) {
             $docs = [
                 'doc_name'   => $doc_name,
-                'doc_desc'   => $request->doc_description[$key],
+                'doc_desc'   => $request->doc_desc[$key],
                 'emp_id'     => $id
             ];
             if($request->emp_doc_id[$key] !=null){
-                
                 $empDocInfo = EmpDocument::where('emp_doc_id',$request->emp_doc_id[$key])->first();
             }else{
                 $empDocInfo = [];
                 
-            }if($request->hasFile('emp_document.'.$key)){
-               // dd($request->emp_document[$key]);
-                $docs['doc_file'] =  file_upload($request->emp_document[$key],'Employees_doc','Employees_doc',$empDocInfo);
+            }if($request->hasFile('doc_file.'.$key)){
+               // dd($request->doc_file[$key]);
+                $docs['doc_file'] =  file_upload($request->doc_file[$key],'Employees_doc','Employees_doc',$empDocInfo);
             }if(!empty($empDocInfo)){
                 $empDocInfo->update($docs);
             }else{
@@ -182,39 +186,51 @@ class EmployeesController extends Controller
         }
 
        //Delete employee Qualification and doc......................
-//         $fordeleteQaul = EmpQualification::where('emp_id',$id)->whereNotIn('qual_id',$request->qual_id)->get();
-// dd( $fordeleteQaul);
-//         foreach ($fordeleteQaul as $deleteQual) {
-//             if($deleteQual->doc_file !=null){
-//                 Storage::delete('public/'.$deleteQual->doc_file);
-//             }
-//                 EmpQualification::find($deleteQual->qual_id)->delete();
-//         }
+        $fordeleteQaul = EmpQualification::where('emp_id',$id)->whereNotIn('qual_id',$request->qual_id)->get();
+        foreach ($fordeleteQaul as $deleteQual) {
+            if($deleteQual->qual_doc !=null){
+                Storage::delete('public/'.$deleteQual->qual_doc);
+            }
+                EmpQualification::find($deleteQual->qual_id)->delete();
+        }
 
-//         $fordeleteDocs = EmpDocument::where('emp_id',$id)->whereNotIn('emp_doc_id',$request->emp_doc_id)->get();
+        $fordeleteDocs = EmpDocument::where('emp_id',$id)->whereNotIn('emp_doc_id',$request->emp_doc_id)->get();
 
-//         foreach ($fordeleteDocs as $deleteDocs) {
-//             if($deleteDocs->doc_file !=null){
-//                 Storage::delete('public/'.$deleteDocs->doc_file);
-//             }
-//                 EmpDocument::find($deleteDocs->emp_doc_id)->delete();
-//         }
+        foreach ($fordeleteDocs as $deleteDocs) {
+            if($deleteDocs->doc_file !=null){
+                Storage::delete('public/'.$deleteDocs->doc_file);
+            }
+                EmpDocument::find($deleteDocs->emp_doc_id)->delete();
+        }
         return redirect()->back()->with('success','Employee Updated successfully');
 
     }
 
     
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if ($request->status == 'active') {
+            EmployeeMast::where('id',$id)->update(['status'=>0]);
+            EmpDocument::where('emp_id',$id)->update(['status'=>0]);
+            EmpQualification::where('emp_id',$id)->update(['status'=>0]);
+                return redirect()->back()->with('success','Employee Deactivated successfully');
+        }elseif($request->status == 'deactive'){
+            EmployeeMast::where('id',$id)->update(['status'=>1]);
+            EmpDocument::where('emp_id',$id)->update(['status'=>1]);
+            EmpQualification::where('emp_id',$id)->update(['status'=>1]);
+                return redirect()->back()->with('success','Employee activated successfully');
+        }
+
+        
     }
 
     public function validation($request,$id=null){
         $request->validate(
             [
-            'name'              => 'required',
+            'name'                => 'required',
             'mobile'              => 'required',
             'dob'                 => 'required',
+            'emp_type'            => 'required',
             'email'               => 'nullable',
             'gender'              => 'required|not_in:""',
             'p_address'           => 'required|min:3|max:191',

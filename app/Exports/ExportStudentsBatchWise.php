@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\Exportable;
 use App\Models\student\studentsMast;
 use Auth;
+use App\Models\student\StudentSiblings;
 
 class ExportStudentsBatchWise implements  FromCollection, WithHeadings,WithMapping {
 	use Exportable;
