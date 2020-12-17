@@ -160,7 +160,7 @@
 																								
 													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label class="required">First Name</label>
-														<input type="text" name="f_name" id="f_name" value="{{old('f_name')}}" class="form-control required" required="required">
+														<input type="text" name="f_name" id="f_name" value="{{old('f_name')}}" class="form-control required" required="required" >
 														@error('f_name')
 															<span class="text-danger">
 																<strong>{{$message}}</strong>
@@ -394,30 +394,44 @@
 													</div>
 												</div>
 												<div class="row" style="background: #4f5775;color: #fff; padding: 10px;border-radius: 10px;margin: 20px;">
-			                                         <div class="col-md-3 form-group">
-			                                              <label for="phone1">
+			                                         <div class="col-md-6 form-group">
+			                                              <label for="username" class="required">
 			                                             Student User Name
 			                                             </label>
 			                                             <input class="form-control required" id="username" value="{{old('username')}}" name="username" type="text" >
 			                                             <spam id="usererror" style="color: red; display: none;"></spam>
 			                                         </div>
 			                                         
-			                                          <div class="col-md-3 form-group">
-			                                              <label for="password">
-			                                              Password
+			                                          <div class="col-md-6 form-group">
+			                                              <label for="password" class="required">
+			                                              Password (Username and password same for student)
 			                                             </label>
-			                                             <input class="form-control required"   id="password" name="password" type="password">
+			                                             <input class="form-control required"   id="password" name="password" type="password" readonly="readonly">
 			                                         </div>
 												</div>
 												<div class="row form-group">
 													<div class="col-md-3">
-														<label for="rte" class="required"> Teacher Ward </label>
-														<select class="form-control" name="teacher_ward" id="teacher_ward" required="required">
+														<label for="staff_ward" class="required"> Staff Ward Status</label>
+														<select class="form-control" name="staff_ward" id="staff_ward" required="required">
 														    <option value="">Select</option>
-														    <option value="1" {{old('teacher_ward') == '1' ? 'selected' : ''}}>Yes</option>
-														    <option value="0" {{old('teacher_ward') == '0' ? 'selected' : ''}}>No</option>
+														    <option value="1" {{old('staff_ward') == '1' ? 'selected' : ''}}>Yes</option>
+														    <option value="0" {{old('staff_ward') == '0' ? 'selected' : ''}}>No</option>
 														</select>
 													</div>
+
+													<div class="col-md-3" id="staff_list" style="display: none">
+														<label for="rte" class="required">Select Staff </label>
+														<select class="form-control" name="staff_id" id="staff_id" >
+														    <option value="">Select Staff List</option>
+															@foreach(get_teachers() as $teacher)
+
+														    <option value="{{$teacher->id}}" {{old('staff_id') == $teacher->id ? 'selected' : ''}}>{{$teacher->name}}</option>
+														    @endforeach
+														   
+														</select>
+													</div>
+
+
 													<div class="col-md-3">
 														<label for="rte"> CBSE  Registration no </label>
 														<input class="form-control" id="CBSC_reg" name="cbsc_reg" type="text" value="{{old('cbsc_reg')}}">	           
@@ -845,23 +859,70 @@ $(document).ready(function() {
 		var indexActive = $wrapper.find('li.active').index();
 		$wrapper.find('li').eq(indexActive - 1).find('a').click();
 	});
-});
 
-$('.dob').on('blur',function(e){
+
+	$('.dob').on('blur',function(e){
 	e.preventDefault();
 		var c_d = new Date();
 		year = c_d.getFullYear() - 8;
 		date = new Date($(this).val());
 
-		age = Math.floor((c_d.getTime() - date.getTime()) / (365.25 * 24 * 60 * 60 * 1000));
-		
-		$('.age').val(age).attr('readonly','true');
+			age = Math.floor((c_d.getTime() - date.getTime()) / (365.25 * 24 * 60 * 60 * 1000));
+			
+			$('.age').val(age).attr('readonly','true');
+	});
+
+	$('label.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;');
+	$('th.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;');
+
 });
 
-$('label.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;');
-$('th.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;');
 
 $(document).ready(function(){
+	$('#l_name').on('blur',function(e){
+		e.preventDefault();
+		var f_name = $('#f_name').val();
+		var l_name = $(this).val();
+
+		var random_no = Math.floor((Math.random() * 100) + 1);
+		var username = f_name+l_name;
+
+		if(username !=null){
+			$('#username').val(username.toLowerCase()+random_no);
+			$('#password').val(username.toLowerCase()+random_no);
+		}else{
+			$('#username').val('');
+			$('#password').val('');
+		}
+		
+		// console.log($(this).val());
+	});
+
+
+	$(document).on('change','#staff_ward',function(e){
+		e.preventDefault();
+		var staff_ward = $(this).val();
+		staff_ward_div(staff_ward);
+	})
+
+	var staff_ward = "{{old('staff_ward')}}";
+	if(staff_ward !=null){
+		staff_ward_div(staff_ward);
+	}
+
+	function staff_ward_div(staff_ward){
+		if(staff_ward == '1'){
+			$('#staff_list').show();
+			$('#staff_id').attr('required',true);
+		}else{
+			$('#staff_id').val('');
+			$('#staff_id').attr('required',false);
+			$('#staff_list').hide();
+		}
+	}
+		
+
+
 
 	$('#bus_fee_allocate').on('change',function(e){
 		e.preventDefault();

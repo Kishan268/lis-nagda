@@ -18,9 +18,9 @@ class EmployeesController extends Controller
     
     public function index()
     {
-        $employeeData = EmployeeMast::get();
+        $employees = EmployeeMast::orderBy('name')->get();
         
-        return view('admin.hrms.employees.index',compact('employeeData'));
+        return view('admin.hrms.employees.index',compact('employees'));
     }
 
     

@@ -63,7 +63,7 @@ class FeesController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
             $fees_mast = [
                 'fees_name'         => $request->fees_name,
                 'fees_amt'          => $request->fees_amt,
@@ -72,17 +72,76 @@ class FeesController extends Controller
                 'no_of_instalment'  => $request->no_of_instalment,
                 'courseselection'   => $request->courseselection,
                 'online_discount'   => $request->online_discount,
-                'is_fees_student_assign'   => $request->is_fees_student_assign,
+                'is_fees_student_assign'=> $request->is_fees_student_assign,
                 'courseselection'   => $request->courseselection,
-
-
+                'std_class_id'      => $request->courseselection == '1' ? $request->std_class_id : null,
+                'batch_id'          => $request->courseselection == '1' ? $request->batch_id : null,
+                'section_id'        => $request->courseselection == '1' ? $request->section_id : null,
+                'medium'            => $request->courseselection == '1' ? $request->medium : null,
+                'gender'            => $request->feesfor == '1' ? $request->gender : null,
+                'reservation_class_id'            => $request->feesfor == '1' ? $request->reservation_class_id : null,
+                'rte_status'        => $request->feesfor == '1' ? $request->rte_status : null,
 
             ];
 
+           // $fees = FeesMast::create($fees_mast);
+
+
+            if(isset($request->fees_head)){
+                foreach ($request->fees_head as $key => $fee_head) {
+                    $fees_heads[] = [
+                        'fees_head_id'  => $fee_head,
+                        'head_amt'      => $request->head_amnt[$key],
+                        // 'fees_id'       => $fees->id,
+                        'fees_id'       => '1'
+                    ];
+                }
+            }
+
+            //instalement
+            // return $request->no_of_instalment;
+
+            for($i = 0; $i < $request->no_of_instalment;$i++){
+                $fees_inst[] = [
+                    // 'fees_id'       => $fees->id,
+                    'fees_id'       => '1',
+                    'instalment_amt'=> $request->instalment_amt[$i],
+                    'start_dt'      => $request->start_dt[$i],
+                    'end_dt'        => $request->end_dt[$i]
+                ];
+            }
+
+
+            if($request->courseselection == '1'){
+                if($request->feesfor =='1'){
+                    $students = studentsMast::select('id','staff_ward','bus_fee_id')->with('siblings')->where(['batch_id'=>$request->batch_id, 'std_class_id' => $request->std_class_id, 'section_id' => $request->section_id, 'medium'=> $request->medium, 'status'=>'R']);
+                    if($request->gender =='all' && $request->reservation_class_id != 'all'){
+                        $students = $students->where(['reservation_class_id' => $request->reservation_class_id]);
+
+                    }else if($request->gender !='all' && $request->reservation_class_id == 'all'){
+                        $students = $students->where(['gender' => $request->gender]);
+
+                    }else if($request->gender !='all' && $request->reservation_class_id != 'all'){
+                        $students = $students->where(['gender' => $request->gender,'reservation_class_id' => $request->reservation_class_id]);
+
+                    }   
+
+                    $students = $students->get();
+                    foreach ($students as $student) {
+                        if(!empty($student->siblings)){
+                            return $student->siblings;
+                        }
+                    }
+
+
+                }
+                
+            }
 
 
 
-
+            //student assign fees        
+        return $fees_inst;
 
 
 

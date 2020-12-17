@@ -215,9 +215,15 @@
                                         </div>               
                                         <div class="row form-group">
                                             <div class="col-md-3">
-                                            <label for="rte" class="required"> Teacher Ward </label>
-                                            <input type="" name="" class="form-control" value="{{$student->teacher_ward == '1' ? 'Yes' :'No'}}" readonly="">
+                                            <label for="rte" class="required"> Staff Ward </label>
+                                            <input type="" name="" class="form-control" value="{{$student->staff_ward == '1' ? 'Yes' :'No'}}" readonly="">
                                             </div>
+                                            @if($student->staff_ward == '1')
+                                                <div class="col-md-3">
+                                                    <label>Staff Name</label>
+                                                    <input type="text" name="" class="form-control" value="{{$student->staff_detail !=null ? $student->staff_detail->name : ''}}" readonly="readonly">
+                                                </div>
+                                            @endif
                                             <div class="col-md-3">
                                             <label for="rte"> CBSE  Registration no </label>
                                             <input class="form-control" id="CBSC_reg" name="cbsc_reg" type="text" value="{{$student->cbsc_reg}}" readonly="">

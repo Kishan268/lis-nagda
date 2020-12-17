@@ -67,10 +67,11 @@
                               @foreach($fee_heads as $fee_head)
                                  <tr>
                                     <td><input type="checkbox" name="fees_head[]" class="checkHead" value="{{$fee_head->fees_head_id}}">
-                                    </td>
+                                       <input type="checkbox" name="head_amnt[]" class="head_amt_{{$fee_head->fees_head_id}}" value="" autocomplete="off" style="display: none" >
+                                    </td> 
                                     <td>{{$fee_head->head_name}}</td>
                                     <td>{{$fee_head->is_installable =='1' ? 'Yes' :'No'}}</td> 
-                                    <td class="form-group"><input type="text" name="head_amt[]" class="form-control head_amt" id="head_amt_{{$fee_head->fees_head_id}}" value="{{(int)$fee_head->head_amt}}" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"></td>
+                                    <td class="form-group"><input type="text" name="" class="form-control head_amt" id="head_amt_{{$fee_head->fees_head_id}}" value="{{(int)$fee_head->head_amt}}" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"></td>
                                  </tr>
                               @endforeach
                            </tbody>
@@ -230,8 +231,10 @@
 
 
 $('label.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;');
+
       $(document).on('change','.checkHead',function(e){
          e.preventDefault();
+
          fees_amount_change();
          // console.log(amount);
       });        
@@ -246,6 +249,21 @@ $('label.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;')
 
          $('.checkHead:checked').each(function(i){
             head_id = $(this).val();
+
+            var head_amt = $('#head_amt_'+head_id).val();
+
+            if($(this).prop('checked')){
+            // alert('true')
+               $('.head_amt_'+head_id).attr('checked',true);
+            }else{
+               // alert('false')
+               $('.head_amt_'+head_id).attr('checked',false);
+            }
+
+
+            $('.head_amt_'+head_id).val(head_amt);
+
+
             amount = parseInt($('#head_amt_'+head_id).val()) + parseInt(amount);
 
          });

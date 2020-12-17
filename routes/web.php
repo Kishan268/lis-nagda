@@ -106,9 +106,10 @@ Route::get('/prnpriview','Admin\students\IdCardController@prnpriview');
     Route::resource('/users', 'ACL\UserController');
     Route::get('/destroy/{id}', 'ACL\UserController@destroy')->name('destroy');
     Route::post('/changes_role','ACL\UserController@changesRole')->name('changesRole');
-    Route::post('/changePermission','ACL\UserController@changePermission')->name('changePermission');
 
-    Route::post('show-user-role-permission','ACL\UserController@showUserRolePermission')->name('showUserRolePermission');   
+    Route::post('/changePermission','ACL\UserController@changePermission')->name('changePermission');   
+     Route::post('show-user-role-permission','ACL\UserController@showUserRolePermission')->name('showUserRolePermission');   
+
 
     //Start AccountController
 
@@ -386,6 +387,7 @@ Route::post('student/certificate/decline/','Admin\certificate\CertificateControl
 
 
 Route::get('batch-fetch/{id}','Admin\classes\ClassesController@batch_fetch')->name('batch-fetch');
+
 Route::get('section-fetch/{id}/{id1}','Admin\classes\ClassesController@section_fetch')->name('section-fetch');
 
 
@@ -406,6 +408,19 @@ Route::get('attendence','Students\ProfileController@showAttendence')->name('atte
 Route::post('attendence-show','Students\ProfileController@viewAttendence')->name('attendence_show');
 Route::get('your-profile-show','Students\ProfileController@showProfile')->name('show_student_profile');
 Route::get('id-card','Students\ProfileController@getStudentIdCard')->name('id_card');
+
+
+
+Route::Resource('certificate-request','Students\CertificateRequestController');
+Route::Resource('your-profile','Students\ProfileController');
+Route::get('attendence','Students\ProfileController@showAttendence')->name('attendence');
+Route::post('attendence-show','Students\ProfileController@viewAttendence')->name('attendence_show');
+Route::get('your-profile-show','Students\ProfileController@showProfile')->name('show_student_profile');
+Route::get('id-card','Students\ProfileController@getStudentIdCard')->name('id_card');
+
+
+
+
 
 
 //Route for Transport

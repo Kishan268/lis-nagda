@@ -1,6 +1,8 @@
 <?php 
 use App\Models\master\studentBatch;
- 
+use App\Models\hrms\EmployeeMast;
+
+const SCHOOLNAME = 'Lakshya International School, Nagda';
 const SENDTO = [
 	'A' => 'Send to All',
 	'S'	=> 'Send to Student',
@@ -179,7 +181,8 @@ const CERTIFICATE = [
 const EMP_TYPE = [
 	'T' => 'Teacher',
 	'H' => 'HR',
-	'A' => 'Accountant' 
+	'A' => 'Accountant',
+	'E' => 'Staff Member' 
 ];
 //For QUALIFICATION_NAMES  created by kishan
 
@@ -189,3 +192,9 @@ const QUALIFICATION_NAMES = [
 	'3' => 'Master', 
 	'4' => 'PHD' 
 ];
+
+if(!function_exists('get_teachers')){
+    function get_teachers(){
+        return EmployeeMast::where('emp_type','T')->orderBy('name')->get();
+    }
+}

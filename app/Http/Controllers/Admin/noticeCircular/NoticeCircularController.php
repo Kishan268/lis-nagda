@@ -252,7 +252,7 @@ class NoticeCircularController extends Controller
 
      public function getFacultydata(Request $request){
 
-        $facultyData = user::where('user_flag','T')->get();
+        $facultyData = get_teachers();
         $page ='Teachers';
          return view('admin.notice-circular.table',compact('facultyData','page'));
     }

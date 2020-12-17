@@ -415,11 +415,22 @@
 		</div> --}}
 												<div class="row form-group">
 													<div class="col-md-3">
-														<label for="rte" class="required"> Teacher Ward </label>
-														<select class="form-control" name="teacher_ward" id="teacher_ward" required="required">
+														<label for="rte" class="required"> Staff Ward </label>
+														<select class="form-control" name="staff_ward" id="staff_ward" required="required">
 														    <option value="">Select</option>
-														    <option value="1" {{($student->teacher_ward ?? old('teacher_ward') ) == '1' ? 'selected' : ''}}>Yes</option>
-														    <option value="0"  {{($student->teacher_ward ?? old('teacher_ward') ) == '0' ? 'selected' : ''}}>No</option>
+														    <option value="1" {{($student->staff_ward ?? old('staff_ward') ) == '1' ? 'selected' : ''}}>Yes</option>
+														    <option value="0"  {{($student->staff_ward ?? old('staff_ward') ) == '0' ? 'selected' : ''}}>No</option>
+														</select>
+													</div>
+													<div class="col-md-3" id="staff_list" style="display: none">
+														<label for="rte" class="required">Select Staff </label>
+														<select class="form-control" name="staff_id" id="staff_id" >
+														    <option value="">Select Staff List</option>
+															@foreach(get_teachers() as $teacher)
+
+														    <option value="{{$teacher->id}}" {{(old('staff_id') ?? $teacher->id) == $teacher->id ? 'selected' : ''}}>{{$teacher->name}}</option>
+														    @endforeach
+														   
 														</select>
 													</div>
 													<div class="col-md-3">
@@ -846,6 +857,31 @@ $('label.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;')
 $('th.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;');
 
 $(document).ready(function(){
+
+
+	$(document).on('change','#staff_ward',function(e){
+		e.preventDefault();
+		var staff_ward = $(this).val();
+		staff_ward_div(staff_ward);
+	})
+
+	var staff_ward = "{{old('staff_ward') ?? $student->staff_ward}}";
+	if(staff_ward !=null){
+		staff_ward_div(staff_ward);
+	}
+
+	function staff_ward_div(staff_ward){
+		if(staff_ward == '1'){
+			$('#staff_list').show();
+			$('#staff_id').attr('required',true);
+		}else{
+			$('#staff_id').val('');
+			$('#staff_id').attr('required',false);
+			$('#staff_list').hide();
+		}
+	}
+		
+
 
 	$('#bus_fee_allocate').on('change',function(e){
 		e.preventDefault();

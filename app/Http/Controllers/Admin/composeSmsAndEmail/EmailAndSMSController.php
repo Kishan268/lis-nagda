@@ -43,7 +43,7 @@ class EmailAndSMSController extends Controller
 
         
         $sections = studentSectionMast::get();
-        $teacher = User::where('user_flag','T')->get();
+        $teacher = get_teachers();
         return view('admin.composeSmsAndEmail.email.index',compact('classes','sections','batches','teacher'));
 
     }
@@ -64,7 +64,7 @@ class EmailAndSMSController extends Controller
          return view('admin.composeSmsAndEmail.student-table',compact('getData','type','composeType'));                       
 
     	}elseif($request->type =='faculty'){
-    		$getData = User::where('user_flag','T')->get();
+    		$getData = get_teachers();
     		$type ='faculty';
             $composeType = 'E';
 
@@ -225,7 +225,7 @@ class EmailAndSMSController extends Controller
          $classes = studentClass::get();
          $batches = studentBatch::get();
          $sections = studentSectionMast::get();
-         $teacher = User::where('user_flag','T')->get();
+         $teacher = get_teachers();
         return view('admin.composeSmsAndEmail.sms.index',compact('classes','sections','batches','teacher'));
     }   
     public function getStudentsForSmsCompose(Request $request){
@@ -242,7 +242,7 @@ class EmailAndSMSController extends Controller
              return view('admin.composeSmsAndEmail.student-table',compact('getData','type','composeType'));                       
 
             }else{
-                $getData = User::where('user_flag','T')->get();
+                $getData = get_teachers();
                 $composeType = 'S';
                 $type ='faculty';
              return view('admin.composeSmsAndEmail.staff-table',compact('getData','type','composeType'));                       

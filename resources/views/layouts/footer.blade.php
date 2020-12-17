@@ -71,9 +71,11 @@
         $('.mytable').DataTable({
           "ordering": false
         });
-        $(function () {
-            $(".datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
-        });
+        // $(function () {
+            $(document).on('mousedown',".datepicker",function(e){
+                $(this).datepicker({ dateFormat: 'yyyy-mm-dd' });
+            });
+        // });
 
          $('.select2-multiple').select2();
 

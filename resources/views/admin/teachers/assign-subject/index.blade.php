@@ -51,8 +51,8 @@
                         <div class="col-md-3">
                           <select autocomplete="off" class="form-control" name="teacher_id" id="teacher_id"> 
                             <option value="">Select Teacher</option>
-                            @foreach($teacher as $teachers)
-                              <option value="{{$teachers->id}}">{{$teachers->name}}</option>
+                            @foreach($teachers as $teacher)
+                              <option value="{{$teacher->id}}">{{$teacher->name}}</option>
                             @endforeach
                           </select>
                           
