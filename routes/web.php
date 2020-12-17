@@ -106,6 +106,7 @@ Route::get('/prnpriview','Admin\students\IdCardController@prnpriview');
     Route::resource('/users', 'ACL\UserController');
     Route::get('/destroy/{id}', 'ACL\UserController@destroy')->name('destroy');
     Route::post('/changes_role','ACL\UserController@changesRole')->name('changesRole');
+
     Route::post('/changePermission','ACL\UserController@changePermission')->name('changePermission');   
      Route::post('show-user-role-permission','ACL\UserController@showUserRolePermission')->name('showUserRolePermission');   
 
@@ -243,7 +244,7 @@ Route::get('import-export', 'Admin\students\UserImportExportController@importExp
 Route::post('import-student', 'Admin\students\UserImportExportController@importStudent')->name('import_student');
 Route::post('import-student-batch-section-wise', 'Admin\students\UserImportExportController@importStudent')->name('import_student_batch_section_wise');
 
-Route::get('export-all-student-', 'Admin\students\UserImportExportController@exportAllStudent')->name('export_all_student');
+Route::get('export-all-student', 'Admin\students\UserImportExportController@exportAllStudent')->name('export_all_student');
 Route::get('download-student-sample', 'Admin\students\UserImportExportController@downloadStudentSample')->name('download_student_sample');
 Route::get('export-students-class-section-and-batch-wise', 'Admin\students\UserImportExportController@exportclassSectionBatchWise')->name('export_student_class_section_batch_wise');
 //batch wise export....................................
@@ -337,6 +338,9 @@ Route::post('send_email','Admin\composeSmsAndEmail\EmailAndSMSController@sendEma
 Route::get('sms-compoe','Admin\composeSmsAndEmail\EmailAndSMSController@smsCompose')->name('sms_compoe');
 Route::post('get_students_for_sms_compose','Admin\composeSmsAndEmail\EmailAndSMSController@getStudentsForSmsCompose')->name('get_students_for_sms_compose');
 Route::post('send_sms','Admin\composeSmsAndEmail\EmailAndSMSController@sendSms')->name('send_sms');
+Route::get('sms-delivery-report','Admin\composeSmsAndEmail\EmailAndSMSController@smsDeliveryReport')->name('send_sms_delivery_report');
+Route::get('email-delivery-report','Admin\composeSmsAndEmail\EmailAndSMSController@emailDeliveryReport')->name('send_email_delivery_report');
+Route::get('gallery','Admin\gallery\GalleryController@index');
 Route::get('sms-compoe-report','Admin\composeSmsAndEmail\EmailAndSMSController@smsDeliveryReport')->name('send_sms_delivery_report');
 Route::get('gallery','Admin\gallery\GalleryController@index')->name('gallery');
 
@@ -379,25 +383,31 @@ Route::get('student/certificate/request/','Admin\certificate\CertificateControll
 
 Route::post('student/certificate/decline/','Admin\certificate\CertificateController@cerReqDecliceReason')->name('req_declice_reason');
 
-Route::post('get_students_for_certificate','Admin\certificate\CertificateController@getStudents')->name('get_students_for_certificate');
-Route::post('get_admission_no','Admin\certificate\CertificateController@getAdmissionNo')->name('get_admission_no');
-
-});
 
 
 
 Route::get('batch-fetch/{id}','Admin\classes\ClassesController@batch_fetch')->name('batch-fetch');
-Route::get('section-fetch/{id}/{id1?}','Admin\classes\ClassesController@section_fetch')->name('section-fetch');
+
+Route::get('section-fetch/{id}/{id1}','Admin\classes\ClassesController@section_fetch')->name('section-fetch');
+
+
+Route::get('gallery_test','Admin\gallery\GalleryController@gallery_test')->name('gallery_test');
+});
+
 
 Route::Resource('profile','Admin\profile\ProfileController');
 
-Route::Resource('certificate-request','Admin\students\CertificateRequestController');
+Route::post('get_students_for_certificate','Admin\certificate\CertificateController@getStudents')->name('get_students_for_certificate');
+Route::post('get_admission_no','Admin\certificate\CertificateController@getAdmissionNo')->name('get_admission_no');
 
-Route::get('gallery_test','Admin\gallery\GalleryController@gallery_test')->name('gallery_test');
+Route::get('certificate/download/{id}','Students\CertificateRequestController@downloadCerfificate')->name('centificate_download');
 
-Route::get('certificate/download/{id}','Admin\students\CertificateRequestController@downloadCerfificate')->name('centificate_download');
-
-
+Route::Resource('certificate-request','Students\CertificateRequestController');
+Route::Resource('your-profile','Students\ProfileController');
+Route::get('attendence','Students\ProfileController@showAttendence')->name('attendence');
+Route::post('attendence-show','Students\ProfileController@viewAttendence')->name('attendence_show');
+Route::get('your-profile-show','Students\ProfileController@showProfile')->name('show_student_profile');
+Route::get('id-card','Students\ProfileController@getStudentIdCard')->name('id_card');
 
 
 
@@ -422,4 +432,14 @@ Route::post('bus_fee_store','Admin\transport\TransportController@bus_fee_store')
 Route::get('bus_fee_edit/{id}','Admin\transport\TransportController@bus_fee_edit')->name('bus_fee_edit');
 Route::patch('bus_fee_update/{id}','Admin\transport\TransportController@bus_fee_update')->name('bus_fee_update');
 
+//End Route for Transport
 
+//Route for Employee created by kishan
+Route::resource('/employees','Admin\hrms\EmployeesController');
+// Route::get('/employees/dasboard','Admin\hrms\EmployeesController@employeesDasboard')->name('employees.dasboard');
+
+//Route for Employee created by kishan
+Route::resource('/discount','Admin\master\DiscountController');
+Route::get('/discount-type','Admin\master\DiscountController@descountTypeIndex')->name('discount_type.index');
+Route::post('/discount-type','Admin\master\DiscountController@descountTypeCreate')->name('discount_type_create');
+// Route::get('/employees/dasboard','Admin\hrms\EmployeesController@employeesDasboard')->name('employees.dasboard');

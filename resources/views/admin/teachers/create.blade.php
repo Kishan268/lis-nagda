@@ -22,7 +22,7 @@
 						<div class="row form-group">
 							<div class="col-md-6">
 								<label for="name">Name <span class="text-danger">*</span></label>
-								<input type="text" class="form-control" name="name" value="{{old('name')}}">  
+								<input type="text" class="form-control" name="name" value="{{old('name')}}" id="name">  
 								@error('name')
 		                            <span class="text-danger" role="alert">
 		                            <strong>{{ $message }}</strong>
@@ -48,8 +48,12 @@
 		                            <strong>{{ $message }}</strong>
 		                          </span>
 		                         @enderror     
+							</div>
+							<div class="col-md-6 form-group">
+								<label for="username">Username</label>
+								<input type="text" name="username" class="form-control" id="username" value="{{old('username')}}" readonly="readonly" >
 							</div>	
-							<div class="col-md-6">
+							{{-- <div class="col-md-6">
 								<label for="password">Password <span class="text-danger">*</span></label>
 								<input type="password" class="form-control" name="password" value="{{old('password')}}">
 								@error('password')
@@ -57,7 +61,7 @@
 		                            <strong>{{ $message }}</strong>
 		                          </span>
 		                         @enderror
-							</div>
+							</div> --}}
 						</div>	
 											
 						<div class="row ">
@@ -71,4 +75,16 @@
 		</div>
 	</div>
 </div>
+<script>
+	$(document).ready(function(){
+		$('#name').on('blur',function(e){
+			e.preventDefault();
+			var name = $(this).val();
+			var random_no = Math.floor((Math.random() * 100) + 1);
+			var username = name.replace(' ','');
+			$('#username').val(username.toLowerCase()+random_no);
+			// console.log($(this).val());
+		});
+	})
+</script>
  @endsection

@@ -29,17 +29,19 @@ use App\Models\master\mothetongueMast;
 use App\Models\student\StudenstDoc;
 use App\Models\master\professtionType;
 use App\Models\master\guardianDesignation;
-// use App\Models\master\SendCode1;
 use App\Models\sendmessage\SendMessage;
 use App\Models\AssignSubjectGroupStudent;
 use Carbon\Carbon;
 use Arr;
-
-
 use App\Models\student\StudentMastPrevReocrd;
 use App\Models\student\StudentSiblings;
-
 use App\Models\transport\BusFeeStructure;
+use App\Models\hrms\EmployeeMast;
+use Illuminate\Support\Str;
+use App\MessageSend;
+
+
+
 
 class studentController extends Controller
 {
@@ -52,9 +54,7 @@ class studentController extends Controller
          $this->batches = studentBatch::get();
          $this->sections = studentSectionMast::get();
          $this->studentData = studentsMast::get();
-         $this->country   = countryMast::get();
-         $this->state     = stateMast::get();
-         $this->city      = cityMast::get();
+      
          // $this->castCategores         = castCategory::get();
          // $this->studentReligions      = stdReligions::get();
          $this->studentNationalites   = stdNationality::get();
@@ -68,7 +68,7 @@ class studentController extends Controller
     }
     public function index()
     {
-        // return studentsMast::select('id','f_name','m_name','l_name','dob')->where(\DB::raw('substr(dob, 6, 9)'), '=' , date('m-d'))->get();
+    
         $classes = $this->classes;
         $studentData = $this->studentData;
         return view('admin.students.index',compact('studentData','classes'));
@@ -86,6 +86,7 @@ class studentController extends Controller
 
         $students = studentsMast::select('id','admision_no','f_name','m_name','l_name')->where('status','R')->get();
 
+
         $bus_fees = BusFeeStructure::where('bus_fee_status','A')->get();
         return view('admin.students.create',compact('classes','studentNationalites','studentMothertongues','professtionType','guardianDesignation','students','bus_fees'));
 
@@ -102,6 +103,22 @@ class studentController extends Controller
         if($request->hasFile('s_photo')){
             $data['photo'] =  file_upload($request->s_photo,'student_profile');
         }
+
+        $account_create = [
+            'username' => $request->username,
+            'name' => $request->f_name.($request->m_name !=null ? ' '.$request->m_name : '' )." ". $request->l_name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),            
+            'user_flag'  => 'S',
+            'mobile_no'  => $request->s_mobile,
+            'status'    => 'A'
+        ];
+
+
+        $user =   User::create($account_create);  
+        $user->attachRole('3');
+
+        $data['user_id'] = $user->id;
 
 
         $student  = studentsMast::create($data);
@@ -158,28 +175,12 @@ class studentController extends Controller
         }
 
 
-        $account_create = [
-            'username' => $request->username,
-            'name' => student_name($student),
-            'email' => $student->email,
-            'password' => Hash::make($request->password),
-            'email' => $student->email,
-            'stduent_id' => $student->id,
-            'user_flag'  => 'S',
-            'mobile_no'  => $student->s_mobile,
-            'photo'  => $student->photo,
-            'student_id'=>$student->id
-        ];
+        // $sendMessage = [
+        //     'mobile'    => (int)$request->s_mobile,
+        //     'message'   => 'Welcome to '.SCHOOLNAME.' your username is '.$request->username.' and password is '.$password,
+        // ];
+        // MessageSend::sendMessage($sendMessage);
 
-
-        $user =   User::create($account_create);  
-        $user->attachRole('3');
-            // $sendData = [
-            //     'message' => 'Hello '.student_name($student).' welcome to lis nagada school',
-            //     'mobile' => $data['s_mobile'] 
-            // ]; 
-
-    //            $sendMessage = SendMessage::sendCode($sendData);
         return redirect()->back()->with('success','Student added successfully');
 
     }
@@ -188,7 +189,7 @@ class studentController extends Controller
     public function show($id)
     {
 
-        $student = studentsMast::with(['student_class','student_batch','student_section','studentsGuardiantMast.professtion_type','studentsGuardiantMast.guardian_designation','student_doc','stdNationality','mothetongueMast','siblings.sibling_detail'])->where('id',$id)->first();
+        $student = studentsMast::with(['student_class','student_batch','student_section','studentsGuardiantMast.professtion_type','studentsGuardiantMast.guardian_designation','student_doc','stdNationality','mothetongueMast','siblings.sibling_detail','staff_detail'])->where('id',$id)->first();
         // return $student;
         $sibling_name =[];
         foreach ($student->siblings as $sibling) {
@@ -212,7 +213,7 @@ class studentController extends Controller
         $studentNationalites   = $this->studentNationalites ;
 
 
-        $students = studentsMast::select('id','admision_no','f_name','m_name','l_name')->where('status','R')->get();
+        $students = studentsMast::select('id','admision_no','f_name','m_name','l_name')->where('status','R')->whereNotIn('id',[$id])->get();
         // return $students;
 
         $student = studentsMast::with(['student_class','student_batch','student_section','studentsGuardiantMast','student_doc','stdNationality','mothetongueMast'])->where('id',$id)->first();
@@ -437,11 +438,13 @@ class studentController extends Controller
             'account_name'  => $request->account_name,
             'account_no'    => $request->account_no,
             'ifsc_code'     => $request->ifsc_code,
-            'user_id'       => Auth::user()->id,
-            'family_income' => $request->family_income,
+            'family_income' => $request->family_income           
 
         ];
 
+        if($request->staff_ward == '1'){
+            $data['staff_id'] = $request->staff_id;
+        }
 
         if($request->bus_fee_allocate == '1'){
             $request->validate([
@@ -485,10 +488,6 @@ class studentController extends Controller
             }
         }
 
-        
-
-
-        
     }
 
 // get city state country..............................

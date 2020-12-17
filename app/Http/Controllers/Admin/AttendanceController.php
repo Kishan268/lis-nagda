@@ -112,19 +112,11 @@ class AttendanceController extends Controller
 
      public function staffAttendance(){
 
-        // $data = User::with(['attendances' => function($query){
-        //     $query->where('attendance_date',date('Y-m-d'));
-        // }]);
-        $users = User::where('user_flag','T')->get();
-        // dd($users[0]->id);
-        // if(Auth::user()->hasRole('lawcollege')){
-            // $users = $data->where('parent_id',Auth::user()->id)->get();
-        // }else{
-        //     $users = $data->where('parent_id',Auth::user()->parent_id)->get(); 
-        // }
-        // return $users;
+     
+        $users = get_teachers();
+       
         $attendance_staffs = StaffAttendance::where('attendance_date',date('Y-m-d'))->whereIn('staff_id',collect($users)->pluck('id'))->get();
-        // dd($users);
+    
         return view('admin.attendance.staff.index',compact('users','attendance_staffs'));
     }
 

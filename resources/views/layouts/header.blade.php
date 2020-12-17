@@ -206,7 +206,8 @@ p {
             <a class="collapse-item" href="{{route('student_manage')}}">Manage Students</a>
             <a class="collapse-item" href="{{route('student_import_export')}}">Upload Students</a>
             <a class="collapse-item" href="{{route('id_card')}}">ID Card</a>
-            {{-- <a class="collapse-item" href="#">Records</a> --}}
+            <a class="collapse-item" href="#">Records</a>
+            <a class="collapse-item" href="#">Results</a>
           </div>
     </div>
   </li>
@@ -292,6 +293,8 @@ p {
             {{-- <a class="collapse-item" href="{{route('mothetongue')}}">Mothetongue</a> --}}
             <a class="collapse-item" href="{{route('professtiontype')}}">Profession Type</a>
             <a class="collapse-item" href="{{route('gaurdian_designation')}}">Designation</a>
+            <a class="collapse-item" href="{{route('discount.index')}}">Discount</a>
+            <a class="collapse-item" href="{{route('discount_type.index')}}">Discount Type</a>
         </div>
     </div>
   </li>
@@ -370,6 +373,18 @@ p {
         <div class="bg-white py-2 collapse-inner rounded siderbar1">
            <a class="collapse-item" href="{{route('transport.index')}}">Dashboard </a>
            <a class="collapse-item" href="{{route('bus_fee_index')}}">Bus Fee Slots</a>
+        </div>
+    </div>
+  </li>
+   <li class="nav-item">
+    <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#hrms" aria-expanded="true" aria-controls="hrms">
+      <i class="fas fa-fw fa-truck"></i>
+      <span>HRMS</span>
+    </a>
+    <div id="hrms" class="collapse" aria-labelledby="headingTwo" data-parent="#hrms">
+        <div class="bg-white py-2 collapse-inner rounded siderbar1">
+           {{-- <a class="collapse-item" href="{{route('employees.index')}}">Dashboard </a> --}}
+           <a class="collapse-item" href="{{route('employees.index')}}">Employee</a>
         </div>
     </div>
   </li>

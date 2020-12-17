@@ -10,6 +10,8 @@ use App\Models\student\studentsMast;
 use App\Models\master\studentBatch;
 use App\Models\teachers\Teacher;
 use Session;
+use App\Models\hrms\EmployeeMast;
+
 class HomeController extends Controller
 {
     /**
@@ -54,7 +56,7 @@ class HomeController extends Controller
         $students = studentsMast::where('batch_id',session('current_batch'))->count();
         $studentBatch = studentBatch::get();
 
-        $teachers = Teacher::get();
+        $teachers = EmployeeMast::where('emp_type','T')->orderBy('name')->get();
 
         return view('home',compact('getNotication','birthUsers','students','studentBatch','teachers','userMast','currentUser'));
 

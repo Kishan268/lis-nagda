@@ -215,14 +215,11 @@ class NoticeCircularController extends Controller
 
     public function getSendStudentData(Request $request){
 
-      
          $studentData = NoticeClassBatchId::where('classes_id',$request->courseId)->get();
-
         foreach ($studentData as $value1) {
             $idArray1[]   = $value1->notice_circular_id;
        }
         $studentData1 = NoticeCircular::whereIn('id',$idArray1)->get();
-                            
          return view('admin.notice-circular.manage.sendtostudent.index',compact('studentData1'));
     } 
     public function sentToStudentShow($id){
@@ -255,7 +252,7 @@ class NoticeCircularController extends Controller
 
      public function getFacultydata(Request $request){
 
-        $facultyData = user::where('user_flag','T')->get();
+        $facultyData = get_teachers();
         $page ='Teachers';
          return view('admin.notice-circular.table',compact('facultyData','page'));
     }
@@ -265,16 +262,13 @@ class NoticeCircularController extends Controller
         if( $request->getSendAllData == 'send_to_faculty'){
             $getAllSendData = NoticeCircular::where('sender','F')->get();
             $page = 'send_to_faculty';
-            // dd( $getAllSendData);
          return view('admin.notice-circular.manage.sendtofaculty.index',compact('getAllSendData','page'));
         }
     }
 
      public function sentToFacultyShow($id){
         $getAllSendData = NoticeCircular::where('sender','F')->where('id',$id)->first();
-// dd($getAllSendData->id);
         $getAllstudents = NoticeFaculty::with('facultyInfo')->where('notice_circular_id',$getAllSendData->id)->get();
-        // dd($getAllstudents);
         $page = 'send_to_faculty';
 
         return view('admin.notice-circular.manage.sendtofaculty.show',compact('getAllSendData','page','getAllstudents'));
@@ -302,7 +296,6 @@ class NoticeCircularController extends Controller
             return response()->json($getAllSendData);
     }
      public function getSendToStudentsData(Request $request){
-
         if( $request->val == 2){
             $getAllSendData = NoticeCircular::where('sender','C')->get();
             $page = 'send_to_student';

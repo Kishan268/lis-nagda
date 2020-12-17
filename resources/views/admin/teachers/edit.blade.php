@@ -17,14 +17,13 @@
 					</h4>
 				</div>
 				<div class="card-body">	
-					<form action="{{route('teachers.update',$teacherUpdate->id)}}" method="post">
+					<form action="{{route('teachers.update',$teacher->id)}}" method="post">
 						@csrf
 						@method('PUT')
 						<div class="row form-group">
 							<div class="col-md-6">
-								<input type="hidden" class="form-control" name="id" value="{{$teacherUpdate->id}}"> 
 								<label for="name">Name <span class="text-danger">*</span></label>
-								<input type="text" class="form-control timepicker" name="name" value="{{$teacherUpdate->name}}">  
+								<input type="text" class="form-control" name="name" value="{{old('name') ?? $teacher->name}}" id="name" >  
 								@error('name')
 		                            <span class="text-danger" role="alert">
 		                            <strong>{{ $message }}</strong>
@@ -33,7 +32,7 @@
 							</div>	
 							<div class="col-md-6">
 								<label for="email">Email Address <span class="text-danger">*</span></label>
-								<input type="email" name="email" class="form-control" value="{{$teacherUpdate->email}}">
+								<input type="email" name="email" class="form-control" value="{{old('email') ?? $teacher->email}}">
 								@error('email')
 		                            <span class="text-danger" role="alert">
 		                            <strong>{{ $message }}</strong>
@@ -44,14 +43,18 @@
 						<div class="row form-group">
 							<div class="col-md-6">
 								<label for="mobile_no">Mobile Number <span class="text-danger">*</span></label>
-								<input type="text" class="form-control \" name="mobile_no" value="{{$teacherUpdate->mobile_no}}">   
+								<input type="text" class="form-control \" name="mobile_no" value="{{old('mobile_no') ?? $teacher->mobile}}" oninput ="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off">   
 								 @error('mobile_no')
 		                            <span class="text-danger" role="alert">
 		                            <strong>{{ $message }}</strong>
 		                          </span>
 		                         @enderror     
+							</div>
+							<div class="col-md-6 form-group">
+								<label for="username">Username</label>
+								<input type="text" name="username" class="form-control" id="username" value="{{old('username') ?? $teacher->username}}" readonly="readonly" >
 							</div>	
-							<div class="col-md-6">
+							{{-- <div class="col-md-6">
 								<label for="password">Password <span class="text-danger">*</span></label>
 								<input type="password" class="form-control" name="password" value="{{old('password')}}">
 								@error('password')
@@ -59,7 +62,7 @@
 		                            <strong>{{ $message }}</strong>
 		                          </span>
 		                         @enderror
-							</div>
+							</div> --}}
 						</div>	
 											
 						<div class="row ">
@@ -73,4 +76,17 @@
 		</div>
 	</div>
 </div>
- @endsection
+<script>
+	$(document).ready(function(){
+		$('#name').on('blur',function(e){
+			e.preventDefault();
+			var name = $(this).val();
+			var random_no = Math.floor((Math.random() * 100) + 1);
+			var username = name.replace(' ','');
+			$('#username').val(username.toLowerCase()+random_no);
+			// console.log($(this).val());
+
+		})
+	})
+</script>
+@endsection
