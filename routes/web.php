@@ -425,6 +425,9 @@ Route::resource('/employees','Admin\hrms\EmployeesController');
 
 //Route for Employee created by kishan
 Route::resource('/discount','Admin\master\DiscountController');
-Route::get('/discount-type','Admin\master\DiscountController@descountTypeIndex')->name('discount_type.index');
-Route::post('/discount-type','Admin\master\DiscountController@descountTypeCreate')->name('discount_type_create');
+Route::get('/discount-type','Admin\master\DiscountController@discountTypeIndex')->name('discount_type.index');
+Route::get('/discount-type/create','Admin\master\DiscountController@discountTypeCreate')->name('discount_type_create');
+Route::post('/discount-type/store','Admin\master\DiscountController@discountTypeStore')->name('discount_type_store');
+Route::get('/discount-type/edit/{id}','Admin\master\DiscountController@discountTypeEdit')->name('discount_type_edit');
+Route::patch('/discount-type/update/{id}','Admin\master\DiscountController@discountTypeUpdate')->name('discount_type_update');
 // Route::get('/employees/dasboard','Admin\hrms\EmployeesController@employeesDasboard')->name('employees.dasboard');
