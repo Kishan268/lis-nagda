@@ -66,16 +66,19 @@
                            <tbody>
                               @foreach($fee_heads as $fee_head)
                                  <tr>
-                                    <td><input type="checkbox" name="fees_head[]" class="checkHead" value="{{$fee_head->fees_head_id}}">
+                                    <td><input type="checkbox" name="fees_head[]" class="checkHead" value="{{$fee_head->fees_head_id}}" data-id="{{$fee_head->is_installable}}">
                                        <input type="checkbox" name="head_amnt[]" class="head_amt_{{$fee_head->fees_head_id}}" value="" autocomplete="off" style="display: none" >
                                     </td> 
                                     <td>{{$fee_head->head_name}}</td>
                                     <td>{{$fee_head->is_installable =='1' ? 'Yes' :'No'}}</td> 
-                                    <td class="form-group"><input type="text" name="" class="form-control head_amt" id="head_amt_{{$fee_head->fees_head_id}}" value="{{(int)$fee_head->head_amt}}" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"></td>
+                                    <td class="form-group"><input type="text" name="" class="form-control head_amt" id="head_amt_{{$fee_head->fees_head_id}}" value="{{(int)$fee_head->head_amt}}" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');">                                      
+                                    </td>
                                  </tr>
                               @endforeach
                            </tbody>
                         </table>
+                        <input type="hidden" name="non_installable_amnt" value="" id="non_installable_amnt">
+                        <input type="hidden" name="installable_amnt" value="" id="installable_amnt">
                      </div>
                   </div>
                   <hr>
@@ -101,7 +104,7 @@
                   <div class="row" >
                      <div class="col-md-4 form-group" id="instal_one"> 
                         <label class="required">Instalment Amount</label>
-                        <input type="text" name="instalment_amt[]" readonly="readonly" class="form-control instalment_amt" value="0">
+                        <input type="text" name="instalment_amt[]" readonly="readonly" class="form-control instalment_amt" value="0" id="instalment_amt_1">
                      </div>
                      <div class="col-md-4">
                         <label class="required">Start Date</label>
@@ -245,37 +248,59 @@ $('label.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;')
 
       function fees_amount_change(){
          var head_id = '';
-         var amount = 0;
+         var fees_amt = 0;
+         var installable_amnt = 0;
+         var non_installable_amnt =0;
+         var instalment_amt = 0;
 
          $('.checkHead:checked').each(function(i){
             head_id = $(this).val();
 
+            var is_installable = $(this).data('id');
+
             var head_amt = $('#head_amt_'+head_id).val();
 
-            if($(this).prop('checked')){
-            // alert('true')
+            if($(this).prop('checked')){           
                $('.head_amt_'+head_id).attr('checked',true);
             }else{
-               // alert('false')
                $('.head_amt_'+head_id).attr('checked',false);
             }
 
-
             $('.head_amt_'+head_id).val(head_amt);
 
+            if(is_installable == 1) {
+               installable_amnt = parseInt($('#head_amt_'+head_id).val()) + parseInt(installable_amnt);
+            }else{
+               non_installable_amnt = parseInt($('#head_amt_'+head_id).val()) + parseInt(non_installable_amnt);
+            }
 
-            amount = parseInt($('#head_amt_'+head_id).val()) + parseInt(amount);
+            fees_amt = parseInt($('#head_amt_'+head_id).val()) + parseInt(fees_amt);
 
          });
 
-         $('#fees_amt').val(amount);
+         
+         $('#non_installable_amnt').val(non_installable_amnt);
+         $('#installable_amnt').val(installable_amnt);
+         $('#fees_amt').val(fees_amt);
+
          var no_of_instalment = parseInt($('#no_of_instalment').val());
 
-         if(amount !=0){
-            var amount = parseInt(amount) / no_of_instalment;
+         if(installable_amnt !=0){
+            var instalment_amt = parseInt(installable_amnt) / parseInt(no_of_instalment);
          }
+
+         // console.log(instalment_amt);
+
+
          for(var i =1 ; i <=no_of_instalment; i++){
-            $('.instalment_amt').val(amount);
+            if(i == 1){
+               var totl_instalment = parseFloat(instalment_amt) + parseFloat(non_installable_amnt);
+               console.log(totl_instalment+'  '+i);
+               $('#instalment_amt_'+i).val(totl_instalment);
+            }else{
+               console.log(i);
+                $('#instalment_amt_'+i).val(instalment_amt);
+            }
          }
 
       }
@@ -293,7 +318,8 @@ $('label.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;')
             $('#instalmentBody').empty();
          // console.log(no_of_instalment);
             for(var j =1 ; j < no_of_instalment; j++){
-               $('#instalmentBody').append('<div class="col-md-4 form-group" id="instal_one"><label class="required">Instalment Amount <strong class="text-danger">*</strong></label><input type="text" name="instalment_amt[]" readonly="readonly" class="form-control instalment_amt"></div><div class="col-md-4"><label class="required">Start Date <strong class="text-danger">*</strong></label><input type="text" name="start_dt[]" readonly="readonly" class="form-control datepicker" data-date-format="yyyy-mm-dd" placeholder="Start Date"></div><div class="col-md-4"><label class="required">End Date <strong class="text-danger">*</strong></label><input type="text" name="end_dt[]" readonly="readonly" class="form-control datepicker" data-date-format="yyyy-mm-dd" placeholder="Due Date"></div>');
+              var  row_id =j;
+               $('#instalmentBody').append('<div class="col-md-4 form-group" id="instal_one"><label class="required">Instalment Amount <strong class="text-danger">*</strong></label><input type="text" name="instalment_amt[]" readonly="readonly" class="form-control instalment_amt" id="instalment_amt_'+(row_id + 1)+'"></div><div class="col-md-4"><label class="required">Start Date <strong class="text-danger">*</strong></label><input type="text" name="start_dt[]" readonly="readonly" class="form-control datepicker" data-date-format="yyyy-mm-dd" placeholder="Start Date"></div><div class="col-md-4"><label class="required">End Date <strong class="text-danger">*</strong></label><input type="text" name="end_dt[]" readonly="readonly" class="form-control datepicker" data-date-format="yyyy-mm-dd" placeholder="Due Date"></div>');
             }
             fees_amount_change();
          }else{

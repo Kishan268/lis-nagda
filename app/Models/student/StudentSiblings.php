@@ -13,6 +13,6 @@ class StudentSiblings extends Model
     protected $guarded =[];
 
     public function sibling_detail(){
-    	return $this->belongsTo('App\Models\student\studentsMast','sibling_admission_no','admision_no')->select('id','admision_no','f_name','m_name','l_name');
+    	return $this->belongsTo('App\Models\student\studentsMast','sibling_admission_no','admision_no')->select('id','admision_no','f_name','m_name','l_name','dob','gender','age','std_class_id','batch_id','status');
     }
 }

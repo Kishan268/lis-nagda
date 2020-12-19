@@ -35,7 +35,7 @@
                                 <td>{{ $i++}}</td>
                                 <td>{{ $datas->discount_name}}</td>
                                 <td>
-                                <?php echo $datas->discount_amount;
+                                <?php echo $datas->discount_amnt;
                                     if($datas->discount_mode =='P'){ echo '(%)'; }elseif($datas->discount_mode =='R'){ echo '(Rupee)'; } ?>
                                 </td>
                                 <td>{{ $datas->disc_type ? $datas->disc_type->discount_type_name : ''}}</td>
