@@ -46,9 +46,9 @@
                          <label for="discount_no_type">Discount no type</label>
                          <select name="discount_no_type" class="form-control" >
                            <option value="">Select Discount Mode</option>
-                           <option value="F" {{old('discount_no_type') == 'F' ? 'selected':'' }}>First</option>
-                           <option value="S" {{old('discount_no_type') =='S' ? 'selected':'' }}>Second</option>
-                           <option value="T" {{old('discount_no_type') =='T' ? 'selected':'' }}>Third</option>
+                           <option value="1" {{old('discount_no_type') == '1' ? 'selected':'' }}>First</option>
+                           <option value="2" {{old('discount_no_type') =='1' ? 'selected':'' }}>Second</option>
+                           <option value="3" {{old('discount_no_type') =='2' ? 'selected':'' }}>Third</option>
                          </select>
                          @error('discount_no_type')
                           <span class="text-danger">
@@ -102,9 +102,9 @@
                     </div>
                     <div class="col-md-4">
                         <label class="red"> *</label>
-                        <label for="discount_amount">Discount Amount</label>
-                         <input type="text" name="discount_amount" class="form-control " value="{{old('discount_amount')}}"  oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" >
-                          @error('discount_amount')
+                        <label for="discount_amnt">Discount Amount</label>
+                         <input type="text" name="discount_amnt" class="form-control " value="{{old('discount_amnt')}}"  oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" >
+                          @error('discount_amnt')
                           <span class="text-danger">
                             <strong>{{$message}}</strong>
                           </span>

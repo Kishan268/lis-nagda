@@ -10,9 +10,9 @@ const SENDTO = [
 ];
 
 const GENDER = [
-    1 => 'Male',
-    2 => 'Female',
-    3 => 'Other'
+    'M' => 'Male',
+    'F' => 'Female',
+    'O' => 'Other'
 ];
 const MEDIUM = [
     'EM' => 'English Medium',

@@ -35,7 +35,7 @@ class DiscountController extends Controller
             'discount_no_type'=>'required',
             'discount_desc'=>'required',
             'discount_mode'=>'required',
-            'discount_amount'=>'required'
+            'discount_amnt'=>'required'
         ]);
         $data['batch_id'] = session('current_batch');
         Discounts::create($data);
@@ -67,7 +67,7 @@ class DiscountController extends Controller
             'gender'=>'required',
             'discount_desc'=>'required',
             'discount_mode'=>'required',
-            'discount_amount'=>'required',
+            'discount_amnt'=>'required',
             'discount_no_type'=>'required'
         ]);
         // dd($data);

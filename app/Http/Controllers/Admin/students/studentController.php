@@ -172,6 +172,29 @@ class studentController extends Controller
 
                 StudentSiblings::create($siblings);
             }
+
+            $student_fetch = studentsMast::select('id','gender','dob','staff_ward','staff_id','bus_fee_id','age','std_class_id')->with(['siblings.sibling_detail'])->find($student->id);
+
+            $sibling_no = null;
+            $dates[] = $request->dob;  
+            foreach ($student_fetch->siblings as $std_sib) {
+                $dates[] = $std_sib->sibling_detail->dob;
+            }
+            foreach ($dates as $date) {
+                $str_time[] = strtotime($date);
+            }
+           
+            asort($str_time);
+
+            foreach ($str_time as $value) {
+                $str_date[] = date('Y-m-d',$value);
+            }
+            foreach ($str_date as $i => $dt) {
+                if($dt == $request->dob){
+                    $sibling_no = $i+1;
+                }
+            }
+            $student_fetch->update(['sibling'=>$sibling_no]);
         }
 
 
