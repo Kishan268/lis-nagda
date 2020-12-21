@@ -192,6 +192,10 @@ const QUALIFICATION_NAMES = [
 	'3' => 'Master', 
 	'4' => 'PHD' 
 ];
+const ConcessionDiscount = [
+	'1' => 'Flat Rate',
+	'2' => 'In Percent'
+];
 
 if(!function_exists('get_teachers')){
     function get_teachers(){

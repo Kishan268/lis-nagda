@@ -13,7 +13,7 @@ class SectionManage extends Model
        return $this->belongsTo('App\Models\master\studentSectionMast','section_id');
     } 
     public function batch_name(){
-       return $this->belongsTo('App\Models\master\studentBatch','batch_id');
+       return $this->belongsTo('App\Models\master\studentBatch','batch_id')->orderBy('batch_name','desc');
     }
     public function class_name(){
        return $this->belongsTo('App\Models\master\studentClass','class_id');

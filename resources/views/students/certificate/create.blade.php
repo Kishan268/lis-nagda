@@ -8,7 +8,7 @@
           </div>
            <div class="app-title full-right">
            @if($message = Session::get('success'))   
-              <div class="alert alert-success">{{ $message }}</div>
+              <div class="alert alert-success col-md-4">{{ $message }}</div>
            @endif
         </div>
           <!-- Card Body -->

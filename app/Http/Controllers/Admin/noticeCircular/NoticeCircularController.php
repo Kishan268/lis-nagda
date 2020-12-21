@@ -29,6 +29,7 @@ use App\Models\classes\SectionManage;
 use App\Models\noticecircular\NoticeClassBatchId;
 use App\Models\noticecircular\NoticeStudent;
 use App\Models\noticecircular\NoticeFaculty;
+use App\Models\hrms\EmployeeMast;
 
 class NoticeCircularController extends Controller
 {
@@ -73,7 +74,7 @@ class NoticeCircularController extends Controller
                 'date_to_display'=>'required',
                 'circular_description'=>'required'
             ]);
-        $data['user_id'] = Auth::user()->id;
+        // $data['user_id'] = Auth::user()->id;
         $data['circular_title']     = $request->circular_title;
         $data['date_from_display']  = $request->date_from_display;
         $data['date_to_display']    = $request->date_to_display;
@@ -252,7 +253,8 @@ class NoticeCircularController extends Controller
 
      public function getFacultydata(Request $request){
 
-        $facultyData = get_teachers();
+        // $facultyData = get_teachers();
+        $facultyData = EmployeeMast::get();
         $page ='Teachers';
          return view('admin.notice-circular.table',compact('facultyData','page'));
     }

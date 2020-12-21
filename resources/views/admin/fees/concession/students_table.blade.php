@@ -1,0 +1,44 @@
+<table class="table table-hover table-bordered mytable">
+	<thead>
+		<tr>
+			<th><input type="checkbox" name="s_id" class="selectAll" id="s_id"></th>
+			<th>Admission Number</th>
+			<th>Student Name</th>
+			<th>Father Name</th>
+		</tr>
+	</thead>
+	<tbody>
+		@php $count = 0; @endphp
+		@foreach($students as $student)
+		<tr>
+			<th><input type="checkbox" name="s_id[]" class="selectAll" value="{{$student->id}}"></th>
+
+			<td>{{ $student->admision_no }}</td>
+			<td>{{ student_name($student) }}</td>
+			<td>@foreach( $student->studentsGuardiantMast as $guardiant )
+				{{ $guardiant->id == 1 ? $guardiant->g_name  : ($guardiant->id == 2 ? $guardiant->g_name :'')}}
+			@endforeach</td>
+			
+		</tr>
+		@endforeach
+	</tbody>
+</table>
+ <div class="row">
+ 	<div class="col-md-12">
+ 		<button type="submit" class="btn btn-sm btn-success">Apply</button>
+ 	</div>
+ </div> 
+<style >
+	.mr{
+		margin-right: 10px;
+	}
+</style>
+<script >
+	$(document).ready(function(){
+		$('.mytable').DataTable();
+		$("#s_id").on('click',function () {
+            $(".selectAll").attr('checked', this.checked);
+        });	
+
+	})
+</script>

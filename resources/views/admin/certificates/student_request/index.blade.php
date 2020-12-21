@@ -8,7 +8,7 @@
       </div>
       <div class="app-title full-right">
        @if($message = Session::get('success'))   
-          <div class="alert alert-success">{{ $message }}</div>
+          <div class="alert alert-success col-md-4">{{ $message }}</div>
        @endif
       <!-- Card Body -->
       <div class="card-body">
@@ -31,16 +31,16 @@
                 @foreach($certifReq as $certifReqs)
                  <td>{{$count++}}</td>
                   <td>{{$certifReqs->cert_type}}</td>
-                  <td>{{$certifReqs->studentInfo->f_name}} {{$certifReqs->studentInfo->l_name}}</td>
-                  <td>{{$certifReqs->studentInfo->student_class->class_name}}</td>
+                  <td>{{$certifReqs->studentInfo?$certifReqs->studentInfo->f_name:''}} {{$certifReqs->studentInfo?$certifReqs->studentInfo->l_name:''}}</td>
+                  <td>{{$certifReqs->studentInfo ? $certifReqs->studentInfo->student_class->class_name : ''}}</td>
                   <td>{{date('Y-m-d',strtotime($certifReqs->created_at))}}</td>
                   <td><a href="{{route('certificate_req_show',$certifReqs->cert_req_id)}}"><i class="fa fa-eye"></i></a></td>
                   <td>
                     @if($certifReqs->status==1)
-                     <a class="btn btn-success" id="approve" href="{{route('certificate_approve',$certifReqs->cert_req_id)}}" >Go To Approve </a>|| <button class="btn btn-danger decline_request1" id="{{$certifReqs->cert_req_id}}" data-cert-id="{{$certifReqs->cert_req_id}}" data-stud-id="{{$certifReqs->studentInfo->id}}" data-toggle="modal" data-target="#exampleModal{{$certifReqs->cert_req_id}}">Decline </button>
+                     <a class="btn btn-success" id="approve" href="{{route('certificate_approve',$certifReqs->cert_req_id)}}" >Go To Approve </a>|| <button class="btn btn-danger decline_request1" id="{{$certifReqs->cert_req_id}}" data-cert-id="{{$certifReqs->cert_req_id}}" data-stud-id="{{$certifReqs->studentInfo ? $certifReqs->studentInfo->user_id : ''}}" data-toggle="modal" data-target="#exampleModal{{$certifReqs->cert_req_id}}">Decline </button>
                     @elseif($certifReqs->status==2)
                       <span style="color: red;">Decline</span>
-                    @else
+                    @elseif()
                      <span style="color: green;">Approved</span>
                       
                     @endif

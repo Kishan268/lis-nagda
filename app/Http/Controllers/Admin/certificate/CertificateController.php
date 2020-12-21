@@ -65,7 +65,8 @@ class CertificateController extends Controller
            if ($request->approve_request) {
                 $data['cert_req_id'] = $request->cert_req_id;
                 $insertData = Certificate::create($data);
-                $updateStatus = CertificateRequest::where('stu_id',$request->stu_id)->where('cert_req_id',$request->cert_req_id)->update(['status'=>'3']);
+
+                $updateStatus = CertificateRequest::where('stu_id',$request->stu_id)->where('cert_req_id',$insertData->cert_req_id)->update(['status'=>'3']);
                 return redirect()->route('certificate_stud_req')->with('success','Certificate appoved successfully');
              }else{
                 return redirect()->route('certificates.index')->with('success','Certificate created successfully');
@@ -106,6 +107,7 @@ class CertificateController extends Controller
 
     public function certRequest(){
          $certifReq = CertificateRequest::with(['studentInfo.student_class','studentInfo.student_section','studentInfo.student_batch'])->get();
+         // dd($certifReq);
             return view('admin.certificates.student_request.index',compact('certifReq'));
     }
     public function certificateApprove($id)
@@ -147,7 +149,7 @@ class CertificateController extends Controller
     }
     public function getAdmissionNo(Request $request){
 
-        $admission_no = studentsMast::where('id',$request->studentId)
+        $admission_no = studentsMast::where('user_id',$request->studentId)
                                 ->first();
 
        return response()->json($admission_no);
