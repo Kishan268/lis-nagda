@@ -17,10 +17,10 @@
 				<td colspan="10">No Data found</td>
 				@endif
 				<td>
-					<input type="checkbox" name="reciver_id[]"  class="check" value="{{$student->id}}" 
+					<input type="checkbox" name="reciver_id[]"  class="check" value="{{$student->user_id}}" 
 						@if(!empty($attendance_students))
 						@foreach($attendance_students as $attendance_student)
-							@if($attendance_student->s_id == $student->id)
+							@if($attendance_student->s_id == $student->user_id)
 								checked="checked" 
 							@endif
 						@endforeach

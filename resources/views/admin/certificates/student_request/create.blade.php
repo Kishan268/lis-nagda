@@ -15,7 +15,8 @@
           <div class="card-body">
               <form action="{{route('certificates.store')}}" method="post" id="form_submit" autocomplete="off" enctype="multipart/form-data">
                 @csrf
-                  <input type="hidden" name="stu_id" value="" id="stu_id">
+                <input type="hidden" name="stu_id" value="" id="stu_id">
+                <input type="hidden" name="status" value="3" ">
 
                 <div class="row">
                   <div class="col-md-12">
@@ -298,7 +299,7 @@ $(document).on('change','#students',function(){
          success:function(res){
            // $('#p_state_id').empty().html(res);
            $("#admission_no").val(res.admision_no);
-           $("#stu_id").val(res.id);
+           $("#stu_id").val(res.user_id);
           
        }
      });

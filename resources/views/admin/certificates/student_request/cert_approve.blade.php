@@ -15,7 +15,7 @@
           <div class="card-body">
               <form action="{{route('certificates.store')}}" method="post" id="form_submit" autocomplete="off" enctype="multipart/form-data">
                 @csrf
-                  <input type="hidden" name="stu_id" value="{{$certifReqApprove->studentInfo->id}}" id="stu_id">
+                  <input type="hidden" name="stu_id" value="{{$certifReqApprove->studentInfo->user_id}}" id="stu_id">
                   <input type="hidden" name="approve_request" value="approve_request" id="approve_request">
                   <input type="hidden" name="cert_req_id" value="{{$certifReqApprove->cert_req_id}}" id="cert_req_id">
 

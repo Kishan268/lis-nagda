@@ -36,7 +36,6 @@ class AttendanceController extends Controller
                                 ->where('std_class_id',$request->std_class_id)
                                 ->where('section_id',$request->section_id)
                                 ->where('medium',$request->medium)
-                                ->where('user_id',Auth::user()->id)
                                 ->get();
 
         $attendance_students = StudentAttendance::where('attendance_date',date('Y-m-d'))->whereIn('s_id',collect($students)->pluck('id'))->get();
@@ -116,7 +115,7 @@ class AttendanceController extends Controller
         $users = get_teachers();
        
         $attendance_staffs = StaffAttendance::where('attendance_date',date('Y-m-d'))->whereIn('staff_id',collect($users)->pluck('id'))->get();
-    
+    // dd($users);
         return view('admin.attendance.staff.index',compact('users','attendance_staffs'));
     }
 
@@ -351,7 +350,6 @@ class AttendanceController extends Controller
                     ->where('batch_id',$request->batch_id)
                     ->where('std_class_id',$request->std_class_id)
                     ->where('section_id',$request->section_id)
-                    ->where('user_id',Auth::user()->id)
                     ->get();      
 
         $academic_dates = Helpers::academic_dates($month,$year);
@@ -406,11 +404,10 @@ class AttendanceController extends Controller
 
     public function filter($request){
         $students = studentsMast::select('id','f_name','l_name','roll_no','std_class_id','batch_id','section_id')
-                                ->where('batch_id',$request->batch_id)
-                                ->where('std_class_id',$request->std_class_id)
-                                ->where('section_id',$request->section_id)
-                                ->where('user_id',Auth::user()->id)
-                                ->get();
+                        ->where('batch_id',$request->batch_id)
+                        ->where('std_class_id',$request->std_class_id)
+                        ->where('section_id',$request->section_id)
+                        ->get();
         // if(Auth::user()->hasRole('lawcollege')){
             $students = $students->where('user_id',Auth::user()->id);
         // }else{

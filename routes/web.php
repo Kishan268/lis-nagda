@@ -413,18 +413,12 @@ Route::get('your-profile-show','Students\ProfileController@showProfile')->name('
 Route::get('id-card','Students\ProfileController@getStudentIdCard')->name('id_card');
 
 
-
 Route::Resource('certificate-request','Students\CertificateRequestController');
 Route::Resource('your-profile','Students\ProfileController');
 Route::get('attendence','Students\ProfileController@showAttendence')->name('attendence');
 Route::post('attendence-show','Students\ProfileController@viewAttendence')->name('attendence_show');
 Route::get('your-profile-show','Students\ProfileController@showProfile')->name('show_student_profile');
 Route::get('id-card','Students\ProfileController@getStudentIdCard')->name('id_card');
-
-
-
-
-
 
 //Route for Transport
     
@@ -441,11 +435,18 @@ Route::patch('bus_fee_update/{id}','Admin\transport\TransportController@bus_fee_
 Route::resource('/employees','Admin\hrms\EmployeesController');
 // Route::get('/employees/dasboard','Admin\hrms\EmployeesController@employeesDasboard')->name('employees.dasboard');
 
-//Route for Employee created by kishan
+//Route for discount created by kishan..................
 Route::resource('/discount','Admin\master\DiscountController');
 Route::get('/discount-type','Admin\master\DiscountController@discountTypeIndex')->name('discount_type.index');
 Route::get('/discount-type/create','Admin\master\DiscountController@discountTypeCreate')->name('discount_type_create');
 Route::post('/discount-type/store','Admin\master\DiscountController@discountTypeStore')->name('discount_type_store');
 Route::get('/discount-type/edit/{id}','Admin\master\DiscountController@discountTypeEdit')->name('discount_type_edit');
 Route::patch('/discount-type/update/{id}','Admin\master\DiscountController@discountTypeUpdate')->name('discount_type_update');
-// Route::get('/employees/dasboard','Admin\hrms\EmployeesController@employeesDasboard')->name('employees.dasboard');
+//End Route for discount...................................
+
+//Route for Concesion created by kishan..................
+
+Route::resource('concession','Admin\fees\ConcessionController');
+Route::get('concession-apply','Admin\fees\ConcessionController@concessionApply')->name('concession.apply');
+Route::post('concession-student','Admin\fees\ConcessionController@concessionStudents')->name('concession.student');
+Route::post('concession-apply-store','Admin\fees\ConcessionController@concessionApplyStore')->name('concession-apply.store');

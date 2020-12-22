@@ -9,11 +9,11 @@
 </style>
 <div class="container">
   <div class="app-title">
-     @if($message = Session::get('success'))   
+    @if($message = Session::get('success'))   
       <div class="alert alert-success">
        {{ $message }}
       </div>
-          @endif
+    @endif
   </div>
   <div class="card-header">
     <div class="panel-heading">

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Helpers;
 use App\Models\fees\FeesHeadMast;
 use App\Models\fees\FineType;
+
 class HeadsController extends Controller
 {
     /**

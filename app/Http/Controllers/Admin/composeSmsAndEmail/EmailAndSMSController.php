@@ -220,7 +220,7 @@ class EmailAndSMSController extends Controller
 // end code for compose mail..................................
 
 // code start for compose SMS..................................
-   public function smsCompose(){
+   public function  smsCompose(){
 
          $classes = studentClass::get();
          $batches = studentBatch::get();
@@ -229,15 +229,14 @@ class EmailAndSMSController extends Controller
         return view('admin.composeSmsAndEmail.sms.index',compact('classes','sections','batches','teacher'));
     }   
     public function getStudentsForSmsCompose(Request $request){
-
         if ($request->type =='student') {
         
             $getData = studentsMast::with('user_data')->where('batch_id',$request->batch_id)
                     ->where('std_class_id',$request->std_class_id)
                     ->where('section_id',$request->section_id)
-                    ->where('user_id',Auth::user()->id)
                     ->get();
             $type ='student';
+            // dd( $getData);
             $composeType = 'S';
              return view('admin.composeSmsAndEmail.student-table',compact('getData','type','composeType'));                       
 

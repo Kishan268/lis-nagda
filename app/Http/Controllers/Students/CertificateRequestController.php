@@ -18,7 +18,7 @@ class CertificateRequestController extends Controller
    
     public function index()
     {
-        $certifReq = CertificateRequest::where('stu_id',Auth::user()->student_id)->get();
+        $certifReq = CertificateRequest::where('stu_id',Auth::user()->id)->get();
             return view('students.certificate.index',compact('certifReq'));
     }
 
@@ -41,7 +41,7 @@ class CertificateRequestController extends Controller
             'cert_type' =>$request->cert_type,
             'reason' =>$request->reason,
             'apply_date' =>date('Y-m-d',strtotime($request->apply_date)),
-            'stu_id' =>Auth::user()->student_id,
+            'stu_id' =>Auth::user()->id,
             ];
             $createcertiReq = CertificateRequest::create($data);
             if ($createcertiReq) {
@@ -80,7 +80,7 @@ class CertificateRequestController extends Controller
         $subjectName = AssignSubjectToClass::with('assign_subjectId.subject')->where('std_class_id',$downloadCert->studentInfo->std_class_id)
                     ->where('section_id',$downloadCert->studentInfo->section_id)
                     ->where('batch_id',$downloadCert->studentInfo->batch_id)->first();
-        $settings = studentsMast::with('settings')->where('id',Auth::user()->id)->first();
+        $settings = studentsMast::with('settings')->where('user_id',Auth::user()->id)->first();
 
         
         return view('students.certificate.download-cert',compact('downloadCert','settings','subjectName'));

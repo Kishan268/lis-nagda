@@ -93,7 +93,7 @@
                       </div>
 
                     <div class="col-md-3 col-sm-3 col-xs-11 mb-3 text-center">
-                      <a href="{{route('fees.index')}}">
+                      <a href="{{route('concession.index')}}">
                         <div class="card shadow  ">
                           <div class="card-body">
                               <i class="fa fa-money fa-3x text-gray-200"></i><br>

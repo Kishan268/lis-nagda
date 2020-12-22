@@ -10,7 +10,7 @@ class CertificateRequest extends Model
     protected $guarded =[];
 
     public function studentInfo(){
-    	 return $this->belongsTo('App\Models\student\studentsMast', 'stu_id');	 
+    	 return $this->belongsTo('App\Models\student\studentsMast', 'stu_id','user_id');	 
     }
     public function settingData(){
     	 return $this->belongsTo('App\Models\setting\Settings', 'user_id');	 

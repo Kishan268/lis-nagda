@@ -134,8 +134,8 @@ class ProfileController extends Controller
     }
 
     public function showProfile(){
-        $id = Auth::user()->student_id;
-        $student = studentsMast::with(['student_class','student_batch','student_section','studentsGuardiantMast.professtion_type','studentsGuardiantMast.guardian_designation','student_doc','stdNationality','mothetongueMast','siblings.sibling_detail'])->where('id',$id)->first();
+        $id = Auth::user()->id;
+        $student = studentsMast::with(['student_class','student_batch','student_section','studentsGuardiantMast.professtion_type','studentsGuardiantMast.guardian_designation','student_doc','stdNationality','mothetongueMast','siblings.sibling_detail'])->where('user_id',$id)->first();
         // dd($student);
         $sibling_name =[];
         if (!empty($student->siblings)) {
@@ -158,15 +158,14 @@ class ProfileController extends Controller
         return view('students.attendance.index');
     }
     public function viewAttendence(Request $request){
-       
+       // dd($request);
         $date = $this->date_month_year($request->attendance_date);
         $month = $date['month'];
         $year = $date['year'];
         $monthStart = $date['monthStart'];
         $monthEnd = $date['monthEnd'];
      
-        $students = studentsMast::where('id',Auth::user()->student_id)->with('attendances')->select('id','f_name','l_name','roll_no','std_class_id','batch_id','section_id')->get();      
-
+        $students = studentsMast::where('user_id',Auth::user()->id)->with('attendances')->select('id','f_name','l_name','roll_no','std_class_id','batch_id','section_id')->get();      
         $academic_dates = Helpers::academic_dates($month,$year);
         $monthDates = Helpers::month_dates($monthStart,$monthEnd);
     
@@ -203,7 +202,7 @@ class ProfileController extends Controller
 
      public function getStudentIdCard(){
 
-        $stdId = studentsMast::where('id',Auth::user()->student_id)->first();
+        $stdId = studentsMast::where('user_id',Auth::user()->id)->first();
         $student = studentsMast::with('student_class','student_batch')->where('admision_no',$stdId->admision_no)->first();
         if(!empty($student)){
            return view('students.id-card.index',compact('student'));
