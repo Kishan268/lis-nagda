@@ -97,7 +97,9 @@ class studentsMast extends Model
     public function staff_detail(){
         return $this->belongsTo('App\Models\hrms\EmployeeMast','staff_id');
     }
-    public function student_consession(){
-        //return $this->belongsTo('App\Models\hrms\EmployeeMast','s_id');
+
+     public function concession_student(){
+        return $this->belongsTo('App\Models\fees\ConcessionStudent','id','s_id');
     }
+   
 }

@@ -11,4 +11,8 @@ class ConcessionMast extends Model
     protected $guarded =[];
     protected $primaryKey = 'concession_id';
 
+     public function concession_apply(){
+    	return $this->hasMany('App\Models\fees\ConcessionStudent','concession_id','concession_id');
+    }
+
 }

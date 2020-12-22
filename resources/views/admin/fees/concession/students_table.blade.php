@@ -11,7 +11,7 @@
 		@php $count = 0; @endphp
 		@foreach($students as $student)
 		<tr>
-			<th><input type="checkbox" name="s_id[]" class="selectAll" value="{{$student->id}}"></th>
+			<th><input type="checkbox" name="s_id[]" class="selectAll" value="{{$student->id}}" {{$student->id == $student->concession_student['s_id'] ? "checked disabled"  :'sdfds'}} ></th>
 
 			<td>{{ $student->admision_no }}</td>
 			<td>{{ student_name($student) }}</td>
@@ -23,9 +23,9 @@
 		@endforeach
 	</tbody>
 </table>
- <div class="row">
+ <div class="row mb-2">
  	<div class="col-md-12">
- 		<button type="submit" class="btn btn-sm btn-success">Apply</button>
+ 		<button type="submit" class="btn btn-sm btn-success" id="submit">Apply</button>
  	</div>
  </div> 
 <style >
@@ -38,7 +38,8 @@
 		$('.mytable').DataTable();
 		$("#s_id").on('click',function () {
             $(".selectAll").attr('checked', this.checked);
-        });	
+        });
+  	
 
 	})
 </script>
