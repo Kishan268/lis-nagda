@@ -48,7 +48,7 @@ class ClassesController extends Controller
          $batches = studentBatch::get();
          $sections = studentSectionMast::get();
 
-         $sectionList =SectionManage::with('section_names','class_name','batch_name','emp_mast')->where('batch_id',session('current_batch'))->get();
+         $sectionList =SectionManage::with('section_names','class_name','batch_name')->where('batch_id',session('current_batch'))->get();
          
          // return $sectionList;
         return view('admin.manage.section.assign-section.index',compact('classes','sections','batches','sectionList'));

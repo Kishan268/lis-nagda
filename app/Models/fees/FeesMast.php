@@ -11,7 +11,12 @@ class FeesMast extends Model
     protected $primaryKey = 'fees_id';
 
     public function fees_heads(){
-  		return $this->hasMany('App\Models\fees\FeesHeadTrans','fees_head_mast_id','id');
-    	
+  		return $this->hasMany('App\Models\fees\FeesHeadTrans','fees_id','fees_id');	
+    }
+    public function batch(){
+    	return $this->belongsTo('App\Models\master\studentBatch','batch_id');
+    }
+    public function fees_instalments(){
+    	return  $this->hasMany('App\Models\fees\FeesInstalment','fees_id','fees_id');
     }
 }

@@ -12,18 +12,18 @@
 						<a href="{{route('fees-heads.create')}}" class="btn btn-sm btn-success pull-right">Add Fees Heads</a>
 					</h5>
 				</div>
-				<div class="card-body">
-					<table class="table table-striped table-bordered mytable">
+				<div class="card-body table-responsive">
+					<table class="table table-hover table-bordered mytable">
 						<thead>
 							<tr>
 								<th>Heads Name</th>
 								<th>Heads Amount</th>
-								{{-- <th>Fine Details</th> --}}
+								<th>Batch Name</th>
 								<th>Head Type</th>
 								<th>Applicable For</th>
 								<th>Refundable</th>
 								<th>Installement</th>
-								<th>Action</th>
+								{{-- <th>Action</th> --}}
 							</tr>
 						</thead>
 						<tbody>
@@ -31,15 +31,13 @@
 							<tr>
 								<td>{{$fees_head->head_name}}</td>
 								<td>{{$fees_head->head_amt}}</td>
-								{{-- <td>@foreach($fees_head->fine_type as $fine_type)
-									<strong>Type:</strong>{{$fine_type->fine_type}} , 
-									<strong>No.Day:</strong> {{$fine_type->no_of_days}}, <strong>Amount: </strong>{{$fine_type->fine_amount}}
-								@endforeach</td> --}}
-								<td>{{$fees_head->headtype}}</td>
-								<td>{{$fees_head->applicable_on}}</td>
+								<td>{{$fees_head->batch->batch_name}}</td>
+								
+								<td>{{Arr::get(HEAD_TYPES,$fees_head->headtype)}}</td>
+								<td>{{$fees_head->applicable_on =='0' ? 'General' : 'Admission'}}</td>
 								<td>{{$fees_head->refundable == '1' ? 'Yes' :'No'}}</td>
 								<td>{{$fees_head->is_installable == '1' ? 'Yes' : 'No'}}</td>
-								<td>{{-- <a href="" type="button" class="" ><i class="fa fa-edit text-success"></i></a> --}}</td>
+								{{-- <td><a href="" type="button" class="" ><i class="fa fa-edit text-success"></i></a></td> --}}
 							<!-- Modal -->	
 								</tr>
 							@endforeach

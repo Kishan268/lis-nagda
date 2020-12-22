@@ -57,6 +57,16 @@
         							@endforeach
         						</select>
 							</div>
+							<div class="col-md-3 form-group">
+								<label for="feeheader" class="required">Batch Name</label>
+									<select class="form-control" name="status">
+        							<option value="">Select Batch</option>
+        							@foreach(batches() as $batch)
+        								<option value="{{$batch->id}}" {{$batch->id == session('current_batch') ? 'selected' : ''}}>{{$batch->batch_name}}</option>
+        							@endforeach
+        						</select>
+							</div>
+							
 		                </div>
 		                <hr>
 		                <div class="row">		                	

@@ -8,7 +8,7 @@ class studentBatch extends Model
 {
     protected $table = 'student_batches';
     protected $guarded =[];
-
+    
    
 	
      public function class_name(){

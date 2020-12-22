@@ -11,5 +11,8 @@ class FeesHeadMast extends Model
     protected $primaryKey = 'fees_head_id';
     public function fine_type(){
   		return $this->hasMany('App\Models\fees\FineType','fine_type_id','fees_head_id');
+   	} 
+   	public function batch(){
+  		return $this->belongsTo('App\Models\master\studentBatch','batch_id');
    	}
 }

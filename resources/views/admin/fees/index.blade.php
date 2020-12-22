@@ -14,8 +14,8 @@
  						<a href="{{route('fees.create')}}" class="btn btn-sm btn-success pull-right">Add Fees</a>
  					</h5>
  				</div>
- 				<div class="card-body">
- 					<table class="table table-striped table-bordered mytable">
+ 				<div class="card-body table-responsive">
+ 					<table class="table table-hover table-bordered mytable">
 						<thead>
 							<tr>
 								
@@ -27,19 +27,20 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($data as $datas)
+							@foreach($fees as $fee)
 							<tr>
-								<td>{{$datas->fees_name}}</td>
-								<td>{{$datas->fees_amt}}</td>
-								<td>{{$datas->courseselection == 1 ? 'Multiple Courses' : 'Single Course'}}</td>
-								<td><?php $dataarray =json_encode($datas->course_batches); ?>{{json_decode($dataarray)}}</td>
+								<td>{{$fee->fees_name}}</td>
+								<td>{{$fee->fees_amt}}</td>
+								<td>{{$fee->courseselection == 1 ? 'Multiple Courses' : 'Single Course'}}</td>
+								<td>{{$fee->courseselection == 2 ? 'Multiple' : $fee->batch->batch_name }}</td>					
 								<td><div class="btn-group">
-	                                <a data-original-title="Edit" href="{{route('fees.edit',$datas->id)}}" data-toggle="tooltip" class="btn btn-xs btn-default">
+									<a href="{{route('fees.show',$fee->fees_id)}}" class=""><i class="fa fa-eye text-green"></i></a>
+	                               {{--  <a data-original-title="Edit" href="{{route('fees.edit',$fee->fees_id)}}" data-toggle="tooltip" class="btn btn-xs btn-default">
 	                                    <i class="fa fa-pencil"></i>
 	                                </a>
-	                                <a data-original-title="Delete" href="{{route('fees.destroy',$datas->id)}}" onclick="if(confirm('Are you sure you want to delete this fees')){ return true }else{ return false; }" data-toggle="tooltip" class="btn btn-xs btn-danger">
+	                                <a data-original-title="Delete" href="{{route('fees.destroy',$fee->fees_id)}}" onclick="if(confirm('Are you sure you want to delete this fees')){ return true }else{ return false; }" data-toggle="tooltip" class="btn btn-xs btn-danger">
 	                                    <i class="fa fa-times"></i>
-	                                </a>
+	                                </a> --}}
 	                            </div></td>
 							</tr>
 							@endforeach

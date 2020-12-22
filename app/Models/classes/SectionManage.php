@@ -18,7 +18,7 @@ class SectionManage extends Model
     public function class_name(){
        return $this->belongsTo('App\Models\master\studentClass','class_id');
     } 
-    public function emp_mast(){
-       return $this->belongsTo('App\Models\student\studentsMast','id');
-    }
+    // public function emp_mast(){
+    //    return $this->belongsTo('App\Models\student\studentsMast','id');
+    // }
 }

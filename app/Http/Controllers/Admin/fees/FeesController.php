@@ -9,14 +9,21 @@ use App\Models\master\studentBatch;
 use App\Models\master\studentSectionMast;
 use App\Models\student\studentsMast;
 use Helpers;
+
+use App\Models\fees\FeesMast;
 use App\Models\fees\FeesHeadMast;
 use App\Models\fees\FeesHeadTrans;
-use App\Models\fees\FeesInstalmentMast;
-use App\Models\fees\FeesMast;
-use App\Models\fees\StudentFeesTrans;
+use App\Models\fees\FeesInstalment;
+use App\Models\fees\FineType;
+use App\Models\fees\StudentFeeHead;
+use App\Models\fees\StudentFeeInstalment;
+use App\Models\fees\StudentFeeReciept;
+use App\Models\fees\StudentFeesMast;
+
 use App\Models\master\Discounts;
 use App\Models\transport\BusFeeStructure;
-
+use Arr;
+use App\Models\classes\SectionManage;
 class FeesController extends Controller
 {
     /**
@@ -26,9 +33,9 @@ class FeesController extends Controller
      */
     public function index()
     {
-        $data = FeesMast::get();
+        $fees = FeesMast::with('batch')->where('batch_id',session('current_batch'))->get();
         // dd( $data);
-        return view ('admin.fees.index',compact('data'));
+        return view ('admin.fees.index',compact('fees'));
     }
 
     /**
@@ -38,22 +45,14 @@ class FeesController extends Controller
      */
     public function create()
     {    
-         $classes = studentClass::get();
-         $sections = studentSectionMast::get();
+        $classes = studentClass::get();
 
+        $fee_heads = FeesHeadMast::where('status','A')->where('batch_id',session('current_batch'))->orderBy('head_sequence_order')->get();
+        // return session('current_session');
 
-         // $headerName = Helpers::headerName();
-         // $currencyCode = Helpers::currencyCode();
-         $studentGender = Helpers::studentGender();
-         $castCategory = Helpers::castCategory();
-         $Include = Helpers::Include();
+        $section_manages =  SectionManage::with(['batch_name','class_name','section_names'])->where('batch_id',session('current_batch'))->get();
 
-         $batches = studentBatch::select('id','batch_name')->orderBy('batch_name')->get();
-
-         // dd($Include);
-         $fee_heads = FeesHeadMast::where('status','A')->orderBy('head_sequence_order')->get();
-
-        return view ('admin.fees.create',compact('classes','batches','sections','fee_heads','studentGender','castCategory','Include'));
+        return view ('admin.fees.create',compact('classes','fee_heads','section_manages'));
         
     }
 
@@ -75,6 +74,28 @@ class FeesController extends Controller
             $installable_amnt       = $request->installable_amnt;
             $non_installable_amnt   = $request->non_installable_amnt;
             $no_of_instalment = $request->no_of_instalment;
+
+            $request->validate([
+                'fees_name'     => 'required',
+                'fees_amt'      => 'required|not_in:0'             
+
+            ]);
+
+            if($request->courseselection == '1'){
+                $request->validate([
+                    'std_class_id'  => 'required|not_in:all',
+                    'batch_id'      => 'required|not_in:""',             
+                    'section_id'    => 'required|not_in:""',             
+                    'medium'        => 'required|not_in:""',
+                    'feesfor'       => 'required|not_in:"0"',
+
+                ]);
+            }else{
+                $request->validate([
+                    'multiple_courses'=> 'required|not_in:all',                   
+                ]);
+            }
+
             $fees_mast = [
                 'fees_name'             => $request->fees_name,
                 'fees_amt'              => $request->fees_amt,
@@ -97,18 +118,31 @@ class FeesController extends Controller
 
             ];
 
-           // $fees = FeesMast::create($fees_mast);
+            if($request->courseselection == '1'){
+                $batch_name = studentBatch::find($request->batch_id)->batch_name;
+            }else{
+                $batch_name = collect(batches())->where('id',session('current_batch'))->first()->batch_name;
+                $fees_mast['batch_id'] = seession('current_batch'); 
+            }
+
+
+            $fees = FeesMast::create($fees_mast);
 
 
             if(isset($request->fees_head)){
+                // return $request->head_amnt;
                 foreach ($request->fees_head as $key => $fee_head) {
-                    $fees_heads[] = [
+                    $fees_heads = [
                         'fees_head_id'  => $fee_head,
                         'head_amt'      => $request->head_amnt[$key],
-                        // 'fees_id'       => $fees->id,
-                        'fees_id'       => '1'
+                        'fees_id'       => $fees->fees_id,
+                        // 'fees_id'       => '1'
                     ];
+                    
+                    FeesHeadTrans::create($fees_heads);
                 }
+
+
                 //Tution fee check we know tution fee id is 4 
                 //later we do this
 
@@ -125,21 +159,42 @@ class FeesController extends Controller
             // return $request->no_of_instalment;
 
             for($i = 0; $i < $request->no_of_instalment;$i++){
-                $fees_inst[] = [
-                    // 'fees_id'       => $fees->id,
-                    'fees_id'       => '1',
+                $fees_inst = [
+                    'fees_id'       => $fees->fees_id,
+                    // 'fees_id'       => '1',
                     'instalment_amt'=> $request->instalment_amt[$i],
                     'start_dt'      => $request->start_dt[$i],
                     'end_dt'        => $request->end_dt[$i]
                 ];
+
+                FeesInstalment::create($fees_inst);
             }
 
 
-            if($request->courseselection == '1'){
-                if($request->feesfor =='1'){
-                    $students = studentsMast::select('id','gender','dob','staff_ward','staff_id','bus_fee_id','age','std_class_id')->with(['siblings.sibling_detail' => function($q){
-                        $q->where('students_masts.status','R');
-                    }])->where(['batch_id'=>$request->batch_id, 'std_class_id' => $request->std_class_id, 'section_id' => $request->section_id, 'medium'=> $request->medium, 'status'=>'R']);
+            if($request->is_fees_student_assign == '1'){
+                    $students = studentsMast::select('id','gender','dob','staff_ward','staff_id','bus_fee_id','age','std_class_id');
+
+                    if($request->courseselection == '1'){
+                            if($request->feesfor !='1'){
+                                $students->whereIn('id',$request->s_id);
+                            }
+
+                            $students = $students->with(['siblings.sibling_detail' => function($q){
+                                $q->where('students_masts.status','R');
+                            }])->where(['batch_id'=>$request->batch_id, 'std_class_id' => $request->std_class_id, 'section_id' => $request->section_id, 'medium'=> $request->medium, 'status'=>'R']);
+                    }else{
+                        foreach ($request->multiple_courses as $value) {
+                            $multiple_course =  explode('-', $value);
+                            $std_class_id_m[] = $multiple_course[0];
+                            $batch_id_m[] = $multiple_course[1];
+                            $section_id_m[] = $multiple_course[2];
+                            $medium_m[] = $multiple_course[3];
+                        }
+                        $students = $students->with(['siblings.sibling_detail' => function($q){
+                                $q->where('students_masts.status','R');
+                            }])->whereIn('batch_id',$batch_id_m)->whereIn('std_class_id',$std_class_id_m)->whereIn('section_id',$section_id_m)->whereIn('medium',$medium_m)->where('status','R');
+                    }
+                    //filter
                     if($request->gender =='all' && $request->reservation_class_id != 'all'){
                         $students = $students->where(['reservation_class_id' => $request->reservation_class_id]);
 
@@ -150,6 +205,7 @@ class FeesController extends Controller
                         $students = $students->where(['gender' => $request->gender,'reservation_class_id' => $request->reservation_class_id]);
 
                     }   
+                                      
 
                     $students = $students->get();
 
@@ -159,7 +215,7 @@ class FeesController extends Controller
                         $dob  = $student->dob;
                         $gender  = $student->gender;
                         $no  = '';
-                        $dates[] = $dob;  
+                      
 
                         $consession_amnt = 0;
 
@@ -169,9 +225,11 @@ class FeesController extends Controller
                         $discount_code = null;
                         $bus_fee_str = [];
                         $student_fee_inst = [];
+                        $student_fee_head = [];
 
                         $student_fee = [
-                            'fees_id'               => '1',
+                            'fees_id'               => $fees->fees_id,
+                            // 'fees_id'               => '1',
                             's_id'                  => $student->id,
                             'fees_amnt'             => $request->fees_amt,
                             'status'                => isset($request->status) ? $request->status : 'P',
@@ -187,12 +245,14 @@ class FeesController extends Controller
 
                         //Sibling Dicount Fetch     
                         //When student in teacher so we cant't find student siblings details
-                        if($student->staff_ward != '1'){                   
+                        if($student->staff_ward != '1'){              
                             if(count($student->siblings) !='0'){
+                        // return "hello";     
+                                $dates[] = $dob;  
                                 foreach ($student->siblings as $std_sib) {
                                     $dates[] = $std_sib->sibling_detail->dob;
                                 }
-                            // print_r($dates);
+                      
                                 foreach ($dates as $date) {
                                     // return $date;
                                     $a[] = strtotime($date);
@@ -204,6 +264,7 @@ class FeesController extends Controller
                                     // return $date;
                                     $b[] = date('Y-m-d',$value);
                                 }
+                                // return $b;
                                 // print_r($b);
                                 foreach ($b as $key => $value) {
                                     if($value == $dob){
@@ -211,16 +272,22 @@ class FeesController extends Controller
                                     }
                                 }
                                 $no = $no == '1' ? '2' : $no;
-                                // return $no;
+                                
+
                                 $discount = Discounts::select('discount_code','discount_mode','discount_amnt')->where(['discount_no_type' => $no,'gender' => $gender,'discount_type_id' => '1','batch_id' => session('current_batch'),'status' => 'A'])->first();
 
-                                $discount_code =  $discount->discount_code;
-                                $discount_amnt =  $discount->discount_amnt;
-                                $discount_mode =  $discount->discount_mode;
-
+                                // if(!empty($discounts)){
+                                    $discount_code =  $discount->discount_code;
+                                    $discount_amnt =  $discount->discount_amnt;
+                                    $discount_mode =  $discount->discount_mode;    
+                                // }
+                                
                                 // return $student_fee;                                
                             }
-                        }else{                                             
+                            // return "bahar";
+
+                        }else{    
+
                             $discount = Discounts::select('discount_code','discount_mode','discount_amnt')->where(['discount_no_type' => '1','discount_type_id' => '2','batch_id' => session('current_batch'),'status' => 'A'])->first();
 
                             $discount_code =  $discount->discount_code;
@@ -231,9 +298,9 @@ class FeesController extends Controller
                     
                         if($discount_mode !=null){
                             if($discount_mode ='P'){                                  
-                                $student_fee['discount_amnt'] = ((int)$installable_amnt * $discount->discount_amnt) / 100;
+                               $discount_amnt = $student_fee['discount_amnt'] = ((int)$installable_amnt * $discount->discount_amnt) / 100;
                             }else{
-                                $student_fee['discount_amnt'] = $discount->discount_amnt;
+                                $discount_amnt = $student_fee['discount_amnt'] = $discount->discount_amnt;
                             }
                         }
 
@@ -241,170 +308,117 @@ class FeesController extends Controller
                             $bus_fee_str = BusFeeStructure::find('bus_fee_id',$student->bus_fee_id);
                             $student_fee['bus_amnt'] = $bus_fee_str->bus_fee_amount;
 
+                        }else{
+                            $student_fee['bus_amnt'] =0;
                         }
 
 
-                        return $student_fee;
+                        $bus_amnt = count($bus_fee_str)  !=0 ? (float)$bus_fee_str->bus_fee_amount : 0;
+
+                        $hostel_amnt = 0;
+
+                        $total_amnt = ((int)$request->fees_amt + (float)$bus_amnt - (float)$discount_amnt); 
+
+                        $student_fee['total_amnt']  = $total_amnt;
+                        $student_fee['due_amnt']    = $total_amnt;
+
+
+                        // return $student_fee;
+                       $std_fees_mast =  StudentFeesMast::create($student_fee);
 
                         $instalment_amt = ((float)$installable_amnt / (int)$no_of_instalment);
-                        $inst_bus_amnt = count($bus_fee_str)  !=0 ? ((float)$bus_fee_str->bus_fee_amount / (int)$no_of_instalment) : 0; 
+                        $inst_bus_amnt = (float)$bus_amnt / (int)$no_of_instalment; 
+                        $inst_hostel_amnt = (float)$hostel_amnt / (int)$no_of_instalment; 
                         $inst_discount_amnt = $discount_amnt !=0 ? ((float)$discount_amnt / $no_of_instalment) : 0;
                         $inst_consession_amnt = $consession_amnt !=0 ? ((float)$consession_amnt / $no_of_instalment) : 0;
 
-
-
-
-                        for($i = 1 ; $i<=$no_of_instalment ; $i++){
+                        for($m= 0 ; $m < $no_of_instalment ; $m++){
                             $inst_amnt = 0;
-                            if($i == 1){
+                            if($m == 0){
                                 $inst_amnt = (float)$instalment_amt + (float)$non_installable_amnt; 
                             }else{
                                 $inst_amnt = $instalment_amt;
                             }
 
+                            $inst_title = str_replace(' ','_',$request->fees_name).'_('.(Arr::get(MEDIUM,$request->medium)).')_'.$batch_name.'_inst_'.date('M',strtotime($request->start_dt[$m])).'-'.date('M',strtotime($request->end_dt[$m]));
 
-                            $student_fee_inst[] = [
+                            $inst_total_amnt = (float)$inst_amnt + (float)$inst_bus_amnt - (float)$inst_discount_amnt - (float)$inst_consession_amnt;
+
+                            $student_fee_inst = [
                                 's_id'                  => $student->id,
-                                'inst_title'            => '',
-                                'std_fees_mast_id'      => '',
+                                'inst_title'            => $inst_title,
+                                // 'std_fees_mast_id'      => '1',
+                                'std_fees_mast_id'      => $std_fees_mast->std_fees_mast_id,
                                 'inst_amnt'             => $inst_amnt,
-                                'inst_consession_amnt'  => '', 
+                                'inst_consession_amnt'  => $inst_consession_amnt, 
                                 'inst_discount_amnt'    => $inst_discount_amnt,
-                                'inst_due_date'         => '',
+                                'inst_due_date'         => $request->end_dt[$m],
                                 'inst_status'           => isset($request->status) ? $request->status : 'P',
-                                'bus_amnt'              => $inst_bus_amnt,
+                                'inst_bus_amnt'         => $inst_bus_amnt,
+                                'inst_total_amnt'       => $inst_total_amnt,
+                                'inst_due_amnt'         => $inst_total_amnt,
+                                'inst_hostel_amnt'      => $inst_hostel_amnt,
                             ];
 
+                            $std_fee_inst  = StudentFeeInstalment::create($student_fee_inst);
+                              
+                                foreach ($request->fees_head as $k => $fees_head_id) {
+
+                                    $fee_head_dtl = FeesHeadMast::find($fees_head_id);
+                                        if($fee_head_dtl->is_installable == '1'){
+                                            $fee_head_amnt = (float)$request->head_amnt[$k] / (int)$no_of_instalment;
+                                            $fee_head_discount = $inst_discount_amnt;
+                                        }else{
+                                            $fee_head_amnt = $request->head_amnt[$k];
+                                            $fee_head_discount = 0;
+                                        }
+                                        $fee_head_total_amnt = (float)$fee_head_amnt - (float)$fee_head_discount;
+
+                                    if($m == 0){                                        
+                                        $student_fee_head = [
+                                            'std_fee_inst_id'         => $std_fee_inst->std_fee_inst_id,
+                                            // 'std_fee_inst_id'         => '1',
+                                            's_id'                    => $student->id,
+                                            'fee_head_amnt'           => $fee_head_amnt,
+                                            'fee_head_name'           => $fee_head_dtl->head_name,   
+                                            'fee_head_consession_amnt'=> 0,
+                                            'fee_head_total_amnt'     => $fee_head_total_amnt,
+                                            'fee_head_due_amnt'       => $fee_head_total_amnt,  
+                                            'fee_head_discount'       => $fee_head_discount,  
+
+                                        ];
+                                        StudentFeeHead::create($student_fee_head);
+                                    }
+                                    else{
+                                        if($fee_head_dtl->is_installable == '1'){
+                                            $student_fee_head = [
+                                                'std_fee_inst_id'         => $std_fee_inst->std_fee_inst_id,
+                                                // 'std_fee_inst_id'         => '1',
+                                                's_id'                    => $student->id,
+                                                'fee_head_amnt'           => $fee_head_amnt,
+                                                'fee_head_name'           => $fee_head_dtl->head_name,   
+                                                'fee_head_consession_amnt'=> 0,
+                                                'fee_head_total_amnt'     => $fee_head_total_amnt,
+                                                'fee_head_due_amnt'       => $fee_head_total_amnt,  
+                                                'fee_head_discount'       => $fee_head_discount,  
+
+                                            ];
+                                            StudentFeeHead::create($student_fee_head);
+                                        }
+                                    }
+
+                                }
+                                
                         }
 
 
-
                     }
-                }
+                
                 
             }
-die;
 
 
-            //student assign fees        
-        return $fees_inst;
-
-
-
-
-
-
-
-        die;
-        $data['fees_name']    = $request->name;
-        $data['fees_amt']       = $request->amount;
-        $data['header_name_to_be_display_reci'] = $request->tmpinst_name;
-        $data['currency_code']     = $request->currency_code;
-        $data['no_of_instalment'] = $request->paymentselection;
-        $data['courseselection']    = $request->courseselection;
-        $data['discount']   = $request->discount;
-        $data['refundable']    = $request->refundable;
-        $data['is_fees_student_assign']    = $request->is_fees_student_assign;
-        $data['gender']         = $request->gender;
-        $data['cast_category']  = $request->caste;
-        $data['rte_status']     = $request->rte;
-        $data['feesfor']        = $request->feesfor;
-        // $data['course_batches']       = $request->course_batches;
-
-
-        if ($request->course_batches) {
-            $data['course_batches'] =json_encode($request->course_batches);
-            
-        }else{
-            $data['course_batches']    = json_encode($request->course.'_'.$request->batch.'_'.$request->section);
-            
-        }
-        // dd($request);
-        $lastId = FeesMast::create($data)->id;
-        // $lastId = 1;
-
-        if ($request->courseselection == 2 && $request->feesfor == 2) {
-            
-            $data['students_id'] = $request->students_id;
-                for ($i=0; $i < count($request->students_id); $i++) {
-
-                    $data3 = array(
-                        'f_id'=>$lastId,
-                        's_id'=>$request->students_id[$i],
-                        'due_amount'=>$request->due_amount[$i],
-                    );
-                    StudentFeesTrans::create($data3);
-                }
-
-
-        }
-
-        $data1['installment_mode'] = $request->paymentselection;
-        
-        if ($request->instalment1) {
-            $data1['instalment_amount1']     = $request->instalment1;
-            $data1['st_date1']    = $request->startdate1;
-            $data1['ed_date1']    = $request->duedate1;
-        }if($request->instalment2){
-            $data1['instalment_amount2']     = $request->instalment2;
-            $data1['st_date2']    = $request->startdate2;
-            $data1['ed_date2']    = $request->duedate2;
-        }if($request->instalment3){
-            $data1['instalment_amount3']     = $request->instalment3;
-            $data1['st_date3']    = $request->startdate3;
-            $data1['ed_date3']    = $request->duedate3;
-        }if($request->instalment4){
-            $data1['instalment_amount4']     = $request->instalment4;
-            $data1['st_date4']    = $request->startdate4;
-            $data1['ed_date4']    = $request->duedate4;
-        }if($request->instalment5){
-            $data1['instalment_amount5']     = $request->instalment5;
-            $data1['st_date5']    = $request->startdate5;
-            $data1['ed_date5']    = $request->duedate5;
-        }if($request->instalment6){
-            $data1['instalment_amount6']     = $request->instalment6;
-            $data1['st_date6']    = $request->startdate6;
-            $data1['ed_date6']    = $request->duedate6;
-        }else if($request->instalment7){
-            $data1['instalment_amount7']     = $request->instalment7;
-            $data1['st_date7']    = $request->startdate7;
-            $data1['ed_date7']    = $request->duedate7;
-        }if($request->instalment8){
-            $data1['instalment_amount8']     = $request->instalment8;
-            $data1['st_date8']    = $request->startdate8;
-            $data1['ed_date8']    = $request->duedate8;
-        }if($request->instalment9){
-            $data1['instalment_amount9']     = $request->instalment9;
-            $data1['st_date9']    = $request->startdate9;
-            $data1['ed_date9']    = $request->duedate9;
-        }if($request->instalment10){
-            $data1['instalment_amount10']     = $request->instalment10;
-            $data1['st_date10']    = $request->startdate10;
-            $data1['ed_date10']    = $request->duedate10;
-        }if($request->instalment11){
-            $data1['instalment_amount11']     = $request->instalment11;
-            $data1['st_date11']    = $request->startdate11;
-            $data1['ed_date11']    = $request->duedate11;
-        }if($request->instalment12){
-            $data1['instalment_amount12']     = $request->instalment12;
-            $data1['st_date12']    = $request->startdate12;
-            $data1['ed_date12']    = $request->duedate12;
-        }
-        // dd($data1);
-        if (!empty($data1)) {
-            
-            FeesInstalmentMast::create($data1);
-        }
-        
-        foreach ($request->fees_heads as $key => $value) {
-
-            $fees_heads['fees_head_mast_id'] = $lastId;
-            $fees_heads['fees_head_id']  = $value;
-            $fees_heads['amount'] = $request->fees_amount[$key];
-
-            $data = FeesHeadTrans::create($fees_heads);
-        }
-        return redirect('fees')->with('success','Fess created successfully');
+        return redirect()->route('fees.index')->with('success','Fess created successfully');
        // return view ('admin.fees.index');
 
     }
@@ -417,7 +431,10 @@ die;
      */
     public function show($id)
     {
-        dd($id);
+        $fee = FeesMast::with(['batch','fees_heads.fees_head','fees_instalments'])->find($id);
+        // return $fee;
+        return view('admin.fees.show',compact('fee'));
+        // dd($id);
         
     }
 

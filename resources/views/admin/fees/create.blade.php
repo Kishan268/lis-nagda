@@ -1,5 +1,14 @@
 @extends('layouts.main')
 @section('content')
+<style >
+   .error{
+      font-size: 13px;
+   }
+   .required{
+      font-weight: 700;
+      font-size: 14px
+   }
+</style>
 <div class="container">
   <div class="row mb-4">
     <div class="col-md-12">
@@ -20,16 +29,26 @@
                   <div class="row">       
                      <div class="col-md-3 form-group">
                         <label class="required">Fees Name</label>
-                        <input class="form-control" id="fees_name" name="fees_name" type="text">
+                        <input class="form-control" id="fees_name" name="fees_name" type="text" value="{{old('fees_name')}}">
+                        @error('fees_name')
+                           <span class="text-danger error">
+                              <strong>{{$message}}</strong>
+                           </span>
+                        @enderror
                      </div>
                      <div class="col-md-3 form-group">
                         <label class="required">Fees Amount</label>
-                        <div class="input-group mb-3">
+                        <div class="input-group mb-0" style="margin-bottom: 0px !important">
                            <div class="input-group-prepend">
                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-rupee"></i></span>
                            </div>
                            <input class="form-control" id="fees_amt" name="fees_amt" type="text" readonly="readonly" value="0">
                         </div>
+                        @error('fees_amt')
+                           <span class="text-danger error">
+                              <strong>{{$message}}</strong>
+                           </span>
+                        @enderror
                      </div>
                      <div class="col-md-4 form-group">
                         <label class="required">Header To Be Displayed On Reciept</label>
@@ -50,7 +69,7 @@
                   </div>  
                   <hr>
                   <div class="row">
-                     <div class="col-md-12">
+                     <div class="mb-2 col-md-12">
                         <h6 class="font-weight-bold">Fees - Head</h6>
                      </div>
                      <div class="col-md-12">
@@ -96,7 +115,7 @@
                         <select class="form-control" name="courseselection" id="course_selection">
 
                            @foreach(COURSE_SELECTION as $key => $course_selection)
-                              <option value="{{$key}}">{{$course_selection}}</option>
+                              <option value="{{$key}}" {{$key == old('courseselection') ? 'selected' : ''}}>{{$course_selection}}</option>
                            @endforeach
                         </select>
                      </div>
@@ -108,11 +127,11 @@
                      </div>
                      <div class="col-md-4">
                         <label class="required">Start Date</label>
-                        <input type="text" name="start_dt[]" readonly="readonly" class="form-control datepicker" data-date-format="yyyy-mm-dd" placeholder="Start Date" >
+                        <input type="text" name="start_dt[]" class="form-control datepicker" data-date-format="yyyy-mm-dd" placeholder="Start Date" >
                      </div>
                      <div class="col-md-4">
                         <label class="required">Due Date</label>
-                        <input type="text" name="end_dt[]" readonly="readonly" class="form-control datepicker" data-date-format="yyyy-mm-dd" placeholder="Due Date" >
+                        <input type="text" name="end_dt[]" class="form-control datepicker" data-date-format="yyyy-mm-dd" placeholder="Due Date" >
                      </div>
                   </div>
                   <div class="row" id="instalmentBody">
@@ -128,18 +147,33 @@
                               <option value="{{$class->id}}">{{$class->class_name}}</option>
                            @endforeach
                         </select>
+                        @error('std_class_id')
+                           <span class="text-danger error">
+                              <strong>{{$message}}</strong>
+                           </span>
+                        @enderror
                      </div>
                      <div class="col-md-3 form-group">
                         <label class="required">Select Batch</label>
                         <select class="form-control" name="batch_id" autocomplete="off" id="batch_id">
 
                         </select>
+                        @error('batch_id')
+                           <span class="text-danger error">
+                              <strong>{{$message}}</strong>
+                           </span>
+                        @enderror
                      </div>
                      <div class="col-md-3 form-group">
                         <label class="required">Select Section</label>
                         <select class="form-control" name="section_id" autocomplete="off" id="section_id"> 
 
                         </select>
+                        @error('section_id')
+                           <span class="text-danger error">
+                              <strong>{{$message}}</strong>
+                           </span>
+                        @enderror
                      </div>
                      <div class="col-md-3 col-xs-6 col-sm-6 form-group">
                         <label class="required">Select Medium</label>
@@ -148,14 +182,24 @@
                               <option value="{{$key}}" {{$key == 'EM' ? 'selected' : ''}}>{{$value}}</option>
                            @endforeach
                         </select>
+                        @error('medium')
+                           <span class="text-danger error">
+                              <strong>{{$message}}</strong>
+                           </span>
+                        @enderror
                      </div>   
                      <div class="col-md-3 form-group">
-                        <label>Select Fee For</label>
+                        <label class="required">Select Fee For</label>
                         <select class="form-control" name="feesfor" id="feesfor">
                            <option value="0">Select</option>
                            <option value="1">All Student</option>
                            <option value="2">Some Selected</option>
                         </select>
+                        @error('feesfor')
+                           <span class="text-danger error">
+                              <strong>{{$message}}</strong>
+                           </span>
+                        @enderror
                      </div>                     
                   </div>
                   <div class="row" id="gen_catg_inc_body" style="display: none">
@@ -187,6 +231,23 @@
                         </select>
                      </div>
                   </div>
+                  <div class="row" id="multiple_course_body" style="display: none">
+                     <div class="col-md-6 form-group">
+                        <label class="required">Class - Batch - Section - Medium </label>
+                        <select class="form-control" multiple="multiple" name="multiple_courses[]">
+                           @foreach(MEDIUM as $key => $medium)
+                              @foreach($section_manages as $section_manage)
+                                 <option value="{{$section_manage->class_name->id.'-'.$section_manage->batch_name->id.'-'.$section_manage->section_names->id.'-'.$key}}">{{$section_manage->class_name->class_name.'---'.$section_manage->batch_name->batch_name.'---'.$section_manage->section_names->section_name.'---'.$key}}</option>
+                              @endforeach
+                           @endforeach
+                        </select>
+                        @error('multiple_courses')
+                           <span class="text-danger error">
+                              <strong>{{$message}}</strong>
+                           </span>
+                        @enderror
+                     </div>
+                  </div>
                   <div class="row" style="display: none" id="tableRowData">                 
                      <div class="table-responsive col-md-12" id="tableData">
                         
@@ -200,7 +261,7 @@
                            <div class="input-group-prepend">
                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-rupee"></i></span>
                            </div>
-                           <input class="form-control" id="online_discount" name="online_discount" type="text" readonly="readonly" value="0">
+                           <input class="form-control" id="online_discount" name="online_discount" type="text" value="0">
                         </div>
                      </div>
                     
@@ -319,7 +380,7 @@ $('label.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;')
          // console.log(no_of_instalment);
             for(var j =1 ; j < no_of_instalment; j++){
               var  row_id =j;
-               $('#instalmentBody').append('<div class="col-md-4 form-group" id="instal_one"><label class="required">Instalment Amount <strong class="text-danger">*</strong></label><input type="text" name="instalment_amt[]" readonly="readonly" class="form-control instalment_amt" id="instalment_amt_'+(row_id + 1)+'"></div><div class="col-md-4"><label class="required">Start Date <strong class="text-danger">*</strong></label><input type="text" name="start_dt[]" readonly="readonly" class="form-control datepicker" data-date-format="yyyy-mm-dd" placeholder="Start Date"></div><div class="col-md-4"><label class="required">End Date <strong class="text-danger">*</strong></label><input type="text" name="end_dt[]" readonly="readonly" class="form-control datepicker" data-date-format="yyyy-mm-dd" placeholder="Due Date"></div>');
+               $('#instalmentBody').append('<div class="col-md-4 form-group" id="instal_one"><label class="required">Instalment Amount <strong class="text-danger">*</strong></label><input type="text" name="instalment_amt[]" readonly="readonly" class="form-control instalment_amt" id="instalment_amt_'+(row_id + 1)+'"></div><div class="col-md-4"><label class="required">Start Date <strong class="text-danger">*</strong></label><input type="text" name="start_dt[]" class="form-control datepicker" data-date-format="yyyy-mm-dd" placeholder="Start Date"></div><div class="col-md-4"><label class="required">End Date <strong class="text-danger">*</strong></label><input type="text" name="end_dt[]" class="form-control datepicker" data-date-format="yyyy-mm-dd" placeholder="Due Date"></div>');
             }
             fees_amount_change();
          }else{
@@ -333,12 +394,26 @@ $('label.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;')
       $(document).on('change','#course_selection',function(e){
          e.preventDefault();
          var course_selection = $(this).val();
+         course_selection_change(course_selection);
+      });
+
+      var course_selection = "{{old('course_selection')}}";
+      if(course_selection !=null){
+
+         course_selection_change(course_selection);
+      }
+
+      function course_selection_change(course_selection){
          if(course_selection == '1'){
             $('#course_selection_single').show();
+            $('#multiple_course_body').hide();
+            $('#gen_catg_inc_body').hide();
          }else{
             $('#course_selection_single').hide();
+            $('#multiple_course_body').show();
+            $('#gen_catg_inc_body').show();
          }
-      });
+      }
 
       $(document).on('change','#feesfor',function(e){
          e.preventDefault();

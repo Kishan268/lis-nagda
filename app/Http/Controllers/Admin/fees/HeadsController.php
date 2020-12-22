@@ -17,8 +17,9 @@ class HeadsController extends Controller
     public function index()
     {
        
-        $fees_heads = FeesHeadMast::with('fine_type')->orderBy('head_sequence_order','ASC')->get();
+        $fees_heads = FeesHeadMast::where('batch_id',session('current_batch'))->with(['fine_type','batch'])->orderBy('head_sequence_order','ASC')->get();
         // return $fees_heads;
+
         return view ('admin.fees.heads.index',compact('fees_heads'));
         
     }
