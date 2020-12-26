@@ -788,7 +788,7 @@ $(document).ready(function(){
 	       var html_code = '';
 	       html_code += '<tr id="'+count+'">';
 	       html_code += '<td><span id="sr_no">'+count+'</span></td>';
-	       html_code += '<td><input type="text" name="doc_title[]" id="doc_title'+count+'" data-srno="'+count+'" class="form-control input-sm timepicker"  placeholder="Enter doc titleti"/></td>';
+	       html_code += '<td><input type="text" name="doc_title[]" id="doc_title'+count+'" data-srno="'+count+'" class="form-control input-sm timepicker"  placeholder="Enter doc title"/></td>';
 	       html_code += '<td ><textarea name="doc_desc[]"  id="doc_desc'+count+'" data-srno="'+count+'" class="form-control input-sm"  placeholder="Enter mode of Conveyance"/></textarea></td>';
 	        html_code += '<td><input type="file" name="doc_file[]" id="file_name'+count+'" data-srno="'+count+'" class="form-control input-sm"/></td>';
 

@@ -6,7 +6,7 @@
 <div class="container">
  	<div class="card shadow mb-4">
 	    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-	          <h6 class="m-0 font-weight-bold text-primary">Staff Attendance</h6>
+	          <h6 class="m-0 font-weight-bold text-primary">Teachers Attendance</h6>
 	          <h4 class="panel-title pull-right"> Today Date :- {{date('d-m-Y')}} | Time: {{date('h:i A')}}</h4>
 	    </div>
 	        <!-- Card Body -->
@@ -29,9 +29,9 @@
 								<tr>
 									<td>
 										<input type="checkbox" name="staff_id[]"  class="check" value="{{$user->id}}" 
-											@if(!empty($attendance_staffs))
-											@foreach($attendance_staffs as $attendance_staff)
-												@if($attendance_staff->staff_id == $user->id)
+											@if(!empty($attendance_teacher))
+											@foreach($attendance_teacher as $attendance_teachers)
+												@if($attendance_teachers->staff_id == $user->id)
 													checked="checked" 
 												@endif
 											@endforeach
@@ -42,8 +42,8 @@
 									<td>{{$user->name}}</td>
 									<td>
 										@if(!empty($attendance_staffs))
-										@foreach($attendance_staffs as $attendance_staff)
-											@if($attendance_staff->staff_id == $user->id)
+										@foreach($attendance_teacher as $attendance_teachers)
+											@if($attendance_teachers->staff_id == $user->id)
 												{{$attendance_staff->present}}
 											@endif
 										@endforeach

@@ -47,6 +47,21 @@
                           </span>
                           @enderror
                     </div>
+                     <div class="col-md-4">
+                        <label class="red"> *</label>
+                         <label for="batch_id">Batch</label>
+                         <select name="batch_id" class="form-control" >
+                          <option value="">Select batch</option>
+                           @foreach($studentBatch as  $studentBatchs)
+                           <option value={{$studentBatchs->id}} {{$studentBatchs->id == $edit->batch_id ? "selected" :''}}>{{$studentBatchs->batch_name}}</option>
+                           @endforeach
+                         </select>
+                         @error('batch_id')
+                          <span class="text-danger">
+                            <strong>{{$message}}</strong>
+                          </span>
+                          @enderror
+                    </div>   
                     <div class="col-md-4">
                         <label class="red"> *</label>
                          <label for="gender">Gender</label>
@@ -116,7 +131,7 @@
                   </div>
                 </div>
               </div>
-              <input type="hidden" name="batch_id" value="{{$edit->batch_id}}">
+              {{-- <input type="hidden" name="batch_id" value="{{$edit->batch_id}}"> --}}
               <div class="row mt-3">
                   <div class="col-md-12">
                       <input type="submit" class="btn btn-success btn-sm" name="" value="Update">

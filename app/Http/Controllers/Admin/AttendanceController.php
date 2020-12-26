@@ -12,7 +12,7 @@ use App\Models\master\studentClass;
 use App\Models\master\studentBatch;
 use App\Models\master\studentSectionMast;
 use App\Models\StudentAttendance;
-use App\Models\StaffAttendance;
+use App\Models\TeacherAttendance;
 use App\Helpers\Helpers;
 use Arr;
 
@@ -109,24 +109,24 @@ class AttendanceController extends Controller
         }
     }
 
-     public function staffAttendance(){
+     public function teacherAttendance(){
 
      
         $users = get_teachers();
        
-        $attendance_staffs = StaffAttendance::where('attendance_date',date('Y-m-d'))->whereIn('staff_id',collect($users)->pluck('id'))->get();
+        $attendance_teacher = TeacherAttendance::where('attendance_date',date('Y-m-d'))->whereIn('staff_id',collect($users)->pluck('id'))->get();
     // dd($users);
-        return view('admin.attendance.staff.index',compact('users','attendance_staffs'));
+        return view('admin.attendance.teacher.index',compact('users','attendance_teacher'));
     }
 
-    public function attendanceStaffSubmit(Request $request){
+    public function attendanceTeacherSubmit(Request $request){
 
         // dd($request);
         if(Carbon::now()->dayName != 'Sunday'){
             $present_staffs = $request->present;
             $total_staffs = $request->total;
 
-            $attendances = StaffAttendance::whereIn('staff_id',$total_staffs)->where('attendance_date',date('Y-m-d'))->get();  
+            $attendances = TeacherAttendance::whereIn('staff_id',$total_staffs)->where('attendance_date',date('Y-m-d'))->get();  
             $user_id = Auth::user()->id;
             $submitted_by = $user_id;
             // return $attendances;
@@ -158,12 +158,12 @@ class AttendanceController extends Controller
                 foreach ($absent_staffs as $absent_staff) {
                     $data['staff_id'] = $absent_staff;
                     $data['present'] = 'A';
-                    StaffAttendance::create($data);
+                    TeacherAttendance::create($data);
                 }
                 foreach ($present_staffs as $present_staff) {       
                     $data['staff_id'] = $present_staff;
                     $data['present'] = 'P';
-                    StaffAttendance::create($data);
+                    TeacherAttendance::create($data);
                 }
                 // if(Auth::user()->hasRole('teacher')){
                     // $user = User::find(Auth::user()->parent_id);
@@ -184,22 +184,24 @@ class AttendanceController extends Controller
         }
 
     }
-     public function staff_filter(Request $request){
+     public function TeacherFilter(Request $request){
+                
+        $users = get_teachers();
+                // dd($users);
+                // if(Auth::user()->hasRole('lawcollege')){
+                    // $users = EmployeeMast::where('id',Auth::user()->id)->get();
+                    // $users =User::whereRoleIs('teacher')->where('parent_id',Auth::user()->id)->get();
+                // }else{
+                //     $users = User::whereRoleIs('teacher')->where('parent_id',Auth::user()->parent_id)->get(); 
+                // }
 
-        // if(Auth::user()->hasRole('lawcollege')){
-            $users =User::where('parent_id',Auth::user()->id)->get();
-            // $users =User::whereRoleIs('teacher')->where('parent_id',Auth::user()->id)->get();
-        // }else{
-        //     $users = User::whereRoleIs('teacher')->where('parent_id',Auth::user()->parent_id)->get(); 
-        // }
-
-        $attendance_staffs = StaffAttendance::with('staff')->where('attendance_date',$request->attendance_date)->whereIn('staff_id',collect($users)->pluck('id'))->get();
+        $attendance_staffs = TeacherAttendance::with('staff')->where('attendance_date',$request->attendance_date)->whereIn('staff_id',collect($users)->pluck('id'))->get();
         // return $attendance_staffs;
 
-       return view('admin.attendance.manage.staff_table',compact('attendance_staffs'));
+       return view('admin.attendance.manage.teacher_table',compact('attendance_staffs'));
     }
 
-    public function attendance_staff_update(Request $request){
+    public function attendance_teacher_update(Request $request){
         $presents = $request->presents;
         $totals = $request->totals;
         // if(Auth::user()->hasRole('lawcollege')){
@@ -224,13 +226,13 @@ class AttendanceController extends Controller
             foreach ($absents as $absent) {
                 $data['staff_id'] = $absent;
                 $data['present'] = 'A';
-                StaffAttendance::where('staff_id',$absent)->where('attendance_date',$request->attendance_date)->update(['present' => 'A']);
+                TeacherAttendance::where('staff_id',$absent)->where('attendance_date',$request->attendance_date)->update(['present' => 'A']);
             }
         if($presents !=null){
             foreach ($presents as $present) {       
                 $data['staff_id'] = $present;
                 $data['present'] = 'P';
-                StaffAttendance::where('staff_id',$present)->where('attendance_date',$request->attendance_date)->update(['present' => 'P']);
+                TeacherAttendance::where('staff_id',$present)->where('attendance_date',$request->attendance_date)->update(['present' => 'P']);
             }
         }
 
@@ -257,10 +259,10 @@ class AttendanceController extends Controller
          $studentData = studentsMast::get();
         return view('admin.attendance.report.student',compact('classes','batches','sections','studentData'));
 	}
-	public function manageStaffAttendance(){
+	public function manageTeacherAttendance(){
 
-		$attendance_staffs =array();
-        return view('admin.attendance.manage.staff',compact('attendance_staffs'));
+		$attendance_teacher =array();
+        return view('admin.attendance.manage.teacher',compact('attendance_teacher'));
 	    	
 	}
 
@@ -417,12 +419,12 @@ class AttendanceController extends Controller
     }
 
 
-    public function attendance_staff_report(){
+    public function attendance_teacher_report(){
         
-        return view('admin.attendance.report.staff');
+        return view('admin.attendance.report.teacher');
     }
 
-     public function staff_report_generate(Request $request){
+     public function teacher_report_generate(Request $request){
         $date = $this->date_month_year($request->attendance_date);
         $month = $date['month'];
         $year = $date['year'];
@@ -451,7 +453,7 @@ class AttendanceController extends Controller
         ];
 
        
-        return  view('admin.attendance.report.staff_monthly_report',compact('monthDates','academic_dates','users','headerData'));
+        return  view('admin.attendance.report.teacher_monthly_report',compact('monthDates','academic_dates','users','headerData'));
 
         
     }

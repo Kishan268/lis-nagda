@@ -239,7 +239,7 @@ p {
               <a class="collapse-item" href="{{route('attendance.student')}}">Student Attendance</a>
   @endrole
   @role('superadmin')
-              <a class="collapse-item" href="{{route('attendance.staff')}}">Staff Attendance</a>
+              <a class="collapse-item" href="{{route('attendance.teacher')}}">Teachers Attendance</a>
   @endrole
   @role(['teachers','superadmin'])
               <a class="collapse-item" href="{{route('attendance.upload')}}">Upload Attendance</a>
@@ -437,7 +437,7 @@ p {
     </div>
   </li>
    <li class="nav-item active">
-    <a class="nav-link" href="{{route('id_card')}}">
+    <a class="nav-link" href="{{route('student_id_card')}}">
       <i class="fas fa-fw fa-certificate fa-sm fa-fw mr-2 " ></i>
       <span>ID-Card</span></a>
     </li>

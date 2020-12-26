@@ -40,7 +40,7 @@
                      <a class="btn btn-success" id="approve" href="{{route('certificate_approve',$certifReqs->cert_req_id)}}" >Go To Approve </a>|| <button class="btn btn-danger decline_request1" id="{{$certifReqs->cert_req_id}}" data-cert-id="{{$certifReqs->cert_req_id}}" data-stud-id="{{$certifReqs->studentInfo ? $certifReqs->studentInfo->user_id : ''}}" data-toggle="modal" data-target="#exampleModal{{$certifReqs->cert_req_id}}">Decline </button>
                     @elseif($certifReqs->status==2)
                       <span style="color: red;">Decline</span>
-                    @elseif()
+                    @elseif($certifReqs->status==3)
                      <span style="color: green;">Approved</span>
                       
                     @endif

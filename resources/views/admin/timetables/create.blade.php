@@ -18,7 +18,7 @@
                 <div class="row">
                   <div class="col-md-12">
                        <div class="row">               
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                        <label class="red"> *</label>
                        <label for="name"> Name</label>
                        <input class="form-control input-small " id="exam_name" name="exam_name"  aria-label="Small" type="text" value="{{old('exam_name')}}">
@@ -28,7 +28,7 @@
                         </span>
                       @enderror
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <label class="red"> *</label>
                         <label for="class_from">Class From </label>                
                         <div class="input-group">
@@ -46,7 +46,7 @@
                           </span>
                         @enderror
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <label class="red"> *</label>
                         <label for="class_to">Class To </label>                
                         <div class="input-group">
@@ -63,7 +63,26 @@
                             <strong>{{$message}}</strong>
                           </span>
                         @enderror
+                    </div> 
+                    <div class="col-md-3">
+                        <label class="red"> *</label>
+                        <label for="medium">Medium </label>                
+                        <div class="input-group">
+                          <span class="input-group-addon"></span>
+                          <select class="form-control onlyDigit input-sm" id="medium"  name="medium"  value="{{old('medium')}}">
+                            <option value=""> Select Medium</option>
+                              @foreach(MEDIUM as $key => $MEDIUM)
+                                <option value="{{$key}}"> {{$MEDIUM}}</option>
+                              @endforeach
+                          </select>
+                        </div>
+                        @error('medium')
+                          <span class="text-danger">
+                            <strong>{{$message}}</strong>
+                          </span>
+                        @enderror
                     </div>
+
                     <div class="col-md-6">
                         <label class="red"> *</label>
                          <label for="name">Reporting Time</label>
