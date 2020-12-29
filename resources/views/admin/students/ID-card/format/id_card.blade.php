@@ -11,10 +11,10 @@
 				<img class="pl-1" src="{{ asset('frontend-logos/LIS_Logo-1.png')}}" style="width: 100%" alt="image" width="100px;" />
 			</div>
 			<div class="col-md-9 col-xl-9 col-sm-9 col-xs- text-center">
-				<u class="text-center mt-3" style="font-size: 15px;color: #136D40;"><strong>LAKSHYA INTERNATIONAL SCHOOL, NAGDA</strong></u>
-				<span style="font-size: 13px;">(Affiliation to CBSE, Nagda, School Code: 50992)</span><br>
-				<span style="font-size: 11px;"><b>Email : </b> hr@lisnagda.org &nbsp; <b>Website : </b> lisnagda.org</span><br>
-				<span style="font-size: 11px"><b>Phone : </b> +91-78798-22222</span>
+				<u class="text-center mt-3" style="font-size: 18px;color: #136D40;"><strong>{{SCHOOLNAME}}</strong></u><br>
+				<span style="font-size: 12px;">{{SCHOOL_ADDRESS}}</span><br>
+				<span style="font-size: 11px;"><b>Email : </b> {{SCHOOL_EMAIL}} &nbsp; <b>Website : </b> {{SCHOOL_WEBSITE}}</span><br>
+				<span style="font-size: 11px"><b>Phone : </b> {{SCHOOL_PHONE}}</span>
 			</div>
 
 		</div>
@@ -41,15 +41,15 @@
 						<span class="span-text">Student Name :</span>
 					</div>
 					<div class="col-md-7 pl-0 m-0">
-						<span class="span-text">{{isset($student) ? student_name($student) : 'Rahul Panchal'}}</span>
+						<span class="span-text">{{isset($student) ? student_name($student) : 'John Deo'}}</span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-5 text-right">
-						<span class="span-text">Father/Guardian :</span>
+						<span class="span-text">{{student_first_guardian($student)['relation']}}</span>
 					</div>
 					<div class="col-md-7 pl-0">
-						<span class="span-text">John Deo</span>
+						<span class="span-text">{{student_first_guardian($student)['name']}}</span>
 					</div>
 				</div>
 				<div class="row">

@@ -7,6 +7,9 @@ use App\Models\AcademicCalendar;
 const SCHOOLNAME = 'Lakshya International School';
 const SCHOOL_ADDRESS = 'Khachrod Jaora Road Junction, Nagda Junction (M.P.)';
 const SCHOOL_PHONE = '+91:-78798-22222';
+const SCHOOL_EMAIL = 'hr@lisnagda.org';
+const SCHOOL_WEBSITE = 'www.lisnagda.org';
+const SCHOOL_CODE = 'www.lisnagda.org';
 const SENDTO = [
 	'A' => 'Send to All',
 	'S'	=> 'Send to Student',
@@ -165,7 +168,24 @@ if (!function_exists('student_name')) {
 if (!function_exists('student_first_guardian')) {
     function student_first_guardian($student){
         
-    	return $student->studentsGuardiantMast !=null ? (Arr::get(GUARDIAN_RELATION,$student->studentsGuardiantMast[0]['relation_id'])) .' Name :- '. $student->studentsGuardiantMast[0]['g_name'] : '';
+        if($student->studentsGuardiantMast !=null){
+            $relation = (Arr::get(GUARDIAN_RELATION,$student->studentsGuardiantMast[0]['relation_id'])) .' Name : ';
+            $name = $student->studentsGuardiantMast[0]['g_name'];
+
+        }else{
+            $relation = 'Father/Guardian';
+            $name = 'Johan Doe';
+        }
+
+
+        return [
+          'relation' => $relation,
+          'name' => $name,
+
+        ];
+     
+
+    	// return $student->studentsGuardiantMast !=null ? (Arr::get(GUARDIAN_RELATION,$student->studentsGuardiantMast[0]['relation_id'])) .' Name : '. $student->studentsGuardiantMast[0]['g_name'] : '';
 
      
     }

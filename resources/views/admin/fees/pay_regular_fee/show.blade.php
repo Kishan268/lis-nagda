@@ -22,9 +22,9 @@
  							<h6>Select Fees to Pay</h6>
  						</div>
  						<div class="col-md-4 text-right p-3">
- 							<h6>Admission Number: {{$student->admision_no}}</h6>
- 							<h6>Student Name: {{student_name($student)}}</h6>
- 							<h6>{{student_first_guardian($student)}}</h6>
+ 							<h6>Admission Number : {{$student->admision_no}}</h6>
+ 							<h6>Student Name : {{student_name($student)}}</h6>
+ 							<h6>{{student_first_guardian($student)['relation'] .' '.student_first_guardian($student)['name'] }}</h6>
  						</div>
  					</div>
  				</div>

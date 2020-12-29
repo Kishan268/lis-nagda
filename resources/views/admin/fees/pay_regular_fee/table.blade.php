@@ -15,7 +15,7 @@
 				<th>{{++$count}}</th>
 				<th>{{$fee_student->student->admision_no}}</th>
 				<th>{{student_name($fee_student->student)}}</th>
-				<th>{{student_first_guardian($fee_student->student)}}</th>
+				<th>{{student_first_guardian($fee_student->student)['relation'] .' '.student_first_guardian($fee_student->student)['name'] }}</th>
 				<th><a href="{{route('pay_regular_fee_show', $fee_student->std_fees_mast_id)}}" class="btn btn-sm btn-primary">View Fees</a></th>
 			</tr>
 		@endforeach

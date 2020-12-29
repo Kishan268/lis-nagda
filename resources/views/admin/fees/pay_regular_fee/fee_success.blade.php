@@ -42,7 +42,7 @@
  							<h6 class="">Reciept Bill No :</h6>
  						</div>
  						<div class="col-md-6">
- 							<h6 class="">{{$fee_receipt->reciept_bill_no}}</h6>
+ 							<h6 class="">{{$fee_receipt->receipt_bill_no}}</h6>
  						</div>
  					</div>
  					<div class="row form-group">

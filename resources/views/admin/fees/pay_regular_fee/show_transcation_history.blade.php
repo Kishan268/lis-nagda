@@ -18,7 +18,7 @@
 	 					<div class="col-md-6">
  							<h6>Admission No: <span class="text-danger">{{$student->admision_no}}</span></h6>
  							<h6>Student Name : {{student_name($student)}} </h6> 						
- 							<h6>{{student_first_guardian($student)}}</h6>	
+ 							<h6>{{student_first_guardian($student)['relation'] .' '.student_first_guardian($student)['name'] }}</h6>	
 	 					</div>
 	 					<div class="col-md-6 text-right">
  							<h6>Mobile Number : {{$student->s_mobile}} </h6>

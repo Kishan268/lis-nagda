@@ -47,7 +47,7 @@
 	 							<h6>Receipt Number: {{$fee_receipt->receipt_bill_no}}</h6>
 	 							<h6>Admission No: <span class="text-danger">{{$fee_receipt->student->admision_no}}</span></h6>
 	 							<h6>Student Name : {{student_name($fee_receipt->student)}} </h6> 						
-	 							<h6>{{student_first_guardian($fee_receipt->student)}}</h6>				
+	 							<h6>{{student_first_guardian($fee_receipt->student)['relation'] .' '.student_first_guardian($fee_receipt->student)['name'] }}</h6>				
 
 	 						</div>
 	 						<div class="col-md-6 text-right" >
