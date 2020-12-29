@@ -58,8 +58,23 @@
                     </div>
                     <div class="col-md-4">
                         <label class="red"> *</label>
+                         <label for="batch_id">Batch</label>
+                         <select name="batch_id" class="form-control" value="{{old('batch_id')}}">
+                          <option value="">Select batch</option>
+                           @foreach($studentBatch as $key => $studentBatchs)
+                           <option value={{$studentBatchs->id}}>{{$studentBatchs->batch_name}}</option>
+                           @endforeach
+                         </select>
+                         @error('batch_id')
+                          <span class="text-danger">
+                            <strong>{{$message}}</strong>
+                          </span>
+                          @enderror
+                    </div>   
+                    <div class="col-md-4">
+                        <label class="red"> *</label>
                          <label for="gender">Gender</label>
-                         <select name="gender" class="form-control" value="{{old('website')}}">
+                         <select name="gender" class="form-control" value="{{old('gender')}}">
                           <option value="">Select gender</option>
                            @foreach(GENDER as $key => $gender)
                            <option value={{$key}}>{{$gender}}</option>
@@ -74,7 +89,7 @@
                     <div class="col-md-4">
                         <label class="red"> *</label>
                          <label for="discount_type_id">Discount Type</label>
-                         <select name="discount_type_id" class="form-control" value="{{old('website')}}">
+                         <select name="discount_type_id" class="form-control" value="{{old('discount_type_id')}}">
                            <option value="">Select Discount type</option>
                            @foreach($descountType as $descountTypes)
                            <option value="{{$descountTypes->discount_type_id}}">{{$descountTypes->discount_type_name}}</option>
@@ -89,7 +104,7 @@
                     <div class="col-md-4">
                         <label class="red"> *</label>
                          <label for="discount_mode">Discount Mode</label>
-                         <select name="discount_mode" class="form-control" value="{{old('website')}}">
+                         <select name="discount_mode" class="form-control" value="{{old('discount_mode')}}">
                            <option value="">Select Discount Mode</option>
                            <option value="P">Percentage(%)</option>
                            <option value="R">Rupee</option>

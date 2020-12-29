@@ -9,7 +9,7 @@
 			<div class="card">
 				<div class="card-header">
 					<h5 class="card-title">Add Fees Concession
-						<a href="{{route('fees-heads.index')}}" class="btn btn-sm btn-primary pull-right">Back</a>
+						<a href="{{route('concession.index')}}" class="btn btn-sm btn-primary pull-right">Back</a>
 					</h5>					
 				</div>
 				<div class="card-body">

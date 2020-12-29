@@ -4,12 +4,19 @@
 	<div  class="row mb-4">
 		<div class="col-sm-12">@include('admin.fees.header')</div>
 	</div>
+ 	<div class="app-title col-md-4">
+		 @if($message = Session::get('error'))   
+		      <div class="alert alert-danger">
+		       {{ $message }}
+		      </div>
+		 @endif
+	</div>
 	<div class="row mb-4"> 
 		<div class="col-sm-12">
 			<div class="card">
 				<div class="card-header">
 					<h5 class="card-title">Apply Fees Concession
-						<a href="{{route('fees-heads.index')}}" class="btn btn-sm btn-primary pull-right">Back</a>
+						<a href="{{route('concession.index')}}" class="btn btn-sm btn-primary pull-right">Back</a>
 					</h5>					
 				</div>
 				<div class="card-body">

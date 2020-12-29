@@ -11,7 +11,8 @@
 	      <div class="alert alert-success">
 	       {{ $message }}
 	      </div>
-	    @endif
+	    @endif 
+	   
   	</div>
  	<div class="row mb-4">
  		<div class="col-md-12">
@@ -40,7 +41,8 @@
 								<td>{{$concessions->name}}</td>
 								<td>{{$concessions->conses_desc}}</td>
 								<td>{{(int)$concessions->consession_amnt}} - {{$concessions->discount !=null ? Arr::get(ConcessionDiscount,$concessions->discount) : ''}}</td>
-								<td><a href="{{route('concession.show', $concessions->concession_id)}}" ><i class="  fa fa-eye text-green" style="font-size: 16px;"></i></a></span></td>
+								<td>
+									<a href="{{route('concession.show', $concessions->concession_id)}}" ><i class="  fa fa-eye text-green" style="font-size: 16px;">Show Applied Students List</i></a></span></td>
 							</tr>
 							@endforeach
 						</tbody>

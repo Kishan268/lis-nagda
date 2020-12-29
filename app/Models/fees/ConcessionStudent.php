@@ -11,5 +11,7 @@ class ConcessionStudent extends Model
     protected $primaryKey = null;
     public $timestamps = false;
     public $incrementing = false;
-
+     public function student_consession(){
+        return $this->belongsTo('App\Models\student\studentsMast','s_id','id');
+    }
 }

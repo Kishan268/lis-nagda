@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\master\DiscountTypes;
 use App\Models\master\Discounts;
+use App\Models\master\studentBatch;
 
 class DiscountController extends Controller
 {
@@ -21,7 +22,8 @@ class DiscountController extends Controller
     {
          $descountType = DiscountTypes::get();
          // dd(session('current_batch'));
-        return view('admin.master.discount.create',compact('descountType'));
+         $studentBatch = studentBatch::get();
+        return view('admin.master.discount.create',compact('descountType','studentBatch'));
         
     }
 
@@ -35,9 +37,10 @@ class DiscountController extends Controller
             'discount_no_type'=>'required',
             'discount_desc'=>'required',
             'discount_mode'=>'required',
+            'batch_id'=>'required',
             'discount_amnt'=>'required'
         ]);
-        $data['batch_id'] = session('current_batch');
+        // $data['batch_id'] = session('current_batch');
         Discounts::create($data);
         return redirect()->back()->with('success','Discount added successfully');
 
@@ -53,14 +56,16 @@ class DiscountController extends Controller
     public function edit($id)
     {
         $descountType = DiscountTypes::get();
+        $studentBatch = studentBatch::get();
+        // dd($studentBatch);
         $edit = Discounts::with('disc_type')->where('discount_code',$id)->first();
-        // dd($edit);
-                return view('admin.master.discount.edit',compact('edit','descountType'));
+                return view('admin.master.discount.edit',compact('edit','descountType','studentBatch'));
     }
 
    
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $data = $request->validate([
             'discount_type_id'=>'required',
             'discount_name'=>'required',
@@ -68,9 +73,9 @@ class DiscountController extends Controller
             'discount_desc'=>'required',
             'discount_mode'=>'required',
             'discount_amnt'=>'required',
+            'batch_id'=>'required',
             'discount_no_type'=>'required'
         ]);
-        // dd($data);
         // $data['discount_type_id'] = $request->discount_type_id;
         Discounts::where('discount_code',$id)->update($data);
         return redirect()->back()->with('success','Discount updated successfully');

@@ -45,7 +45,10 @@ class ConcessionController extends Controller
 
     public function show($id)
     {
-        //
+       $showConcessionStd =  ConcessionMast::with('concession_apply.student_consession')->where('concession_id',$id)->get();
+            return view('admin.fees.concession.show',compact('showConcessionStd'));
+
+        
     }
 
     public function edit($id)
@@ -61,7 +64,9 @@ class ConcessionController extends Controller
 
     public function destroy($id)
     {
-        //
+        ConcessionStudent::where('s_id',$id)->delete();
+        return redirect('concession')->with('success','Fess concession student deleted successfully');
+
     }
 
     public function concessionApply(){
@@ -73,12 +78,17 @@ class ConcessionController extends Controller
     }
     public function concessionStudents(Request $request){
 
-        $students = studentsMast::with('studentsGuardiantMast')->where('status','R')->where('std_class_id',$request->std_class_id)->where('batch_id',$request->batch_id)->get();
-        // dd($students);
+
+        $students = studentsMast::with('studentsGuardiantMast','concession_student')
+                    ->where('std_class_id',$request->std_class_id)
+                    ->where('batch_id',$request->batch_id)
+                    ->where('status','R')
+                    ->get();
+        
             return view('admin.fees.concession.students_table',compact('students'));
     } 
     public function concessionApplyStore(Request $request){
-
+         // dd($request->s_id);
         if ($request->consession_amnt) {
 
             $consession_amnt = explode(',', $request->consession_amnt);
@@ -96,6 +106,7 @@ class ConcessionController extends Controller
         $data['fees_head_id'] = $request->head_id;
         $concessionApply = ConcessionApplyTrans::create($data)->concession_apply_id;
         // dd($concessionApply);
+        if (!empty($request->s_id)) {
         foreach ($request->s_id as $key => $value) {
             $students=[
                 'concession_apply_id'=>$concessionApply,
@@ -105,6 +116,10 @@ class ConcessionController extends Controller
             ];
         ConcessionStudent::create($students);
         }
+    }else{
+        return redirect('concession-apply')->with('error','Please select student');
+
+    }
         return redirect('concession')->with('success','Fess concession apply successfully');
 
     }

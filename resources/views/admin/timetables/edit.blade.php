@@ -47,10 +47,18 @@
                            <span class="input-group-addon"></span>
                            <input class="form-control onlyDigit input-sm" id="class_to"  name="class_to"  value="{{$timeTable->get_to_class->class_name}}" readonly>
                             <option  > </option>
-
-                           {{--  @foreach($class as $classes)
-                            <option value="{{$classes->id}}"> {{$classes->class_name}}</option>
-                            @endforeach --}}
+                        </div>
+                    </div> 
+                    <div class="col-md-4">
+                        <label class="red"> *</label>
+                        <label for="medium">Medium </label>                
+                        <div class="input-group">
+                           <span class="input-group-addon"></span>
+                            <option value="">Select Medium</option>
+                                @foreach(MEDIUM as $key => $value)
+                                    <option value="{{$key}}" {{($timeTable->medium ?? old('medium') )== $key ? 'selected' : ''}}>{{$value}}</option>
+                                @endforeach
+                              </select>
                         </div>
                     </div>
                     <div class="col-md-6">

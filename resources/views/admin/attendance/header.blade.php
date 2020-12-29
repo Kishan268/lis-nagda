@@ -50,12 +50,12 @@
             </div>
             @role('superadmin')
             <div class="col-xl-3 col-md-6 mb-4">
-      			<a href="{{route('attendance.staff')}}" class="">
-	              <div class="card {{Request::url() == Route('attendance.staff') ? 'border-left-success bg-primary text-white' : 'border-left-primary'}} shadow h-100 py-2">
+      			<a href="{{route('attendance.teacher')}}" class="">
+	              <div class="card {{Request::url() == Route('attendance.teacher') ? 'border-left-success bg-primary text-white' : 'border-left-primary'}} shadow h-100 py-2">
 	                <div class="card-body">
 	                  <div class="row no-gutters align-items-center">
 	                    <div class="col mr-2">
-	                      <div class="text-xs font-weight-bold  text-uppercase mb-1">Staff Attendance</div>
+	                      <div class="text-xs font-weight-bold  text-uppercase mb-1">Teacher Attendance</div>
 	                     
 	                    </div>
 	                    <div class="col-auto">

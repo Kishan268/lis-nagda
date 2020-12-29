@@ -10,7 +10,7 @@
 		<div class="col-md-12">
 			<div class="card">
 				<div class="card-header">
-					<h5 class="card-title">Staff Attendance <span class="pull-right">Today Date :- {{date('d-m-Y')}} | Time: {{date('h:i A')}}</span></h5>
+					<h5 class="card-title">Teachers Attendance <span class="pull-right">Today Date :- {{date('d-m-Y')}} | Time: {{date('h:i A')}}</span></h5>
 				</div>
 				<div class="card-body">
 					<div class="row mb-5">
