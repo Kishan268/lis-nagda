@@ -321,6 +321,8 @@
 </div>
 <script>
 $(document).ready(function(){
+
+
 	$('#payment_mode').on('change',function(e){
 		e.preventDefault();
 		var payment_mode = $(this).val();
@@ -614,7 +616,10 @@ $(document).ready(function(){
 								// console.log(res)
 								// if(res == 'success'){
 									$.notify('Student Fee Instalement Pay','success');
-									window.location.reload();
+									
+									window.setTimeout(function() {
+										window.location.href = "{{url('fee_success/')}}/"+res;
+									}, 5000);
 
 								// }
 							}

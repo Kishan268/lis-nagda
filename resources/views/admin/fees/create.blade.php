@@ -176,7 +176,7 @@
                      </div>
                      <div class="col-md-3 col-xs-6 col-sm-6 form-group">
                         <label class="required">Select Medium</label>
-                        <select class="form-control" name="medium" id="medium_id" required="required">
+                        <select class="form-control" name="medium" id="medium_id" autocomplete="off">
                            
                         </select>
                         @error('medium')
@@ -270,6 +270,10 @@
                         <input type="checkbox" value="1" name="is_fees_student_assign" id="is_fees_student_assign" checked=""> 
                         Is Fees Student Assign 
                         
+                     </div>
+                     <div class="col-md-3 form-group pt-4"> 
+                        <input type="checkbox" value="1" name="is_fee_discount" id="is_fee_discount" checked=""> 
+                        Is Fees Discount Assign 
                      </div>
                   </div>
                   <div class="row">

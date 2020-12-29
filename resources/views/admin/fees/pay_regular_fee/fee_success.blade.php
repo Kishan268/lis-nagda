@@ -97,8 +97,8 @@
 
  					<div class="row">
  						<div class="col-md-12 text-center">
- 							<a href="" class="btn btn-sm btn-primary"> Back</a>
- 							<a href="{{route('reciept_download',$fee_receipt->reciept_bill_no)}}" class="btn btn-sm btn-success"><i class="fa fa-download"></i> Download</a>
+ 							<a href="{{route('pay_regular_fee_show',$fee_receipt->std_fees_mast_id)}}" class="btn btn-sm btn-primary"> Back</a>
+ 							<a href="{{route('reciept_download',$fee_receipt->receipt_bill_no)}}" class="btn btn-sm btn-success" target="__blank"><i class="fa fa-download"></i> Download</a>
  						</div>
  					</div>
  				</div>

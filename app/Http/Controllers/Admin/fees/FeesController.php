@@ -72,7 +72,7 @@ class FeesController extends Controller
     {
             // dd($request->all());
             // $tution_fee = '0';
-
+            $is_fee_discount  = isset($request->is_fee_discount) ? $request->is_fee_discount : '0'; 
 
             $installable_amnt       = $request->installable_amnt;
             $non_installable_amnt   = $request->non_installable_amnt;
@@ -107,7 +107,9 @@ class FeesController extends Controller
                 'no_of_instalment'      => $request->no_of_instalment,
                 'courseselection'       => $request->courseselection,
                 'online_discount'       => $request->online_discount,
-                'is_fees_student_assign'=> $request->is_fees_student_assign,
+                'is_fees_student_assign'=> isset($request->is_fees_student_assign) ? $request->is_fees_student_assign : '0',
+                'is_fee_discount'=> $is_fee_discount,
+
                 'std_class_id'          => $request->courseselection == '1' ? $request->std_class_id : null,
                 'batch_id'              => $request->courseselection == '1' ? $request->batch_id : null,
                 'section_id'            => $request->courseselection == '1' ? $request->section_id : null,
@@ -122,6 +124,7 @@ class FeesController extends Controller
 
             ];
 
+            // return $fees_mast;
             if($request->courseselection == '1'){
                 $batch_name = studentBatch::find($request->batch_id)->batch_name;
             }else{
@@ -214,25 +217,30 @@ class FeesController extends Controller
                         $no  = '';
                       
                         //concession fetch
-                        $concession_applies  = ConcessionApplyTrans::where(['class_id'=>$student->std_class_id,'batch_id'=>$student->batch_id])->whereIn('fees_head_id',$request->fees_head)->whereHas('concession_students',function($q)use($student){
+                        if($is_fee_discount == '1'){
+                            $concession_applies  = ConcessionApplyTrans::where(['class_id'=>$student->std_class_id,'batch_id'=>$student->batch_id])->whereIn('fees_head_id',$request->fees_head)->whereHas('concession_students',function($q)use($student){
                             $q->where('s_id',$student->id);
-                        })->with('concession_students')->get();
+                            })->with('concession_students')->get();
 
-                        $concession_amnt = 0;
-                        $concession_detl = [];
-                        foreach ($concession_applies as $concession_apply) {                          
-                            foreach ($concession_apply->concession_students as $concession_student) {
-                                $concession_amnt = $concession_student->concession_amnt + $concession_amnt;
+                            $concession_amnt = 0;
+                            $concession_detl = [];
+                            foreach ($concession_applies as $concession_apply) {                          
+                                foreach ($concession_apply->concession_students as $concession_student) {
+                                    $concession_amnt = $concession_student->concession_amnt + $concession_amnt;
+                                }
+
+                                $concession_detl[] = [
+                                    'fees_head_id' => $concession_apply->fees_head_id,
+                                    'concession_amnt' => $concession_amnt,
+                                ];
                             }
-
-                            $concession_detl[] = [
-                                'fees_head_id' => $concession_apply->fees_head_id,
-                                'concession_amnt' => $concession_amnt,
-                            ];
-
+                        }else{
+                            $concession_amnt = 0;
+                            $concession_detl = [];
                         }
-                        // return !empty(collect($concession_detl)->where('fees_head_id',4)->first()) ? collect($concession_detl)->where('fees_head_id',4)->first()['concession_amnt'] : 0;
-                        // $concession_amnt = 0;
+                    
+
+
 
                     //discount variables
                         $discount_mode = null;
@@ -261,55 +269,59 @@ class FeesController extends Controller
 
                         //Sibling Dicount Fetch     
                         //When student in teacher so we cant't find student siblings details
-                        if($student->staff_ward != '1'){              
-                            if(count($student->siblings) !='0'){
-                                $dates[] = $dob;  
-                                foreach ($student->siblings as $std_sib) {
-                                    $dates[] = $std_sib->sibling_detail->dob;
-                                }
-                      
-                                foreach ($dates as $date) {
-                                    $a[] = strtotime($date);
-                                }
-                               
-                                asort($a);
-
-                                foreach ($a as $value) {
-                                    $b[] = date('Y-m-d',$value);
-                                }
-                                foreach ($b as $key => $value) {
-                                    if($value == $dob){
-                                        $no = $key+1;
+                        if($is_fee_discount == '1'){
+                            if($student->staff_ward != '1'){              
+                                if(count($student->siblings) !='0'){
+                                    $dates[] = $dob;  
+                                    foreach ($student->siblings as $std_sib) {
+                                        $dates[] = $std_sib->sibling_detail->dob;
                                     }
+                          
+                                    foreach ($dates as $date) {
+                                        $a[] = strtotime($date);
+                                    }
+                                   
+                                    asort($a);
+
+                                    foreach ($a as $value) {
+                                        $b[] = date('Y-m-d',$value);
+                                    }
+                                    foreach ($b as $key => $value) {
+                                        if($value == $dob){
+                                            $no = $key+1;
+                                        }
+                                    }
+                                    $no = $no == '1' ? '2' : $no;
+                                    
+
+                                    $discount = Discounts::select('discount_code','discount_mode','discount_amnt')->where(['discount_no_type' => $no,'gender' => $gender,'discount_type_id' => '1','batch_id' => session('current_batch'),'status' => 'A'])->first();
+
+                                        $discount_code =  $discount->discount_code;
+                                        $discount_amnt =  $discount->discount_amnt;
+                                        $discount_mode =  $discount->discount_mode;    
+                                                              
                                 }
-                                $no = $no == '1' ? '2' : $no;
-                                
 
-                                $discount = Discounts::select('discount_code','discount_mode','discount_amnt')->where(['discount_no_type' => $no,'gender' => $gender,'discount_type_id' => '1','batch_id' => session('current_batch'),'status' => 'A'])->first();
+                            }else{    
 
-                                    $discount_code =  $discount->discount_code;
-                                    $discount_amnt =  $discount->discount_amnt;
-                                    $discount_mode =  $discount->discount_mode;    
-                                                          
+                                $discount = Discounts::select('discount_code','discount_mode','discount_amnt')->where(['discount_no_type' => '1','discount_type_id' => '2','batch_id' => session('current_batch'),'status' => 'A'])->first();
+
+                                $discount_code =  $discount->discount_code;
+                                $discount_amnt =  $discount->discount_amnt;
+                                $discount_mode =  $discount->discount_mode;
                             }
 
-                        }else{    
-
-                            $discount = Discounts::select('discount_code','discount_mode','discount_amnt')->where(['discount_no_type' => '1','discount_type_id' => '2','batch_id' => session('current_batch'),'status' => 'A'])->first();
-
-                            $discount_code =  $discount->discount_code;
-                            $discount_amnt =  $discount->discount_amnt;
-                            $discount_mode =  $discount->discount_mode;
-                        }
-
-                    
-                        if($discount_mode !=null){
-                            if($discount_mode ='P'){                                  
-                               $discount_amnt = $student_fee['discount_amnt'] = ((int)$installable_amnt * $discount->discount_amnt) / 100;
-                            }else{
-                                $discount_amnt = $student_fee['discount_amnt'] = $discount->discount_amnt;
+                        
+                            if($discount_mode !=null){
+                                if($discount_mode ='P'){                                  
+                                   $discount_amnt = $student_fee['discount_amnt'] = ((int)$installable_amnt * $discount->discount_amnt) / 100;
+                                }else{
+                                    $discount_amnt = $student_fee['discount_amnt'] = $discount->discount_amnt;
+                                }
                             }
                         }
+
+
 
                         if($student->bus_fee_id !=null){
                             $bus_fee_str = BusFeeStructure::find($student->bus_fee_id);
@@ -540,7 +552,9 @@ class FeesController extends Controller
     } 
 
     public function pay_regular_fee_show($std_fees_mast_id){
+
         $s_id = StudentFeesMast::find($std_fees_mast_id)->s_id;
+
         $student = studentsMast::find($s_id);
 
         $student_fee_instalments =  StudentFeeInstalment::whereHas('fee_heads',function($q){
@@ -548,7 +562,7 @@ class FeesController extends Controller
         })->with(['fee_heads' => function($query){
              $query->where('fee_head_status','P');
         }])->where(['std_fees_mast_id' => $std_fees_mast_id,'inst_status'=>'P'])->get();
-        // return $student_fee_instalments;
+
         return view('admin.fees.pay_regular_fee.show',compact('student','student_fee_instalments','std_fees_mast_id'));
     }
     
@@ -623,7 +637,6 @@ class FeesController extends Controller
         
         $total_amnt_reminder = 0;
         $total_amnt = $cash_amount;
-        // return $total_amnt;
 
 
         $transcation_id =  $transcation_id !=null ?  $transcation_id  : 'lis_'.Str::random(30);
@@ -694,10 +707,7 @@ class FeesController extends Controller
                          $fee_head->increment('fee_head_paid_amnt', $std_fee_head['fee_head_paid_amnt']);  
                     }
 
-                    $fee_head_data = [
-                        // 'std_fee_head_id'     => $fee_head->std_fee_head_id,
-                        // 'fee_head_paid_amnt'  => $std_fee_head['fee_head_paid_amnt'],
-                        // 'fee_head_extra_fine' => $std_fee_head['fee_head_extra_fine'],
+                    $fee_head_data = [                      
                         'fee_head_status'     => 'A',
                         'fee_head_due_amnt'   => 0,
                     ];
@@ -711,13 +721,10 @@ class FeesController extends Controller
                         $fee_head->increment('fee_head_paid_amnt', $fee_head_paid_amnt);                       
                     }
                     $fee_head_data = [
-                        // 'std_fee_head_id'     => $fee_head->std_fee_head_id,
-                        // 'fee_head_paid_amnt'  => $total_amnt != '-0.01' ? (float)$fee_head->fee_head_due_amnt - abs((float)$total_amnt) : 0,
-                        // 'fee_head_extra_fine' => $std_fee_head['fee_head_extra_fine'],
+
                         'fee_head_status'     => 'P',
                         'fee_head_due_amnt'   => $total_amnt == '-0.01'  ? (float)$fee_head->fee_head_due_amnt : abs((float)$total_amnt),
                     ];
-                    // print_r($fee_head->fee)
                     
                     $fee_head->update($fee_head_data);
                     $inst_payable_amnt = (float)$fee_head_paid_amnt + $inst_payable_amnt;
@@ -758,24 +765,25 @@ class FeesController extends Controller
     }
 
     public function fee_success($receipt_bill_no){
+
         $fee_receipt =  StudentFeeReceipt::with('student')->find($receipt_bill_no);
-        // return $fee_reciept;
+
         return view('admin.fees.pay_regular_fee.fee_success',compact('fee_receipt'));
     }
     public function reciept_download($receipt_bill_no){
-        // return  $receipt_bill_no;
+
         $fee_receipt =  StudentFeeReceipt::with(['student.student_class','student.student_batch','receipt_heads.fee_head'])->find($receipt_bill_no);
-        // return $fee_reciept;
+
         return view('admin.fees.pay_regular_fee.receipt_download',compact('fee_receipt'));
     }
 
     public function show_transaction_history($std_fees_mast_id){
-        // return $std_fees_mast_id;
+
        $s_id =  StudentFeesMast::find($std_fees_mast_id)->s_id;
        $student = studentsMast::find($s_id);
 
        $fee_receipts = StudentFeeReceipt::with('receipt_heads.fee_head.fee_instalment')->where('std_fees_mast_id',$std_fees_mast_id)->get();
-       // return $fee_receipts;
+
         return view('admin.fees.pay_regular_fee.show_transcation_history',compact('fee_receipts','student'));
     }
 

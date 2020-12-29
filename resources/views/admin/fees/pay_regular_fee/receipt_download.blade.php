@@ -83,14 +83,14 @@
 											  @endphp
 										<tr>
 											<td>{{$receipt_head->fee_head->fee_head_name}}</td>
-											<td></td>
+											<td>{{date('M',strtotime($fee_receipt->receipt_date))}}</td>
 											<td>{{round($receipt_head->fee_head->fee_head_amnt,2)}}</td>
 										</tr>
 										@endforeach
 										@if($concession_amnt !=0)
 										<tr>
 											<td>Concession Amount</td>
-											<td></td>
+											<td>{{date('M',strtotime($fee_receipt->receipt_date))}}</td>
 											<td>(-) {{round($concession_amnt,2)}}</td>
 										</tr>
 										@endif
@@ -98,7 +98,7 @@
 										@if($discount_amnt !=0)
 											<tr>
 												<td>Discount Amount</td>
-												<td></td>
+												<td>{{date('M',strtotime($fee_receipt->receipt_date))}}</td>
 												<td>(-) {{round($discount_amnt,2)}}</td>
 											</tr>
 										@endif
