@@ -352,8 +352,8 @@ class AttendanceController extends Controller
                     ->where('section_id',$request->section_id)
                     ->get();      
 
-        $academic_dates = Helpers::academic_dates($month,$year);
-        $monthDates = Helpers::month_dates($monthStart,$monthEnd);
+        $academic_dates = academic_dates($month,$year);
+        $monthDates = month_dates($monthStart,$monthEnd);
     
 
         $headerData = [
@@ -443,8 +443,8 @@ class AttendanceController extends Controller
         //     $users =$usersData->where('parent_id',Auth::user()->parent_id)->get(); 
         // }
 
-        $academic_dates = Helpers::academic_dates($month,$year);
-        $monthDates = Helpers::month_dates($monthStart,$monthEnd);
+        $academic_dates = academic_dates($month,$year);
+        $monthDates = month_dates($monthStart,$monthEnd);
 
         $headerData = [
             'monthYear' => $date['month1']->format('F, Y')

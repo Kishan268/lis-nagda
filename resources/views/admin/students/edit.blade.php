@@ -103,13 +103,10 @@
 																			</span>
 																		@enderror
 																	</div>
-																	<div class="col-md-4 col-xs-6 col-sm-6 form-group">
+																	<div class="col-md-3 col-xs-6 col-sm-6 form-group">
 																		<label class="required">Select Medium</label>
-																		<select class="form-control required" name="medium" id="medium" required="medium">
-																			<option value="">Select Medium</option>
-																			@foreach(MEDIUM as $key=> $value)
-																				<option value="{{$key}}" {{$key == (old('medium') ?? $student->medium) ? 'selected' : ''}} >{{$value}}</option>
-																			@endforeach
+																		<select class="form-control required" name="medium" id="medium_id" required="medium" autocomplete="off">
+																			
 																		</select>
 																		@error('medium')
 																			<span class="text-danger">

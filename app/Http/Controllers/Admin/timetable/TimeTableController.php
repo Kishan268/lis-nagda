@@ -198,12 +198,13 @@ class TimeTableController extends Controller
 
         $classFrom = $request->classFrom;
         $classTo   = $request->classTo;
+        $medium   = 'EM';
         $nod       = $request->nod;
 
-        $getClasses = studentClass::with(['assignsubject'=>function($q){
-            $q->with(['assign_subjectId.subjectName']);
+        $getClasses = studentClass::with(['assignsubject'=>function($q)use($medium){
+            $q->where('medium',$medium)->with(['assign_subjectId.subject']);
         }])->whereBetween('id',[$classFrom,$classTo])->get();
-
+        // return $getClasses;
         return view ('admin.timetables.generateTable',compact('getClasses','nod'));
     }
 }

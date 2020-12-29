@@ -10,7 +10,6 @@ use App\Models\master\stateMast;
 use App\Models\master\cityMast;
 use App\Models\student\studentsMast;
 use Arr;
-use Helpers;
 use Carbon\Carbon;
 use App\Models\master\studentClass;
 use App\Models\master\studentBatch;
@@ -166,8 +165,8 @@ class ProfileController extends Controller
         $monthEnd = $date['monthEnd'];
      
         $students = studentsMast::where('user_id',Auth::user()->id)->with('attendances')->select('id','f_name','l_name','roll_no','std_class_id','batch_id','section_id')->get();      
-        $academic_dates = Helpers::academic_dates($month,$year);
-        $monthDates = Helpers::month_dates($monthStart,$monthEnd);
+        $academic_dates = academic_dates($month,$year);
+        $monthDates = month_dates($monthStart,$monthEnd);
     
 
         $headerData = [

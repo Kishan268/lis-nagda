@@ -653,10 +653,10 @@ p {
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
                  @role('superadmin','teachers')
-                  <img src="{{asset(Auth::user()->photo !=null ? 'storage/'.Auth::user()->photo : 'storage/admin/student_demo.png')}}"  class="img-profile rounded-circle ">
+                  <img src="{{asset(Auth::user()->photo !=null ? 'storage/'.Auth::user()->photo : 'img/student_demo.png')}}"  class="img-profile rounded-circle ">
                  @endrole
                  @role('students')
-                  <img src="{{asset(Auth::user()->photo !=null ? 'storage/'.Auth::user()->photo : 'storage/admin/student_demo.png')}}"  class="img-profile rounded-circle ">
+                  <img src="{{asset(Auth::user()->photo !=null ? 'storage/'.Auth::user()->photo : 'img/student_demo.png')}}"  class="img-profile rounded-circle ">
                  @endrole
               </a>
               <!-- Dropdown - User Information -->

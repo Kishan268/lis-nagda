@@ -36,15 +36,16 @@
                                 <td>{{ $data->subject_sequence}}</td>
 
                                 <td>
-                                    <form method="post" action="{{ route('subject.destroy',$data->id) }}">
+                                   {{--  <form method="post" action="{{ route('subject.destroy',$data->id) }}">
                                         @csrf
-                                        @method('DELETE')
-                                            <button class="bg-success mr-2 editSubject" id="{{$data->id}}" data-id="{{$data->subject_name}}"  data-class="{{$data->subject_code}}" data-subject="{{$data->subject_sequence}}" ><i class="fa fa-edit text-white" ></i>
-                                            </button>
-                                            <button class="bg-danger" onclick="return confirm('Are you sure you want to delete?');">
+                                        @method('DELETE') --}}
+                                    <a class="editSubject" id="{{$data->id}}" data-id="{{$data->subject_name}}"  data-class="{{$data->subject_code}}" data-subject="{{$data->subject_sequence}}" > <i class="fa fa-edit text-success "></i></a>     
+                                          {{--   <button class="bg-success mr-2 editSubject" id="{{$data->id}}" data-id="{{$data->subject_name}}"  data-class="{{$data->subject_code}}" data-subject="{{$data->subject_sequence}}" ><i class="fa fa-edit text-white" ></i>
+                                            </button> --}}
+                                            {{-- <button class="bg-danger" onclick="return confirm('Are you sure you want to delete?');">
                                             <i class="fa fa-trash text-white"> </i>    
-                                            </button>
-                                    </form>
+                                            </button> --}}
+                                    {{-- </form> --}}
                                 </td>
                             </tr>
                             @endforeach

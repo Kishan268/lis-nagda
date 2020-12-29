@@ -132,6 +132,23 @@
           </div>
         </a>
       </div>      
+
+      <div class="col-xl-3 col-md-6 mb-4">
+      <a href="{{route('pay_regular_fee_index')}}" class="">
+          <div class="card {{Request::url() == route('pay_regular_fee_index') ? 'border-left-success bg-primary text-white' : 'border-left-primary'}} shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold  text-uppercase mb-1">Pay Regular Fees</div>
+                </div>
+                <div class="col-auto">
+                  <i class="fa fa-id-card fa-2x text-gray-300"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>      
      {{--  <div class="col-xl-3 col-md-6 mb-4">
       <a href="#" class="">
           <div class="card {{Request::url() == route('id_card') ? 'border-left-success bg-primary text-white' : 'border-left-primary'}} shadow h-100 py-2">

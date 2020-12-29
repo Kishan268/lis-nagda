@@ -61,9 +61,3 @@
 		@endif
 	</tbody>
 </table>
-<script >
-	$(document).ready(function(){
-		$('.mytable').DataTable();
-
-	})
-</script>

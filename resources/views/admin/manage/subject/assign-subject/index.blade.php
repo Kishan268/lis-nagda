@@ -56,14 +56,17 @@
 		                            </span>
 		                        @enderror
 							</div>	
-							<div class="col-md-3 col-xs-6 col-sm-6 form-group">
-								<label>Select Medium</label>
-								<select class="form-control required" name="medium" id="medium" required="medium">
-									@foreach(MEDIUM as $key=> $value)
-										<option value="{{$key}}" {{$key == 'EM' ? 'selected' : ''}}>{{$value}}</option>
-									@endforeach
-								</select>
-							</div>				
+							 <div class="col-md-3 col-xs-6 col-sm-6 form-group">
+							 	<label class="required">Medium</label>
+		                        <select class="form-control required" name="medium" id="medium_id" required="required">
+		                           
+		                        </select>
+		                        @error('medium')
+		                           <span class="text-danger error">
+		                              <strong>{{$message}}</strong>
+		                           </span>
+		                        @enderror
+		                     </div> 			
 						</div>
 						<div class="row">
 							<div class="col-md-6 form-group">
@@ -117,6 +120,7 @@
 								<td>Class</td>
 								<td>Batch</td>
 								<td>Section</td>
+								<td>Medium</td>
 								<td>Assign Subject</td>           
 							</tr>
 						</thead>
@@ -128,6 +132,7 @@
 									<td>{{$assignSubject->class->class_name}}</td>
 									<td>{{$assignSubject->batch->batch_name}}</td>
 									<td>{{$assignSubject->section->section_name}}</td>
+									<td>{{Arr::get(MEDIUM,$assignSubject->medium)}}</td>
 									<td>	
 										@php $subjects = '' ; @endphp
 					                    @foreach($assignSubject->assign_subjectId as $assignSubjectId)

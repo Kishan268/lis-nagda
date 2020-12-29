@@ -360,8 +360,18 @@ Route::post('gallery-zip-upload','Admin\gallery\GalleryController@galleryZipUplo
 Route::resource('fees','Admin\fees\FeesController');
 Route::get('fees-dashboard','Admin\fees\FeesController@dashboard')->name('fees_dashboard');
 Route::post('fees_student_list','Admin\fees\FeesController@feesSudentList')->name('fees_student_list');
+//fee pay methods
+Route::get('pay_regular_fee','Admin\fees\FeesController@pay_regular_fee_index')->name('pay_regular_fee_index');
+Route::get('pay_regular_fee_show/{id}','Admin\fees\FeesController@pay_regular_fee_show')->name('pay_regular_fee_show');
+Route::post('pay_regular_fee_store','Admin\fees\FeesController@pay_regular_fee_store')->name('pay_regular_fee_store');
 
-Route::post('get-course-batches','Admin\fees\FeesController@getCourseBatches')->name('get_course_batches');
+Route::get('fee_success/{id}','Admin\fees\FeesController@fee_success')->name('fee_success');
+Route::get('reciept_download/{id}','Admin\fees\FeesController@reciept_download')->name('reciept_download');
+
+Route::get('show_transaction_history/{id}','Admin\fees\FeesController@show_transaction_history')->name('show_transaction_history');
+
+Route::post('fee_student_fetch','Admin\fees\FeesController@fee_student_fetch')->name('fee_student_fetch');
+
 
 // fees heads routers.......................................
 Route::resource('fees-heads','Admin\fees\HeadsController');
@@ -389,9 +399,10 @@ Route::post('student/certificate/decline/','Admin\certificate\CertificateControl
 
 
 
-Route::get('batch-fetch/{id}','Admin\classes\ClassesController@batch_fetch')->name('batch-fetch');
+Route::get('batch-fetch/{id?}','Admin\classes\ClassesController@batch_fetch')->name('batch-fetch');
 
-Route::get('section-fetch/{id}/{id1}','Admin\classes\ClassesController@section_fetch')->name('section-fetch');
+Route::get('section-fetch/{id?}/{id1?}','Admin\classes\ClassesController@section_fetch')->name('section-fetch');
+Route::get('medium-fetch/{id?}/{id1?}/{id2?}','Admin\classes\ClassesController@medium_fetch')->name('medium-fetch');
 
 
 Route::get('gallery_test','Admin\gallery\GalleryController@gallery_test')->name('gallery_test');
@@ -410,15 +421,8 @@ Route::Resource('your-profile','Students\ProfileController');
 Route::get('attendence','Students\ProfileController@showAttendence')->name('attendence');
 Route::post('attendence-show','Students\ProfileController@viewAttendence')->name('attendence_show');
 Route::get('your-profile-show','Students\ProfileController@showProfile')->name('show_student_profile');
-Route::get('id-card','Students\ProfileController@getStudentIdCard')->name('id_card');
+Route::get('student-id-card','Students\ProfileController@getStudentIdCard')->name('student_id_card');
 
-
-Route::Resource('certificate-request','Students\CertificateRequestController');
-Route::Resource('your-profile','Students\ProfileController');
-Route::get('attendence','Students\ProfileController@showAttendence')->name('attendence');
-Route::post('attendence-show','Students\ProfileController@viewAttendence')->name('attendence_show');
-Route::get('your-profile-show','Students\ProfileController@showProfile')->name('show_student_profile');
-Route::get('id-card','Students\ProfileController@getStudentIdCard')->name('id_card');
 
 //Route for Transport
     

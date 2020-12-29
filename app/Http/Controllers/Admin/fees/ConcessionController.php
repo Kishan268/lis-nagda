@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\fees\ConcessionMast;
 use App\Models\fees\ConcessionApplyTrans;
-use App\Models\fees\ConcessionStudentTrans;
+use App\Models\fees\ConcessionStudent;
 use App\Models\student\studentsMast;
 use App\Models\master\studentClass;
 use App\Models\master\studentBatch;
@@ -73,7 +73,7 @@ class ConcessionController extends Controller
     }
     public function concessionStudents(Request $request){
 
-        $students = studentsMast::with('studentsGuardiantMast')->where('std_class_id',$request->std_class_id)->where('batch_id',$request->batch_id)->get();
+        $students = studentsMast::with('studentsGuardiantMast')->where('status','R')->where('std_class_id',$request->std_class_id)->where('batch_id',$request->batch_id)->get();
         // dd($students);
             return view('admin.fees.concession.students_table',compact('students'));
     } 
@@ -94,16 +94,16 @@ class ConcessionController extends Controller
         $data['class_id'] = $request->std_class_id;
         $data['batch_id'] = $request->batch_id;
         $data['fees_head_id'] = $request->head_id;
-        $concessionApply = ConcessionApplyTrans::create($data)->id;
+        $concessionApply = ConcessionApplyTrans::create($data)->concession_apply_id;
         // dd($concessionApply);
         foreach ($request->s_id as $key => $value) {
             $students=[
                 'concession_apply_id'=>$concessionApply,
                 's_id'=>$request->s_id[$key],
-                'conssession_id'=>$request->concession ? $request->concession[$key] : '',
+                'concession_id'=>$request->concession ? $request->concession[$key] : '',
                 'consession_amnt'=>$consession_amnt == ""  ? ''  : $consession_amnt[$key]
             ];
-        ConcessionStudentTrans::create($students);
+        ConcessionStudent::create($students);
         }
         return redirect('concession')->with('success','Fess concession apply successfully');
 

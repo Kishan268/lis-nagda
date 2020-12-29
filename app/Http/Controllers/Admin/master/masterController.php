@@ -36,10 +36,9 @@ class masterController extends Controller
 
     public function studentBatches()
     {
-    	$studentBatch = studentBatch::with('class_name')->get();
-        $class = studentClass::get();
-        // dd($studentBatch);
-    		return view('admin.manage.batch.index',compact('studentBatch','class'));
+    	$studentBatch = studentBatch::orderBy('batch_name','desc')->get();
+      
+        return view('admin.manage.batch.index',compact('studentBatch'));
     } 
     public function addBatch(Request $request)
     {
@@ -68,7 +67,7 @@ class masterController extends Controller
 
     public function studentSection()
     {
-    	$studentSection = studentSectionMast::get();
+    	$studentSection = studentSectionMast::orderBy('section_name')->get();
 
     		return view('admin.manage.section.index',compact('studentSection'));
     } 

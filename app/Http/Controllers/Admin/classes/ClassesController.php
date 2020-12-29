@@ -48,7 +48,7 @@ class ClassesController extends Controller
          $batches = studentBatch::get();
          $sections = studentSectionMast::get();
 
-         $sectionList =SectionManage::with('section_names','class_name','batch_name')->where('batch_id',session('current_batch'))->get();
+         $sectionList = SectionManage::with('section_names','class_name','batch_name')->where('batch_id',session('current_batch'))->get();
          
          // return $sectionList;
         return view('admin.manage.section.assign-section.index',compact('classes','sections','batches','sectionList'));
@@ -63,10 +63,11 @@ class ClassesController extends Controller
                     'user_id'   =>Auth::user()->id,
                     'class_id'  =>$course_id,
                     'batch_id'  =>$request->batch_id[$key],
-                    'section_id'=>$request->section_id[$key]
+                    'section_id'=>$request->section_id[$key],
+                    'medium'    =>$request->medium[$key],
                 ];
 
-                $old = SectionManage::where(['section_id' => $data['section_id'], 'class_id' => $data['class_id'], 'batch_id' => $data['batch_id'] ])->first();
+                $old = SectionManage::where(['section_id' => $data['section_id'], 'class_id' => $data['class_id'], 'batch_id' => $data['batch_id'],'medium' => $data['medium']])->first();
                 if(empty($old)){
                     SectionManage::create($data);
                 }
@@ -145,8 +146,11 @@ class ClassesController extends Controller
     public function section_fetch($std_class_id,$batch_id = null){
         return SectionManage::select('id','class_id','batch_id','section_id')->with(['section_names' => function($q){
             $q->select('id','section_name');
-        }])->where(['class_id' => $std_class_id,'batch_id' => $batch_id])->get();
+        }])->where(['class_id' => $std_class_id,'batch_id' => $batch_id])->groupBy('section_id')->get();
 
     }   
+    public function medium_fetch($std_class_id,$batch_id = null,$section_id=null){
+        return SectionManage::select('id','class_id','batch_id','section_id','medium')->where(['class_id' => $std_class_id,'batch_id' => $batch_id,'section_id' => $section_id])->get();
+    }
 
 }

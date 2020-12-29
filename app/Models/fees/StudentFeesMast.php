@@ -9,4 +9,9 @@ class StudentFeesMast extends Model
     protected $table = 'student_fees_mast';
     protected $guarded =[];
     protected $primaryKey = 'std_fees_mast_id';
+
+
+    public function student(){
+    	return $this->belongsTo('App\Models\student\studentsMast','s_id');
+    }
 }

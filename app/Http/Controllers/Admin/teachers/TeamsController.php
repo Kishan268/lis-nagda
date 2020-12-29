@@ -68,7 +68,7 @@ class TeamsController extends Controller
         $team = TeachersTeam::with('class_name')->find($id);
         $usersIds = explode(",",$team['users_id']);
    
-        // $users = Helpers::get_all_users(Auth::user()->id)->get();
+        
         $class = studentClass::get();
 
         $users = User::with('usersDetails')->whereIn('id',$usersIds)->where('status',1)->get();

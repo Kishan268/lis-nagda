@@ -113,7 +113,6 @@
                      <div class="col-md-3 form-group">
                         <label class="required">Course Selection</label>
                         <select class="form-control" name="courseselection" id="course_selection">
-
                            @foreach(COURSE_SELECTION as $key => $course_selection)
                               <option value="{{$key}}" {{$key == old('courseselection') ? 'selected' : ''}}>{{$course_selection}}</option>
                            @endforeach
@@ -177,17 +176,15 @@
                      </div>
                      <div class="col-md-3 col-xs-6 col-sm-6 form-group">
                         <label class="required">Select Medium</label>
-                        <select class="form-control required" name="medium" id="medium" required="medium">
-                           @foreach(MEDIUM as $key=> $value)
-                              <option value="{{$key}}" {{$key == 'EM' ? 'selected' : ''}}>{{$value}}</option>
-                           @endforeach
+                        <select class="form-control" name="medium" id="medium_id" required="required">
+                           
                         </select>
                         @error('medium')
                            <span class="text-danger error">
                               <strong>{{$message}}</strong>
                            </span>
                         @enderror
-                     </div>   
+                     </div>                        
                      <div class="col-md-3 form-group">
                         <label class="required">Select Fee For</label>
                         <select class="form-control" name="feesfor" id="feesfor">
@@ -235,10 +232,8 @@
                      <div class="col-md-6 form-group">
                         <label class="required">Class - Batch - Section - Medium </label>
                         <select class="form-control" multiple="multiple" name="multiple_courses[]">
-                           @foreach(MEDIUM as $key => $medium)
-                              @foreach($section_manages as $section_manage)
-                                 <option value="{{$section_manage->class_name->id.'-'.$section_manage->batch_name->id.'-'.$section_manage->section_names->id.'-'.$key}}">{{$section_manage->class_name->class_name.'---'.$section_manage->batch_name->batch_name.'---'.$section_manage->section_names->section_name.'---'.$key}}</option>
-                              @endforeach
+                           @foreach($section_manages as $section_manage)
+                              <option value="{{$section_manage->class_name->id.'-'.$section_manage->batch_name->id.'-'.$section_manage->section_names->id.'-'.$section_manage->medium}}">{{$section_manage->class_name->class_name.'---'.$section_manage->batch_name->batch_name.'---'.$section_manage->section_names->section_name.'---'.$section_manage->medium}}</option>
                            @endforeach
                         </select>
                         @error('multiple_courses')
@@ -313,8 +308,10 @@ $('label.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;')
          var installable_amnt = 0;
          var non_installable_amnt =0;
          var instalment_amt = 0;
+         var check_head = [];
 
          $('.checkHead:checked').each(function(i){
+            check_head.push($(this).val());
             head_id = $(this).val();
 
             var is_installable = $(this).data('id');
@@ -339,31 +336,33 @@ $('label.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;')
 
          });
 
-         
-         $('#non_installable_amnt').val(non_installable_amnt);
-         $('#installable_amnt').val(installable_amnt);
-         $('#fees_amt').val(fees_amt);
+         if(check_head.length !=0){
+            $('#non_installable_amnt').val(non_installable_amnt);
+            $('#installable_amnt').val(installable_amnt);
+            $('#fees_amt').val(fees_amt.toFixed(2));
 
-         var no_of_instalment = parseInt($('#no_of_instalment').val());
+            var no_of_instalment = parseInt($('#no_of_instalment').val());
 
-         if(installable_amnt !=0){
-            var instalment_amt = parseInt(installable_amnt) / parseInt(no_of_instalment);
-         }
-
-         // console.log(instalment_amt);
-
-
-         for(var i =1 ; i <=no_of_instalment; i++){
-            if(i == 1){
-               var totl_instalment = parseFloat(instalment_amt) + parseFloat(non_installable_amnt);
-               console.log(totl_instalment+'  '+i);
-               $('#instalment_amt_'+i).val(totl_instalment);
-            }else{
-               console.log(i);
-                $('#instalment_amt_'+i).val(instalment_amt);
+            if(installable_amnt !=0){
+               var instalment_amt = (parseInt(installable_amnt) / parseInt(no_of_instalment));
             }
-         }
 
+            // console.log(instalment_amt);
+
+            for(var i =1 ; i <=no_of_instalment; i++){
+               if(i == 1){
+                  var totl_instalment = parseFloat(instalment_amt) + parseFloat(non_installable_amnt);
+                  // console.log(totl_instalment+'  '+i);
+                  // console.log(Math.round(totl_instalment)+1);
+                  $('#instalment_amt_'+i).val(totl_instalment);
+               }else{
+                  // console.log(i);
+                   $('#instalment_amt_'+i).val(instalment_amt);
+               }
+            }
+
+         }
+         
       }
 
       $(document).on('change','#no_of_instalment',function(e){
@@ -398,7 +397,8 @@ $('label.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;')
       });
 
       var course_selection = "{{old('course_selection')}}";
-      if(course_selection !=null){
+      // console.log(course_selection)
+      if(course_selection.length !='0'){
 
          course_selection_change(course_selection);
       }
@@ -426,7 +426,7 @@ $('label.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;')
                var batch_id = $('#batch_id').val();
                var section_id = $('#section_id').val();
                var medium = $('#medium').val();
-               console.log(batch_id);
+               // console.log(batch_id);
                if(batch_id !=null && section_id !=null){
                   var std_class_id = $('#std_class_id').val();
                   $.ajax({

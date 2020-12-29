@@ -10,32 +10,7 @@ use Auth;
 use App\User;
 class AdmissionForm extends Controller
 {
-    /*public function index(){
-         $studentGenders = Helpers::studentGender();
-         $studentBloodGroups    = stdBloodGroup::get();
-         $stdNationality    = stdBloodGroup::get();
-         $mothetongueMast    = mothetongueMast::get();
-         $castCategory    = castCategory::get();
-         $studentReligions    = stdReligions::get();
-         $professtionType    = professtionType::get();
-         $guardianDesignation    = guardianDesignation::get();
-         $country    = countryMast::get();
-         $state    = stateMast::get();
-         $city    = cityMast::get();
-
-    	return view('frontend.Admission.Form.index',compact('studentGenders','studentBloodGroups','stdNationality','mothetongueMast','castCategory','studentReligions','professtionType','guardianDesignation','country','state','city'));
-    }
-    public function getAcadmicState(Request $request){
-        $id =$request->state_id;
-        $getState = stateMast::where('id', $id)->get();
-            return response()->json($getState);
-    } 
-    public function getAcadmicCountry(Request $request){
-         $id = $request->country_id;
-         $getCountry = countryMast::where('id', $id)->get();
-            return response()->json($getCountry);
-    }*/
-
+    
     public function admissionInquiryForm(Request $request){
     	$data = $request->validate([
 					'your_name'=>'required',

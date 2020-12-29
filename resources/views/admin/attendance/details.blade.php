@@ -35,17 +35,15 @@
 		@enderror
 	</div>
 	<div class="col-md-3 col-xs-6 col-sm-6 form-group">
-		<select class="form-control required" name="medium" id="medium" required="medium">
-			@foreach(MEDIUM as $key=> $value)
-				<option value="{{$key}}" {{$key == (old('medium') ?? 'EM') ? 'selected' : ''}}>{{$value}}</option>
-			@endforeach
+		<select class="form-control required" name="medium" id="medium_id" >
+			
 		</select>
 		@error('medium')
 			<span class="text-danger" role="alert">
 			<strong>{{ $message }}</strong>
 			</span>
 		@enderror
-	</div>	
+	</div>
 	<div class="col-md-3">
 		<input type="text" readonly="" name="attendance_date" value="{{old('attendance_date') ?? date('Y-m')}}" class="datepicker1 form-control">
 		@error('attendance_date')

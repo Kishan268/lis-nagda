@@ -19,4 +19,10 @@ class FeesMast extends Model
     public function fees_instalments(){
     	return  $this->hasMany('App\Models\fees\FeesInstalment','fees_id','fees_id');
     }
+    public function class(){
+    	return $this->belongsTo('App\Models\master\studentClass','std_class_id');
+    }
+    public function section(){
+    	return $this->belongsTo('App\Models\master\studentSectionMast','section_id');
+    }
 }

@@ -8,6 +8,8 @@ class studentsMast extends Model
 {
     protected $table = 'students_masts';
     protected $guarded =[];
+    protected $with =['studentsGuardiantMast'];
+
 
     public function student_batch(){
     	 return $this->belongsTo('App\Models\master\studentBatch', 'batch_id');
@@ -50,7 +52,7 @@ class studentsMast extends Model
     }  
 
     public function studentsGuardiantMast(){
-    	 return $this->hasMany('App\Models\student\studentsGuardiantMast', 's_id');
+    	 return $this->hasMany('App\Models\student\studentsGuardiantMast', 's_id')->orderBy('relation_id','asc');
     } 
    	public function p_country(){
     	 return $this->belongsTo('App\Models\master\countryMast', 'p_country_id');

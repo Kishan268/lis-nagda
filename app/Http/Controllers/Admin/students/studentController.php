@@ -62,7 +62,7 @@ class studentController extends Controller
          $this->studentMothertongues  = mothetongueMast::get();
          $this->professtionType       = professtionType::get();
          $this->guardianDesignation   = guardianDesignation::get();
-         $this->studentGenders        = Helpers::studentGender();
+       
          $this->studentsGuardiantDetails = studentsGuardiantMast::get();
 
     }

@@ -26,7 +26,7 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        $subject = Subject::get();
+        $subject = Subject::orderBy('subject_sequence')->get();
         return view('admin.manage.subject.index',compact('subject'));
     }
 

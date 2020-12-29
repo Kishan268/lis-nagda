@@ -42,12 +42,10 @@
 							</select>
 						</div>
 						<div class="col-md-3 col-xs-6 col-sm-6 form-group">
-							<select class="form-control required" name="medium" id="medium" required="medium">
-								@foreach(MEDIUM as $key=> $value)
-									<option value="{{$key}}" {{$key == 'EM' ? 'selected' : ''}}>{{$value}}</option>
-								@endforeach
+							<select class="form-control required" name="medium" id="medium_id" required="medium">
+								
 							</select>
-						</div>	
+						</div>
 						<div class="col-md-3">
 							<input type="text" readonly="" name="attendance_date" value="{{date('Y-m-d')}}" class="datepicker form-control">
 							@error('attendance_date')

@@ -32,12 +32,10 @@
 							</select>
 						</div>
 						<div class="col-md-3 col-xs-6 col-sm-6 form-group">
-							<select class="form-control required" name="medium" id="medium" required="medium">
-								@foreach(MEDIUM as $key=> $value)
-									<option value="{{$key}}" {{$key == 'EM' ? 'selected' : ''}}>{{$value}}</option>
-								@endforeach
-							</select>
-						</div>	
+                            <select class="form-control required" name="medium" id="medium_id" required="medium" autocomplete="off">
+                              
+                            </select>                            
+                        </div>
 						<div class="col-md-2 form-group">
 							<select class="form-control" name="status" id="status">
 								<option value="">Select Status</option>

@@ -51,5 +51,14 @@
  		</div>
  	</div>
  </div>
-
+@if($message = Session::get('success'))
+	<script >
+	$(document).ready(function(){	
+		swal({
+          text: "{{$message}}",
+          icon : 'success',
+        });
+       });
+	</script>	
+@endif
 @endsection

@@ -58,6 +58,20 @@
                                 </span>
                             @enderror
                         </div>
+
+                        <div class="col-md-3 col-xs-6 col-sm-6 form-group">
+                            <label class="required">Select Medium</label>
+                            <select class="form-control required" name="medium[]" id="medium" multiple="multiple" autocomplete="off">
+                                @foreach(MEDIUM as $key=> $value)
+                                    <option value="{{$key}}" {{$key == old('medium') ? 'selected' : ''}}>{{$value}}</option>
+                                @endforeach
+                            </select>
+                            @error('medium')
+                                <span class="text-danger">
+                                    <strong>{{$message}}</strong>
+                                </span>
+                            @enderror
+                        </div>      
                         
                         <div class="col-md-3 col-lg-3 col-sm-12 form-group">
                             <button class="btn btn-sm btn-primary mt-2" id="btnFilter">Show Selected List</button>
@@ -72,6 +86,7 @@
                                         <th>Class Name</th>
                                         <th>Batch Name</th>
                                         <th>Section Name</th>                                        
+                                        <th>Medium Name</th>                                        
                                     </tr>
                                 </thead>
                                 <tbody class="sectionTBody">
@@ -101,6 +116,7 @@
                             <th>Class Name</th>
                             <th>Batch Name</th>
                             <th>Section Name</th>
+                            <th>Medium Name</th>
                             {{-- <th>Action</th> --}}
                           </tr>
                         </thead>
@@ -111,6 +127,7 @@
                             <td>{{$sectionLists->class_name->class_name}}</td>
                             <td>{{$sectionLists->batch_name->batch_name}}</td>
                             <td>{{$sectionLists->section_names->section_name}}</td>
+                            <td>{{Arr::get(MEDIUM,$sectionLists->medium)}}</td>
                          {{--    <td>
                               <form action="{{route('delete_section_list',$sectionLists->id)}}" method="post">
                                @csrf
@@ -135,6 +152,7 @@ $(document).ready(function(){
         var  std_class_name = [];
         var  batch_name = [];
         var  section_name = [];
+        var  medium = [];
 
         $("#std_class_id option:selected").each(function () {
              std_class_name.push($(this));
@@ -147,13 +165,18 @@ $(document).ready(function(){
         $("#section_id option:selected").each(function () {
              section_name.push($(this));
         });
+        $("#medium option:selected").each(function () {
+             medium.push($(this));
+        });
 
-        if(std_class_name.length !='0' && batch_name.length !='0' && section_name.length !='0'){
+        if(std_class_name.length !='0' && batch_name.length !='0' && section_name.length !='0' && medium.length !='0'){
             var html ='';
             for(var i = 0; i < std_class_name.length; i++){
                 for(var j = 0; j < batch_name.length; j++){
                     for(var k = 0; k < section_name.length; k++){
-                        html += '<tr id="row"><td>'+std_class_name[i].text()+ '<input type="hidden" name="t_class_id" value="'+std_class_name[i].val()+'" /></td><td>'+batch_name[j].text()+'<input type="hidden" name="t_batch_id" value="'+batch_name[j].val()+'" /></td><td>'+section_name[k].text()+'<input type="hidden" name="t_section_id" value="'+section_name[k].val()+'" /></td></tr>';
+                        for(var l = 0; l < medium.length; l++){
+                            html += '<tr id="row"><td>'+std_class_name[i].text()+ '<input type="hidden" name="t_class_id" value="'+std_class_name[i].val()+'" /></td><td>'+batch_name[j].text()+'<input type="hidden" name="t_batch_id" value="'+batch_name[j].val()+'" /></td><td>'+section_name[k].text()+'<input type="hidden" name="t_section_id" value="'+section_name[k].val()+'" /></td><td>'+medium[l].text()+'<input type="hidden" name="t_medium" value="'+medium[l].val()+'" /></td></tr>';
+                        }
                     }
                 }  
             }
@@ -170,6 +193,7 @@ $(document).ready(function(){
         var course = [];
         var batch = [];
         var section_id = [];
+        var medium = [];
 
         $("input[name='t_class_id']").each(function () {
              course.push($(this).val());
@@ -182,43 +206,49 @@ $(document).ready(function(){
         $("input[name='t_section_id']").each(function () {
              section_id.push($(this).val());
         });
+        $("input[name='t_medium']").each(function () {
+             medium.push($(this).val());
+        });
 
-        swal({
-            title: "Are you sure?",
-            text: "Make Sure you add section. If you are not sure then close this pop up window",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-        .then((isConfirm) => {
-            if (isConfirm) {
+        // console.log(medium);
 
-            $.ajax({
-                  type: "POST",
-                  url: "{{route('add_section_list')}}",
-                  data: {
-                      course_id: course,
-                      batch_id : batch,
-                      section_id :section_id,
-                      "_token": "{{ csrf_token() }}"
-                  },
-                  success: function(data){
-                    console.log(data)
-                    swal({
-                      icon:'success',
-                      title: data,
-                      button: true,
-                    }).then((ok)=> {
-                      if(ok){
-                        location.reload();
+            swal({
+                title: "Are you sure?",
+                text: "Make Sure you add section. If you are not sure then close this pop up window",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((isConfirm) => {
+                if (isConfirm) {
+
+                $.ajax({
+                      type: "POST",
+                      url: "{{route('add_section_list')}}",
+                      data: {
+                          course_id: course,
+                          batch_id : batch,
+                          section_id :section_id,
+                          medium :medium,
+                          "_token": "{{ csrf_token() }}"
+                      },
+                      success: function(data){
+                        console.log(data)
+                        swal({
+                          icon:'success',
+                          title: data,
+                          button: true,
+                        }).then((ok)=> {
+                          if(ok){
+                            location.reload();
+                          }
+                        });
+                             
+                          
                       }
-                    });
-                         
-                      
-                  }
-                })
-            }
-        })
+                    })
+                }
+            })
            
         });
 
