@@ -1,16 +1,10 @@
-@extends('layouts.main')
+	@extends('layouts.main')
 @section('content')
 <div class="container">
 	<div  class="row mb-4">
 		<div class="col-sm-12">@include('admin.fees.header')</div>
 	</div>
- 	<div class="app-title col-md-4">
-		 @if($message = Session::get('error'))   
-		      <div class="alert alert-danger">
-		       {{ $message }}
-		      </div>
-		 @endif
-	</div>
+ 	
 	<div class="row mb-4"> 
 		<div class="col-sm-12">
 			<div class="card">
@@ -45,13 +39,13 @@
 								</select>
 							</div>
 							<div class="col-md-6 col-xs-6 col-sm-6 form-group">
-								<select class="form-control  " name="concession[]" id="concession"  multiple="">
-									<option value="">Select Concession</option>
+								<select class="form-control  " name="concession_id[]" id="concession"  multiple="" required="">
+									<option value="0" disabled="disabled">Select Concession</option>
 									@foreach($concession as $key=> $concessions)
-										<option class="concession" value="{{$concessions->concession_id}}" data-consession_amnt={{$concessions->consession_amnt}}>{{$concessions->name}}  | {{(int)$concessions->consession_amnt}} | {{$concessions->discount == 1 ? 'Flat'  :( $concessions->discount == 2 ? '%' : '')}}</option>
+										<option class="concession" value="{{$concessions->concession_id}}" >{{$concessions->name}}  | {{(int)$concessions->concession_amnt}} | {{$concessions->discount == 1 ? 'Flat'  :( $concessions->discount == 2 ? '%' : '')}}</option>
 									@endforeach
 								</select>
-								<input type="hidden" name="consession_amnt" value="" id="consession_amnt">
+								{{-- <input type="hidden" name="concession_amnt" value="" id="concession_amnt"> --}}
 							</div>	
 						</div>
 						<div class="row">
@@ -70,7 +64,15 @@
 
  <script >
 
+
+
  	$(document).ready(function(){
+
+ 		@if($message = Session::get('error'))
+	 		$.notify("{{$message}}");
+	 	@endif
+ 		
+
  		$('label.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;');
 
  		$('#std_class_id').on('change',function(){
@@ -97,23 +99,23 @@
  				url:'{{route('concession.student')}}',
  				data:{head_id:head_id,std_class_id:std_class_id,batch_id:batch_id,"_token": "{{ csrf_token() }}"},
  				success:function(res){
-                    
+                    // console.log(res)
 			        $("#students_table").html(res)
                  }
  			});
  		});
- 		$('.concession').on('click',function(){
+ 		// $('.concession').on('click',function(){
 
-			var consession_amnt = [];
-            var i = 0;
-			$('.concession:selected').each(function() {
-				consession_amnt[i++] = $(this).attr('data-consession_amnt');
-			});
-			$('#consession_amnt').val(consession_amnt)
-			alert(consession_amnt)		
- 		});
+			// var concession_amnt = [];
+   //          var i = 0;
+			// $('.concession:selected').each(function() {
+			// 	concession_amnt[i++] = $(this).attr('data-concession_amnt');
+			// });
+			// $('#concession_amnt').val(concession_amnt)
+			// alert(concession_amnt)		
+ 		// });
 
- 	
+
  	})	
  </script>
 

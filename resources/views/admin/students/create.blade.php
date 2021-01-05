@@ -452,7 +452,10 @@
 														    @endforeach
 														</select>
 													</div>
-													
+												 <div class="col-md-3 form-group pt-4"> 
+							                        <input type="checkbox" value="1" name="is_fees_assign" id="is_fees_assign" checked=""> 
+							                        Is Fees Assign 							                        
+							                     </div>
 
 												</div>
 									        </section>

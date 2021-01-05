@@ -11,13 +11,11 @@
 		@php $count = 0; @endphp
 		@foreach($students as $student)
 		<tr>
-			<th><input type="checkbox" name="s_id[]" class="selectAll" value="{{$student->id}}" {{$student->id == $student->concession_student['s_id'] ? "checked disabled"  :'sdfds'}} ></th>
+			<th><input type="checkbox" name="s_id[]" class="selectAll" value="{{$student->id}}" {{count($student_ids) != 0 ? (!empty(collect($student_ids)->where('s_id',$student->id)->first()) ? 'checked="checked" disabled="disabled"' : '') : ''}} ></th>
 
 			<td>{{ $student->admision_no }}</td>
 			<td>{{ student_name($student) }}</td>
-			<td>@foreach( $student->studentsGuardiantMast as $guardiant )
-				{{ $guardiant->id == 1 ? $guardiant->g_name  : ($guardiant->id == 2 ? $guardiant->g_name :'')}}
-			@endforeach</td>
+			<td>{{student_first_guardian($student)['relation'] .' '.student_first_guardian($student)['name'] }}</td>
 			
 		</tr>
 		@endforeach

@@ -27,6 +27,8 @@ use App\Models\transport\BusFeeStructure;
 use Arr;
 use Str;
 use App\Models\classes\SectionManage;
+
+
 class FeesController extends Controller
 {
     /**
@@ -80,7 +82,7 @@ class FeesController extends Controller
 
             $request->validate([
                 'fees_name'     => 'required',
-                'fees_amt'      => 'required|not_in:0'             
+                'fees_amnt'      => 'required|not_in:0'             
 
             ]);
 
@@ -101,7 +103,7 @@ class FeesController extends Controller
 
             $fees_mast = [
                 'fees_name'             => $request->fees_name,
-                'fees_amt'              => $request->fees_amt,
+                'fees_amnt'             => $request->fees_amnt,
                 'receipt_head_id'       => $request->receipt_head_id,
                 'currency_code'         => $request->currency_code,
                 'no_of_instalment'      => $request->no_of_instalment,
@@ -141,7 +143,7 @@ class FeesController extends Controller
                 foreach ($request->fees_head as $key => $fee_head) {
                     $fees_heads = [
                         'fees_head_id'  => $fee_head,
-                        'head_amt'      => $request->head_amnt[$key],
+                        'head_amnt'      => $request->head_amnt[$key],
                         'fees_id'       => $fees->fees_id,
                         // 'fees_id'       => '1'
                     ];
@@ -169,7 +171,7 @@ class FeesController extends Controller
                 $fees_inst = [
                     'fees_id'       => $fees->fees_id,
                     // 'fees_id'       => '1',
-                    'instalment_amt'=> $request->instalment_amt[$i],
+                    'instalment_amnt'=> $request->instalment_amnt[$i],
                     'start_dt'      => $request->start_dt[$i],
                     'end_dt'        => $request->end_dt[$i]
                 ];
@@ -179,7 +181,7 @@ class FeesController extends Controller
 
 
             if($request->is_fees_student_assign == '1'){
-                    $students = studentsMast::select('id','gender','dob','staff_ward','staff_id','bus_fee_id','age','std_class_id','batch_id');
+                    $students = studentsMast::select('id','gender','dob','staff_ward','staff_id','bus_fee_id','age','std_class_id','batch_id','medium','section_id');
 
                     if($request->courseselection == '1'){
                             if($request->feesfor !='1'){
@@ -207,247 +209,248 @@ class FeesController extends Controller
                         $students = $students->where(['gender' => $request->gender,'reservation_class_id' => $request->reservation_class_id]);
 
                     }   
-                                      
 
                     $students = $students->get();
 
                     foreach ($students as $student) {
-                        $dob  = $student->dob;
-                        $gender  = $student->gender;
-                        $no  = '';
+                     // return $students;             
+                        student_fee_assign($student);
+                        // $dob  = $student->dob;
+                        // $gender  = $student->gender;
+                        // $no  = '';
                       
-                        //concession fetch
-                        if($is_fee_discount == '1'){
-                            $concession_applies  = ConcessionApplyTrans::where(['class_id'=>$student->std_class_id,'batch_id'=>$student->batch_id])->whereIn('fees_head_id',$request->fees_head)->whereHas('concession_students',function($q)use($student){
-                            $q->where('s_id',$student->id);
-                            })->with('concession_students')->get();
+                        // //concession fetch
+                        // if($is_fee_discount == '1'){
+                        //     $concession_applies  = ConcessionApplyTrans::where(['class_id'=>$student->std_class_id,'batch_id'=>$student->batch_id])->whereIn('fees_head_id',$request->fees_head)->whereHas('concession_students',function($q)use($student){
+                        //     $q->where('s_id',$student->id);
+                        //     })->with('concession_students')->get();
 
-                            $concession_amnt = 0;
-                            $concession_detl = [];
-                            foreach ($concession_applies as $concession_apply) {                          
-                                foreach ($concession_apply->concession_students as $concession_student) {
-                                    $concession_amnt = $concession_student->concession_amnt + $concession_amnt;
-                                }
+                        //     $concession_amnt = 0;
+                        //     $concession_detl = [];
+                        //     foreach ($concession_applies as $concession_apply) {                          
+                        //         foreach ($concession_apply->concession_students as $concession_student) {
+                        //             $concession_amnt = $concession_student->concession_amnt + $concession_amnt;
+                        //         }
 
-                                $concession_detl[] = [
-                                    'fees_head_id' => $concession_apply->fees_head_id,
-                                    'concession_amnt' => $concession_amnt,
-                                ];
-                            }
-                        }else{
-                            $concession_amnt = 0;
-                            $concession_detl = [];
-                        }
+                        //         $concession_detl[] = [
+                        //             'fees_head_id' => $concession_apply->fees_head_id,
+                        //             'concession_amnt' => $concession_amnt,
+                        //         ];
+                        //     }
+                        // }else{
+                        //     $concession_amnt = 0;
+                        //     $concession_detl = [];
+                        // }
                     
 
 
 
-                    //discount variables
-                        $discount_mode = null;
-                        $discount_amnt = null; 
-                        $discount_code = null;
-                        $bus_fee_str = [];
-                        $student_fee_inst = [];
-                        $student_fee_head = [];
+                        // //discount variables
+                        // $discount_mode = null;
+                        // $discount_amnt = null; 
+                        // $discount_code = null;
+                        // $bus_fee_str = [];
+                        // $student_fee_inst = [];
+                        // $student_fee_head = [];
 
-                        $student_fee = [
-                            'fees_id'               => $fees->fees_id,
-                            // 'fees_id'               => '1',
-                            's_id'                  => $student->id,
-                            'fees_amnt'             => $request->fees_amt,
-                            'status'                => isset($request->status) ? $request->status : 'P',
-                            'online_discount'       => $request->online_discount,
-                            'installable_amnt'      => $installable_amnt,
-                            'non_installable_amnt'  => $non_installable_amnt,
-                            'fine_amnt'             => 0,
-                            'date'                  => date('Y-m-d'),
-                            'hostel_amnt'           => 0,
-                            'concession_amnt'       => $concession_amnt
+                        // $student_fee = [
+                        //     'fees_id'               => $fees->fees_id,
+                        //     // 'fees_id'               => '1',
+                        //     's_id'                  => $student->id,
+                        //     'fees_amnt'             => $request->fees_amnt,
+                        //     'status'                => isset($request->status) ? $request->status : 'P',
+                        //     'online_discount'       => $request->online_discount,
+                        //     'installable_amnt'      => $installable_amnt,
+                        //     'non_installable_amnt'  => $non_installable_amnt,
+                        //     'fine_amnt'             => 0,
+                        //     'date'                  => date('Y-m-d'),
+                        //     'hostel_amnt'           => 0,
+                        //     'concession_amnt'       => $concession_amnt
                             
-                        ];
-                        // $sibling_dicount  = 0;
+                        // ];
+                        // // $sibling_dicount  = 0;
 
-                        //Sibling Dicount Fetch     
-                        //When student in teacher so we cant't find student siblings details
-                        if($is_fee_discount == '1'){
-                            if($student->staff_ward != '1'){              
-                                if(count($student->siblings) !='0'){
-                                    $dates[] = $dob;  
-                                    foreach ($student->siblings as $std_sib) {
-                                        $dates[] = $std_sib->sibling_detail->dob;
-                                    }
+                        // //Sibling Dicount Fetch     
+                        // //When student in teacher so we cant't find student siblings details
+                        // if($is_fee_discount == '1'){
+                        //     if($student->staff_ward != '1'){              
+                        //         if(count($student->siblings) !='0'){
+                        //             $dates[] = $dob;  
+                        //             foreach ($student->siblings as $std_sib) {
+                        //                 $dates[] = $std_sib->sibling_detail->dob;
+                        //             }
                           
-                                    foreach ($dates as $date) {
-                                        $a[] = strtotime($date);
-                                    }
+                        //             foreach ($dates as $date) {
+                        //                 $a[] = strtotime($date);
+                        //             }
                                    
-                                    asort($a);
+                        //             asort($a);
 
-                                    foreach ($a as $value) {
-                                        $b[] = date('Y-m-d',$value);
-                                    }
-                                    foreach ($b as $key => $value) {
-                                        if($value == $dob){
-                                            $no = $key+1;
-                                        }
-                                    }
-                                    $no = $no == '1' ? '2' : $no;
+                        //             foreach ($a as $value) {
+                        //                 $b[] = date('Y-m-d',$value);
+                        //             }
+                        //             foreach ($b as $key => $value) {
+                        //                 if($value == $dob){
+                        //                     $no = $key+1;
+                        //                 }
+                        //             }
+                        //             $no = $no == '1' ? '2' : $no;
                                     
 
-                                    $discount = Discounts::select('discount_code','discount_mode','discount_amnt')->where(['discount_no_type' => $no,'gender' => $gender,'discount_type_id' => '1','batch_id' => session('current_batch'),'status' => 'A'])->first();
+                        //             $discount = Discounts::select('discount_code','discount_mode','discount_amnt')->where(['discount_no_type' => $no,'gender' => $gender,'discount_type_id' => '1','batch_id' => session('current_batch'),'status' => 'A'])->first();
 
-                                        $discount_code =  $discount->discount_code;
-                                        $discount_amnt =  $discount->discount_amnt;
-                                        $discount_mode =  $discount->discount_mode;    
+                        //                 $discount_code =  $discount->discount_code;
+                        //                 $discount_amnt =  $discount->discount_amnt;
+                        //                 $discount_mode =  $discount->discount_mode;    
                                                               
-                                }
+                        //         }
 
-                            }else{    
+                        //     }else{    
 
-                                $discount = Discounts::select('discount_code','discount_mode','discount_amnt')->where(['discount_no_type' => '1','discount_type_id' => '2','batch_id' => session('current_batch'),'status' => 'A'])->first();
+                        //         $discount = Discounts::select('discount_code','discount_mode','discount_amnt')->where(['discount_no_type' => '1','discount_type_id' => '2','batch_id' => session('current_batch'),'status' => 'A'])->first();
 
-                                $discount_code =  $discount->discount_code;
-                                $discount_amnt =  $discount->discount_amnt;
-                                $discount_mode =  $discount->discount_mode;
-                            }
+                        //         $discount_code =  $discount->discount_code;
+                        //         $discount_amnt =  $discount->discount_amnt;
+                        //         $discount_mode =  $discount->discount_mode;
+                        //     }
 
                         
-                            if($discount_mode !=null){
-                                if($discount_mode ='P'){                                  
-                                   $discount_amnt = $student_fee['discount_amnt'] = ((int)$installable_amnt * $discount->discount_amnt) / 100;
-                                }else{
-                                    $discount_amnt = $student_fee['discount_amnt'] = $discount->discount_amnt;
-                                }
-                            }
-                        }
+                        //     if($discount_mode !=null){
+                        //         if($discount_mode ='P'){                                  
+                        //            $discount_amnt = $student_fee['discount_amnt'] = ((int)$installable_amnt * $discount->discount_amnt) / 100;
+                        //         }else{
+                        //             $discount_amnt = $student_fee['discount_amnt'] = $discount->discount_amnt;
+                        //         }
+                        //     }
+                        // }
 
 
 
-                        if($student->bus_fee_id !=null){
-                            $bus_fee_str = BusFeeStructure::find($student->bus_fee_id);
-                            $student_fee['bus_amnt'] = $bus_fee_str->bus_fee_amount;
+                        // if($student->bus_fee_id !=null){
+                        //     $bus_fee_str = BusFeeStructure::find($student->bus_fee_id);
+                        //     $student_fee['bus_amnt'] = $bus_fee_str->bus_fee_amount;
 
-                        }else{
-                            $student_fee['bus_amnt'] =0;
-                        }
+                        // }else{
+                        //     $student_fee['bus_amnt'] =0;
+                        // }
 
 
-                        $bus_amnt = !empty($bus_fee_str)  !=0 ? (float)$bus_fee_str->bus_fee_amount : 0;
+                        // $bus_amnt = !empty($bus_fee_str)  !=0 ? (float)$bus_fee_str->bus_fee_amount : 0;
 
-                        $hostel_amnt = 0;
+                        // $hostel_amnt = 0;
 
-                        $total_amnt = ((int)$request->fees_amt + (float)$bus_amnt - (float)$discount_amnt); 
+                        // $total_amnt = ((int)$request->fees_amnt + (float)$bus_amnt - (float)$discount_amnt); 
 
-                        $student_fee['total_amnt']  = $total_amnt;
-                        $student_fee['due_amnt']    = $total_amnt;
-                        $student_fee['batch_id']    = $fees->batch_id;    
-                        $std_fees_mast =  StudentFeesMast::create($student_fee);
+                        // $student_fee['total_amnt']  = $total_amnt;
+                        // $student_fee['due_amnt']    = $total_amnt;
+                        // $student_fee['batch_id']    = $fees->batch_id;    
+                        // $std_fees_mast =  StudentFeesMast::create($student_fee);
 
-                        $instalment_amt = ((float)$installable_amnt / (int)$no_of_instalment);
-                        $inst_bus_amnt = (float)$bus_amnt / (int)$no_of_instalment; 
-                        $inst_hostel_amnt = (float)$hostel_amnt / (int)$no_of_instalment; 
-                        $inst_discount_amnt = $discount_amnt !=0 ? ((float)$discount_amnt / $no_of_instalment) : 0;
-                        $inst_concession_amnt = $concession_amnt !=0 ? ((float)$concession_amnt / $no_of_instalment) : 0;
+                        // $instalment_amnt = ((float)$installable_amnt / (int)$no_of_instalment);
+                        // $inst_bus_amnt = (float)$bus_amnt / (int)$no_of_instalment; 
+                        // $inst_hostel_amnt = (float)$hostel_amnt / (int)$no_of_instalment; 
+                        // $inst_discount_amnt = $discount_amnt !=0 ? ((float)$discount_amnt / $no_of_instalment) : 0;
+                        // $inst_concession_amnt = $concession_amnt !=0 ? ((float)$concession_amnt / $no_of_instalment) : 0;
 
-                        for($m= 0 ; $m < $no_of_instalment ; $m++){
-                            $inst_amnt = 0;
-                            if($m == 0){
-                                $inst_amnt = (float)$instalment_amt + (float)$non_installable_amnt; 
-                            }else{
-                                $inst_amnt = $instalment_amt;
-                            }
+                        // for($m= 0 ; $m < $no_of_instalment ; $m++){
+                        //     $inst_amnt = 0;
+                        //     if($m == 0){
+                        //         $inst_amnt = (float)$instalment_amnt + (float)$non_installable_amnt; 
+                        //     }else{
+                        //         $inst_amnt = $instalment_amnt;
+                        //     }
 
-                            $inst_title = str_replace(' ','_',$request->fees_name).'_('.(Arr::get(MEDIUM,$request->medium)).')_'.$batch_name.'_inst_'.date('M',strtotime($request->start_dt[$m])).'-'.date('M',strtotime($request->end_dt[$m]));
+                        //     $inst_title = str_replace(' ','_',$request->fees_name).'_('.(Arr::get(MEDIUM,$request->medium)).')_'.$batch_name.'_inst_'.date('M',strtotime($request->start_dt[$m])).'-'.date('M',strtotime($request->end_dt[$m]));
 
-                            $inst_total_amnt = (float)$inst_amnt + (float)$inst_bus_amnt - (float)$inst_discount_amnt - (float)$inst_concession_amnt;
+                        //     $inst_total_amnt = (float)$inst_amnt + (float)$inst_bus_amnt - (float)$inst_discount_amnt - (float)$inst_concession_amnt;
 
-                            $student_fee_inst = [
-                                's_id'                  => $student->id,
-                                'inst_title'            => $inst_title,
-                                // 'std_fees_mast_id'      => '1',
-                                'std_fees_mast_id'      => $std_fees_mast->std_fees_mast_id,
-                                'inst_amnt'             => $inst_amnt,
-                                'inst_concession_amnt'  => $inst_concession_amnt, 
-                                'inst_discount_amnt'    => $inst_discount_amnt,
-                                'inst_due_date'         => $request->end_dt[$m],
-                                'inst_status'           => isset($request->status) ? $request->status : 'P',
-                                'inst_bus_amnt'         => $inst_bus_amnt,
-                                'inst_total_amnt'       => $inst_total_amnt,
-                                'inst_due_amnt'         => $inst_total_amnt,
-                                'inst_hostel_amnt'      => $inst_hostel_amnt,
-                            ];
+                        //     $student_fee_inst = [
+                        //         's_id'                  => $student->id,
+                        //         'inst_title'            => $inst_title,
+                        //         // 'std_fees_mast_id'      => '1',
+                        //         'std_fees_mast_id'      => $std_fees_mast->std_fees_mast_id,
+                        //         'inst_amnt'             => $inst_amnt,
+                        //         'inst_concession_amnt'  => $inst_concession_amnt, 
+                        //         'inst_discount_amnt'    => $inst_discount_amnt,
+                        //         'inst_due_date'         => $request->end_dt[$m],
+                        //         'inst_status'           => isset($request->status) ? $request->status : 'P',
+                        //         'inst_bus_amnt'         => $inst_bus_amnt,
+                        //         'inst_total_amnt'       => $inst_total_amnt,
+                        //         'inst_due_amnt'         => $inst_total_amnt,
+                        //         'inst_hostel_amnt'      => $inst_hostel_amnt,
+                        //     ];
 
-                            $std_fee_inst  = StudentFeeInstalment::create($student_fee_inst);
+                        //     $std_fee_inst  = StudentFeeInstalment::create($student_fee_inst);
                               
-                                foreach ($request->fees_head as $k => $fees_head_id) {
-                                    // return $fees_head_id;
+                        //         foreach ($request->fees_head as $k => $fees_head_id) {
+                        //             // return $fees_head_id;
 
-                                    $fee_head_dtl = FeesHeadMast::find($fees_head_id);
+                        //             $fee_head_dtl = FeesHeadMast::find($fees_head_id);
 
-                                    $fee_head_concession_amnt = count($concession_detl) !=0 ? (!empty(collect($concession_detl)->where('fees_head_id',$fees_head_id)->first()) ? collect($concession_detl)->where('fees_head_id',$fees_head_id)->first()['concession_amnt'] : 0)  : 0;
+                        //             $fee_head_concession_amnt = count($concession_detl) !=0 ? (!empty(collect($concession_detl)->where('fees_head_id',$fees_head_id)->first()) ? collect($concession_detl)->where('fees_head_id',$fees_head_id)->first()['concession_amnt'] : 0)  : 0;
 
-                                    if($fee_head_dtl->is_installable == '1'){
-                                        $fee_head_amnt = (float)$request->head_amnt[$k] / (int)$no_of_instalment;
-                                        $fee_head_discount = $inst_discount_amnt;
-                                        $fee_head_concession_amnt = (float)$fee_head_concession_amnt / (int)$no_of_instalment;
-                                    }else{
-                                        $fee_head_amnt = $request->head_amnt[$k];
-                                        $fee_head_discount = 0;
-                                        $fee_head_concession_amnt = $fee_head_concession_amnt;
-                                    }
-                                    // return $fee_head_concession_amnt;
-                                    $fee_head_total_amnt = (float)$fee_head_amnt - (float)$fee_head_discount - (float)$fee_head_concession_amnt;
+                        //             if($fee_head_dtl->is_installable == '1'){
+                        //                 $fee_head_amnt = (float)$request->head_amnt[$k] / (int)$no_of_instalment;
+                        //                 $fee_head_discount = $inst_discount_amnt;
+                        //                 $fee_head_concession_amnt = (float)$fee_head_concession_amnt / (int)$no_of_instalment;
+                        //             }else{
+                        //                 $fee_head_amnt = $request->head_amnt[$k];
+                        //                 $fee_head_discount = 0;
+                        //                 $fee_head_concession_amnt = $fee_head_concession_amnt;
+                        //             }
+                        //             // return $fee_head_concession_amnt;
+                        //             $fee_head_total_amnt = (float)$fee_head_amnt - (float)$fee_head_discount - (float)$fee_head_concession_amnt;
                                        
 
-                                    if($m == 0){                                        
-                                        $student_fee_head = [
-                                            'std_fee_inst_id'         => $std_fee_inst->std_fee_inst_id,
-                                            // 'std_fee_inst_id'         => '1',
-                                            's_id'                    => $student->id,
-                                            'fee_head_amnt'           => $fee_head_amnt,
-                                            'fee_head_name'           => $fee_head_dtl->head_name,   
-                                            'fee_head_concession_amnt'=> $fee_head_concession_amnt,
-                                            'fee_head_total_amnt'     => $fee_head_total_amnt,
-                                            'fee_head_due_amnt'       => $fee_head_total_amnt,  
-                                            'fee_head_discount'       => $fee_head_discount,  
+                        //             if($m == 0){                                        
+                        //                 $student_fee_head = [
+                        //                     'std_fee_inst_id'         => $std_fee_inst->std_fee_inst_id,
+                        //                     // 'std_fee_inst_id'         => '1',
+                        //                     's_id'                    => $student->id,
+                        //                     'fee_head_amnt'           => $fee_head_amnt,
+                        //                     'fee_head_name'           => $fee_head_dtl->head_name,   
+                        //                     'fee_head_concession_amnt'=> $fee_head_concession_amnt,
+                        //                     'fee_head_total_amnt'     => $fee_head_total_amnt,
+                        //                     'fee_head_due_amnt'       => $fee_head_total_amnt,  
+                        //                     'fee_head_discount'       => $fee_head_discount,  
 
-                                        ];
-                                        StudentFeeHead::create($student_fee_head);
-                                    }
-                                    else{
-                                        if($fee_head_dtl->is_installable == '1'){
-                                            $student_fee_head = [
-                                                'std_fee_inst_id'         => $std_fee_inst->std_fee_inst_id,
-                                                // 'std_fee_inst_id'         => '1',
-                                                's_id'                    => $student->id,
-                                                'fee_head_amnt'           => $fee_head_amnt,
-                                                'fee_head_name'           => $fee_head_dtl->head_name,   
-                                                'fee_head_concession_amnt'=> $fee_head_concession_amnt,
-                                                'fee_head_total_amnt'     => $fee_head_total_amnt,
-                                                'fee_head_due_amnt'       => $fee_head_total_amnt,  
-                                                'fee_head_discount'       => $fee_head_discount,  
+                        //                 ];
+                        //                 StudentFeeHead::create($student_fee_head);
+                        //             }
+                        //             else{
+                        //                 if($fee_head_dtl->is_installable == '1'){
+                        //                     $student_fee_head = [
+                        //                         'std_fee_inst_id'         => $std_fee_inst->std_fee_inst_id,
+                        //                         // 'std_fee_inst_id'         => '1',
+                        //                         's_id'                    => $student->id,
+                        //                         'fee_head_amnt'           => $fee_head_amnt,
+                        //                         'fee_head_name'           => $fee_head_dtl->head_name,   
+                        //                         'fee_head_concession_amnt'=> $fee_head_concession_amnt,
+                        //                         'fee_head_total_amnt'     => $fee_head_total_amnt,
+                        //                         'fee_head_due_amnt'       => $fee_head_total_amnt,  
+                        //                         'fee_head_discount'       => $fee_head_discount,  
 
-                                            ];
-                                            StudentFeeHead::create($student_fee_head);
-                                        }
-                                    }
+                        //                     ];
+                        //                     StudentFeeHead::create($student_fee_head);
+                        //                 }
+                        //             }
 
-                                }
-                                if(!empty($bus_fee_str) !=0){
-                                     $student_fee_head = [
-                                        'std_fee_inst_id'         => $std_fee_inst->std_fee_inst_id,
-                                        // 'std_fee_inst_id'         => '1',
-                                        's_id'                    => $student->id,
-                                        'fee_head_amnt'           => $inst_bus_amnt,
-                                        'fee_head_name'           => 'Bus Fees',   
-                                        'fee_head_concession_amnt'=> 0,
-                                        'fee_head_total_amnt'     => $inst_bus_amnt,
-                                        'fee_head_due_amnt'       => $inst_bus_amnt,  
-                                        'fee_head_discount'       => 0,  
-                                    ];
-                                    StudentFeeHead::create($student_fee_head);
-                               }
-                        }
+                        //         }
+                        //         if(!empty($bus_fee_str) !=0){
+                        //              $student_fee_head = [
+                        //                 'std_fee_inst_id'         => $std_fee_inst->std_fee_inst_id,
+                        //                 // 'std_fee_inst_id'         => '1',
+                        //                 's_id'                    => $student->id,
+                        //                 'fee_head_amnt'           => $inst_bus_amnt,
+                        //                 'fee_head_name'           => 'Bus Fees',   
+                        //                 'fee_head_concession_amnt'=> 0,
+                        //                 'fee_head_total_amnt'     => $inst_bus_amnt,
+                        //                 'fee_head_due_amnt'       => $inst_bus_amnt,  
+                        //                 'fee_head_discount'       => 0,  
+                        //             ];
+                        //             StudentFeeHead::create($student_fee_head);
+                        //        }
+                        // }
 
                                 // return $student_fee_head;
 
@@ -579,6 +582,9 @@ class FeesController extends Controller
         if($request->std_class_id !=''){
             $where['std_class_id']  = $request->std_class_id;           
         }
+        $where['batch_id'] = session('current_batch');
+        // return $where;
+
 
         $fee_students =  StudentFeesMast::where('batch_id',session('current_batch'))->whereHas('student',function($q)use($where){
             count($where)  !=0 ? $q->where($where) : $q->where('admision_no','test'); 

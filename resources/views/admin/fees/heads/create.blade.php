@@ -28,8 +28,8 @@
 							
 							<div class="col-md-3 form-group">
 								<label for="feeheader" class="required">Fees Amount</label>
-								<input class="form-control onlyDigit" id="head_amt" name="head_amt" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required="required">
-								@error('head_amt')
+								<input class="form-control onlyDigit" id="head_amnt" name="head_amnt" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required="required">
+								@error('head_amnt')
 		                          <span class="text-danger">
 		                            <strong>{{$message}}</strong>
 		                          </span>

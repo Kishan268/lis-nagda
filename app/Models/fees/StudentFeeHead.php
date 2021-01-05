@@ -14,4 +14,8 @@ class StudentFeeHead extends Model
     public function fee_instalment(){
     	return $this->belongsTo('App\Models\fees\StudentFeeInstalment','std_fee_inst_id');
     }
+
+    public function fee_head_mast(){
+    	return $this->belongsTo('App\Models\fees\FeesHeadMast','fees_head_id','fees_head_id');
+    }
 }

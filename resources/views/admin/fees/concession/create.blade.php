@@ -42,9 +42,9 @@
 							</div>
 							
 							<div class="col-md-6 form-group">
-								<label for="consession_amnt" class="required"> Amount</label>
-								<input class="form-control onlyDigit" id="consession_amnt" name="consession_amnt" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required="required">
-								@error('consession_amnt')
+								<label for="concession_amnt" class="required"> Amount</label>
+								<input class="form-control onlyDigit" id="concession_amnt" name="concession_amnt" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required="required">
+								@error('concession_amnt')
 		                          <span class="text-danger">
 		                            <strong>{{$message}}</strong>
 		                          </span>

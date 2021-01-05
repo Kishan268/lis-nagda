@@ -5,15 +5,7 @@
  		<div class="col-md-12">
  			@include('admin.fees.header')
  		</div>
- 	</div>
- 	<div class="app-title col-md-4">
-	    @if($message = Session::get('success'))   
-	      <div class="alert alert-success">
-	       {{ $message }}
-	      </div>
-	    @endif 
-	   
-  	</div>
+ 	</div> 
  	<div class="row mb-4">
  		<div class="col-md-12">
  			<div class="card">
@@ -40,9 +32,9 @@
 								<td>{{$count++}}</td>
 								<td>{{$concessions->name}}</td>
 								<td>{{$concessions->conses_desc}}</td>
-								<td>{{(int)$concessions->consession_amnt}} - {{$concessions->discount !=null ? Arr::get(ConcessionDiscount,$concessions->discount) : ''}}</td>
+								<td>{{(int)$concessions->concession_amnt}} - {{$concessions->discount !=null ? Arr::get(ConcessionDiscount,$concessions->discount) : ''}}</td>
 								<td>
-									<a href="{{route('concession.show', $concessions->concession_id)}}" ><i class="  fa fa-eye text-green" style="font-size: 16px;">Show Applied Students List</i></a></span></td>
+									<a href="{{route('concession.show', $concessions->concession_id)}}" ><i class="  fa fa-eye text-green" style="font-size: 16px;"> Show Applied Students List</i></a></span></td>
 							</tr>
 							@endforeach
 						</tbody>
@@ -52,5 +44,11 @@
  		</div>
  	</div>
  </div>
-
+<script> 
+	$(document).ready(function(){
+ 		@if($message = Session::get('success'))
+	 		$.notify("{{$message}}",'success');
+	 	@endif
+	});
+</script>
 @endsection

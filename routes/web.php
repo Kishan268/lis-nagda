@@ -248,6 +248,7 @@ Route::post('import-student', 'Admin\students\UserImportExportController@importS
 Route::post('import-student-batch-section-wise', 'Admin\students\UserImportExportController@importStudent')->name('import_student_batch_section_wise');
 
 Route::get('export-all-student', 'Admin\students\UserImportExportController@exportAllStudent')->name('export_all_student');
+
 Route::get('download-student-sample', 'Admin\students\UserImportExportController@downloadStudentSample')->name('download_student_sample');
 Route::get('export-students-class-section-and-batch-wise', 'Admin\students\UserImportExportController@exportclassSectionBatchWise')->name('export_student_class_section_batch_wise');
 //batch wise export....................................

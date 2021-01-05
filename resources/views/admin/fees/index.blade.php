@@ -30,7 +30,7 @@
 							@foreach($fees as $fee)
 							<tr>
 								<td>{{$fee->fees_name}}</td>
-								<td>{{$fee->fees_amt}}</td>
+								<td>{{$fee->fees_amnt}}</td>
 								<td>{{$fee->courseselection == 1 ? 'Multiple Courses' : 'Single Course'}}</td>
 								<td>{{$fee->courseselection == 2 ? 'Multiple' : $fee->batch->batch_name }}</td>					
 								<td><div class="btn-group">

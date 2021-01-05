@@ -47,7 +47,7 @@ class HeadsController extends Controller
 
         $data = [
             'head_name'             => $request->head_name,
-            'head_amt'              => $request->head_amt,
+            'head_amnt'             => $request->head_amnt,
             'headtype'              => $request->headtype,
             'head_sequence_order'   => $request->head_sequence_order,
             'refundable'            => $request->refundable !=null ? $request->refundable :'0',
@@ -61,7 +61,7 @@ class HeadsController extends Controller
 
 
         // $data['name'] = $request->head_name;
-        // $data['amount'] = $request->head_amt;
+        // $data['amount'] = $request->head_amnt;
         // $data['head_type'] = $request->headtype;
         // $data['head_sq_no'] = $request->head_sequence_order;
         // $data['refundable_status'] = $request->refundable;

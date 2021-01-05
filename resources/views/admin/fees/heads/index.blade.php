@@ -30,7 +30,7 @@
 							@foreach($fees_heads as $fees_head)
 							<tr>
 								<td>{{$fees_head->head_name}}</td>
-								<td>{{$fees_head->head_amt}}</td>
+								<td>{{$fees_head->head_amnt}}</td>
 								<td>{{$fees_head->batch->batch_name}}</td>
 								
 								<td>{{Arr::get(HEAD_TYPES,$fees_head->headtype)}}</td>

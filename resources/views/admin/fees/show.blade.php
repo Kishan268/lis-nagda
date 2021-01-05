@@ -31,9 +31,9 @@
 							   <div class="input-group-prepend">
 							   <span class="input-group-text" id="basic-addon1"><i class="fa fa-rupee"></i></span>
 							   </div>
-							   <input class="form-control" readonly="readonly" value="{{$fee->fees_amt}}">
+							   <input class="form-control" readonly="readonly" value="{{$fee->fees_amnt}}">
 							</div>
-							@error('fees_amt')
+							@error('fees_amnt')
 							   <span class="text-danger error">
 							      <strong>{{$message}}</strong>
 							   </span>
@@ -68,7 +68,7 @@
 									
 									<td>{{$fee_head->fees_head->head_name}}</td>
 									<td>{{$fee_head->fees_head->is_installable =='1' ? 'Yes' :'No'}}</td> 
-									<td class="form-group"><input type="text" name="" class="form-control head_amt" readonly="readonly" value="{{$fee_head->head_amt}}" >                                      
+									<td class="form-group"><input type="text" name="" class="form-control head_amnt" readonly="readonly" value="{{$fee_head->head_amnt}}" >                                      
 									</td>
 								</tr>
 								@endforeach
@@ -86,7 +86,7 @@
                  			</div> --}}
 							<div class="col-md-4 form-group" id="instal_one"> 
 								<label class="required">Instalment Amount</label>
-								<input type="text" readonly="readonly" class="form-control instalment_amt" value="{{$fees_instalment->instalment_amt}}">
+								<input type="text" readonly="readonly" class="form-control instalment_amt" value="{{$fees_instalment->instalment_amnt}}">
 							</div>
 							<div class="col-md-4">
 								<label class="required">Start Date</label>
@@ -162,7 +162,8 @@
 							   <input class="form-control" id="online_discount" name="online_discount" type="text" value="{{$fee->online_discount}}" readonly="readonly">
 							</div>
 						</div>
-
+					</div>
+					<div class="row">
 						<div class="col-md-3 form-group pt-4">  
 							<input type="checkbox"  disabled="disabled" {{$fee->refundable =='1' ? 'checked="checked"' : ''}}> 
 							Is Fees Refundable 
@@ -172,6 +173,10 @@
 							Is Fees Student Assign 
 
 						</div>
+						 <div class="col-md-3 form-group pt-4"> 
+	                        <input type="checkbox" value="1" name="is_fee_discount" id="is_fee_discount" {{$fee->is_fee_discount =='1' ? 'checked="checked"' : ''}} disabled="disabled"> 
+	                        Is Fees Discount Assign 
+	                     </div>
                   	</div>
  				</div>
  			</div>

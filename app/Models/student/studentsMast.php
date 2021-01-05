@@ -94,7 +94,7 @@ class studentsMast extends Model
         return $this->belongsTo('App\Models\setting\Settings','user_id','user_id');
     }
     public function sibling_admission(){
-        return $this->hasMany('App\Models\student\studentSiblings','s_id','id');
+        return $this->hasMany('App\Models\student\StudentSiblings','s_id','id');
     }
     public function staff_detail(){
         return $this->belongsTo('App\Models\hrms\EmployeeMast','staff_id');

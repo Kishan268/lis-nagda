@@ -77,7 +77,7 @@
 																	<input type="hidden" name="std_fee_head_id[]" class="std_fee_head_id_{{$student_fee_instalment->std_fee_inst_id}}" id="{{$fee_head->std_fee_head_id}}">
 																</td>
 																<td>{{round($fee_head->fee_head_amnt,2)}}
-																	<input type="hidden" name="total_amnt[]" value="{{$fee_head->fee_head_due_amnt}}" autocomplete="off" class="total_amnt_{{$student_fee_instalment->std_fee_inst_id}}">
+																	<input type="hidden" name="total_amnt[]" value="{{$fee_head->fee_head_amnt}}" autocomplete="off" class="total_amnt_{{$student_fee_instalment->std_fee_inst_id}}">
 																</td>
 																<td>{{$fee_head->fee_head_fine_amnt}}
 																	<input type="hidden" name="fine_amnt[]" value="{{$fee_head->fee_head_fine_amnt}}" autocomplete="off" class="fine_amnt_{{$student_fee_instalment->std_fee_inst_id}}">

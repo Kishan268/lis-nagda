@@ -274,7 +274,7 @@
 				   		url: "{{route('forward_transfer_student')}}",
 				   		data:{status:status,stud_id:stud_id,forwardClass:forwardClass,forwardSection:forwardSection,forwardBatch:forwardBatch,"_token": "{{ csrf_token() }}"},
 				   		success:function(res){
-				   			// console.log(res);
+				   			console.log(res);
 
 				   			if(res.status == 'success'){
 				   				swal({
@@ -324,15 +324,15 @@
 				   		data:{dropout_date:dropout_date,stud_id:stud_id,"_token": "{{ csrf_token() }}"},
 				   		success:function(res){
 				   			 //console.log(res);
-				   			swal({
-				   				icon:'success',
-				   				title: res,
-				   				button: true,
-				   			}).then((ok)=> {
-				   				if(ok){
-				   					location.reload();
-				   				}
-				   			});
+				   			// swal({
+				   			// 	icon:'success',
+				   			// 	title: res,
+				   			// 	button: true,
+				   			// }).then((ok)=> {
+				   			// 	if(ok){
+				   			// 		location.reload();
+				   			// 	}
+				   			// });
 				   		}
 				   	});
 				  } 

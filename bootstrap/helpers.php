@@ -4,6 +4,15 @@ use App\Models\hrms\EmployeeMast;
 
 use App\Models\AcademicCalendar;
 
+use App\Models\fees\FeesMast;
+use App\Models\fees\FeesHeadMast;
+use App\Models\fees\StudentFeeHead;
+use App\Models\fees\StudentFeeInstalment;
+use App\Models\fees\StudentFeesMast;
+use App\Models\fees\ConcessionApplyTrans;
+use App\Models\master\Discounts;
+use App\Models\transport\BusFeeStructure;
+
 const SCHOOLNAME = 'Lakshya International School';
 const SCHOOL_ADDRESS = 'Khachrod Jaora Road Junction, Nagda Junction (M.P.)';
 const SCHOOL_PHONE = '+91:-78798-22222';
@@ -367,4 +376,279 @@ if(!function_exists('displaywords')){
         }
 
       }
+}
+
+if(!function_exists('student_fee_assign')){
+  function student_fee_assign($student){
+    // return $student;
+     $fees  = FeesMast::with(['fees_heads','fees_instalments'])->where(['std_class_id' => $student->std_class_id,'batch_id' => $student->batch_id,'section_id' => $student->section_id, 'medium' => $student->medium])->first();
+
+      if(!empty($fees)){ 
+
+          $fees_head_ids = collect($fees->fees_heads)->pluck('fees_head_id');
+          $status = 'P';
+
+          $is_fee_discount        = $fees->is_fee_discount;
+          $installable_amnt       = $fees->installable_amnt;
+          $non_installable_amnt   = $fees->non_installable_amnt;
+          $online_discount        = $fees->online_discount;
+          $fees_amnt              = $fees->fees_amnt;
+          $no_of_instalment       = $fees->no_of_instalment;
+          $batch_name             = studentBatch::find($fees->batch_id)->batch_name;
+
+          // return $fees;
+          if($fees->is_fees_student_assign == '1'){
+      
+              $dob  = $student->dob;
+              $gender  = $student->gender;
+              $no  = '';
+                        
+              //concession fetch
+              if($is_fee_discount == '1'){
+                  $concession_applies  = ConcessionApplyTrans::where(['class_id'=>$student->std_class_id,'batch_id'=>$student->batch_id])->whereIn('fees_head_id',$fees_head_ids)->whereHas('concession_students',function($q)use($student){
+                  $q->where('s_id',$student->id);
+                  })->with('concession_students')->get();
+
+                  $concession_amnt = 0;
+                  $concession_detl = [];
+                  foreach ($concession_applies as $concession_apply) {                          
+                      foreach ($concession_apply->concession_students as $concession_student) {
+                          $concession_amnt = $concession_student->concession_amnt + $concession_amnt;
+                      }
+
+                      $concession_detl[] = [
+                          'fees_head_id' => $concession_apply->fees_head_id,
+                          'concession_amnt' => $concession_amnt,
+                      ];
+                  }
+              }else{
+                  $concession_amnt = 0;
+                  $concession_detl = [];
+              }
+
+              // return $concession_amnt;
+
+              //START discount variables
+                  $discount_mode = null;
+                  $discount_amnt = null; 
+                  $discount_code = null;
+              //END
+
+              $bus_fee_str = [];
+              $student_fee_inst = [];
+              $student_fee_head = [];
+
+              $student_fee = [
+                  'fees_id'               => $fees->fees_id,
+                  // 'fees_id'               => '1',
+                  's_id'                  => $student->id,
+                  'fees_amnt'             => $fees_amnt,
+                  'status'                => $status,
+                  'online_discount'       => $online_discount,
+                  'installable_amnt'      => $installable_amnt,
+                  'non_installable_amnt'  => $non_installable_amnt,
+                  'fine_amnt'             => 0,
+                  'date'                  => date('Y-m-d'),
+                  'hostel_amnt'           => 0,
+                  'concession_amnt'       => $concession_amnt
+                  
+              ];
+              // return $student_fee;
+
+              // $sibling_dicount  = 0;
+
+              //Sibling Dicount Fetch     
+              //When student in teacher so we cant't find student siblings details
+              if($is_fee_discount == '1'){
+                  if($student->staff_ward != '1'){              
+                      if(count($student->siblings) !='0'){
+                          $dates[] = $dob;  
+                          foreach ($student->siblings as $std_sib) {
+                              $dates[] = $std_sib->sibling_detail->dob;
+                          }
+                
+                          foreach ($dates as $date) {
+                              $a[] = strtotime($date);
+                          }
+                         
+                          asort($a);
+
+                          foreach ($a as $value) {
+                              $b[] = date('Y-m-d',$value);
+                          }
+                          foreach ($b as $key => $value) {
+                              if($value == $dob){
+                                  $no = $key+1;
+                              }
+                          }
+                          $no = $no == '1' ? '2' : $no;
+                          
+
+                          $discount = Discounts::select('discount_code','discount_mode','discount_amnt')->where(['discount_no_type' => $no,'gender' => $gender,'discount_type_id' => '1','batch_id' => session('current_batch'),'status' => 'A'])->first();
+
+                              $discount_code =  $discount->discount_code;
+                              $discount_amnt =  $discount->discount_amnt;
+                              $discount_mode =  $discount->discount_mode;    
+                                                    
+                      }
+
+                  }else{    
+
+                      $discount = Discounts::select('discount_code','discount_mode','discount_amnt')->where(['discount_no_type' => '1','discount_type_id' => '2','batch_id' => session('current_batch'),'status' => 'A'])->first();
+
+                      $discount_code =  $discount->discount_code;
+                      $discount_amnt =  $discount->discount_amnt;
+                      $discount_mode =  $discount->discount_mode;
+                  }
+
+              
+                  if($discount_mode !=null){
+                      if($discount_mode ='P'){                                  
+                         $discount_amnt = $student_fee['discount_amnt'] = ((int)$installable_amnt * $discount->discount_amnt) / 100;
+                      }else{
+                          $discount_amnt = $student_fee['discount_amnt'] = $discount->discount_amnt;
+                      }
+                      $student_fee['discount_mode'] = $discount->discount_mode;
+                      $student_fee['discount_code'] = $discount->discount_code;
+                  }
+              }
+
+
+              if($student->bus_fee_id !=null){
+                  $bus_fee_str = BusFeeStructure::find($student->bus_fee_id);
+                  $student_fee['bus_amnt'] = $bus_fee_str->bus_fee_amount;
+
+              }else{
+                  $student_fee['bus_amnt'] =0;
+              }
+
+
+              $bus_amnt = !empty($bus_fee_str)  !=0 ? (float)$bus_fee_str->bus_fee_amount : 0;
+
+              $hostel_amnt = 0;
+
+              $total_amnt = ((int)$fees_amnt + (float)$bus_amnt - (float)$discount_amnt) - (float)$concession_amnt; 
+              
+
+              $student_fee['total_amnt']  = $total_amnt;
+              $student_fee['due_amnt']    = $total_amnt;
+              $student_fee['batch_id']    = $fees->batch_id;  
+
+              // return $student_fee; 
+              $std_fees_mast =  StudentFeesMast::create($student_fee);
+
+              $instalment_amnt = ((float)$installable_amnt / (int)$no_of_instalment);
+              $inst_bus_amnt  = (float)$bus_amnt / (int)$no_of_instalment; 
+              $inst_hostel_amnt = (float)$hostel_amnt / (int)$no_of_instalment; 
+              $inst_discount_amnt = $discount_amnt !=0 ? ((float)$discount_amnt / $no_of_instalment) : 0;
+              $inst_concession_amnt = $concession_amnt !=0 ? ((float)$concession_amnt / $no_of_instalment) : 0;
+
+
+              //return $inst_concession_amnt;
+
+              foreach ($fees->fees_instalments as $m => $fees_instalment) {
+                  $inst_amnt = $fees_instalment->instalment_amnt; 
+
+                  $inst_title = str_replace(' ','_',$fees->fees_name).'_('.(Arr::get(MEDIUM,$fees->medium)).')_'.$batch_name.'_inst_'.date('M',strtotime($fees_instalment->start_dt)).'-'.date('M',strtotime($fees_instalment->end_dt));
+
+
+                  $inst_total_amnt = (float)$inst_amnt + (float)$inst_bus_amnt - (float)$inst_discount_amnt - (float)$inst_concession_amnt;
+
+                  $student_fee_inst = [
+                      's_id'                  => $student->id,
+                      'inst_title'            => $inst_title,
+                      // 'std_fees_mast_id'      => '1',
+                      'std_fees_mast_id'      => $std_fees_mast->std_fees_mast_id,
+                      'inst_amnt'             => $inst_amnt,
+                      'inst_concession_amnt'  => $inst_concession_amnt, 
+                      'inst_discount_amnt'    => $inst_discount_amnt,
+                      'inst_due_date'         => $fees_instalment->end_dt,
+                      'inst_status'           => $status,
+                      'inst_bus_amnt'         => $inst_bus_amnt,
+                      'inst_total_amnt'       => $inst_total_amnt,
+                      'inst_due_amnt'         => $inst_total_amnt,
+                      'inst_hostel_amnt'      => $inst_hostel_amnt,
+                  ];
+
+                  $std_fee_inst  = StudentFeeInstalment::create($student_fee_inst);
+
+                  foreach ($fees->fees_heads as $fee_head) {
+                      $fee_head_dtl = FeesHeadMast::find($fee_head->fees_head_id);
+                      // return $fee_head_dtl;
+                      $fee_head_concession_amnt = count($concession_detl) !=0 ? (!empty(collect($concession_detl)->where('fees_head_id',$fee_head->fees_head_id)->first()) ? collect($concession_detl)->where('fees_head_id',$fee_head->fees_head_id)->first()['concession_amnt'] : 0)  : 0;
+                      
+                      if($fee_head_dtl->is_installable == '1'){
+                          $fee_head_amnt = (float)$fee_head->head_amnt / (int)$no_of_instalment;
+                          $fee_head_discount = $inst_discount_amnt;
+                          $fee_head_concession_amnt = (float)$fee_head_concession_amnt / (int)$no_of_instalment;
+                      }else{
+                          $fee_head_amnt = $fee_head->head_amnt;
+                          $fee_head_discount = 0;
+                          $fee_head_concession_amnt = $fee_head_concession_amnt;
+                      }
+
+                      $fee_head_total_amnt = (float)$fee_head_amnt - (float)$fee_head_discount - (float)$fee_head_concession_amnt;
+
+                      // return $fee_head_amnt;                    
+
+
+                      // return $fee_head_concession_amnt;
+                         
+
+                      if($m == 0){                                        
+                          $student_fee_head = [
+                              'std_fee_inst_id'         => $std_fee_inst->std_fee_inst_id,
+                              // 'std_fee_inst_id'         => '1',
+                              's_id'                    => $student->id,
+                              'fee_head_amnt'           => $fee_head_amnt,
+                              'fee_head_name'           => $fee_head_dtl->head_name,   
+                              'fees_head_id'            => $fee_head_dtl->fees_head_id,   
+                              'fee_head_concession_amnt'=> $fee_head_concession_amnt,
+                              'fee_head_total_amnt'     => $fee_head_total_amnt,
+                              'fee_head_due_amnt'       => $fee_head_total_amnt,  
+                              'fee_head_discount'       => $fee_head_discount,  
+
+                          ];
+                          StudentFeeHead::create($student_fee_head);
+                      }
+                      else{
+                          if($fee_head_dtl->is_installable == '1'){
+                              $student_fee_head = [
+                                  'std_fee_inst_id'         => $std_fee_inst->std_fee_inst_id,
+                                  // 'std_fee_inst_id'         => '1',
+                                  's_id'                    => $student->id,
+                                  'fee_head_amnt'           => $fee_head_amnt,
+                                  'fee_head_name'           => $fee_head_dtl->head_name,   
+                                  'fees_head_id'            => $fee_head_dtl->fees_head_id, 
+                                  'fee_head_concession_amnt'=> $fee_head_concession_amnt,
+                                  'fee_head_total_amnt'     => $fee_head_total_amnt,
+                                  'fee_head_due_amnt'       => $fee_head_total_amnt,  
+                                  'fee_head_discount'       => $fee_head_discount,  
+
+                              ];
+                              StudentFeeHead::create($student_fee_head);
+                          }
+                      }
+
+                  }
+
+                   if(!empty($bus_fee_str) !=0){
+                       $student_fee_head = [
+                          'std_fee_inst_id'         => $std_fee_inst->std_fee_inst_id,
+                          's_id'                    => $student->id,
+                          'fee_head_amnt'           => $inst_bus_amnt,
+                          'fee_head_name'           => 'Bus Fees',   
+                          'fee_head_concession_amnt'=> 0,
+                          'fee_head_total_amnt'     => $inst_bus_amnt,
+                          'fee_head_due_amnt'       => $inst_bus_amnt,  
+                          'fee_head_discount'       => 0,  
+                      ];
+                      StudentFeeHead::create($student_fee_head);
+                  }
+              }
+              
+          }
+      }
+
+  }
 }

@@ -14,4 +14,9 @@ class StudentFeesMast extends Model
     public function student(){
     	return $this->belongsTo('App\Models\student\studentsMast','s_id');
     }
+
+    public function student_instalments(){
+    	return $this->hasMany('App\Models\fees\StudentFeeInstalment','std_fees_mast_id','std_fees_mast_id');
+    }
+
 }

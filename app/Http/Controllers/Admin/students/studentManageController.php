@@ -16,6 +16,8 @@ class studentManageController extends Controller
 
 	public function forwardTranferStudent(Request $request){
 
+        // return $request->all();
+
         $students = studentsMast::whereIn('id',$request->stud_id)->get();
         $std_class_id   = $request->forwardClass;
         $batch_id       = $request->forwardBatch;
@@ -66,6 +68,11 @@ class studentManageController extends Controller
     			'forward_date'   => $forward_date,
     		];
     		$student->update($data);
+
+            if($student->is_fees_assign){
+                student_fee_assign($student);
+            }
+
     	}
 
 
