@@ -107,6 +107,10 @@ Route::get('/prnpriview','Admin\students\IdCardController@prnpriview');
     // Start Users Conroller 
 
     Route::resource('/users', 'ACL\UserController');
+
+    Route::get('/users/assign-role/{id}', 'ACL\UserController@assign_role')->name('users.assign_role');
+    Route::get('/users/assign-permission/{id}', 'ACL\UserController@assign_permission')->name('users.assign_permission');
+
     Route::get('/destroy/{id}', 'ACL\UserController@destroy')->name('destroy');
     Route::post('/changes_role','ACL\UserController@changesRole')->name('changesRole');
 

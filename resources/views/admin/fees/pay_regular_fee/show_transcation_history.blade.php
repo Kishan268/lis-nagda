@@ -44,7 +44,7 @@
 	 							</thead>
 	 							<tbody>
 	 								@php  
-	 									$paid_amount = 0;
+	 									$paid_amount = 0.01;
 	 									$total_amount = 0;
 	 									$concession_amnt = 0;
 	 									$discount_amnt = 0;

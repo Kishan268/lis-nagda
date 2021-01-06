@@ -453,6 +453,7 @@ $(document).ready(function(){
 
 			$('.payable_amnt').empty().html(payable_amnt.toFixed(2));
 			$('input[name="cash_amount"]').val(payable_amnt);
+			$('input[name="cash_amount"]').attr('readonly','true');
 		}
 		
 
@@ -619,7 +620,7 @@ $(document).ready(function(){
 									
 									window.setTimeout(function() {
 										window.location.href = "{{url('fee_success/')}}/"+res;
-									}, 5000);
+									}, 3000);
 
 								// }
 							}

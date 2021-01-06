@@ -29,9 +29,9 @@
 								<tr>
 									<td>
 										<input type="checkbox" name="staff_id[]"  class="check" value="{{$user->id}}" 
-											@if(!empty($attendance_teacher))
-											@foreach($attendance_teacher as $attendance_teachers)
-												@if($attendance_teachers->staff_id == $user->id)
+											@if(!empty($attendance_teachers))
+											@foreach($attendance_teachers as $attendance_teacher)
+												@if($attendance_teacher->staff_id == $user->id)
 													checked="checked" 
 												@endif
 											@endforeach
@@ -41,10 +41,10 @@
 									</td>
 									<td>{{$user->name}}</td>
 									<td>
-										@if(!empty($attendance_staffs))
-										@foreach($attendance_teacher as $attendance_teachers)
-											@if($attendance_teachers->staff_id == $user->id)
-												{{$attendance_staff->present}}
+										@if(!empty($attendance_teachers))
+										@foreach($attendance_teachers as $attendance_teacher)
+											@if($attendance_teacher->staff_id == $user->id)
+												{{$attendance_teacher->present}}
 											@endif
 										@endforeach
 									@endif
@@ -93,7 +93,7 @@
 			});
 			$.ajax({
 				type: 'post',
-				url: '{{route('attendance-staff_submit')}}',
+				url: '{{route('attendance-teacher_submit')}}',
 				data:{present:present,total:total,"_token": "{{ csrf_token() }}"},
 				success:function(res){
 					if(res == 'success'){

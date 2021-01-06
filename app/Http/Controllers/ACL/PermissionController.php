@@ -41,13 +41,15 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate(['name' => 'required']);
-        $data['created_at'] = date("Y-m-d H:i:s");  
-        $name = $request->name;
+        $data = $request->validate([
+            'name' => 'required',
+            'display_name' => 'required',
+            'description'  => 'nullable'
+        ]);
 
-        $role = Permission::create(['name' => $name]);
+        Permission::create($data);
         // return redirect('admin');
-        return redirect()->back();
+        return redirect()->back()->with('success','Permission created successfully.');
 
     }
 

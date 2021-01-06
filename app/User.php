@@ -45,7 +45,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\team\TeachersTeam','id','users_id');
     }
      public function attendances(){
-        return $this->hasMany('App\Models\StaffAttendance','staff_id');
+        return $this->hasMany('App\Models\TeacherAttendance','staff_id');
     }
     public function city(){
         return $this->belongsTo('App\Models\master\cityMast','city_id');
