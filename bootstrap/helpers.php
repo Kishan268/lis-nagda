@@ -160,6 +160,35 @@ const INSTALMENT_MODE = [
 	// 12 => '12 Instalments',
 ];
 
+//For Certificate types created by kishan
+const CERTIFICATE = [
+  '1' => 'Transfer Certificate',
+  '2' => 'School Leaving Certificate',
+  '3' => 'Other' 
+];
+//For Employees types created by kishan
+
+const EMP_TYPE = [
+  'T' => 'Teacher',
+  'H' => 'HR',
+  'A' => 'Accountant',
+  'E' => 'Staff Member' 
+];
+//For QUALIFICATION_NAMES  created by kishan
+
+const QUALIFICATION_NAMES = [
+  '1' => 'Diploma',
+  '2' => 'Under Graduate',
+  '3' => 'Master', 
+  '4' => 'PHD' 
+];
+const ConcessionDiscount = [
+  '1' => 'Flat Rate',
+  '2' => 'In Percent'
+];
+
+
+//Function Start
 
 if(!function_exists('batches')){
 	function batches(){
@@ -174,29 +203,25 @@ if (!function_exists('student_name')) {
      
     }
 }
+
 if (!function_exists('student_first_guardian')) {
     function student_first_guardian($student){
         
-        if($student->studentsGuardiantMast !=null){
-            $relation = (Arr::get(GUARDIAN_RELATION,$student->studentsGuardiantMast[0]['relation_id'])) .' Name : ';
-            $name = $student->studentsGuardiantMast[0]['g_name'];
+      if($student->studentsGuardiantMast !=null){
+          $relation = (Arr::get(GUARDIAN_RELATION,$student->studentsGuardiantMast[0]['relation_id'])) .' Name : ';
+          $name = $student->studentsGuardiantMast[0]['g_name'];
 
-        }else{
-            $relation = 'Father/Guardian';
-            $name = 'Johan Doe';
-        }
+      }else{
+          $relation = 'Father/Guardian';
+          $name = 'Johan Doe';
+      }
 
 
-        return [
-          'relation' => $relation,
-          'name' => $name,
+      return [
+        'relation' => $relation,
+        'name' => $name,
 
-        ];
-     
-
-    	// return $student->studentsGuardiantMast !=null ? (Arr::get(GUARDIAN_RELATION,$student->studentsGuardiantMast[0]['relation_id'])) .' Name : '. $student->studentsGuardiantMast[0]['g_name'] : '';
-
-     
+      ];     
     }
 }
 
@@ -207,14 +232,13 @@ if (!function_exists('file_upload')) {
                Storage::delete('public/'.$data->$field_name);
             }
         }
-// dd($file);
+
         $name =  time().'_'.$file->getClientOriginalName();
         $file->storeAs('public/'.date('Y').'/'.date('M').'/'.$folder, $name);
         $path = date('Y').'/'.date('M').'/'.$folder.'/'.$name;
         return $path;
     }
 }
-
 
 if(!function_exists('file_name')){
     function file_name($docs){
@@ -255,6 +279,7 @@ if(!function_exists('get_teachers')){
         return EmployeeMast::where('emp_type','T')->orderBy('name')->get();
     }
 }
+
 if(!function_exists('multiple_courses_get')){
     function multiple_courses_get($multiple_courses){
 
@@ -275,7 +300,6 @@ if(!function_exists('multiple_courses_get')){
         return EmployeeMast::where('emp_type','T')->orderBy('name')->get();
     }
 }
-
 
 if(!function_exists('academic_dates')){
     function academic_dates($month,$year,$weekendDays = ['Sunday']){
@@ -301,6 +325,7 @@ if(!function_exists('academic_dates')){
         return $academic_dates;
     }
 }
+
 if(!function_exists('month_dates')){
     function month_dates($monthStart,$monthEnd,$weekendDays = ['Sunday']){
         $monthDates = array();
@@ -317,7 +342,6 @@ if(!function_exists('month_dates')){
         return $monthDates;
     }
 }
-
 
 if(!function_exists('displaywords')){
      function displaywords($number){
@@ -651,3 +675,9 @@ if(!function_exists('student_fee_assign')){
 
   }
 }
+
+// if(!function_exists('total_students')){
+//   function total_students(){
+//     return studentMast::where('batch_id',session('current_batch'))->count();
+//   }
+// }

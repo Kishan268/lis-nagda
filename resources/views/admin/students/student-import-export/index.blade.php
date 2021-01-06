@@ -166,12 +166,11 @@
 <script>
 	$(document).ready(function(){
 
-
 		@if($message = Session::get('success'))
-				swal({
-		          text: "{{$message}}",
-		          icon : 'success',
-		        });
+			swal({
+	          text: "{{$message}}",
+	          icon : 'success',
+	        });
 		@endif
 
 		$('#qual_catg').on('change',function(e){

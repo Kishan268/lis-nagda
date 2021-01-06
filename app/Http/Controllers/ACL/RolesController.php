@@ -23,11 +23,18 @@ class RolesController extends Controller
 
     public function index()
     {       
-        $show_role    = DB::table('roles')->get();
-        $permissions  = DB::table('permissions')->get();
-        // $user         = User::where('user_flag','S')->orWhere('user_flag','T')->get();
-        $user         = User::get();
-        return view('acl.admin_satting',compact('show_role','permissions','user'));
+        // $show_role    = DB::table('roles')->get();
+        // $permissions  = DB::table('permissions')->get();
+        // // $user         = User::where('user_flag','S')->orWhere('user_flag','T')->get();
+        // $user         = User::whereNot('user_flag','S')->orderBy('name')->get();
+
+        $roles = LaratrustRole::all();
+        $permissions = LaratrustPermission::all();
+        // return $permissions;
+
+        return view('acl.index',compact('roles','permissions'));
+
+        // return view('acl.admin_satting',compact('show_role','permissions','user'));
     }
    
     public function create()
@@ -37,12 +44,17 @@ class RolesController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate(['name' => 'required']);
-        $data['created_at'] = date("Y-m-d H:i:s"); 
-        $name = $request->name;  
+        // return $request->all();
+        $data = $request->validate([
+            'name' => 'required',
+            'display_name' => 'required',
+            'description'  => 'nullable'
+        ]);
+        // $data['created_at'] = date("Y-m-d H:i:s"); 
+        // $name = $request->name;  
 
-        $role = Role::create(['name' => $name]);
-         return redirect('admin');
+        $role = Role::create($data);
+         return redirect()->back()->with('success','Role created successfully.');
     }
 
     public function show($id)

@@ -6,13 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Hash;
-// use Spatie\Permission\Models\Role;
-// use Spatie\Permission\Models\Permission;
 use DB;
 use App\Models\acl\Role;
 use App\Models\acl\Permission;
 
-// use App\Models\acl\User;
 
 class UserController extends Controller
 {
@@ -23,13 +20,14 @@ class UserController extends Controller
 
     public function index()
     {
-        //
+        $users = User::where('user_flag','!=','S')->orderBy('name')->get();
+        return view('acl.users.index',compact('users'));
     }
 
   
     public function create()
     {
-        $role        = Role::get();
+        $role  = Role::get();
         return view('acl.users.create',compact('role'));
     }
 
@@ -75,9 +73,9 @@ class UserController extends Controller
         $data['permissions'] = Permission::get();
         $permission          = DB::table('permissions')->where('id',$id)->get();
         $role                = DB::table('role_user')->where('user_id',$id)->get();
-        $user                = User::where('parent_id',$id)->get();      
+        $user                = User::all();      
         $type                = $data['user']->acc_type;  
-
+        // return $data;
         $permission_ids = array();
         $role_ids = array();
         foreach ($permission as $ids) {
@@ -120,21 +118,38 @@ class UserController extends Controller
         return redirect('admin');
     }
 
-    public function changesRole(Request $request){
-        $userId = $request->userId;
-        $roleId = $request->roleId;
+    public function assign_role($id){
+        // return $id;
+        $user = User::with('roles')->find($id);
 
-        $user = User::where('id', '=', $userId)->firstOrFail();
+        $roles = Role::all();
+        return view('acl.users.assign.role',compact('roles','user'));
+    }
+
+    public function changesRole(Request $request){
+        $userId = $request->user_id;
+        $roleId = $request->role_id;
+
+        $user = User::find($userId);
+        // dd($user->roles());
         $user->roles()->sync($roleId);
         return 'success';
         
     }
+    public function assign_permission($id){
+        // return $id;
+        $user = User::with('permissions')->find($id);
+
+        $permissions = Permission::all();
+        return view('acl.users.assign.permission',compact('permissions','user'));
+    }
+
 
     public function changePermission(Request $request){
-        $user         = User::findOrFail($request->userId);
-        // dd($user);
-        $permissionid = $request->permissionId;
-        $user->syncPermissions($permissionid);
+        // return $request->all();
+        $user  = User::find($request->user_id);
+        $permissionid = $request->permission_id;
+        $user->permissions()->sync($permissionid);
         return 'success';
     }
     public function showUserRolePermission(Request $request){

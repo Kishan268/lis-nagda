@@ -40,56 +40,29 @@ use App\Models\hrms\EmployeeMast;
 use Illuminate\Support\Str;
 use App\MessageSend;
 
-// use App\Models\fees\FeesMast;
-// use App\Models\fees\FeesHeadMast;
-// use App\Models\fees\FeesHeadTrans;
-// use App\Models\fees\FeesInstalment;
-// use App\Models\fees\FineType;
-// use App\Models\fees\StudentFeeHead;
-// use App\Models\fees\StudentFeeInstalment;
-// use App\Models\fees\StudentFeeReceipt;
-// use App\Models\fees\StudentFeeReceiptHead;
-// use App\Models\fees\StudentFeesMast;
-// use App\Models\fees\ConcessionApplyTrans;
-// use App\Models\master\Discounts;
-// use App\Models\classes\SectionManage;
-
-
 class studentController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth');
+         $this->middleware('auth');
         
          $this->classes = studentClass::get();
-         $this->batches = studentBatch::get();
-         $this->sections = studentSectionMast::get();
-         $this->studentData = studentsMast::get();
-      
-         // $this->castCategores         = castCategory::get();
-         // $this->studentReligions      = stdReligions::get();
          $this->studentNationalites   = stdNationality::get();
-         // $this->studentBloodGroups    = stdBloodGroup::get();
          $this->studentMothertongues  = mothetongueMast::get();
          $this->professtionType       = professtionType::get();
          $this->guardianDesignation   = guardianDesignation::get();
-       
-         $this->studentsGuardiantDetails = studentsGuardiantMast::get();
 
     }
     public function index()
     {
-    
         $classes = $this->classes;
-        $studentData = $this->studentData;
-        return view('admin.students.index',compact('studentData','classes'));
+        return view('admin.students.index',compact('classes'));
     }
 
     
     public function create()
     {
-        
         $classes = $this->classes;
         $studentMothertongues  = $this->studentMothertongues;
         $professtionType       = $this->professtionType;
@@ -97,7 +70,6 @@ class studentController extends Controller
         $studentNationalites   = $this->studentNationalites;
 
         $students = studentsMast::select('id','admision_no','f_name','m_name','l_name')->where('status','R')->get();
-
 
         $bus_fees = BusFeeStructure::where('bus_fee_status','A')->get();
         return view('admin.students.create',compact('classes','studentNationalites','studentMothertongues','professtionType','guardianDesignation','students','bus_fees'));
@@ -565,23 +537,19 @@ class studentController extends Controller
     //  students Manage Get Data student details......................
     public function studentsManageGetData(Request $request){
  
-         $studentData = $this->studentData;
-         $students = studentsMast::where('batch_id',$request->batch_id)
+        $students = studentsMast::where('batch_id',$request->batch_id)
                                 ->where('std_class_id',$request->std_class_id)
                                 ->where('section_id',$request->section_id)
                                 ->where('user_id',Auth::user()->id)
                                 ->get();
         $page = 'student_manage';
-        return view('admin.students.table',compact('students','page','studentData','classes','sections','batches'));
+        return view('admin.students.table',compact('students','page'));
     }
 
      // get previous student details......................
     public function studentUploads(){
-        $classes = $this->classes;
-         $batches = $this->batches;
-         $sections = $this->sections;
-         $studentData = $this->studentData;
-            return view('admin.students.student-import-export.index',compact('studentData','classes','sections','batches'));
+        $classes = $this->classes;        
+        return view('admin.students.student-import-export.index',compact('classes'));
     }
 
     public function userProfile(){

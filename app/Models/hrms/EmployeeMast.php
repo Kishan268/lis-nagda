@@ -19,4 +19,8 @@ class EmployeeMast extends Model
     {
         return $this->belongsToMany('App\Models\Role');
     }
+
+    public function attendances(){
+        return  $this->hasMany('App\Models\TeacherAttendance','staff_id');
+    }
 }

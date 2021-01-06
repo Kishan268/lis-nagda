@@ -660,9 +660,6 @@ class FeesController extends Controller
         }
         $receipt_bill_no = substr(str_replace('-','',date('Y-m-d')),2).$s_id.str_pad($last_id, 3, '0', STR_PAD_LEFT);
 
-
-
-
         $feeRecieptData = [
             'receipt_bill_no'   =>  $receipt_bill_no,
             'transcation_id'    =>  $transcation_id,
@@ -680,8 +677,8 @@ class FeesController extends Controller
         ];
 
 
-       $fee_reciept =  StudentFeeReceipt::create($feeRecieptData);
-       $inst_charges_amnt = (float)$charges_amnt / (int)count($request->student_fee_instalments);
+        $fee_reciept =  StudentFeeReceipt::create($feeRecieptData);
+        $inst_charges_amnt = (float)$charges_amnt / (int)count($request->student_fee_instalments);
 
         foreach ($request->student_fee_instalments  as $student_fee_instalment) {
             $std_fee_inst_id =  $student_fee_instalment['std_fee_inst_id'];
@@ -692,7 +689,6 @@ class FeesController extends Controller
             $inst_extra_fine_amnt = 0; //for use inside fee head
             
             foreach ($student_fee_instalment['fee_heads'] as $std_fee_head) {
-
                 $fee_head = StudentFeeHead::find($std_fee_head['std_fee_head_id']);
                 
                 if($total_amnt <= 0){
@@ -743,9 +739,9 @@ class FeesController extends Controller
                     'receipt_bill_no'   => $receipt_bill_no,
                     's_id'              => $request->s_id,
                     'payable_amnt'      => $fee_head->fee_head_paid_amnt,
-                    'concession_amnt'  => $fee_head->fee_head_concession_amnt,
-                    'discount_amnt'    => $fee_head->fee_head_discount,
-                    'fine_amnt'        => $std_fee_head['fee_head_extra_fine'],
+                    'concession_amnt'   => $fee_head->fee_head_concession_amnt,
+                    'discount_amnt'     => $fee_head->fee_head_discount,
+                    'fine_amnt'         => $std_fee_head['fee_head_extra_fine'],
                     'std_fee_head_id'   => $std_fee_head['std_fee_head_id'],
                 ];
 
@@ -779,7 +775,7 @@ class FeesController extends Controller
     public function reciept_download($receipt_bill_no){
 
         $fee_receipt =  StudentFeeReceipt::with(['student.student_class','student.student_batch','receipt_heads.fee_head'])->find($receipt_bill_no);
-
+        // return $fee_receipt;
         return view('admin.fees.pay_regular_fee.receipt_download',compact('fee_receipt'));
     }
 

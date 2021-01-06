@@ -79,12 +79,12 @@
 												$concession_amnt = (float)$receipt_head->concession_amnt + (float)$concession_amnt  ; 
 
 											 $discount_amnt = (float)$receipt_head->discount_amnt + (float)$discount_amnt  ;
-											 $total_head_amnt = (float)$receipt_head->fee_head->fee_head_amnt + (float)$total_head_amnt;
+											 $total_head_amnt = (float)$receipt_head->payable_amnt + (float)$total_head_amnt;
 											  @endphp
 										<tr>
 											<td>{{$receipt_head->fee_head->fee_head_name}}</td>
 											<td>{{date('M',strtotime($fee_receipt->receipt_date))}}</td>
-											<td>{{round($receipt_head->fee_head->fee_head_amnt,2)}}</td>
+											<td>{{round($receipt_head->payable_amnt,2)}}</td>
 										</tr>
 										@endforeach
 										@if($concession_amnt !=0)

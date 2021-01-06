@@ -15,7 +15,7 @@ use App\Models\StudentAttendance;
 use App\Models\TeacherAttendance;
 use App\Helpers\Helpers;
 use Arr;
-
+use App\Models\hrms\EmployeeMast;
 class AttendanceController extends Controller
 {
     public function index(){
@@ -114,9 +114,10 @@ class AttendanceController extends Controller
      
         $users = get_teachers();
        
-        $attendance_teacher = TeacherAttendance::where('attendance_date',date('Y-m-d'))->whereIn('staff_id',collect($users)->pluck('id'))->get();
+        $attendance_teachers = TeacherAttendance::where('attendance_date',date('Y-m-d'))->whereIn('staff_id',collect($users)->pluck('id'))->get();
     // dd($users);
-        return view('admin.attendance.teacher.index',compact('users','attendance_teacher'));
+        // return $attendance_teacher;
+        return view('admin.attendance.teacher.index',compact('users','attendance_teachers'));
     }
 
     public function attendanceTeacherSubmit(Request $request){
@@ -187,15 +188,9 @@ class AttendanceController extends Controller
      public function TeacherFilter(Request $request){
                 
         $users = get_teachers();
-                // dd($users);
-                // if(Auth::user()->hasRole('lawcollege')){
-                    // $users = EmployeeMast::where('id',Auth::user()->id)->get();
-                    // $users =User::whereRoleIs('teacher')->where('parent_id',Auth::user()->id)->get();
-                // }else{
-                //     $users = User::whereRoleIs('teacher')->where('parent_id',Auth::user()->parent_id)->get(); 
-                // }
+        // return $users;
 
-        $attendance_staffs = TeacherAttendance::with('staff')->where('attendance_date',$request->attendance_date)->whereIn('staff_id',collect($users)->pluck('id'))->get();
+        $attendance_staffs = TeacherAttendance::with('teacher')->where('attendance_date',$request->attendance_date)->whereIn('staff_id',collect($users)->pluck('id'))->get();
         // return $attendance_staffs;
 
        return view('admin.attendance.manage.teacher_table',compact('attendance_staffs'));
@@ -431,19 +426,11 @@ class AttendanceController extends Controller
         $monthStart = $date['monthStart'];
         $monthEnd = $date['monthEnd'];
         
-        $usersData = User::with(['attendances' => function($query) use ($year, $month){
+        $users = EmployeeMast::with(['attendances' => function($query) use ($year, $month){
             $query->whereYear('attendance_date',$year)->whereMonth('attendance_date',$month);
-        }]);
-        //  $usersData = User::with(['attendances' => function($query) use ($year, $month){
-        //     $query->whereYear('attendance_date',$year)->whereMonth('attendance_date',$month);
-        // }])->whereRoleIs('teacher');
-
-        // if(Auth::user()->hasRole('lawcollege')){
-            $users =$usersData->where('parent_id',Auth::user()->id)->get();
-
-        // }else{
-        //     $users =$usersData->where('parent_id',Auth::user()->parent_id)->get(); 
-        // }
+        }])->where('emp_type','T')->get();
+       
+        // $users = $usersData->where('parent_id',Auth::user()->id)->get();
 
         $academic_dates = academic_dates($month,$year);
         $monthDates = month_dates($monthStart,$monthEnd);

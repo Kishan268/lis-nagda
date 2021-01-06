@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title','Welcom: To Admin Panel')
+@section('title','Welcome: To Admin Panel')
 
 @section('content')
 

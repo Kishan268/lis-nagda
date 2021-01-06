@@ -78,9 +78,10 @@ color-adjust:exact!important
 </tr>
 </thead>
 <tbody>
+   @php  $count = 0; @endphp
   @foreach($users as $user)
         <tr>
-            <td></td>
+            <td>{{++$count}}</td>
             <td >{{$user->name}}</td>
             @php
                 $tPresent = 0;

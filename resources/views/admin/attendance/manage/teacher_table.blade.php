@@ -11,9 +11,9 @@
 		@foreach($attendance_staffs as $attendance_staff)
 		<tr>
 			<td>
-				<input type="checkbox" name="staff_id[]"  class="check" value="{{$attendance_staff->staff->id}}" {{$attendance_staff->present == 'P' ? 'checked="checked"' : '' }} >
+				<input type="checkbox" name="staff_id[]"  class="check" value="{{$attendance_staff->teacher->id}}" {{$attendance_staff->present == 'P' ? 'checked="checked"' : '' }} >
 			</td>
-			<td>{{$attendance_staff->staff->name}}</td>
+			<td>{{$attendance_staff->teacher->name}}</td>
 			<td>{{$attendance_staff->attendance_date}}</td>
 			<td>
 				{{$attendance_staff->present}}

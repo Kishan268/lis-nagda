@@ -16,11 +16,11 @@
 					<div class="row mb-5">
 						<div class="col-md-12">
 							<a href="{{route('attendance.student_report')}}" class="btn btn-sm {{Request()->url() == Route('attendance.student_report') ? 'btn-primary' : 'btn-secondary'}}">{{__('Student Report')}}</a>
-							<a href="{{route('attendance.staff_report')}}" class="btn btn-sm {{Request()->url() == Route('attendance.staff_report') ? 'btn-primary' : 'btn-secondary'}}">{{__('Staff Report')}}</a>
+							<a href="{{route('attendance.teacher_report')}}" class="btn btn-sm {{Request()->url() == Route('attendance.teacher_report') ? 'btn-primary' : 'btn-secondary'}}">{{__('Staff Report')}}</a>
 						</div>
 					</div>
 
-					<form action="{{route('attendance.staff_report_generate')}}" method="post">
+					<form action="{{route('attendance.teacher_report_generate')}}" method="post">
 					@csrf
 						<div class="row mt-4">
 							<div class="col-md-2">

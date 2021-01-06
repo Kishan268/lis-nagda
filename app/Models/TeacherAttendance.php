@@ -9,7 +9,7 @@ class TeacherAttendance extends Model
     protected $table = 'teacher_attendances';
     protected $guarded =[];
 
-    public function staff(){
-   		return $this->belongsTo('App\User','staff_id');
+    public function teacher(){
+   		return $this->belongsTo('App\Models\hrms\EmployeeMast','staff_id');
    	}
 }
