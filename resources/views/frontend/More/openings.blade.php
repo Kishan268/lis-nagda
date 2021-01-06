@@ -1,11 +1,11 @@
 @include('frontend-layouts.main')
 
-    	<div class="rev-slider">
-		</div>
-	<div id="content" class="site-content"><div class="container"><div class="inner-wrapper">    
+<div class="rev-slider">
+</div>
+<div id="content" class="site-content"><div class="container"><div class="inner-wrapper">    
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+<div id="primary" class="content-area">
+<main id="main" class="site-main" role="main">
 
 			
 				
@@ -38,11 +38,12 @@ Number of Vacancies : 02<br />
 <p>Qualification : B.E / B.Sc / BCA (C.S. / I.T.)</p>
 <p>Required Experience : 2- 4 Years of teaching Experience as a Computer Teacher</p>
 <p>Number of Vacancies : 02</p>
-<p><button onclick="myFunction()">Apply</button></p>
+<p>
+	<a href="{{url('career')}}" class="btn btn-success">Apply</a> </p>
 <p><script>
-function myFunction() {
-  location.replace("http://lisnagda.org/career/")
-}
+// function myFunction() {
+//   location.replace("http://lisnagda.org/career/")
+// }
 </script></p>
 					</div><!-- .entry-content -->
 

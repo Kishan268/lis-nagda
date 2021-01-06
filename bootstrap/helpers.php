@@ -226,9 +226,8 @@ if(!function_exists('file_name')){
 
 //For Certificate types created by kishan
 const CERTIFICATE = [
-	'1' => 'Transfer Certificate',
-	'2' => 'School Leaving Certificate',
-	'3' => 'Other' 
+	'1' => 'School Leaving Certificate',
+	'2' => 'Other' 
 ];
 //For Employees types created by kishan
 

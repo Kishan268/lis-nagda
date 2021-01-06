@@ -25,7 +25,7 @@
                     </li>
                   <li id="menu-item-99" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-99"><a href="#">CBSE Section <span class="caret"></span></a>
                     <ul class="sub-menu">
-                        <li id="menu-item-1847" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1847"><a href="http://lisnagda.org/cbse-information-disclosure/"><a href="{{url('cbsc-information')}}" target="_blank">CBSE Information</a></a></li>
+                        <li id="menu-item-1847" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1847"><a href="{{url('cbsc-information')}}" target="_blank">CBSE Information</a></li>
                         <li id="menu-item-1657" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1657"><a href="{{url('committees')}}">Committees</a></li>
                         <li id="menu-item-1674" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1674"><a href="{{url('transfer-certificate')}}">Transfer Certificate</a></li>
                         <li id="menu-item-1850" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1850"><a href="{{url('auditors-report')}}">Auditor&#8217;s Report</a></li>
