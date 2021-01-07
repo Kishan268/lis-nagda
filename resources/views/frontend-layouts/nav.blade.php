@@ -1,6 +1,4 @@
 
-
- 
     <div id="main-nav" class="clear-fix">
         <div class="container-fluid">
         <nav id="site-navigation" class="main-navigation" role="navigation">
@@ -69,6 +67,6 @@
             </ul>
         </div>            
     </div><!-- .menu-content -->
-        </nav><!-- #site-navigation -->
-       </div> <!-- .container -->
-    </div> <!-- #main-nav -->
+    </nav><!-- #site-navigation -->
+   </div> <!-- .container -->
+</div> <!-- #main-nav -->

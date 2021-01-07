@@ -1,14 +1,10 @@
 @include('frontend-layouts.main')
 
 <div class="rev-slider">
-</div>
-<div id="content" class="site-content"><div class="container"><div class="inner-wrapper">    
-
+<div id="content" class="site-content"><div class="container">
+<div class="inner-wrapper">    
 <div id="primary" class="content-area">
-<main id="main" class="site-main" role="main">
-
-            
-                
+<main id="main" class="site-main" role="main">  
 <article id="post-86" class="post-86 page type-page status-publish hentry">
     <header class="entry-header">
         <h1 class="entry-title">Contact Us</h1> </header><!-- .entry-header -->
@@ -22,8 +18,7 @@
                       @endif
                 </div>
             </div>
-    <div class="entry-content">
-            <p>&nbsp;</p>
+<div class="entry-content">       
 <div class="row ">
     <div class="col-lg-4 col-md-12 col-xs-12 col-sm-12">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3197.517858245568!2d75.3769729500759!3d23.469401905295474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396475731fe9cb1d%3A0xd19c766172f6c61e!2sLakshya+International+School+Nagda+Jn.+Madhya+Pradesh!5e1!3m2!1sen!2sin!4v1456996932509" width="600" height="450" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
@@ -33,13 +28,7 @@
             <div class="screen-reader-response"></div>
                 <form action="{{route('save-contact-us')}}" method="post" class="wpcf7-form" novalidate="novalidate">
                     @csrf
-                    <div style="display: none;">
-                        <input type="hidden" name="_wpcf7" value="85" />
-                        <input type="hidden" name="_wpcf7_version" value="5.0.4" />
-                        <input type="hidden" name="_wpcf7_locale" value="en_US" />
-                        <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f85-p86-o1" />
-                        <input type="hidden" name="_wpcf7_container_post" value="86" />
-                    </div>
+                   
                         <p><label> Your Name (required)<br />
                         <span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" /></span> </label></p>
                         <p><label> Your Email (required)<br />
@@ -75,31 +64,38 @@
                     @csrf
                    
                         <p><label> Your Name (required)<br />
-                        <span class="wpcf7-form-control-wrap your-name"><input type="text" name="name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" /></span> </label></p>
+                        <span class="wpcf7-form-control-wrap your-name">
+                            <input type="text" name="name" value="{{old('name')}}" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" /></span> </label> @error('name')
+                                <span class="text-danger">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </p>
+
                         <p><label> Your Email (required)<br />
-                        <span class="wpcf7-form-control-wrap your-email"><input type="email" name="email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" /></span> </label></p>
+                        <span class="wpcf7-form-control-wrap your-email">
+                            <input type="email" name="email" value="{{old('email')}}" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" /></span> </label> 
+                            @error('email')
+                                <span class="text-danger">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror</p>
                         <p><label> Your Message<br />
-                        <span class="wpcf7-form-control-wrap your-message"><textarea name="message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false"></textarea></span> </label></p>
+                        <span class="wpcf7-form-control-wrap your-message">
+                            <textarea name="message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false">{{old('message')}}</textarea></span> </label> 
+                            @error('message')
+                                <span class="text-danger">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror</p>
                      
                 <p>
                     <input type="submit" value="Send" class="wpcf7-form-control wpcf7-submit" /></p>
             </form>
         </div>
     </div>
-<div class="col-lg-4 col-md-12 col-xs-12 col-sm-12"></p>
-<h2>Contact Details</h2>
-<p><strong>School Campus : Khachrod Jaora Road Junction, Nagda, M.P.</strong></p>
-<p><strong>Phone: +91-78798-22222</strong></p>
-<p><strong>Email: support@lisnagda.org</strong></p>
-<div class="social-icons"><i class="fa fa-facebook"></i><br />
-<i class="fa fa-twitter"></i></div>
-<p></div>
-</div>
-<p>&nbsp;</p>
-</div><!-- .entry-content -->
 
-<footer class="entry-footer">
- </footer><!-- .entry-footer -->
+
 </article><!-- #post-## -->
 
 </main><!-- #main -->

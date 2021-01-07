@@ -681,3 +681,11 @@ if(!function_exists('student_fee_assign')){
 //     return studentMast::where('batch_id',session('current_batch'))->count();
 //   }
 // }
+
+//For careerApplyPost  created by kishan
+const  careerApplyPost = [
+  'PGT English Teacher' => 'PGT English Teacher',
+  'PGT Social Science Teacher' => 'PGT Social Science Teacher',
+  'Accounts Teacher' => 'Accounts Teacher', 
+  'Computer Teacher' => 'Computer Teacher' 
+];

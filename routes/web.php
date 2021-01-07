@@ -37,6 +37,7 @@ Route::get('transfer-certificate','Frontend\cbscSection\CbscSectionController@tr
 Route::get('auditors-report','Frontend\cbscSection\CbscSectionController@auditorsReport');
 Route::get('career','Frontend\CareerController@career');
 Route::get('openings','Frontend\CareerController@openings');
+Route::post('store','Frontend\CareerController@store')->name('career.store');
 
 
 Route::get('/contact-us', function () {
@@ -453,3 +454,7 @@ Route::resource('concession','Admin\fees\ConcessionController');
 Route::get('concession-apply','Admin\fees\ConcessionController@concessionApply')->name('concession.apply');
 Route::post('concession-student','Admin\fees\ConcessionController@concessionStudents')->name('concession.student');
 Route::post('concession-apply-store','Admin\fees\ConcessionController@concessionApplyStore')->name('concession-apply.store');
+
+//Route for career request created by kishan..................
+Route::resource('career-request','Admin\career\CareerRequest');
+Route::get('resume-download/{id}','Admin\career\CareerRequest@resumeDownload')->name('resume_download');

@@ -388,6 +388,11 @@ p {
         </div>
     </div>
   </li>
+   <li class="nav-item">
+    <a class="nav-link" href="{{url('career-request')}}">
+      <i class="fas fa-graduation-cap"></i>
+      <span>Career</span></a>
+  </li>
 @endrole
 @ability('teachers','superadmin')
   <!-- Nav Item - Pages Collapse Menu -->
