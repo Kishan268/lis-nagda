@@ -425,7 +425,7 @@
 														    <option value="">Select Staff List</option>
 															@foreach(get_teachers() as $teacher)
 
-														    <option value="{{$teacher->id}}" {{(old('staff_id') ?? $teacher->id) == $teacher->id ? 'selected' : ''}}>{{$teacher->name}}</option>
+														    <option value="{{$teacher->id}}" {{(old('staff_id') ?? $student->staff_id) == $teacher->id ? 'selected' : '' }}>{{$teacher->name}}</option>
 														    @endforeach
 														   
 														</select>

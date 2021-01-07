@@ -50,12 +50,12 @@
 			var student_name = $('#student_name').val(); 
 			var admision_no = $('#admision_no').val()
 			var std_class_id = $('#std_class_id').val();
-			console.log(admision_no);
 
+			var page = 'pay_regular_fee';
 			$.ajax({
 				type:'POST',
 				url:'{{route('fee_student_fetch')}}',
-				data:{student_name:student_name,admision_no:admision_no,std_class_id:std_class_id},
+				data:{student_name:student_name,admision_no:admision_no,std_class_id:std_class_id,page:page},
 				success:function(res){
 					// console.log(res);
 					$('#tableData').empty().html(res);

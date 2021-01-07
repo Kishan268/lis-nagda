@@ -73,7 +73,6 @@ const EMPLOYMENT_TYPE = [
 	'2' => 'Private'
 ];
 
-
 const CASTCATEGORY = [
     1 => 'OBC',
     2 => 'GENERAL',

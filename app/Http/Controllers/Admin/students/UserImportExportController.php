@@ -154,7 +154,9 @@ class UserImportExportController extends Controller
                     $status =  $status ? ($data['state'] !='' ?  true : (($error_name = "State field is required.") && ($status = false)) ) : $status;
                     $status =  $status ? ($data['country'] !='' ?  true : (($error_name = "Country field is required.") && ($status = false)) ) : $status;
                     
-                    $status =  $status ? ($data['family_income'] !='' ? (is_numeric($data['family_income']) ? true : (($error_name = "Family Income field is not in digit format.") && ($status = false))) : $status  ) : $status;                 
+                    $status =  $status ? ($data['family_income'] !='' ? (is_numeric($data['family_income']) ? true : (($error_name = "Family Income field is not in digit format.") && ($status = false))) : $status  ) : $status;
+
+                    $status =  $status ? ($data['teacher_ward'] !='' ? ((strtolower($data['teacher_ward']) == 'yes' || strtolower($data['teacher_ward']) == 'no') ? true : (($error_name = "Teacher Ward field is wrong.") && ($status = false)) ) : (($error_name = "Teacher Ward field is required.") && ($status = false)) ) : $status;                 
 
                     $status =  $status ? ($data['account_no'] !='' ? (is_numeric($data['account_no']) ? true : (($error_name = "Account Number field is not in digit format.") && ($status = false))) : $status  ) : $status;
 
@@ -219,16 +221,15 @@ class UserImportExportController extends Controller
                             'account_no'                => $data['account_no'],
                             'ifsc_code'                 => $data['ifsc_code'],
                             'blood_id'                  => $data['blood_group'],
-                            'is_fees_assign'            => strtolower($data['fee_assign']) == 'yes' ? '1' : '0' 
+                            'is_fees_assign'            => strtolower($data['fee_assign']) == 'yes' ? '1' : '0',
+                            'staff_ward'                => strtolower($data['teacher_ward']) == 'yes' ? '1' : '0',
+                            'cast'                      => $data['caste'],
 
                         ];
 
                         $student = studentsMast::create($studentData);
                         // $lastId = 8;
-                        if($student->is_fees_assign == '1'){
-                            student_fee_assign($student);
-                        }
-                        
+                       
                         if($data['siblings'] !=''){
                             foreach (explode(',', $data['siblings']) as $key => $value) {
                                 $siblings = [
@@ -266,8 +267,11 @@ class UserImportExportController extends Controller
                         $docs = [                          
                             's_id'  => $student->id,
                         ];
-                       
+                        
                         StudenstDoc::create($docs);
+                        //  if($student->is_fees_assign == '1'){
+                        //     student_fee_assign($student);
+                        // }
                         
 
                         // return $guardians;
@@ -289,6 +293,7 @@ class UserImportExportController extends Controller
                             'Mobile Number'          => $data['mobile_number'],
                             'Optional Mobile Number' => $data['optional_mobile_number'],
                             'Category'               => $data['category'],
+                            'Caste'                  => $data['caste'],
                             'Religion'               => $data['religion'],
                             'Aadhar Number'          => $data['aadhar_number'],
                             'Address Line'           => $data['address_line'],
@@ -297,6 +302,7 @@ class UserImportExportController extends Controller
                             'Country'                => $data['country'],
                             'Family Income'          => $data['family_income'],
                             'Siblings'               => $data['siblings'],
+                            'Teacher Ward'           => $data['teacher_ward'],
                             'Bank Name'              => $data['bank_name'],
                             'IFSC Code'              => $data['ifsc_code'],
                             'Account No'             => $data['account_no'],

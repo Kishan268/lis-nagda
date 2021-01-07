@@ -370,6 +370,9 @@ Route::get('pay_regular_fee','Admin\fees\FeesController@pay_regular_fee_index')-
 Route::get('pay_regular_fee_show/{id}','Admin\fees\FeesController@pay_regular_fee_show')->name('pay_regular_fee_show');
 Route::post('pay_regular_fee_store','Admin\fees\FeesController@pay_regular_fee_store')->name('pay_regular_fee_store');
 
+Route::get('pay_dynamic_fee','Admin\fees\FeesController@pay_dynamic_fee_index')->name('pay_dynamic_fee_index');
+Route::post('pay_dynamic_fee_store','Admin\fees\FeesController@pay_dynamic_fee_store')->name('pay_dynamic_fee_store');
+
 Route::get('fee_success/{id}','Admin\fees\FeesController@fee_success')->name('fee_success');
 Route::get('reciept_download/{id}','Admin\fees\FeesController@reciept_download')->name('reciept_download');
 

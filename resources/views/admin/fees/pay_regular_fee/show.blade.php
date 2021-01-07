@@ -7,8 +7,24 @@
 	.fees-page h6{
 		font-size: 15px !important;
 	}
+
+.overlay-loader{
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        background: rgba(255,255,255,0.8) url("{{url(asset('img/25.gif'))}}") center no-repeat;
+    }
+
+
 </style>
-<div class="container fees-page">
+ {{-- <div class="loader"></div> --}}
+     <div class="overlay-loader"></div>
+
+<div class="container fees-page" >
  	<div class="row mb-4">
  		<div class="col-md-12">
  			<div class="card">
@@ -71,6 +87,13 @@
 													</thead>	
 													<tbody>
 														@foreach($student_fee_instalment->fee_heads as  $fee_head)
+															@php 
+																$fee_head_fine_amnt = $fee_head->fee_head_paid_amnt == 0 ? $fee_head->fee_head_fine_amnt : 0; 
+																$fee_head_concession_amnt = $fee_head->fee_head_paid_amnt == 0 ? $fee_head->fee_head_concession_amnt : 0; 
+																$fee_head_discount = $fee_head->fee_head_paid_amnt == 0 ? $fee_head->fee_head_discount : 0; 
+
+
+															@endphp
 															<tr>
 																<td>{{$fee_head->fee_head_name}}
 
@@ -82,22 +105,28 @@
 																<td>{{$fee_head->fee_head_fine_amnt}}
 																	<input type="hidden" name="fine_amnt[]" value="{{$fee_head->fee_head_fine_amnt}}" autocomplete="off" class="fine_amnt_{{$student_fee_instalment->std_fee_inst_id}}">
 																</td>
-																<td>{{round($fee_head->fee_head_concession_amnt,2)}}
+																<td>
+																	{{round($fee_head->fee_head_concession_amnt,2)}}
 																	<input type="hidden" name="concession_amnt[]" value="{{$fee_head->fee_head_concession_amnt}}" autocomplete="off" class="concession_amnt_{{$student_fee_instalment->std_fee_inst_id}}">
 																</td>
 																<td>{{round($fee_head->fee_head_discount,2)}}
 																	<input type="hidden" name="discount_amnt[]" value="{{$fee_head->fee_head_discount}}" autocomplete="off" class="discount_amnt_{{$student_fee_instalment->std_fee_inst_id}}">
 
 																</td>
-																<td>{{round($fee_head->fee_head_due_amnt,2)}}	
+																<td>
+																	{{round($fee_head->fee_head_due_amnt,2)}}	
+
 																</td>
 
 																<td><input type="text" name="extra_fine[]" class="extra_fine_jq_{{$fee_head->std_fee_head_id}} form-control extra_fine_amnt_{{$student_fee_instalment->std_fee_inst_id}} extra_fine_change" autocomplete="off" value="0"  id="{{$fee_head->std_fee_head_id}}" onkeypress="return isNumberKey(this, event);"></td>
 
 																<td>{{round($fee_head->fee_head_paid_amnt,2)}}
-																	<input type="hidden" name="paid_amnt[]" value="{{$fee_head->fee_head_paid_amnt}}" class="paid_amnt_{{$student_fee_instalment->std_fee_inst_id}}">
+																	<input type="hidden" name="paid_amnt[]" value="{{$fee_head->fee_head_paid_amnt}}" id="paid_amnt_{{$fee_head->std_fee_head_id}}" class="paid_amnt_{{$student_fee_instalment->std_fee_inst_id}}">
 																</td>
-																<td><input type="text" name="pay_amount[]" class="pay_amount_{{$student_fee_instalment->std_fee_inst_id}} pay_amount"   autocomplete="off" readonly="" value="{{round($fee_head->fee_head_due_amnt,2)}}" id="payable_id_{{$fee_head->std_fee_head_id}}" data-id="{{$fee_head->fee_head_due_amnt}}"></td>
+
+																<td>
+																	<input type="text" readonly="readonly" name="" value="{{round($fee_head->fee_head_due_amnt,2)}}">
+																	<input type="hidden" name="pay_amount[]" class="pay_amount_{{$student_fee_instalment->std_fee_inst_id}} pay_amount"   autocomplete="off" readonly="" value="{{$fee_head->fee_head_due_amnt}}" id="payable_id_{{$fee_head->std_fee_head_id}}" data-id="{{$fee_head->fee_head_due_amnt}}"></td>
 															</tr>
 														@endforeach
 													</tbody>
@@ -111,7 +140,7 @@
 	 					<div class="col-md-4" style="min-height: 500px;">
 	 						<div class="card mb-3">
 	 							<div class="card-header">
-	 								<h6>Transaction History</h6>
+	 								<h6>Transaction History <a href="{{route('pay_regular_fee_index')}}" class="btn btn-sm btn-primary pull-right">Back</a></h6>
 	 							</div>
 	 							<div class="card-body text-center">
 	 								<a href="{{route('show_transaction_history',$std_fees_mast_id)}}" class="btn btn-sm btn-success">Show Transaction History</a>
@@ -128,9 +157,11 @@
 		 								<p class="text-danger  h-0" style="min-height: 0% !important"><i class="fa fa-check"></i> Total Fine: <span class="total_fine_amnt">0</span></p>
 		 								<p class="text-success  h-0" style="min-height: 0% !important"><i class="fa fa-check"></i> Total Concession: <span class="concession_amnt">0</span> </p>
 
-		 								<p class="text-primary  h-0" style="min-height: 0% !important"><i class="fa fa-check"></i> Total Discount: <span class="discount_amnt">0</span> </p>
+		 								<p class="text-success  h-0" style="min-height: 0% !important"><i class="fa fa-check"></i> Total Discount: <span class="discount_amnt">0</span> </p>
 
-		 								<p class="h-0" style="min-height: 0% !important"><i class="fa fa-check"></i> Total Charges: <span class="charges_amnt">0</span> </p>
+		 								<p class="text-success  h-0" style="min-height: 0% !important"><i class="fa fa-check"></i> Total Paid Amount: <span class="paid_amnt">0</span> </p>
+
+		 								<p class="h-0 text-danger" style="min-height: 0% !important"><i class="fa fa-check"></i> Total Charges: <span class="charges_amnt">0</span> </p>
 		 								<hr>
 		 								<p class=" font-weight-bold  h-0" style="min-height: 0% !important"> Payable Amount: <b class="text-muted">INR</b> <span class="payable_amnt"> 0.00</span> </p>
 		 							</div>
@@ -401,6 +432,7 @@ $(document).ready(function(){
 	function amount_changes(){
 		var payable_amnt =0;
 		var total_amnt =0;
+		var pay_amount =0;
 		var paid_amnt =0;
 		var concession_amnt =0;
 		var fine_amnt =0;
@@ -420,6 +452,9 @@ $(document).ready(function(){
         		total_amnt += parseFloat($(this).val());
         	});
 			$('.pay_amount_'+instalment_id).each(function(j){
+				pay_amount += parseFloat($(this).val());
+			});
+			$('.paid_amnt_'+instalment_id).each(function(j){
 				paid_amnt += parseFloat($(this).val());
 			});
 
@@ -447,13 +482,14 @@ $(document).ready(function(){
 			$('.total_fine_amnt').empty().html(total_fine_amnt.toFixed(2));
 			$('.discount_amnt').empty().html(discount_amnt.toFixed(2));
 			$('.charges_amnt').empty().html(charges_amnt);
+			$('.paid_amnt').empty().html(paid_amnt.toFixed(2));
 
-			// var payable_amnt = parseFloat(total_amnt) - parseFloat(paid_amnt) + parseFloat(total_fine_amnt) - parseFloat(concession_amnt) - parseFloat(discount_amnt) + parseFloat(charges_amnt);
-			var payable_amnt = parseFloat(paid_amnt) + parseFloat(charges_amnt);
+			// var payable_amnt = parseFloat(total_amnt) - parseFloat(pay_amount) + parseFloat(total_fine_amnt) - parseFloat(concession_amnt) - parseFloat(discount_amnt) + parseFloat(charges_amnt);
+			var payable_amnt = parseFloat(pay_amount) + parseFloat(charges_amnt);
 
 			$('.payable_amnt').empty().html(payable_amnt.toFixed(2));
-			$('input[name="cash_amount"]').val(payable_amnt);
-			$('input[name="cash_amount"]').attr('readonly','true');
+			$('input[name="cash_amount"]').val(payable_amnt.toFixed(2));
+			// $('input[name="cash_amount"]').attr('readonly','true');
 		}
 		
 
@@ -484,8 +520,10 @@ $(document).ready(function(){
 				std_fee_head_id =  $(this).attr('id');
 				fee_heads.push({
 					'std_fee_head_id' : std_fee_head_id,
-					'fee_head_extra_fine' : $('.extra_fine_jq_'+std_fee_head_id).val(),
-					'fee_head_paid_amnt'  :  $('#payable_id_'+std_fee_head_id).val()
+					'fee_head_extra_fine': $('.extra_fine_jq_'+std_fee_head_id).val(),
+					'fee_head_pay_amnt'  :  $('#payable_id_'+std_fee_head_id).val(),
+					'fee_head_paid_amnt'  :  $('#paid_amnt_'+std_fee_head_id).val(),
+
 				});
 
 			});
@@ -614,15 +652,13 @@ $(document).ready(function(){
 							url:"{{route('pay_regular_fee_store')}}",
 							data:{total_amnt:total_amnt,concession_amnt:concession_amnt,total_fine_amnt:total_fine_amnt,discount_amnt:discount_amnt,charges_amnt:charges_amnt,payable_amnt:payable_amnt,receipt_date:receipt_date,payment_mode:payment_mode,no_of_cheque_dd:no_of_cheque_dd,cash_amount:cash_amount,cheque_dd_bank:cheque_dd_bank,cheque_dd_no:cheque_dd_no,cheque_dd_amnt:cheque_dd_amnt,cheque_dd_date:cheque_dd_date,payee_name:payee_name,transcation_id:transcation_id,student_fee_instalments:student_fee_instalments,remarks:remarks,std_fees_mast_id:std_fees_mast_id,s_id:s_id},
 							success:function(res){
-								// console.log(res)
-								// if(res == 'success'){
+								console.log(res)
 									$.notify('Student Fee Instalement Pay','success');
-									
+									$('.overlay-loader').show();
 									window.setTimeout(function() {
 										window.location.href = "{{url('fee_success/')}}/"+res;
 									}, 3000);
 
-								// }
 							}
 						})
 					}else{

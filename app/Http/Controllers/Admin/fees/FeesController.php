@@ -587,7 +587,7 @@ class FeesController extends Controller
 
 
         $fee_students =  StudentFeesMast::where('batch_id',session('current_batch'))->whereHas('student',function($q)use($where){
-            count($where)  !=0 ? $q->where($where) : $q->where('admision_no','test'); 
+             $q->where($where); 
         })->with(['student' => function($q){
             $q->select('id','f_name','m_name','l_name','username','batch_id','dob','std_class_id','medium','admision_no');
         }])->get();
@@ -608,7 +608,11 @@ class FeesController extends Controller
         // }
 
         // $fee_students = $fee_students->get();
-        return view('admin.fees.pay_regular_fee.table',compact('fee_students'));
+        if($request->page == 'pay_regular_fee'){
+            return view('admin.fees.pay_regular_fee.table',compact('fee_students'));
+        }else{
+            return $fee_students;
+        }
     }
 
 
@@ -672,15 +676,20 @@ class FeesController extends Controller
             'receipt_date'      =>  $receipt_date,
             'payment_mode'      =>  $payment_mode,
             'remarks'           =>  $remarks,
-            'payable_amnt'      =>  $payable_amnt,
+            'payable_amnt'      =>  $cash_amount,
             'total_amnt'        =>  $request->total_amnt
         ];
+
+        $studentMast = StudentFeesMast::find($std_fees_mast_id);
 
 
         $fee_reciept =  StudentFeeReceipt::create($feeRecieptData);
         $inst_charges_amnt = (float)$charges_amnt / (int)count($request->student_fee_instalments);
+// return $request->student_fee_instalments;
 
+//         die;
         foreach ($request->student_fee_instalments  as $student_fee_instalment) {
+
             $std_fee_inst_id =  $student_fee_instalment['std_fee_inst_id'];
             $std_fee_instalment = StudentFeeInstalment::find($std_fee_inst_id);
             
@@ -691,10 +700,11 @@ class FeesController extends Controller
             foreach ($student_fee_instalment['fee_heads'] as $std_fee_head) {
                 $fee_head = StudentFeeHead::find($std_fee_head['std_fee_head_id']);
                 
+
                 if($total_amnt <= 0){
-                    $total_amnt = '-0.01' ;
+                    $total_amnt = '0' ;
                 }else{
-                    $total_amnt = (float)$total_amnt - (float)$std_fee_head['fee_head_paid_amnt'];
+                    $total_amnt = (float)$total_amnt - (float)$std_fee_head['fee_head_pay_amnt'];
                 }
 
                 $fee_head_instalment =  StudentFeeInstalment::find($fee_head->std_fee_inst_id);
@@ -705,71 +715,114 @@ class FeesController extends Controller
 
 
                 if($total_amnt >= 0 ){
-                    if($std_fee_head['fee_head_paid_amnt'] != 0){
-                         $fee_head->increment('fee_head_paid_amnt', $std_fee_head['fee_head_paid_amnt']);  
+                    if($std_fee_head['fee_head_pay_amnt'] != 0){
+                        $fee_head->increment('fee_head_paid_amnt', $std_fee_head['fee_head_pay_amnt']);  
                     }
+
 
                     $fee_head_data = [                      
                         'fee_head_status'     => 'A',
                         'fee_head_due_amnt'   => 0,
                     ];
-                    $fee_head->update($fee_head_data);
-                    $inst_payable_amnt = (float)$std_fee_head['fee_head_paid_amnt'] + $inst_payable_amnt;   
+
+
+                   $fee_head->update($fee_head_data);
+                    $inst_payable_amnt = (float)$std_fee_head['fee_head_pay_amnt'] + $inst_payable_amnt;  
+                    $fee_head_pay_amnt  = $std_fee_head['fee_head_pay_amnt'];
 
                 }else{
-                    $fee_head_paid_amnt = $total_amnt != '-0.01' ? ((float)$fee_head->fee_head_due_amnt - abs((float)$total_amnt)) : 0;
+                    $fee_head_pay_amnt = $total_amnt != '0' ? ((float)$fee_head->fee_head_due_amnt - abs((float)$total_amnt)) : 0;
 
-                    if($fee_head_paid_amnt !=0){
-                        $fee_head->increment('fee_head_paid_amnt', $fee_head_paid_amnt);                       
+
+                    if($fee_head_pay_amnt !=0){
+                        $fee_head->increment('fee_head_paid_amnt', $fee_head_pay_amnt);                       
                     }
                     $fee_head_data = [
 
                         'fee_head_status'     => 'P',
-                        'fee_head_due_amnt'   => $total_amnt == '-0.01'  ? (float)$fee_head->fee_head_due_amnt : abs((float)$total_amnt),
+                        'fee_head_due_amnt'   => $total_amnt == '0'  ? (float)$fee_head->fee_head_due_amnt : abs((float)$total_amnt),
                     ];
                     
                     $fee_head->update($fee_head_data);
-                    $inst_payable_amnt = (float)$fee_head_paid_amnt + $inst_payable_amnt;
+                    $inst_payable_amnt = (float)$fee_head_pay_amnt + $inst_payable_amnt;
                 }
 
                 $inst_extra_fine_amnt = $std_fee_head['fee_head_extra_fine'] + $inst_extra_fine_amnt;
                 $inst_due_amnt = (float)$fee_head->fee_head_due_amnt + $inst_due_amnt;
 
-                $fee_reciept_head = [
-                    'receipt_bill_no'   => $receipt_bill_no,
-                    's_id'              => $request->s_id,
-                    'payable_amnt'      => $fee_head->fee_head_paid_amnt,
-                    'concession_amnt'   => $fee_head->fee_head_concession_amnt,
-                    'discount_amnt'     => $fee_head->fee_head_discount,
-                    'fine_amnt'         => $std_fee_head['fee_head_extra_fine'],
-                    'std_fee_head_id'   => $std_fee_head['std_fee_head_id'],
-                ];
-
-                StudentFeeReceiptHead::create($fee_reciept_head);
+                if($fee_head_pay_amnt != 0){
+                    $fee_reciept_head = [
+                        'receipt_bill_no'   => $receipt_bill_no,
+                        'receipt_head_title'=> $fee_head->fee_head_name,
+                        's_id'              => $request->s_id,
+                        'payable_amnt'      => $fee_head_pay_amnt,
+                        'concession_amnt'   => $std_fee_head['fee_head_paid_amnt'] == '0' ? $fee_head->fee_head_concession_amnt : 0,
+                        'discount_amnt'     => $std_fee_head['fee_head_paid_amnt'] == '0' ? $fee_head->fee_head_discount : 0,
+                        'total_amnt'        => $std_fee_head['fee_head_paid_amnt'] != '0' ? ((float)$std_fee_head['fee_head_pay_amnt'] - (float)$fee_head_pay_amnt) : $std_fee_head['fee_head_pay_amnt'],
+                        'fine_amnt'         => $std_fee_head['fee_head_extra_fine'],
+                        'std_fee_head_id'   => $std_fee_head['std_fee_head_id'],
+                    ];
+    //
+                    StudentFeeReceiptHead::create($fee_reciept_head);
+                }
             }
-            
+            // return $fee_reciept_head;
             $std_fee_instalment->increment('inst_extra_fine_amnt',$inst_extra_fine_amnt);
             $std_fee_instalment->increment('inst_payable_amnt',$inst_payable_amnt);
             $std_fee_instalment->increment('inst_charges_amnt',$inst_charges_amnt);
 
             $std_fee_instalment->update(['inst_due_amnt' => $inst_due_amnt]);
 
-            if($total_amnt >= 0){                
-                $std_fee_instalment->update(['inst_due_amnt' => 0,'inst_status' => 'A']);
+            if($total_amnt == 0){                
+               $std_fee_instalment->update(['inst_due_amnt' => 0,'inst_status' => 'A']);
             }else{
-                $std_fee_instalment->update(['inst_due_amnt' => $inst_due_amnt,'inst_status' => 'P']);
+               $std_fee_instalment->update(['inst_due_amnt' => $inst_due_amnt,'inst_status' => 'P']);
             }
             # code...
+        }
+        $studentMast->decrement('due_amnt',$cash_amount);
+        $studentMast->increment('payable_amnt',$cash_amount);
+        if($studentMast->due_amnt == '0'){
+            $studentMast->update(['status' => 'A']);
         }
 
         return $receipt_bill_no;
 
     }
 
+    public function pay_dynamic_fee_index(){
+        $classes = studentClass::get();
+
+        return view('admin.fees.pay_dynamic_fee.index',compact('classes'));
+    }
+    public function pay_dynamic_fee_store(Request $request){
+        
+        $request->validate([
+            'std_class_id'  => 'required|not_in:""',
+            'payment_mode'  => 'required|not_in:""',
+            'std_fees_mast_id' => 'required|not_in:""',
+            'amount'        => 'required|not_in:"0"',
+            'receipt_date'  => 'required',
+            'remarks'       => 'required'
+        ]);
+
+        $std_fees_mast_id= $request->std_fees_mast_id;
+        // $s_id = StudentFeesMast::find($std_fees_mast_id)->s_id;
+
+        // $student = studentsMast::find($s_id);
+
+        $student_fee_instalments =  StudentFeeInstalment::whereHas('fee_heads',function($q){
+            $q->where('fee_head_status','P');
+        })->with(['fee_heads' => function($query){
+             $query->where('fee_head_status','P');
+        }])->where(['std_fees_mast_id' => $std_fees_mast_id,'inst_status'=>'P'])->get();
+        return $student_fee_instalments;
+    }
+
+
     public function fee_success($receipt_bill_no){
 
         $fee_receipt =  StudentFeeReceipt::with('student')->find($receipt_bill_no);
-
         return view('admin.fees.pay_regular_fee.fee_success',compact('fee_receipt'));
     }
     public function reciept_download($receipt_bill_no){
@@ -786,7 +839,7 @@ class FeesController extends Controller
 
        $fee_receipts = StudentFeeReceipt::with('receipt_heads.fee_head.fee_instalment')->where('std_fees_mast_id',$std_fees_mast_id)->get();
 
-        return view('admin.fees.pay_regular_fee.show_transcation_history',compact('fee_receipts','student'));
+        return view('admin.fees.pay_regular_fee.show_transcation_history',compact('fee_receipts','student','std_fees_mast_id'));
     }
 
 

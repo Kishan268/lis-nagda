@@ -10,7 +10,9 @@
  		<div class="col-md-12">
  			<div class="card">
  				<div class="card-header">
- 					<h5 class="card-title">Student Paid Fees History<h5>
+ 					<h5 class="card-title">Student Paid Fees History
+ 						<a href="{{route('pay_regular_fee_show',$std_fees_mast_id)}}" class="btn btn-sm btn-primary pull-right">Back</a>
+ 					<h5>
  				</div>
  			
 	 			<div class="card-body">
@@ -44,7 +46,7 @@
 	 							</thead>
 	 							<tbody>
 	 								@php  
-	 									$paid_amount = 0.01;
+	 									$paid_amount = 0;
 	 									$total_amount = 0;
 	 									$concession_amnt = 0;
 	 									$discount_amnt = 0;
@@ -53,15 +55,15 @@
 	 								@foreach($fee_receipts as $fee_receipt)
 		 								@foreach($fee_receipt->receipt_heads as $receipt_head)
 		 									@php
-		 										$total_amount = (float)$receipt_head->fee_head->fee_head_amnt + (float)$total_amount;
+		 										$total_amount = (float)$receipt_head->payable_amnt + $receipt_head->discount_amnt + $receipt_head->concession_amnt + (float)$total_amount;
 		 										$concession_amnt = (float)$receipt_head->concession_amnt + (float)$concession_amnt;
 		 										$discount_amnt = (float)$receipt_head->discount_amnt + (float)$discount_amnt;
 		 										$fine_amnt = (float)$receipt_head->fine_amnt + (float)$fine_amnt;
 		 										$paid_amount = (float)$receipt_head->payable_amnt + (float)$paid_amount;
 		 									@endphp
 		 									<tr>
-			 									<td>{{$receipt_head->fee_head->fee_instalment->inst_title}}</td>
-			 									<td>{{round($receipt_head->fee_head->fee_head_amnt,2)}}</td>
+			 									<td>{{str_replace(' ', '_', $receipt_head->receipt_head_title).'_'.$receipt_head->fee_head->fee_instalment->inst_title}}</td>
+			 									<td>{{round(($receipt_head->payable_amnt + $receipt_head->discount_amnt + $receipt_head->concession_amnt),2)}}</td>
 			 									<td>{{round($receipt_head->discount_amnt,2)}}</td>
 			 									<td>{{round($receipt_head->concession_amnt,2)}}</td>
 			 									<td>{{round($receipt_head->fine_amnt,2)}}</td>

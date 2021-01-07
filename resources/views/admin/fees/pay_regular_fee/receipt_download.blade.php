@@ -65,7 +65,8 @@
 										<tr>
 											<th>PARTICULARS</th>
 											<th>MONTHS</th>
-											<th>AMOUNT</th>
+											{{-- <th>TOTAL AMOUNT</th> --}}
+											<th>PAID AMOUNT</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -73,21 +74,24 @@
 											$concession_amnt = 0 ;
 											$discount_amnt =0;
 											$total_head_amnt =0;
+											$total_h_amnt = 0;
 										@endphp
 										@foreach($fee_receipt->receipt_heads as $receipt_head)
 											@php 
-												$concession_amnt = (float)$receipt_head->concession_amnt + (float)$concession_amnt  ; 
+												$concession_amnt = (float)$receipt_head->concession_amnt + (float)$concession_amnt ; 
+												$discount_amnt = (float)$receipt_head->discount_amnt + (float)$discount_amnt  ;
+												$total_head_amnt = (float)$receipt_head->payable_amnt + (float)$total_head_amnt;
+												// $total_h_amnt = (float)$receipt_head->total_amnt + (float)$total_h_amnt;
 
-											 $discount_amnt = (float)$receipt_head->discount_amnt + (float)$discount_amnt  ;
-											 $total_head_amnt = (float)$receipt_head->payable_amnt + (float)$total_head_amnt;
-											  @endphp
+											@endphp
 										<tr>
 											<td>{{$receipt_head->fee_head->fee_head_name}}</td>
 											<td>{{date('M',strtotime($fee_receipt->receipt_date))}}</td>
+											{{-- <td>{{round($receipt_head->total_amnt,2)}}</td> --}}
 											<td>{{round($receipt_head->payable_amnt,2)}}</td>
 										</tr>
 										@endforeach
-										@if($concession_amnt !=0)
+{{-- 										@if($concession_amnt !=0)
 										<tr>
 											<td>Concession Amount</td>
 											<td>{{date('M',strtotime($fee_receipt->receipt_date))}}</td>
@@ -102,12 +106,16 @@
 												<td>(-) {{round($discount_amnt,2)}}</td>
 											</tr>
 										@endif
-									</tbody>
+ --}}									</tbody>
 									<tfoot>
 										<tr>
-											<td colspan="2" class="text-right font-weight-bold">Total Amount</td>
+											{{-- <td></td> --}}
+											{{-- <td></td> --}}
+											{{-- <td  class="font-weight-bold">Total Amount: {{$total_h_amnt}}</td> --}}
+											{{-- <td></td> --}}
+											<td colspan="2" class="text-right font-weight-bold">Total Amount </td>
 											@php 
-											$total_amnt  = (float)$total_head_amnt - (float)$concession_amnt - (float)$discount_amnt ;
+											$total_amnt  = (float)$total_head_amnt ;
 											@endphp
 											<td class="font-weight-bold">{{round($total_amnt,2)}}</td>
 										</tr>
