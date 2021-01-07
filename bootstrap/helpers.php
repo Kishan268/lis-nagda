@@ -247,6 +247,32 @@ if(!function_exists('file_name')){
     }
 }
 
+//For Certificate types created by kishan
+const CERTIFICATE = [
+	'1' => 'School Leaving Certificate',
+	'2' => 'Other' 
+];
+//For Employees types created by kishan
+
+const EMP_TYPE = [
+	'T' => 'Teacher',
+	'H' => 'HR',
+	'A' => 'Accountant',
+	'E' => 'Staff Member' 
+];
+//For QUALIFICATION_NAMES  created by kishan
+
+const QUALIFICATION_NAMES = [
+	'1' => 'Diploma',
+	'2' => 'Under Graduate',
+	'3' => 'Master', 
+	'4' => 'PHD' 
+];
+const ConcessionDiscount = [
+	'1' => 'Flat Rate',
+	'2' => 'In Percent'
+];
+
 if(!function_exists('get_teachers')){
     function get_teachers(){
         return EmployeeMast::where('emp_type','T')->orderBy('name')->get();
@@ -654,3 +680,11 @@ if(!function_exists('student_fee_assign')){
 //     return studentMast::where('batch_id',session('current_batch'))->count();
 //   }
 // }
+
+//For careerApplyPost  created by kishan
+const  careerApplyPost = [
+  'PGT English Teacher' => 'PGT English Teacher',
+  'PGT Social Science Teacher' => 'PGT Social Science Teacher',
+  'Accounts Teacher' => 'Accounts Teacher', 
+  'Computer Teacher' => 'Computer Teacher' 
+];

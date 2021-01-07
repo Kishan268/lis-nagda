@@ -144,7 +144,7 @@ class UserImportExportController extends Controller
                     $status =  $status ? ($data['optional_mobile_number'] !='' ?  (is_numeric($data['optional_mobile_number']) ? ((strlen($data['optional_mobile_number']) >= 10 && strlen($data['optional_mobile_number']) <= 13 ) ? true : (($error_name = "Optional Mobile number field is wrong please check digit length.") && ($status = false))) : (($error_name = "Optional Mobile Number field is not in digit format.") && ($status = false))) : true ) : $status;
 
                     $status =  $status ? ($data['category'] !='' ? (in_array($data['category'],CASTCATEGORY) ? true : (($error_name = "Category field is wrong.") && ($status = false))) : (($error_name = "Category field is required.") && ($status = false))  ) : $status;
-
+// dd(CASTCATEGORY);
                     $status =  $status ? ($data['religion'] !='' ? (in_array($data['religion'],RELIGION) ? true : (($error_name = "Religion field is wrong.") && ($status = false))) : $status  ) : $status;
 
                     $status =  $status ? ($data['aadhar_number'] !='' ?  (is_numeric($data['aadhar_number']) ? (strlen($data['aadhar_number']) == 12 ? true : (($error_name = "Addhar Card field is not equal to 12 digit.") && ($status = false))) : (($error_name = "Addhar Card field is not in digit format.") && ($status = false))) : $status ) : $status;

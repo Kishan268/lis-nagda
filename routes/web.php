@@ -30,30 +30,25 @@ Route::get('/extra-curricular-activities', function () {
 Route::get('/admissions', function () {
     return view('frontend/Admission/index');
 });
-Route::get('/committees', function () {
-    return view('frontend/CBSC-Section/index');
-});
-Route::get('/transfer-certificate', function () {
-    return view('frontend/CBSC-Section/index');
-});
-Route::get('/cbsc-information', function () {
-    return view('frontend/CBSC-Section/index');
-});
-Route::get('/transfer-certificate', function () {
-    return view('frontend/auditors-report/index');
-});
-Route::get('/auditors-report', function () {
-    return view('frontend/auditors-report/index');
-});
+
+Route::get('cbsc-information','Frontend\cbscSection\CbscSectionController@cbscInformation');
+Route::get('committees','Frontend\cbscSection\CbscSectionController@committees');
+Route::get('transfer-certificate','Frontend\cbscSection\CbscSectionController@transferCertificate');
+Route::get('auditors-report','Frontend\cbscSection\CbscSectionController@auditorsReport');
+Route::get('career','Frontend\CareerController@career');
+Route::get('openings','Frontend\CareerController@openings');
+Route::post('store','Frontend\CareerController@store')->name('career.store');
+
+
 Route::get('/contact-us', function () {
     return view('frontend/ContactUs/index');
 });
 Route::get('/school-gallery', 'Frontend\GalleryController@index');
 Route::any('gallery-image-show/{id}','Frontend\GalleryController@galleryImageShow')->name('gallery_image_show');
 
-Route::get('/openings', function () {
-    return view('frontend/More/openings');
-});
+// Route::get('/openings', function () {
+//     return view('frontend/More/openings');
+// });
 Route::get('/principals-message', function () {
     return view('frontend/More/principals-message');
 });
@@ -462,3 +457,7 @@ Route::resource('concession','Admin\fees\ConcessionController');
 Route::get('concession-apply','Admin\fees\ConcessionController@concessionApply')->name('concession.apply');
 Route::post('concession-student','Admin\fees\ConcessionController@concessionStudents')->name('concession.student');
 Route::post('concession-apply-store','Admin\fees\ConcessionController@concessionApplyStore')->name('concession-apply.store');
+
+//Route for career request created by kishan..................
+Route::resource('career-request','Admin\career\CareerRequest');
+Route::get('resume-download/{id}','Admin\career\CareerRequest@resumeDownload')->name('resume_download');
