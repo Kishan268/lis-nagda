@@ -338,8 +338,8 @@
                                       <input value="{{$guard_info->employment_type !=null ? (Arr::get(EMPLOYMENT_TYPE,$guard_info->employment_type)) : ''}}" readonly="" class="form-control">
                                     </div>
                                     <div class="col-md-3">
-                                      <label>Professtion Type</label>
-                                      <input readonly="" value="{{$guard_info->professtion_type !=null ?  $guard_info->professtion_type->professtion_types_name :''}}" class="form-control">
+                                      <label>Profession Type</label>
+                                      <input readonly="" value="{{$guard_info->profession_type !=null ?  $guard_info->profession_type->profession_types_name :''}}" class="form-control">
                                     </div>
                                     <div class="col-md-3">
                                       <label>Employer</label>
@@ -347,7 +347,7 @@
                                     </div>
                                     <div class="col-md-3">
                                       <label>Designation</label>
-                                      <input readonly="" value="{{$guard_info->guardian_designation !=null ?  $guard_info->guardian_designation->guardian_designations_name :''}}" class="form-control">
+                                      <input readonly="" value="{{$guard_info->guardian_designation !=null ?  $guard_info->guardian_designation->name :''}}" class="form-control">
                                     </div>
                                   </div>
                                 </div>

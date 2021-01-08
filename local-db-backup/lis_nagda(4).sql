@@ -1115,7 +1115,7 @@ INSERT INTO `gallery_images` (`id`, `folder_id`, `gallery_image`, `status`, `cre
 CREATE TABLE `guardian_designations` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
-  `guardian_designations_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -1125,7 +1125,7 @@ CREATE TABLE `guardian_designations` (
 -- Dumping data for table `guardian_designations`
 --
 
-INSERT INTO `guardian_designations` (`id`, `user_id`, `guardian_designations_name`, `deleted_at`, `created_at`, `updated_at`) VALUES
+INSERT INTO `guardian_designations` (`id`, `user_id`, `name`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, 0, 'Manager1', NULL, '2020-09-22 04:10:16', '2020-09-22 04:10:31');
 
 -- --------------------------------------------------------

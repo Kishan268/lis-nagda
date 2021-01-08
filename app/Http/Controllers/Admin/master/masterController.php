@@ -15,7 +15,7 @@ use App\Models\master\countryMast;
 use App\Models\master\stateMast;
 use App\Models\master\cityMast;
 use App\Models\master\mothetongueMast;
-use App\Models\master\professtionType;
+use App\Models\master\professionType;
 use App\Models\master\guardianDesignation;
 use Validator;
 use App\User;
@@ -220,57 +220,52 @@ class masterController extends Controller
         return redirect('master/mothetongue');
     }
 
-    //  ProfesstionType add code.............................
-    public function professtionType()
+    //  ProfessionType add code.............................
+    public function professionType()
     {
-        $professtionType = professtionType::get();
-            return view('admin.master.professtiontype.index',compact('professtionType'));
+        $professionTypes = professionType::get();
+            return view('admin.master.professiontype.index',compact('professionTypes'));
     } 
-    public function addProfesstionType(Request $request)
+    public function addProfessionType(Request $request)
     {
 
         $data =  $request->validate([
-            'professtion_types_name'=>'required'
+            'name'=>'required'
         ]);
-        $data['user_id']    = Auth::user()->id;
 
-         professtionType::create($data);
-            return redirect('master/professtiontype');
-    }
-    public function updateProfesstionType(Request $request, $id)
-    {
-        $data = $request->validate(['professtion_types_name'=>'required']);
-        $data['user_id']    = Auth::user()->id;
+        if($request->flag == 'add'){
+            professionType::create($data);
+            return redirect()->back()->with('success','Profession Type created successfully');
+        }else{
+            professionType::where('id',$request->profession_id)->update($data);
+            return redirect()->back()->with('success','Profession Type updated successfully');
+        }
 
-         professtionType::where('id',$id)->update($data);
-        return redirect('master/professtiontype');
+        return redirect('master/professiontype');
     }
+    
     //  Gaurdian Designation add code.............................
     public function gaurdianDesignation()
     {
-        $gaurdianDesignation = guardianDesignation::get();
-            return view('admin.master.gaurdian-designation.index',compact('gaurdianDesignation'));
+        $gaurdianDesignations = guardianDesignation::get();
+            return view('admin.master.gaurdian-designation.index',compact('gaurdianDesignations'));
     } 
     public function addGaurdianDesignation(Request $request)
     {
         
         $data =  $request->validate([
-            'guardian_designations_name'=>'required'
+            'name'=>'required'
         ]);
         $data['user_id']    = Auth::user()->id;
-
-         guardianDesignation::create($data);
-            return redirect('master/gaurdian_designation');
+        if($request->flag == 'add'){
+             guardianDesignation::create($data);
+            return redirect()->back()->with('success','Guardian Designation created successfully');
+        }else{
+            guardianDesignation::where('id',$request->guardian_desg_id)->update($data);
+            return redirect()->back()->with('success','Guardian Designation updated successfully');
+        }
     }
-    public function updateGaurdianDesignation(Request $request, $id)
-    {
-        $data = $request->validate(['guardian_designations_name'=>'required']);
-        $data['user_id']    = Auth::user()->id;
-        
-         guardianDesignation::where('id',$id)->update($data);
-        return redirect('master/gaurdian_designation');
-    }
-
+    
     //  Counties add code.............................
     public function county()
     {

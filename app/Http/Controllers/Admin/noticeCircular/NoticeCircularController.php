@@ -22,7 +22,7 @@ use App\Models\master\stateMast;
 use App\Models\master\cityMast;
 use App\Models\master\mothetongueMast;
 use App\Models\student\StudenstDoc;
-use App\Models\master\professtionType;
+use App\Models\master\professionType;
 use App\Models\master\guardianDesignation;
 use Illuminate\Support\Facades\Hash;
 use App\Models\classes\SectionManage;

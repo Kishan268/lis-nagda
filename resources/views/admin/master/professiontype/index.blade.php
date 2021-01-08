@@ -5,8 +5,8 @@
       <div class="col-md-12">
          <div class="card">
             <div class="card-header">
-               <h5 class="card-title">Guardian Designations
-                 <button type="button" class="btn btn-primary btn-sm pull-right addProfession"> Add Guardian Designation</button>
+               <h5 class="card-title">Profession Type
+                 <button type="button" class="btn btn-primary btn-sm pull-right addProfession"> Add Profession Type</button>
                   
                </h5>
             </div>
@@ -23,12 +23,12 @@
                         </thead>
                         <tbody>
                           @php $count = 1; @endphp
-                          @foreach($gaurdianDesignations as $gaurdianDesignation)
+                          @foreach($professionTypes as $professionType) 
                             <tr>
                               <td>{{$count++}}</td>
-                              <td>{{$gaurdianDesignation->name}}</td>
+                              <td>{{$professionType->name}}</td>
                               <td>
-                                  <a href="javascript:void(0)" class="editClass" id="{{$gaurdianDesignation->id}}" data-id="{{$gaurdianDesignation->name}}"><i class="fa fa-edit text-success" ></i></a>
+                                  <a href="javascript:void(0)" class="editClass" id="{{$professionType->id}}" data-id="{{$professionType->name}}"><i class="fa fa-edit text-success" ></i></a>
                               </td>
                             </tr>
                           @endforeach
@@ -45,14 +45,14 @@
               <div class="modal-content">
               <!-- Modal Header -->
                   <div class="modal-header">
-                      <h4 class="modal-title">Add Guardian Name</h4>
+                      <h4 class="modal-title">Add Profession Type</h4>
                       <button type="button" class="close modalClose" >&times;</button>
                   </div>
                   <div class="modal-body">
-                      <form class="row" action="{{route('gaurdian_designation_add')}}" method="post">
+                      <form class="row" action="{{route('professiontype_add')}}" method="post">
                         @csrf
                           <div class="form-group col-md-12" >
-                            <label for="name"> Guardian designation Name</label>
+                            <label for="name"> Profession Type Name</label>
                               <input type="text" name="name" id="name" class="form-control" >
                               @error('name')
                                 <span class="text-danger" role="alert">
@@ -62,7 +62,7 @@
                           </div>
                           <div class="form-group col-md-12 align-self-end">
                             <input type="hidden" name="flag" value="add">
-                            <input type="hidden" name="guardian_desg_id" value="">
+                            <input type="hidden" name="profession_id" value="">
                             <button class="btn btn-sm btn-primary" type="submit">
                               <i class="fa fa-fw fa-lg fa-check-circle"></i>ADD
                             </button>

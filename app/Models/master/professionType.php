@@ -4,8 +4,8 @@ namespace App\Models\master;
 
 use Illuminate\Database\Eloquent\Model;
 
-class professtionType extends Model
+class professionType extends Model
 {
-    protected $table = 'professtion_types';
+    protected $table = 'profession_types';
     protected $guarded =[];
 }

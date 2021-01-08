@@ -27,7 +27,7 @@ use App\Models\master\stateMast;
 use App\Models\master\cityMast;
 use App\Models\master\mothetongueMast;
 use App\Models\student\StudenstDoc;
-use App\Models\master\professtionType;
+use App\Models\master\professionType;
 use App\Models\master\guardianDesignation;
 use App\Models\sendmessage\SendMessage;
 use App\Models\AssignSubjectGroupStudent;
@@ -50,7 +50,7 @@ class studentController extends Controller
          $this->classes = studentClass::get();
          $this->studentNationalites   = stdNationality::get();
          $this->studentMothertongues  = mothetongueMast::get();
-         $this->professtionType       = professtionType::get();
+         $this->professionType       = professionType::get();
          $this->guardianDesignation   = guardianDesignation::get();
 
     }
@@ -65,14 +65,14 @@ class studentController extends Controller
     {
         $classes = $this->classes;
         $studentMothertongues  = $this->studentMothertongues;
-        $professtionType       = $this->professtionType;
+        $professionType       = $this->professionType;
         $guardianDesignation   = $this->guardianDesignation;
         $studentNationalites   = $this->studentNationalites;
 
         $students = studentsMast::select('id','admision_no','f_name','m_name','l_name')->where('status','R')->get();
 
         $bus_fees = BusFeeStructure::where('bus_fee_status','A')->get();
-        return view('admin.students.create',compact('classes','studentNationalites','studentMothertongues','professtionType','guardianDesignation','students','bus_fees'));
+        return view('admin.students.create',compact('classes','studentNationalites','studentMothertongues','professionType','guardianDesignation','students','bus_fees'));
 
     }
     
@@ -196,7 +196,7 @@ class studentController extends Controller
     public function show($id)
     {
 
-        $student = studentsMast::with(['student_class','student_batch','student_section','studentsGuardiantMast.professtion_type','studentsGuardiantMast.guardian_designation','student_doc','stdNationality','mothetongueMast','siblings.sibling_detail','staff_detail'])->where('id',$id)->first();
+        $student = studentsMast::with(['student_class','student_batch','student_section','studentsGuardiantMast.profession_type','studentsGuardiantMast.guardian_designation','student_doc','stdNationality','mothetongueMast','siblings.sibling_detail','staff_detail'])->where('id',$id)->first();
         // return $student;
         $sibling_name =[];
         foreach ($student->siblings as $sibling) {
@@ -214,7 +214,7 @@ class studentController extends Controller
     {
         $classes = $this->classes;
         $studentMothertongues  = $this->studentMothertongues;
-        $professtionType       = $this->professtionType;
+        $professionType       = $this->professionType;
         $guardianDesignation   = $this->guardianDesignation;
 
         $studentNationalites   = $this->studentNationalites ;
@@ -228,7 +228,7 @@ class studentController extends Controller
         // return $studentSiblings;
          // return $student;
         $bus_fees = BusFeeStructure::where('bus_fee_status','A')->get();
-        return view('admin.students.edit',compact('classes','studentNationalites','studentMothertongues','professtionType','guardianDesignation','student','students','studentSiblings','bus_fees'));
+        return view('admin.students.edit',compact('classes','studentNationalites','studentMothertongues','professionType','guardianDesignation','student','students','studentSiblings','bus_fees'));
 
     }
 

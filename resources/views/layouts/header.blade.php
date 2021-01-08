@@ -291,7 +291,7 @@ p {
             {{-- <a class="collapse-item" href="{{route('state')}}">State</a> --}}
             {{-- <a class="collapse-item" href="{{route('cities')}}">City</a> --}}
             {{-- <a class="collapse-item" href="{{route('mothetongue')}}">Mothetongue</a> --}}
-            <a class="collapse-item" href="{{route('professtiontype')}}">Profession Type</a>
+            <a class="collapse-item" href="{{route('professiontype')}}">Profession Type</a>
             <a class="collapse-item" href="{{route('gaurdian_designation')}}">Designation</a>
             <a class="collapse-item" href="{{route('discount.index')}}">Discount</a>
             <a class="collapse-item" href="{{route('discount_type.index')}}">Discount Type</a>

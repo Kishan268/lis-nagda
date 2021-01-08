@@ -44,11 +44,11 @@ class studentsMast extends Model
     public function mothetongueMast(){
     	 return $this->belongsTo('App\Models\master\mothetongueMast', 'language_id','id');
     }
-    public function professtionType(){
-    	 return $this->belongsTo('App\Models\master\professtionType', 'professtion_id','id');
+    public function professionType(){
+    	 return $this->belongsTo('App\Models\master\professionType', 'profession_id','id');
     }
     public function guardianDesignation(){
-    	 return $this->belongsTo('App\Models\master\professtionType', 'guardian_designation_id','id');
+    	 return $this->belongsTo('App\Models\master\professionType', 'guardian_designation_id','id');
     }  
 
     public function studentsGuardiantMast(){

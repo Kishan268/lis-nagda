@@ -206,15 +206,15 @@ Route::get('master/mothetongue', 'Admin\master\masterController@stdMothetongue')
 Route::post('master/mothetongue/mothetongue_add', 'Admin\master\masterController@addStdMothetongue')->name('mothetongue_add');
 Route::put('master/mothetongue/{id}/mothetongue_update', 'Admin\master\masterController@updateStdMothetongue')->name('mothetongue_update');
 
-// ProfesstionType route....................
-Route::get('master/professtiontype', 'Admin\master\masterController@professtionType')->name('professtiontype');
-Route::post('master/professtiontype/professtiontype_add', 'Admin\master\masterController@addProfesstionType')->name('professtiontype_add');
-Route::put('master/professtiontype/{id}/professtiontype_update', 'Admin\master\masterController@updateProfesstionType')->name('professtiontype_update');
+// ProfessionType route....................
+Route::get('master/professiontype', 'Admin\master\masterController@professionType')->name('professiontype');
+Route::post('master/professiontype/professiontype_add', 'Admin\master\masterController@addProfessionType')->name('professiontype_add');
+Route::put('master/professiontype/{id}/professiontype_update', 'Admin\master\masterController@updateProfessionType')->name('professiontype_update');
 
-// ProfesstionType route....................
+// ProfessionType route....................
 Route::get('master/gaurdian_designation', 'Admin\master\masterController@gaurdianDesignation')->name('gaurdian_designation');
-Route::post('master/professtiontype/gaurdian_designation_add', 'Admin\master\masterController@addGaurdianDesignation')->name('gaurdian_designation_add');
-Route::put('master/professtiontype/{id}/gaurdian_designation_update', 'Admin\master\masterController@updateGaurdianDesignation')->name('gaurdian_designation_update');
+Route::post('master/professiontype/gaurdian_designation_add', 'Admin\master\masterController@addGaurdianDesignation')->name('gaurdian_designation_add');
+Route::put('master/professiontype/{id}/gaurdian_designation_update', 'Admin\master\masterController@updateGaurdianDesignation')->name('gaurdian_designation_update');
 
 
 // county route....................

@@ -134,7 +134,7 @@ class ProfileController extends Controller
 
     public function showProfile(){
         $id = Auth::user()->id;
-        $student = studentsMast::with(['student_class','student_batch','student_section','studentsGuardiantMast.professtion_type','studentsGuardiantMast.guardian_designation','student_doc','stdNationality','mothetongueMast','siblings.sibling_detail'])->where('user_id',$id)->first();
+        $student = studentsMast::with(['student_class','student_batch','student_section','studentsGuardiantMast.profession_type','studentsGuardiantMast.guardian_designation','student_doc','stdNationality','mothetongueMast','siblings.sibling_detail'])->where('user_id',$id)->first();
         // dd($student);
         $sibling_name =[];
         if (!empty($student->siblings)) {
