@@ -69,7 +69,8 @@ class TimeTableController extends Controller
             'lunch_to_time'=>$request->lunch_to_time,
             'start_dt'=>date('Y-m-d',strtotime($request->start_date)),
             'end_dt'=>date('Y-m-d',strtotime($request->end_date)),
-            'remark'=>$request->remark
+            'remark'=>$request->remark,
+            'nod'   =>$request->nod 
 
         ];
         $lastId = ExamTimeTableMast::create($data)->time_id;
@@ -119,7 +120,7 @@ class TimeTableController extends Controller
 
     
     $getClasses = studentClass::with(['assignsubject'=>function($q){
-            $q->where('batch_id',1)->with(['assign_subjectId.subjectName']);
+            $q->where('batch_id',1)->with(['assign_subjectId.subject']);
         }])->whereBetween('id',[$timeTable->class_from,$timeTable->class_to])->get();
     // dd($examTimeTableMast);
     // return $getClasses;

@@ -74,9 +74,7 @@
                       <div class="col-md-6">
                         <label> Assigned Subjects  </label>
                           <select name="assigned_subject_id[]" class="form-control select2" multiple="multiple" id="assigned_subject_id" readonly>
-                          {{-- @foreach($subject as $subjects)
-                            <option value="{{$subjects->id}}">{{$subjects->subject_name}}</option>
-                          @endforeach --}}
+                         
                         </select>                    
                       </div>
                       <div class="col-md-12">
@@ -99,7 +97,7 @@
        var class_id = $('#std_class_id').val();
        var batch_id = $('#batch_id').val();
        var section_id = $('#section_id').val();
-       var medium = $('#medium').val();
+       var medium = $('#medium_id').val();
 
           if(teacher_id !=''&& class_id !=''&& batch_id !=''&& section_id !='' && medium !=''){
             $.ajax({
@@ -132,7 +130,7 @@
        var batch_id = $('#batch_id').val();
        var section_id = $('#section_id').val();
        var teacher_id = $('#teacher_id').val();
-        var medium = $('#medium').val();
+        var medium = $('#medium_id').val();
       if(teacher_id !=''&& class_id !=''&& batch_id !=''&& section_id !=''&& all_subject_id !='' && medium !=''){
         $.ajax({
           type:'POST',

@@ -205,7 +205,7 @@ class TeacherController extends Controller
     }
 
     public function getSubAssToTeacher(Request $request){
-   
+    // return $request->all();
         $data1 = AssignSubjectToTeacher::with('get_assign_subject')
                         ->where('class_id',$request->class_id)
                         ->where('batch_id',$request->batch_id)
@@ -213,6 +213,8 @@ class TeacherController extends Controller
                         ->where('medium',$request->medium)
                         ->where('teacher_id',$request->teacher_id)
                         ->get();
+
+                     // return $data1;   
             $get_assign_subject = [];            
             foreach ($data1 as $value) {
                 // $get_assign_subject[] = $value->assign_subject_id ;

@@ -69,7 +69,7 @@
                         <label for="medium">Medium </label>                
                         <div class="input-group">
                           <span class="input-group-addon"></span>
-                          <select class="form-control onlyDigit input-sm" id="medium"  name="medium"  value="{{old('medium')}}">
+                          <select class="form-control onlyDigit input-sm" id="medium"  name="medium"  >
                             <option value=""> Select Medium</option>
                               @foreach(MEDIUM as $key => $MEDIUM)
                                 <option value="{{$key}}"> {{$MEDIUM}}</option>
@@ -172,7 +172,7 @@
                        <select class="form-control" name="nod" id="nod" value="{{old('nod')}}">
                          <option value="">Select</option> 
                         @for($i=1;$i<=7;$i++)
-                         <option value="{{$i}}">{{$i}}</option> 
+                          <option value="{{$i}}" >{{$i}}</option> 
                         @endfor                        
                        </select>
                        @error('nod')

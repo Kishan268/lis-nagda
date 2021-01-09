@@ -149,7 +149,7 @@ class CertificateController extends Controller
     }
     public function getAdmissionNo(Request $request){
 
-        $admission_no = studentsMast::where('user_id',$request->studentId)
+        $admission_no = studentsMast::where('id',$request->studentId)
                                 ->first();
 
        return response()->json($admission_no);

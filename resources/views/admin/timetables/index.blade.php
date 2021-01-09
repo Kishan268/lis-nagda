@@ -43,7 +43,12 @@
                    <td>{{$examTimeTableMasts->reporting_time}}</td>
                    <td>{{$examTimeTableMasts->exam_from_time}}</td>
                    <td>{{$examTimeTableMasts->exam_to_time}}</td>
-                   <td><a href="{{route('time-table.show',$examTimeTableMasts->time_id)}}" ><i class=" fa fa-eye text-primary" style="font-size: 16px;"></i></a><a href="{{route('time-table.edit',$examTimeTableMasts->time_id)}}" ><i class=" fa fa-pencil text-primary" style="font-size: 16px;"></i></a></td>
+                   <td>
+
+                    <a href="{{route('time-table.edit',$examTimeTableMasts->time_id)}}" class="mr-2"><i class=" fa fa-pencil text-success" style="font-size: 16px;"></i></a>
+
+                    <a href="{{route('time-table.show',$examTimeTableMasts->time_id)}}"  ><i class=" fa fa-eye text-primary" style="font-size: 16px;"></i></a>
+                    </td>
 
                  </tr>
                    @endforeach

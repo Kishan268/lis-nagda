@@ -46,10 +46,10 @@
 				</div>
 				<div class="row">
 					<div class="col-md-5 text-right">
-						<span class="span-text">{{student_first_guardian($student)['relation']}}</span>
+						<span class="span-text">{{isset($student) ? student_first_guardian($student)['relation'] : 'Father Name'}}</span>
 					</div>
 					<div class="col-md-7 pl-0">
-						<span class="span-text">{{student_first_guardian($student)['name']}}</span>
+						<span class="span-text">{{isset($student) ? student_first_guardian($student)['name'] : 'Johan Doe'}}</span>
 					</div>
 				</div>
 				<div class="row">

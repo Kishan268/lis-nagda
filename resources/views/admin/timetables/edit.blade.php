@@ -19,7 +19,7 @@
                 <div class="row">
                   <div class="col-md-12">
                        <div class="row">               
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                        <label class="red"> *</label>
                        <label for="name"> Name</label>
                        <input class="form-control input-small " id="exam_name" name="exam_name"  aria-label="Small" type="text" value="{{$timeTable->name}}">
@@ -29,7 +29,7 @@
                         </span>
                       @enderror
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <label class="red"> *</label>
                         <label for="class_from">Class From </label>                
                         <div class="input-group">
@@ -40,7 +40,7 @@
                             @endforeach --}}
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <label class="red"> *</label>
                         <label for="class_to">Class To </label>                
                         <div class="input-group">
@@ -49,17 +49,13 @@
                             <option  > </option>
                         </div>
                     </div> 
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <label class="red"> *</label>
-                        <label for="medium">Medium </label>                
+                        <label for="medium">Medium </label>
                         <div class="input-group">
                            <span class="input-group-addon"></span>
-                            <option value="">Select Medium</option>
-                                @foreach(MEDIUM as $key => $value)
-                                    <option value="{{$key}}" {{($timeTable->medium ?? old('medium') )== $key ? 'selected' : ''}}>{{$value}}</option>
-                                @endforeach
-                              </select>
-                        </div>
+                           <input class="form-control onlyDigit input-sm" id="class_to"  name="class_to"  value="{{Arr::get(MEDIUM,$timeTable->medium)}}" readonly>
+                        </div>                       
                     </div>
                     <div class="col-md-6">
                         <label class="red"> *</label>
@@ -148,7 +144,7 @@
                        <select class="form-control" name="nod" id="nod1" value="{{old('nod')}}" readonly>
                          <option value="">Select</option> 
                         @for($i=1;$i<=7;$i++)
-                         <option value="{{$i}}">{{$i}}</option> 
+                         <option value="{{$i}}" {{$timeTable->nod == $i ? 'selected' : ''}}>{{$i}}</option> 
                         @endfor                        
                        </select>
                        @error('nod')
@@ -217,8 +213,8 @@
                                          $option = '<option value="">Select Subject..</option>';
                                           foreach ($class->assignsubject as $subjects) {
                                             foreach($subjects->assign_subjectId as $subject){
-                                              $id = $subject->subjectName != null ? $subject->subjectName->id : '';
-                                              $name = $subject->subjectName != null ? $subject->subjectName->subject_name : '' ;
+                                              $id = $subject->subject != null ? $subject->subject->id : '';
+                                              $name = $subject->subject != null ? $subject->subject->subject_name : '' ;
 
                                               $option .='<option value="'.$id.'" '.($sub_id == $id ? 'selected' : '').'>'.$name.' </option>';
                                            
