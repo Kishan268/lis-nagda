@@ -1,127 +1,78 @@
 @extends('layouts.main')
 @section('content')
-@include('admin.notice-circular.header')
-<style type="text/css">
-  #course_batches_div {
-    float: right;
-    margin-top: -38px;
-}
-</style>
 <div class="container">
-  <div class="app-title">
-    @if($message = Session::get('success'))   
-      <div class="alert alert-success">
-       {{ $message }}
-      </div>
-    @endif
-  </div>
-  <div class="card-header">
-    <div class="panel-heading">
-      <h4 class="panel-title">Add Notice & Circular</h4>
-    </div>
-  </div>
-  <div class="card-body">
-      <form method="post" id="FrmImgUpload" action="javascript:void(0)" enctype="multipart/form-data">
-      <div class="panel panel-default">
-        <div class="row">
-          <div class="col-lg-12">
-           {{--  <form action="{{route('notice-circular.store')}}" id="validate-form" method="post" enctype="multipart/form-data"> --}}
-              @csrf 
-              <div class="widget">
-                  <div class="col-md-3">
-                      <label for="details">Select options</label>
-                      <select class="form-control" name="sendtype" id="sendtype">
-                        <option value="0">--Select--</option>
-                        <option value="1">Send to All</option>
-                        <option value="2">Send to Classes</option>
-                        <option value="3">Send to All Faculty And Teacher</option>
-                      </select>
-                  </div>
-                <div class="col-md-6" id="course_batches_div" >
-                    <div class="chosen"  >
-                        <label for="details">Classes</label>
-                    </div>
-                    <div>
-                       <select class="form-control select-chosen" multiple="multiple" id="myid" name="course_batches[]" >
-                       </select>
-                    </div>
-                    <input type="hidden" name="batch_id" value="{{session('current_batch')}}">
-               </div>
-             </div>
-          </div>
-      </div>
-      <hr>
-     {{-- <div class="col-md-12" id="student_data" >
-     </div> --}}
-    <div class="col-md-12 notice_circular" id="faculty_data" >
-         {{-- Show student Data................. --}}
-    </div>
-    <div class="container notice_circular" style="display: none;">
-      <div class="row">
-          <div class="col-md-4">
-                <label for="circularname">Title</label>
-              <input class="form-control " id="circulartitle2" name="circular_title" type="text" required>
-              @error('circular_title')
-                <span class="text-danger">
-                  <strong>{{$message}}</strong>
-                </span>
-              @enderror
-          </div>
-          <div class="col-md-4">
-              <label for="diaplaydate">Date From be displayed</label>
-              <div class="">
-                  <input type="text" id="displayfromdate2" name="date_from_display" autocomplete="off" class="form-control datepicker" data-date-format="yyyy-mm-dd" placeholder="YYYY-mm-dd"data-date-start-date="0d" required>
-                  @error('date_from_display')
-                    <span class="text-danger">
-                      <strong>{{$message}}</strong>
-                    </span>
-                  @enderror
-              </div>
-          </div>
-          <div class="col-md-4">
-              <label for="diaplaydate">Date to be displayed</label>
-              <div class="">
-                  <input type="text" autocomplete="off" id="displaydate2" name="date_to_display" class="form-control datepicker" data-date-format="yyyy-mm-dd" placeholder="YYYY-mm-dd"  required>
-                  @error('date_to_display')
-                    <span class="text-danger">
-                      <strong>{{$message}}</strong>
-                    </span>
-                  @enderror
-              </div>
-          </div>
-          <div class="col-md-4">
-              <label for="file">Filename:</label>
-              <input type="file" name="file" id="file2">
-          </div>
-          <div class="col-md-12">
-              <label for="circulardescription">Description</label>
-              <textarea class="form-control" name="circular_description" id="circulardescription2" rows="4" type="text" required></textarea>
-              @error('circular_description')
-                <span class="text-danger">
-                  <strong>{{$message}}</strong>
-                </span>
-              @enderror
-          </div>
+    <div class="row mb-4">
+        <div class="col-lg-12 col-md-12">
+            @include('admin.notice-circular.header')              
         </div>
-        <div class="row">
-          <div class="col-md-12">
-              &nbsp;
-          </div>
+    </div>  
+    <div class="row mb-4">
+        <div class="col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                  <h5 class="card-title">Add Notice & Circular</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" id="FrmImgUpload" action="javascript:void(0)" enctype="multipart/form-data" autocomplete="off">
+                        <div class="row mb-4">
+                            <div class="col-md-3 form-group">
+                                <label for="details">Select options</label>
+                                <select class="form-control" name="sendtype" id="sendtype">
+                                    <option value="0">--Select--</option>
+                                    <option value="1">Send to All</option>
+                                    <option value="2">Send to Classes</option>
+                                    <option value="3">Send to All Faculty And Teacher</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group" id="course_batches_div" >
+                                <label for="details">Classes</label>
+                                <select class="form-control select-chosen" multiple="multiple" id="myid" name="course_batches[]" >
+                                </select>
+                                <input type="hidden" name="batch_id" value="{{session('current_batch')}}">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-12 notice_circular" id="faculty_data" >
+                                
+                            </div>
+                        </div>
+                        <div class="row mb-4 notice_circular" style="display: none" >
+                            <div class="col-md-4 form-group">
+                                <label for="circularname">Title</label>
+                                <input class="form-control " id="circulartitle2" name="circular_title" type="text" required>            
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label for="diaplaydate">Date From be displayed</label>
+                                <input type="text" name="date_from_display"  class="form-control datepicker" data-date-format="yyyy-mm-dd" placeholder="YYYY-mm-dd"data-date-start-date="0d" required>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label for="diaplaydate">Date To be displayed</label>
+                                <input type="text" name="date_to_display" class="form-control datepicker" data-date-format="yyyy-mm-dd" placeholder="YYYY-mm-dd" required="">
+                            </div>
+                            <div class="col-md-4 form-group">
+                               <label for="file">Filename:</label>
+                               <input type="file" name="file" id="file2">
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label for="circulardescription">Description</label>
+                                <textarea class="form-control" name="circular_description" id="circulardescription2" rows="4" type="text" required></textarea>
+                                @error('circular_description')
+                                <span class="text-danger">
+                                  <strong>{{$message}}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input class="btn btn-primary" type="submit" value="Add Circular" id="sendToAllFacultysad">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="pull-right mb-2">
-            <input class="btn btn-primary" type="submit" value="Add Circular" id="sendToAllFacultysad">
-        </div>
-      </div>
-       <div class="’widget-container" fluid-height="" clearfix’="" style="margin-top: 50px;">
-          <div class="widget-content  padded  row" id="reciver_list" style="display: none;"></div>
-       </div>
-      </div>
-    </form> 
-    </div>
-  </div>
-<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
-        
-<script type="text/javascript">
+    </div> 
+</div>
+<script>
 
 $(function () {
   $(".datepicker").datepicker({ 
@@ -157,7 +108,7 @@ $('th.required').append('&nbsp;<strong class="text-danger">*</strong>&nbsp;');
     });
 </script>
 
-<script type="text/javascript">
+<script>
 
 $(document).ready(function(){
     $("#course_batches_div").hide();
@@ -181,7 +132,7 @@ $(document).ready(function(){
         }
       if (type == 2) {
         $(".notice_circular").show();
-        $("#faculty_data").show();
+        $("#faculty_data").hide();
           $.ajax({
               type: "GET",
               url: "{{route('get_all_classes')}}",
@@ -251,4 +202,4 @@ $(document).ready(function(){
  });
 </script>
 
- @endsection('content')
+@endsection

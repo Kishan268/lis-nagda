@@ -18,15 +18,13 @@
 			<td>{{ $getAllSendDatas->circular_description }}</td>
 			<td>{{ $getAllSendDatas->date_from_display }}</td>
 			<td>{{ $getAllSendDatas->date_to_display }}</td>
-			<td class="actions">                       	
-				<a class="btn btn-xs btn-primary" title="" data-toggle="tooltip" href="{{route('sent-to-faculty-show', $getAllSendDatas->id)}}" data-original-title="view">
-				<i class="fa fa-eye"></i>
+			<td class="actions"> 
+				<a href="{{route('sent-to-faculty-show', $getAllSendDatas->id)}}" class="mr-2">
+				<i class="fa fa-eye text-primary"></i>
 				</a>
-				<a data-original-title="Edit" href="{{route('sent-to-faculty-edit', $getAllSendDatas->id)}}" data-toggle="tooltip" title="" class="btn btn-xs btn-default">
-				<i class="fa fa-pencil"></i>
-				</a>
-				<a data-original-title="Delete" href="index.php?plugin=circularv2&amp;action=deletecircular&amp;id=2539" onclick="return confirm(&quot;Are you sure you want to delete?&quot;)" data-toggle="tooltip" title="" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>                                            
-
+				<a  href="{{route('sent-to-faculty-edit', $getAllSendDatas->id)}}"  class="mr-2">
+				<i class="fa fa-pencil text-success"></i>
+				</a>	
 			</td>
 			
 		</tr>

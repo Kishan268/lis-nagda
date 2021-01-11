@@ -32,7 +32,8 @@ class HomeController extends Controller
     public function index()
     {   
         $user = Auth::user()->roles;
-        $getNotication = NoticeCircular::with('get_circular_id')->get();
+        $getNotication = NoticeCircular::with('get_circular_id')->where(['batch_id' => session('current_batch')])->get();
+        // return $getNotication;
         // $classBatch = array();
         $batchId = array();
         $classesId = array();

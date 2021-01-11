@@ -1,16 +1,12 @@
- @extends('layouts.main')
- @section('content')
-
+@extends('layouts.main')
+@section('content')
 <div class="container">
- @include('admin.notice-circular.header')
-    <div class="app-title">
-     @if($message = Session::get('success'))
-        <div class="alert alert-success">
-          {{ $message }}
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            @include('admin.notice-circular.header')              
         </div>
-      @endif
-    </div>
-      <div class="row mt-2">
+    </div>   
+    <div class="row mt-2 mb-4">
           <div class="col-lg-12">
             <div class="card mb-4">
               <div class="card-header">
@@ -21,22 +17,24 @@
               <div class="card-body">
               <div class="panel panel-default">
                  <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-3 form-group">
                       <label>Select Option</label>
-                        <select class="form-control" name="sendtype" id="sendtype">
+                        <select class="form-control" name="sendtype" id="sendtype" autocomplete="off">
                           <option value="0">--Select--</option>
                           <option value="1">Send to All</option>
                           <option value="2">Send to Classes</option>
                           <option value="3">Send to All Faculty And Teacher</option>
                         </select>
                     </div>
+                    <div class="col-md-12 form-group" id="all_data" ></div>
+
                  </div>
-              <div class="col-md-12" id="all_data" ></div>
               </div>
           </div>
       </div>
   </div>
-</div></div>
+</div>
+</div>
 <script>
   
   $(document).ready(function(){

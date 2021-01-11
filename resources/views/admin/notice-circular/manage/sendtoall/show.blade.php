@@ -35,34 +35,7 @@
                      <input class="form-control" type="text" value="{{$getAllSendData->circular_description}}" readonly="">
                 </div>
             </div>
-            <div class="row mt-3">
-               <div class="col-md-12" id="all_data" >
-                    <table class="table table-striped table-bordered mytable">
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            {{-- <th>User Name</th> --}}
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Mobile</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          @php $count = 1; @endphp
-                            @foreach($getAllstudents as $student)
-                            <tr>
-                              <td>{{$count++}}</td>
-                              {{-- <td>{{ $student->username}}</td> --}}
-                              <td>{{ $student->f_name }}</td>
-                              <td> {{ $student->l_name }}</td>
-                              <td>{{ $student->s_mobile }} </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table> 
-                  </div>
-                </div>
-            </div>
+          
         </div>
     </div>
   </div>

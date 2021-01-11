@@ -1,38 +1,43 @@
 @extends('layouts.main')
 @section('content')
 <div class="container">
-  <div class="row">
+  <div class="row mb-4">
     <div class="col-md-12">
     <div class="card">
-      <table class="table table-hover table-bordered mytable" id="sampleTable">
-        <thead>
-          <tr>
-            <th>S.No</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Subject</th>
-            <th>Post</th>
-            <th>Resume</th>
-            <th>message</th>
-          </tr>
-        </thead>
-        <tbody>
-        @php $i=1; @endphp
-        @foreach($careerDatas as $careerData)
-      
-          <tr>
-            <td>{{ $i++}}</td>
-            <td>{{ $careerData->name}}</td>
-            <td>{{ $careerData->email}}</td>
-            <td>{{ $careerData->subject}}</td>
-            <td>{{ $careerData->post}}</td>
-            <td><a href="{{ route('resume_download',$careerData->career_id)}}" class="fa fa-download"></a></td>
-            <td>{{ $careerData->message}}</td>
-            
-          </tr>
-            @endforeach
-          </tbody>
+      <div class="card-header">
+        <h5 class="card-title">Career Request</h5>
+      </div>
+      <div class="card-body">
+            <table class="table table-hover table-bordered mytable" id="sampleTable">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Subject</th>
+              <th>Post</th>
+              <th>Resume</th>
+              <th>message</th>
+            </tr>
+          </thead>
+          <tbody>
+          @php $i=1; @endphp
+          @foreach($careerDatas as $careerData)
+        
+            <tr>
+              <td>{{ $i++}}</td>
+              <td>{{ $careerData->name}}</td>
+              <td>{{ $careerData->email}}</td>
+              <td>{{ $careerData->subject}}</td>
+              <td>{{ $careerData->post}}</td>
+              <td><a href="{{ route('resume_download',$careerData->career_id)}}" class="fa fa-download"></a></td>
+              <td>{{ $careerData->message}}</td>
+              
+            </tr>
+              @endforeach
+            </tbody>
         </table>
+      </div>
       </div>
     </div>
   </div>

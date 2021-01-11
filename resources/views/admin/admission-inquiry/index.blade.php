@@ -1,9 +1,14 @@
 @extends('layouts.main')
 @section('content')
 <div class="container">
-  <div class="row">
+  <div class="row mb-4">
     <div class="col-md-12">
-      <table class="table table-hover table-bordered mytable" id="sampleTable">
+        <div class="card">
+          <div class="card-header">
+              <h5 class="card-title">Admission Inquiry</h5>
+          </div>
+          <div class="card-body table-responsive">
+              <table class="table table-hover table-bordered mytable" id="sampleTable">
         <thead>
           <tr>
             <th>S.No</th>
@@ -29,7 +34,9 @@
           </tr>
             @endforeach
           </tbody>
-        </table>
+      </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>

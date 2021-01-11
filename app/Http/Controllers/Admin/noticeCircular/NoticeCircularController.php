@@ -46,10 +46,7 @@ class NoticeCircularController extends Controller
     }
     public function index()
     {
-         $classes = $this->classes;
-         $batches = $this->batches;
-         $sections = $this->sections;
-            return view('admin.notice-circular.index',compact('classes','sections','batches'));
+        return view('admin.notice-circular.index');
     }
 
     public function create()
@@ -191,10 +188,10 @@ class NoticeCircularController extends Controller
     public function sentToAllShow($id){
 
         $getAllSendData = NoticeCircular::where('id',$id)->first();
-        $getAllstudents = studentsMast::get();
+      
         $page = 'send_to_all';
 
-        return view('admin.notice-circular.manage.sendtoall.show',compact('getAllSendData','page','getAllstudents'));
+        return view('admin.notice-circular.manage.sendtoall.show',compact('getAllSendData','page'));
     }
     public function sentToAllEdit($id){
 
@@ -226,6 +223,7 @@ class NoticeCircularController extends Controller
     public function sentToStudentShow($id){
         $idArray = [];
         $getAllSendData = NoticeCircular::with('get_circular_id.get_classes')->where('sender','C')->where('id',$id)->first();
+        // return $getAllSendData;
         $sId = $getAllSendData->id;
        
         $page = 'send_to_all';

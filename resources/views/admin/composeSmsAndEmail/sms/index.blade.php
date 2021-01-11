@@ -1,119 +1,86 @@
- @extends('layouts.main')
- @section('content') 
- <meta name="csrf-token" content="{{ csrf_token() }}" /> 
-<div class="container">
-    
- @if($message = Session::get('success'))
-        
-  <div class="alert alert-success">
-    {{ $message }}
-  </div>
-  @endif
-        
-  <div class="row mt-2">
-      <div class="col-lg-12">
-        <div class="card mb-4">
-          <div class="card-header">
-            <div class="panel-heading">
-                  <h4 class="panel-title"> SMS Compose 
-                     <a href="{{route('send_sms_delivery_report')}}"><button class="btn btn-success" style="float:right;">SMS Delivery Report</button></a>
-                  </h4>
-            </div>      
-          </div>
-        </div>
-      </div>
-  </div>
-    <div class="card-body">
-      <div class="panel panel-default">
-          {{-- <form method="post" id="FrmImgUpload" action="javascript:void(0)" enctype="multipart/form-data"> --}}
-               @csrf
-                <div class="row">
-                    <div class="col-md-3">
-                      {{-- <label>Select Option</label> --}}
-                      <select class="form-control" name="send_to" id="sendtype">
-                        <option value="0">--Select--</option>
-                        @foreach(SENDTO as $key => $value)
-                            <option value="{{$key}}">{{$value}}</option>                         
-                        @endforeach
-                      </select>
-                      </div>
-                      <div class="col-md-9" id="class_batch_section" style="display: none;">
-                        <div class="row">
-                          <div class="col-md-3">
-                            <select class="form-control" name="std_class_id" id="std_class_id">
-                              <option value="">Select Class</option>
-                                @foreach($classes as $class)
-                                  <option value="{{$class->id}}">{{$class->class_name}}</option>
+@extends('layouts.main')
+@section('content') 
+<div class="container">  
+    <div class="row mt-2">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4 class="card-title"> SMS Compose 
+                        <a href="{{route('send_sms_delivery_report')}}"><button class="btn btn-success" style="float:right;">SMS Delivery Report</button></a>
+                    </h4>              
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <select class="form-control" name="send_to" id="sendtype">
+                                <option value="0">--Select--</option>
+                                @foreach(SENDTO as $key => $value)
+                                <option value="{{$key}}">{{$value}}</option>                         
                                 @endforeach
-                              </select>
-                            @error('std_class_id')
-                              <span class="text-danger">
-                                <strong>{{$message}}</strong>
-                              </span>
-                            @enderror
-                          </div>                
-                          <div class="col-md-3">
-                            <select class="form-control" name="batch_id" id="batch_id">
-                               
                             </select>
-                            @error('batch_id')
-                              <span class="text-danger">
-                                <strong>{{$message}}</strong>
-                              </span>
-                            @enderror
-                          </div>
-                          <div class="col-md-3">
-                            <select class="form-control" name="section_id" id="section_id"> 
-                              
-                            </select>
-                            @error('section_id')
-                              <span class="text-danger">
-                                <strong>{{$message}}</strong>
-                              </span>
-                            @enderror
-                          </div>
-                         
                         </div>
-                      </div>
-                    </div>
-                <hr>
-                </div>
-                 <div class="container mt-3" id="students_data">
-                   <div class="row">
-                     <div class="col-md-12"></div>
-                   </div>
-                 </div>
-                 <div class="container mt-3" id="faculty_data">
-                   <div class="row">
-                     <div class="col-md-12"></div>
-                   </div>
-                 </div> 
+                        <div class="col-md-9" id="class_batch_section" style="display: none;">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <select class="form-control" name="std_class_id" id="std_class_id" autocomplete="off">
+                                        <option value="">Select Class</option>
+                                        @foreach($classes as $class)
+                                            <option value="{{$class->id}}">{{$class->class_name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('std_class_id')
+                                        <span class="text-danger">
+                                        <strong>{{$message}}</strong>
+                                        </span>
+                                    @enderror
+                                </div>                
+                                <div class="col-md-3">
+                                    <select class="form-control" name="batch_id" id="batch_id">
 
-               <div class="container editor_show" style="display: none;">
-                <hr>
-                 <div class="row mt-3">
-                  <div class="col-md-12">
-                    
-                    <div class="col-md-12 mt-3">
-                      <label> Compose SMS </label> <span class="required">*</span>
-                      <textarea class="form-control" id="compose_sms_content" name="compose_sms_content" spellcheck="false" required=""></textarea>
+                                    </select>
+                                    @error('batch_id')
+                                        <span class="text-danger">
+                                        <strong>{{$message}}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-control" name="section_id" id="section_id"> 
+
+                                    </select>
+                                    @error('section_id')
+                                        <span class="text-danger">
+                                        <strong>{{$message}}</strong>
+                                        </span>
+                                    @enderror
+                                </div>                     
+                            </div>
+                        </div>
                     </div>
-                <hr><hr>
-               <div class="row">
-                <div class="col-md-12">
-                  <button class="btn btn-sm btn-success " id="btnSubmit" align-center>Send</button>
+                    <div class="row mb-4">
+                        <div class="col-md-12" id="students_data"></div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-12" id="faculty_data"></div>
+                    </div>
+                    <div class="row mb-4 editor_show" style="display: none">
+                        <div class="col-md-12 form-group">
+                            <label> Compose SMS </label> <span class="required">*</span>
+                            <textarea class="form-control" id="compose_sms_content" name="compose_sms_content" spellcheck="false" required=""></textarea>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <button class="btn btn-sm btn-success " id="btnSubmit" align-center>Send</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" id="all_data" ></div>
+                    </div>
                 </div>
-              </div>
-               </div>
-               <div class="col-md-12" id="all_data" >
-                  {{-- Show student Data................. --}}
-                </div>
-              <hr>
-          </strong>
-      </div>
-    {{-- </form> --}}
+            </div>
+        </div>
+    </div>
 </div>
-</div>
+   
 @include('layouts.common')
 
 
