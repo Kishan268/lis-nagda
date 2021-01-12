@@ -88,17 +88,14 @@
                                             </div>
                                         </div>
                                         <div class="row form-group">                                         
-                                            <div class="col-md-4 col-sm-6 form-group col-xs-6">
+                                            <div class="col-md-3 col-sm-6 form-group col-xs-6">
                                                 <label class="">Class Roll Number</label>
                                                 <input type="text" readonly name="roll_no" value="{{$student->roll_no}}"class="form-control" >
                                             </div>   
                                       
-                                            <div class="col-md-4 col-sm-6 form-group col-xs-6 has-success">
-                                                <label class="required">Student Status</label>
-                                                <input type="text" readonly name="roll_no" value="{{Arr::get(STUDENTSTATUS,$student->status)}}"class="form-control" >
-                                            </div>
+                                           
 
-                                            <div class="col-md-4 col-sm-6 form-group col-xs-6">
+                                            <div class="col-md-3 col-sm-6 form-group col-xs-6">
                                                 <label class="required">First Name</label>
                                                 <input type="text" readonly name="f_name" id="f_name" value="{{$student->f_name}}" class="form-control" required="required">
 
@@ -113,7 +110,10 @@
                                                 <input type="text" readonly name="l_name" id="l_name" value="{{$student->l_name}}" class="form-control required" required="required">
 
                                             </div>
-
+                                             <div class="col-md-3 col-sm-6 form-group col-xs-6 has-success">
+                                                <label class="required">Student Status</label>
+                                                <input type="text" readonly name="roll_no" value="{{Arr::get(STUDENTSTATUS,$student->status)}}"class="form-control" >
+                                            </div>
                                             <div class="col-md-3 col-sm-6 form-group col-xs-6 passout_date" style="display: none;">
                                                 <label class="required">Passout Date</label>
                                                 <input type="text"  name="passout_date" class="form-control" readonly="true" data-date-format="yyyy-mm-dd" value="{{date('d-m-Y',strtotime($student->passout_date))}}"  >
@@ -228,8 +228,28 @@
                                             <label for="rte"> CBSE  Registration no </label>
                                             <input class="form-control" id="CBSC_reg" name="cbsc_reg" type="text" value="{{$student->cbsc_reg}}" readonly="">
                                             </div>                                      
+                                        <div class="col-md-3">
+                                            <label for="bus_fee_allocate">Bus Fee Allocate</label>
+                                             <input class="form-control" id="bus_fee_title" name="bus_fee_title" type="text" value="{{$student->bus_fee_id ? 'Yes' :'No' }}" readonly="">
+                                          
+                                                   
+                                        </div>  
+                                        <?php if ($student->bus_fee_id !=null) { ?>
+                                            
+                                        <div class="col-md-3"  id="busFeeDIV">
+                                            <label for="bus_fee_title" class="required"> Bus Fee Structure</label>
+                                            <input class="form-control" id="bus_fee_title" name="bus_fee_title" type="text" value="{{$bus_fees ?$bus_fees->bus_fee_title :'' }}" readonly="">
+
+                                           
                                         </div>
-                                      </section>
+                                        <div class="col-md-3"  id="busFeeAmount">
+                                            <label for="bus_fee_amount" class="required"> Bus Fee Amount</label>
+                                            <input class="form-control" id="CBSC_reg" name="bus_fee_amount" type="text" value="{{$bus_fees?$bus_fees->bus_fee_amount:''}}" readonly="">
+                                            
+
+                                        </div>
+                                    <?php } ?>
+                                    </div>
                                   <ul class="tab-links nav nav-tabs pull-right mt-3">
                                     <li class="nav-item">
                                       <a href="#next_tab2" class="nav-link btn btn-sm bg-success text-white nextButton">Next</a>

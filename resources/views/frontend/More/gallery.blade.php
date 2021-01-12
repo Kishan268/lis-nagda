@@ -256,7 +256,7 @@ img.emoji {
                             <div class="row">
                                 <a href="{{route('gallery_image_show',$galleryFolders->id)}}">
                                 <div>
-
+                                
                                 @foreach($galleryFolders->gallery_image as $imageName)
                                 @if($imageName->gallery_image)
                                 <img src="{{asset($imageName->gallery_image !=null ? $imageName->gallery_image: 'storage/admin/student_demo.png')}}" style="width: 400px; height: 300px; border: solid;">

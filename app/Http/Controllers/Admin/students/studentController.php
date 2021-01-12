@@ -206,7 +206,9 @@ class studentController extends Controller
         }
         $sibling_name =  implode(', ', $sibling_name);
        
-        return view('admin.students.show',compact('student','sibling_name'));
+        $bus_fees = BusFeeStructure::where('bus_fee_status','A')->where('bus_fee_id',$student->bus_fee_id)->first();
+        // dd( $bus_fees);
+        return view('admin.students.show',compact('student','sibling_name','bus_fees'));
     }
 
     
@@ -226,8 +228,8 @@ class studentController extends Controller
         $student = studentsMast::with(['student_class','student_batch','student_section','studentsGuardiantMast','student_doc','stdNationality','mothetongueMast'])->where('id',$id)->first();
         $studentSiblings = StudentSiblings::where('s_id',$id)->pluck('sibling_admission_no');
         // return $studentSiblings;
-         // return $student;
         $bus_fees = BusFeeStructure::where('bus_fee_status','A')->get();
+         // return $bus_fees;
         return view('admin.students.edit',compact('classes','studentNationalites','studentMothertongues','professionType','guardianDesignation','student','students','studentSiblings','bus_fees'));
 
     }
@@ -568,6 +570,13 @@ class studentController extends Controller
     public function student_basic_detls_fetch(Request $request){
 
     }
+    public function getBusFeeAmt(Request $request){
+
+        $bus_fees_amt = BusFeeStructure::where('bus_fee_status','A')->where('bus_fee_id', $request->bus_fee_id)->first();
+        // dd($bus_fees_amt);
+        return response()->json($bus_fees_amt);
+    }
+    
 
 
 

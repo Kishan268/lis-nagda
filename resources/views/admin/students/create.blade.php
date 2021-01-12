@@ -452,6 +452,16 @@
 														    @endforeach
 														</select>
 													</div>
+													<div class="col-md-3" style="display: none" id="busFeeAmount">
+														<label for="bus_fee_amount" class="required"> Bus Fee Amount</label>
+															<input type="text" class="form-control" name="bus_fee_amount" id="bus_fee_amount" readonly>
+														 <!--<select>
+														   <option value="" >Select Bus Fee Amount</option> 
+															  @foreach($bus_fees as $bus_fee)
+																<option value="{{$bus_fee->bus_fee_amount}}" {{$bus_fee->bus_fee_amount == old('bus_fee_amount') ? 'selected' : ''}}>{{$bus_fee->bus_fee_amount}}</option>
+														    @endforeach -->
+														</select>
+													</div>
 												 <div class="col-md-3 form-group pt-4"> 
 							                        <input type="checkbox" value="1" name="is_fees_assign" id="is_fees_assign" checked=""> 
 							                        Is Fees Assign 							                        
@@ -938,8 +948,10 @@ $(document).ready(function(){
 	function bus_fee_show(bus_fee_allocate){
 		if(bus_fee_allocate == '1'){
 			$('#busFeeDIV').show();
+			// $('#busFeeAmount').show();
 		}else{
 			$('#busFeeDIV').hide();
+			// $('#busFeeAmount').hide();
 		}
 	}
 
@@ -1073,6 +1085,22 @@ $(document).ready(function(){
 
        $('#'+row_id).remove();
      });
+
+
+ 	$(document).on('change', '#bus_fee_id', function(){
+       var bus_fee_id = $(this).val();
+
+      	$.ajax({
+              type: "POST",
+              url: "{{route('get_bus_fee_amt')}}",
+              data: {bus_fee_id:bus_fee_id,"_token": "{{ csrf_token() }}"},
+              success: function(data){
+                  $("#busFeeAmount").show();
+                  $("#bus_fee_amount").empty();
+                  $("#bus_fee_amount").val(data.bus_fee_amount);
+              }
+          })
+    });
 
 
 </script>

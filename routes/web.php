@@ -461,3 +461,6 @@ Route::post('concession-apply-store','Admin\fees\ConcessionController@concession
 //Route for career request created by kishan..................
 Route::resource('career-request','Admin\career\CareerRequest');
 Route::get('resume-download/{id}','Admin\career\CareerRequest@resumeDownload')->name('resume_download');
+
+//Route for get buss fees amount created by kishan..................
+Route::post('get_bus_fee_amt','Admin\students\studentController@getBusFeeAmt')->name('get_bus_fee_amt');

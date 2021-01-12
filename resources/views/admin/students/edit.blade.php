@@ -147,14 +147,7 @@
 															</span>
 														@enderror
 													</div>
-													<div class="col-md-3 col-sm-6 form-group col-xs-6 has-success">
-														<label class="required">Student Status</label>
-														<select class="form-control required status" name="status" aria-invalid="false" required="required">
-															@foreach(STUDENTSTATUS as $key => $status) 
-																<option value="{{$key}}" {{($student->status ?? old('status') )== $key ? 'selected' : ''}}>{{$status}}</option>
-															@endforeach
-														</select>
-													</div>
+													
 																								
 													<div class="col-md-3 col-sm-6 form-group col-xs-6">
 														<label class="required">First Name</label>
@@ -183,7 +176,14 @@
 															</span>
 														@enderror
 													</div>
-												
+													<div class="col-md-3 col-sm-6 form-group col-xs-6 has-success">
+														<label class="required">Student Status</label>
+														<select class="form-control required status" name="status" aria-invalid="false" required="required">
+															@foreach(STUDENTSTATUS as $key => $status) 
+																<option value="{{$key}}" {{($student->status ?? old('status') )== $key ? 'selected' : ''}}>{{$status}}</option>
+															@endforeach
+														</select>
+													</div>
 													<div class="col-md-3 col-sm-6 form-group col-xs-6 passout_date" style="display: none;">
 														<label class="required">Passout Date</label>
 														<input type="text" name="passout_date" class="form-control datepicker " readonly="true" data-date-format="yyyy-mm-dd" value="{{$student->passout_date ?? old('passout_date')}}"  placeholder="{{date('Y-m-d')}}" required="required">
@@ -337,7 +337,8 @@
 														<label>Mother tongue</label>
 														<select name="language_id" class="form-control">
 														<option value="">Select Mother Tongue</option>
-														 	@foreach($studentMothertongues as $studentMothertongue)<option value="{{$studentMothertongue->id}}" {{($student->language_id ?? old('language_id')) == $studentMothertongue->id ? 'selected' : '' }}>{{$studentMothertongue->mothetongue_name}}</option>@endforeach >
+														 	@foreach($studentMothertongues as $studentMothertongue)
+														 	<option value="{{$studentMothertongue->id}}" {{($student->language_id ?? old('language_id')) == $studentMothertongue->id ? 'selected' : '' }}>{{$studentMothertongue->mothetongue_name}}</option>@endforeach >
 														</select>
 														@error('language_id')
 															<span class="text-danger">
@@ -395,21 +396,21 @@
 
 
 												{{-- <div class="row" style="background: #4f5775;color: #fff; padding: 10px;border-radius: 10px;margin: 20px;">
-                           <div class="col-md-3 form-group">
-                                <label for="phone1">
-                               Student User Name
-                               </label>
-                               <input class="form-control required" id="username" value="{{old('username')}}" name="username" type="text" >
-                               <spam id="usererror" style="color: red; display: none;"></spam>
-                           </div>
-                           
-                            <div class="col-md-3 form-group">
-                                <label for="password">
-                                Password
-                               </label>
-                               <input class="form-control required"   id="password" name="password" type="password">
-                           </div>
-		</div> --}}
+							                           <div class="col-md-3 form-group">
+							                                <label for="phone1">
+							                               Student User Name
+							                               </label>
+							                               <input class="form-control required" id="username" value="{{old('username')}}" name="username" type="text" >
+							                               <spam id="usererror" style="color: red; display: none;"></spam>
+							                           </div>
+							                           
+							                            <div class="col-md-3 form-group">
+							                                <label for="password">
+							                                Password
+							                               </label>
+							                               <input class="form-control required"   id="password" name="password" type="password">
+							                           </div>
+												</div> --}}
 												<div class="row form-group">
 													<div class="col-md-3">
 														<label for="rte" class="required"> Staff Ward </label>
@@ -447,9 +448,26 @@
 													<div class="col-md-3" style="display: none" id="busFeeDIV">
 														<label for="bus_fee_id" class="required"> Bus Fee Structure</label>
 														<select class="form-control" name="bus_fee_id" id="bus_fee_id" >
-														    <option value="" >Select Bus Fee Struture</option>
+														    <!-- <option value="" >Select Bus Fee Struture</option>
 															@foreach($bus_fees as $bus_fee)
 																<option value="{{$bus_fee->bus_fee_id}}" {{$bus_fee->bus_fee_id == (old('bus_fee_id') ?? $student->bus_fee_id) ? 'selected' : ''}}>{{$bus_fee->bus_fee_title}}</option>
+														    @endforeach
+ -->
+														 	@foreach($bus_fees as $student_fees)
+														 		<option value="{{$student_fees->bus_fee_id}}" {{($student->bus_fee_id ?? old('bus_fee_id')) == $student_fees->bus_fee_id ? 'selected' : '' }}>{{$student_fees->bus_fee_title}}</option>
+														    @endforeach
+
+														</select>
+													</div>
+													<div class="col-md-3" style="display: none" id="busFeeAmount">
+														<label for="bus_fee_amount" class="required"> Bus Fee Amout</label>
+														<select class="form-control" name="bus_fee_amount" id="bus_fee_amount" >
+														    <option value="" >Select Bus Fee Amount</option>
+															<!-- @foreach($bus_fees as $bus_fee)
+																<option value="{{$bus_fee->bus_fee_amount}}" {{$bus_fee->bus_fee_amount == (old('bus_fee_amount') ?? $student->bus_fee_amount) ? 'selected' : ''}}>{{$bus_fee->bus_fee_amount}}</option>
+														    @endforeach -->
+														    @foreach($bus_fees as $student_fees)
+														 		<option value="{{$student_fees->bus_fee_id}}" {{($student->bus_fee_id ?? old('bus_fee_id')) == $student_fees->bus_fee_id ? 'selected' : '' }}>{{$student_fees->bus_fee_amount}}</option>
 														    @endforeach
 														</select>
 													</div>
@@ -895,8 +913,10 @@ $(document).ready(function(){
 	function bus_fee_show(bus_fee_allocate){
 		if(bus_fee_allocate == '1'){
 			$('#busFeeDIV').show();
+			$('#busFeeAmount').show();
 		}else{
 			$('#busFeeDIV').hide();
+			$('#busFeeAmount').hide();
 		}
 	}
 
