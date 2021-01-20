@@ -12,27 +12,25 @@
 */
 // Route::resource('/product','Product\ProductController');
 
-Route::get('/', function () {
-    return view('frontend/home/index');
-});
+// Route::get('/', function () {
+//     return view('frontend/home/index');
+// });
 
 
 
-Route::get('/about-us', function () {
-    return view('frontend/About/index');
-});
-Route::get('/academics', function () {
-    return view('frontend/Acadmics/index');
-});
-Route::get('/extra-curricular-activities', function () {
-    return view('frontend/Extra-curricular-activities/index');
-});
-Route::get('/admissions', function () {
-    return view('frontend/Admission/index');
-});
+Route::get('/','Frontend\FrontendHome@slideBar');
+// Route::get('/','Frontend\FrontendHome@headerBar');
+
+Route::get('about-us','Frontend\SettingsController@settingAboutus');
+Route::get('academics','Frontend\SettingsController@settingAcademics');
+Route::get('extra-curricular-activities','Frontend\SettingsController@settingExtCrclrActs');
+Route::get('admissions','Frontend\SettingsController@settingAdmissionForm');
+Route::get('committees','Frontend\cbscSection\CbscSectionController@committees');
+Route::get('principals-message','Frontend\SettingsController@settingPrincipalsMgs');
+
+
 
 Route::get('cbsc-information','Frontend\cbscSection\CbscSectionController@cbscInformation');
-Route::get('committees','Frontend\cbscSection\CbscSectionController@committees');
 Route::get('transfer-certificate','Frontend\cbscSection\CbscSectionController@transferCertificate');
 Route::get('auditors-report','Frontend\cbscSection\CbscSectionController@auditorsReport');
 Route::get('career','Frontend\CareerController@career');
@@ -40,20 +38,17 @@ Route::get('openings','Frontend\CareerController@openings');
 Route::post('store','Frontend\CareerController@store')->name('career.store');
 
 
-Route::get('/contact-us', function () {
-    return view('frontend/ContactUs/index');
-});
+
 Route::get('/school-gallery', 'Frontend\GalleryController@index');
 Route::any('gallery-image-show/{id}','Frontend\GalleryController@galleryImageShow')->name('gallery_image_show');
 
 // Route::get('/openings', function () {
 //     return view('frontend/More/openings');
 // });
-Route::get('/principals-message', function () {
-    return view('frontend/More/principals-message');
-});
+
 
 Route::post('/save-contact-us','Frontend\ContactUsController@sendContactUsData')->name('save-contact-us');
+Route::get('/contact-us','Frontend\ContactUsController@settingContactus')->name('contact-us');
 
 /*Route::get('admissions-form','Frontend\AdmissionForm@index')->name('admission_form');
 // get state for academic details....................
@@ -387,7 +382,6 @@ Route::post('generate_table','Admin\timetable\TimeTableController@generateTable'
 Route::post('get-assigne-subject','Admin\timetable\TimeTableController@getsubject')->name('get_assigne_subject');
 Route::post('get_class_for_timetable','Admin\timetable\TimeTableController@getClassForTimetable')->name('get_class_for_timetable');
 
-Route::resource('settings','Admin\settings\SettingController');
 
 Route::Resource('certificates','Admin\certificate\CertificateController');
 
@@ -464,3 +458,28 @@ Route::get('resume-download/{id}','Admin\career\CareerRequest@resumeDownload')->
 
 //Route for get buss fees amount created by kishan..................
 Route::post('get_bus_fee_amt','Admin\students\studentController@getBusFeeAmt')->name('get_bus_fee_amt');
+
+//Route for settings created by kishan..................
+
+Route::resource('settings','Admin\settings\SettingController');
+Route::get('settings-dasboard','Admin\settings\SettingController@dashboard')->name('settings.dasboard');
+
+Route::resource('settings-header','Admin\settings\HeaderController');
+Route::resource('settings-slidebar','Admin\settings\SlideBarController');
+Route::resource('settings-footer','Admin\settings\FooterController');
+Route::resource('settings-aboutus','Admin\settings\AboutusController');
+Route::resource('settings-academics','Admin\settings\AcademicsController');
+Route::resource('settings-ext-culr-activities','Admin\settings\ExtCrclrActsController');
+Route::resource('settings-admission','Admin\settings\AdmissionController');
+Route::resource('settings-cbscsection-committees','Admin\settings\cbscsection\CommitteesController');
+Route::get('settings-cbscsection-dashboard','Admin\settings\cbscsection\CommitteesController@dashboard')->name('settings_cbscsection_dashboard');
+Route::resource('settings-cbscsection-information','Admin\settings\cbscsection\CbscInfoController');
+Route::resource('settings-contactus','Admin\settings\ContactusController');
+Route::resource('settings-openings','Admin\settings\more\OpeningsController');
+Route::resource('settings-principal-messages','Admin\settings\more\PrincipalsMgsController');
+Route::get('/settings-more-dashboard', function () {
+    return view('admin/settings/more/dashboard');
+});
+Route::resource('settings-header-bar','Admin\settings\HeaderController');
+Route::resource('settings-pages','Admin\settings\PagesController');
+

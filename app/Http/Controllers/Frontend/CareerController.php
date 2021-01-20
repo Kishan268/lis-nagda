@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\frontend\Career;
+use App\Models\setting\Openings;
 
 class CareerController extends Controller
 {
    
     public function openings(){
-    	return view('frontend/More/openings');
+        $openingsDatas = Openings::get();
+    	return view('frontend.More.openings',compact('openingsDatas'));
 
     }
      public function career(){

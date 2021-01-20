@@ -1019,7 +1019,7 @@ j = "{{$j}}";
 
 $(document).on('click', '#add_doc', function(){
   $('#docTBody').append('<tr id="doc_row_'+j+'"><td><input id="doc_title" name="doc_title[]" class="form-control" type="text" placeholder="Enter doc title" value="" ></td><td><textarea id="doc_description" name="doc_description[]" class="form-control doc_description" placeholder="Enter doc description" value="" rows="2" cols="2"></textarea></td><td><input id="file_name" name="student_doc[]" class="form-control" type="file" placeholder="file" value="" ></td><td><input type="hidden" value="" name="student_doc_id[]"><button type="button" class="btn btn-danger btn-sm remove_doc" id="'+j+'"><i class="fa fa-minus" ></i></button></td></tr>');
-  j++
+  j++	
 });
     
 

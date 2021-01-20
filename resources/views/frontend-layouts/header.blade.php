@@ -1,8 +1,8 @@
  <!DOCTYPE html> <html lang="en-US"><head>
 <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="profile" href="http://gmpg.org/xfn/11">
-    <link rel="pingback" href="http://lisnagda.org/xmlrpc.php">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://lisnagda.org/xmlrpc.php">
     
 <title>Lakshya International School, Nagda &#8211; CBSE Affiliation No. 1031030</title>
 {{-- <meta name='robots' content='noindex,follow' />
@@ -10,7 +10,6 @@
 <link rel='dns-prefetch' href='//s.w.org' />
 <link rel="alternate" type="application/rss+xml" title="Lakshya International School, Nagda &raquo; Feed" href="http://lisnagda.org/feed/" />
 <link rel="alternate" type="application/rss+xml" title="Lakshya International School, Nagda &raquo; Comments Feed" href="http://lisnagda.org/comments/feed/" /> --}}
-
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
@@ -75,121 +74,111 @@
 <link rel="alternate" type="application/json+oembed" href="http://lisnagda.org/wp-json/oembed/1.0/embed?url=http%3A%2F%2Flisnagda.org%2F" />
 <link rel="alternate" type="text/xml+oembed" href="http://lisnagda.org/wp-json/oembed/1.0/embed?url=http%3A%2F%2Flisnagda.org%2F&#038;format=xml" />
 <style type='text/css'>.tlp-team .short-desc, .tlp-team .tlp-team-isotope .tlp-content, .tlp-team .button-group .selected, .tlp-team .layout1 .tlp-content, .tlp-team .tpl-social a, .tlp-team .tpl-social li a.fa,.tlp-portfolio button.selected,.tlp-portfolio .layoutisotope .tlp-portfolio-item .tlp-content,.tlp-portfolio button:hover {background: #0367bf}.tlp-portfolio .layoutisotope .tlp-overlay,.tlp-portfolio .layout1 .tlp-overlay,.tlp-portfolio .layout2 .tlp-overlay,.tlp-portfolio .layout3 .tlp-overlay, .tlp-portfolio .slider .tlp-overlay {background:rgba(3,103,191,0.8);}</style><!-- <meta name="NextGEN" version="3.0.7" /> -->
-                <link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-            <style type="text/css">
-                    
-            @font-face {
-                font-family: 'aslsicons2';
-                src: url('//lisnagda.org/wp-content/plugins/ajax-search-lite/css/fonts/icons2.eot');
-                src: url('//lisnagda.org/wp-content/plugins/ajax-search-lite/css/fonts/icons2.eot?#iefix') format('embedded-opentype'),
-                     url('//lisnagda.org/wp-content/plugins/ajax-search-lite/css/fonts/icons2.woff2') format('woff2'),
-                     url('//lisnagda.org/wp-content/plugins/ajax-search-lite/css/fonts/icons2.woff') format('woff'),
-                     url('//lisnagda.org/wp-content/plugins/ajax-search-lite/css/fonts/icons2.ttf') format('truetype'),
-                     url('//lisnagda.org/wp-content/plugins/ajax-search-lite/css/fonts/icons2.svg#icons') format('svg');
-                font-weight: normal;
-                font-style: normal;
-            }
-            div[id*='ajaxsearchlitesettings'].searchsettings .asl_option_inner label {
-                font-size: 0px !important;
-                color: rgba(0, 0, 0, 0);
-            }
-            div[id*='ajaxsearchlitesettings'].searchsettings .asl_option_inner label:after {
-                font-size: 11px !important;
-                position: absolute;
-                top: 0;
-                left: 0;
-                z-index: 1;
-            }
-            div[id*='ajaxsearchlite'].wpdreams_asl_container {
-                width: 100%;
-                margin: 0px 0px 0px 0px;
-            }
-            div[id*='ajaxsearchliteres'].wpdreams_asl_results div.resdrg span.highlighted {
-                font-weight: bold;
-                color: rgba(217, 49, 43, 1);
-                background-color: rgba(238, 238, 238, 1);
-            }
-            div[id*='ajaxsearchliteres'].wpdreams_asl_results .results div.asl_image {
-                width: 70px;
-                height: 70px;
-            }
-            div.asl_r .results {
-                max-height: none;
-            }
+        <link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <style type="text/css">
             
-                .asl_m .probox svg {
-                    fill: rgb(12, 117, 25) !important;
-                }
-                .asl_m .probox .innericon {
-                    background-color: rgba(255, 255, 255, 1) !important;
-                    background-image: none !important;
-                    -webkit-background-image: none !important;
-                    -ms-background-image: none !important;
-                }
-                
-                div.asl_m.asl_w {
-                    border:1px double rgb(4, 55, 13) !important;border-radius:5px 5px 5px 5px !important;
-                    box-shadow: none !important;
-                }
-                div.asl_m.asl_w .probox {border: none !important;}
-                                    -->
-                </style>
-                            <script type="text/javascript">
-                if ( typeof _ASL !== "undefined" && _ASL !== null && typeof _ASL.initialize !== "undefined" )
-                    _ASL.initialize();
-            </script>
-            {{-- <link rel="icon" href="http://lisnagda.org/wp-content/uploads/2020/01/cropped-LIS_Logo-9-32x32.png" sizes="32x32" /> --}}
-            <link rel="icon" href="{{ asset('frontend-logos/cropped-LIS_Logo-9-32x32.png')}}" sizes="32x32" />
-            {{-- <link rel="icon" href="http://lisnagda.org/wp-content/uploads/2020/01/cropped-LIS_Logo-9-192x192.png" sizes="192x192" /> --}}
-            <link rel="icon" href="{{ asset('frontend-logos/cropped-LIS_Logo-9-192x192.png')}}" sizes="32x32" />
-            {{-- <link rel="apple-touch-icon-precomposed" href="http://lisnagda.org/wp-content/uploads/2020/01/cropped-LIS_Logo-9-180x180.png" /> --}}
-            <link rel="icon" href="{{ asset('frontend-logos/cropped-LIS_Logo-9-180x180.png')}}" sizes="32x32" />
-            {{-- <meta name="msapplication-TileImage" content="http://lisnagda.org/wp-content/uploads/2020/01/cropped-LIS_Logo-9-270x270.png" /> --}}
-            <meta name="msapplication-TileImage" content="{{ asset('frontend-logos/cropped-LIS_Logo-9-270x270.png')}}" />
-            {{-- <link rel='stylesheet' id='tlpportfolio-fontawsome-css'  href='{{ asset('css/font-awesome.min.css')}}' type='text/css' media='all' /> --}}
-            
+    @font-face {
+        font-family: 'aslsicons2';
+        src: url('//lisnagda.org/wp-content/plugins/ajax-search-lite/css/fonts/icons2.eot');
+        src: url('//lisnagda.org/wp-content/plugins/ajax-search-lite/css/fonts/icons2.eot?#iefix') format('embedded-opentype'),
+             url('//lisnagda.org/wp-content/plugins/ajax-search-lite/css/fonts/icons2.woff2') format('woff2'),
+             url('//lisnagda.org/wp-content/plugins/ajax-search-lite/css/fonts/icons2.woff') format('woff'),
+             url('//lisnagda.org/wp-content/plugins/ajax-search-lite/css/fonts/icons2.ttf') format('truetype'),
+             url('//lisnagda.org/wp-content/plugins/ajax-search-lite/css/fonts/icons2.svg#icons') format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    div[id*='ajaxsearchlitesettings'].searchsettings .asl_option_inner label {
+        font-size: 0px !important;
+        color: rgba(0, 0, 0, 0);
+    }
+    div[id*='ajaxsearchlitesettings'].searchsettings .asl_option_inner label:after {
+        font-size: 11px !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+    div[id*='ajaxsearchlite'].wpdreams_asl_container {
+        width: 100%;
+        margin: 0px 0px 0px 0px;
+    }
+    div[id*='ajaxsearchliteres'].wpdreams_asl_results div.resdrg span.highlighted {
+        font-weight: bold;
+        color: rgba(217, 49, 43, 1);
+        background-color: rgba(238, 238, 238, 1);
+    }
+    div[id*='ajaxsearchliteres'].wpdreams_asl_results .results div.asl_image {
+        width: 70px;
+        height: 70px;
+    }
+    div.asl_r .results {
+        max-height: none;
+    }
+
+        .asl_m .probox svg {
+            fill: rgb(12, 117, 25) !important;
+        }
+        .asl_m .probox .innericon {
+            background-color: rgba(255, 255, 255, 1) !important;
+            background-image: none !important;
+            -webkit-background-image: none !important;
+            -ms-background-image: none !important;
+        }
+        
+        div.asl_m.asl_w {
+            border:1px double rgb(4, 55, 13) !important;border-radius:5px 5px 5px 5px !important;
+            box-shadow: none !important;
+        }
+        div.asl_m.asl_w .probox {border: none !important;}
+                            -->
+        </style>
+    <script type="text/javascript">
+        if ( typeof _ASL !== "undefined" && _ASL !== null && typeof _ASL.initialize !== "undefined" )
+            _ASL.initialize();
+        </script>
+        {{-- <link rel="icon" href="http://lisnagda.org/wp-content/uploads/2020/01/cropped-LIS_Logo-9-32x32.png" sizes="32x32" /> --}}
+        <link rel="icon" href="{{ asset('frontend-logos/cropped-LIS_Logo-9-32x32.png')}}" sizes="32x32" />
+        {{-- <link rel="icon" href="http://lisnagda.org/wp-content/uploads/2020/01/cropped-LIS_Logo-9-192x192.png" sizes="192x192" /> --}}
+        <link rel="icon" href="{{ asset('frontend-logos/cropped-LIS_Logo-9-192x192.png')}}" sizes="32x32" />
+        {{-- <link rel="apple-touch-icon-precomposed" href="http://lisnagda.org/wp-content/uploads/2020/01/cropped-LIS_Logo-9-180x180.png" /> --}}
+        <link rel="icon" href="{{ asset('frontend-logos/cropped-LIS_Logo-9-180x180.png')}}" sizes="32x32" />
+        {{-- <meta name="msapplication-TileImage" content="http://lisnagda.org/wp-content/uploads/2020/01/cropped-LIS_Logo-9-270x270.png" /> --}}
+        <meta name="msapplication-TileImage" content="{{ asset('frontend-logos/cropped-LIS_Logo-9-270x270.png')}}" />
+    {{-- <link rel='stylesheet' id='tlpportfolio-fontawsome-css'  href='{{ asset('css/font-awesome.min.css')}}' type='text/css' media='all' /> --}}
 </head>
 
 <body class="home page-template-default page page-id-5 wp-custom-logo site-layout-fluid global-layout-no-sidebar">
-
-        <div id="page" class="container hfeed site">
+<div id="page" class="container hfeed site">
     <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
         <div id="tophead">
-        <div class="container">
-            <div id="quick-contact">
-                <ul>
-                    <li class="quick-call"><a href="tel:917879822222">+91-78798-22222</a></li>
-                        <li class="quick-email"><a href="mailto:support@lisnagda.org">support@lisnagda.org</a></li>
-                </ul>
-            </div>
-
-        </div> <!-- .container -->
-    </div><!--  #tophead -->
-
-    <header id="masthead" class="site-header" role="banner"><div class="container">     
-        <div class="site-branding">
-
-            <a href="http://lisnagda.org/" class="custom-logo-link" rel="home" itemprop="url">
-                <img width="170" height="139" src="{{ asset('frontend-logos/LIS_Logo-1.png')}}" class="custom-logo" alt="" itemprop="logo"></a>
-                {{-- <img width="170" height="139" src="http://lisnagda.org/wp-content/uploads/2020/01/LIS_Logo-1.png" class="custom-logo" alt="" itemprop="logo"></a> --}}
-
-                <div id="site-identity">
-                  <p class="site-title"><a href="http://lisnagda.org/" rel="home">Lakshya International School, Nagda</a></p>
-
-                    <p class="site-description">CBSE Affiliation No. 1031030</p>
-                </div><!-- #site-identity -->
-            
-        </div><!-- .site-branding -->
-
-            <div class="search-section">
-                <form role="search" method="get" class="search-form" action="http://lisnagda.org/">
-                <label>
-                    <span class="screen-reader-text">Search for:</span>
-                    <input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
-                </label>
-                <input type="submit" class="search-submit" value="Search" />
-            </form>         
-        </div>
-        
-        </div><!-- .container -->
-    </header><!-- #masthead -->   
+            <div class="container">
+                <div id="quick-contact">
+                    <ul>
+                        <li class="quick-call"><a href="tel:{{Session::get('header_bar_mobile')}}">{{Session::get('header_bar_mobile')}}</a></li>
+                            <li class="quick-email"><a href="mailto:{{Session::get('header_bar_email')}}">{{Session::get('header_bar_email')}}</a></li>
+                    </ul>
+                </div>
+            </div> <!-- .container -->
+        </div><!--  #tophead -->
+        <header id="masthead" class="site-header" role="banner">
+                <div class="container">     
+                    <div class="site-branding">
+                        <a href="{{Session::get('site_website')}}" class="custom-logo-link" rel="home" itemprop="url">
+                            <img width="170" height="139" src="{{asset('storage/'.Session::get('site_logo'))}}" class="custom-logo" alt="" itemprop="logo"></a>
+                            <div id="site-identity">
+                                <p class="site-title"><a href="{{Session::get('site_website')}}" rel="home">{{Session::get('site_title')}}</a></p>
+                                <p class="site-description">CBSE Affiliation No. {{Session::get('cbse_aff_no')}}</p>
+                            </div><!-- #site-identity -->
+                    </div><!-- .site-branding -->
+                    <div class="search-section">
+                        <form role="search" method="get" class="search-form" action="http://lisnagda.org/">
+                        <label>
+                            <span class="screen-reader-text">Search for:</span>
+                            <input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+                        </label>
+                        <input type="submit" class="search-submit" value="Search" />
+                    </form>         
+                </div>
+            </div><!-- .container -->
+        </header><!-- #masthead -->   

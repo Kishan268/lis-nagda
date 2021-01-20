@@ -11,34 +11,13 @@
 				
 <article id="post-857" class="post-857 page type-page status-publish hentry">
 	<header class="entry-header">
-		<h1 class="entry-title">Openings</h1>	</header><!-- .entry-header -->
-
+		<h1 class="entry-title">Openings</h1>	
+	</header><!-- .entry-header -->
+	@foreach($openingsDatas as $openingsData)
 	<div class="entry-content">
-    		<p><strong>Greetings !!</strong></p>
-<p>Lakshya International School is currently hiring for the following positions :-</p>
-<h2><strong>PGT English Teacher</strong></h2>
-<p>Qualification : B.A / M.A. (English Literature)<br />
-Required Experience : 2- 4 Years of teaching experience as a English teacher<br />
-Must have : Excellent communication skills.<br />
-Number of Vacancies : 04</p>
-<h2><strong>PGT Social Science Teacher</strong></h2>
-<p>Qualification : B.A / M.A. (Sociology / Economics / Civics)<br />
-Required Experience : 2- 4 Years of teaching experience as a Social Science teacher<br />
-Must have : Excellent communication skills.<br />
-Number of Vacancies : 04</p>
-<h2><strong>Accounts Teacher</strong></h2>
-<p>Qualification : B.Com/ M.Com.<br />
-Required Experience : 2- 4 Years of teaching experience as a Accounts teacher<br />
-Must have : Excellent communication skills.<br />
-Number of Vacancies : 02<br />
-&nbsp;</p>
-<h4><em><strong>Note : B.Ed is mandatory for all the above vacancies.</strong></em></h4>
-<p>&nbsp;</p>
-<h2><strong><b>Computer Teacher</b></strong></h2>
-<p>Qualification : B.E / B.Sc / BCA (C.S. / I.T.)</p>
-<p>Required Experience : 2- 4 Years of teaching Experience as a Computer Teacher</p>
-<p>Number of Vacancies : 02</p>
-<p>
+		<h2><strong>{{$openingsData->openings_title}}</strong></h2>
+		{!!$openingsData->openings_des!!}
+	@endforeach		
 	<a href="{{url('career')}}" class="btn btn-success">Apply</a> </p>
 <p><script>
 // function myFunction() {

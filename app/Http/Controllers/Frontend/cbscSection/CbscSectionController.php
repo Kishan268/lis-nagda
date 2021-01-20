@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Frontend\cbscSection;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Response;
+use App\Models\setting\Committees;
+
 class CbscSectionController extends Controller
 {
     // public function index(){
@@ -14,13 +16,14 @@ class CbscSectionController extends Controller
     public function cbscInformation(){
 
         $file = public_path()."/school-documents.pdf";
-        $headers = array('Content-Type: application/pdf',$file);
+            $headers = array('Content-Type: application/pdf',$file);
 
-        return response()->file($file);
+            return response()->file($file);
 
     }
     public function committees(){
-    	return view('frontend/CBSC-Section/committees');
+        $committeesDatas = Committees::get();
+    	return view('frontend/CBSC-Section/committees',compact('committeesDatas'));
 
     }
     public function transferCertificate(){

@@ -25,11 +25,11 @@ class SettingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('admin.settings.create');
+    // public function create()
+    // {
+    //     return view('admin.settings.create');
         
-    }
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -37,7 +37,7 @@ class SettingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    /*public function store(Request $request)
     {
         // dd($request);
          $this->validate($request,[
@@ -92,7 +92,7 @@ class SettingController extends Controller
             }
 
     }
-
+*/
     /**
      * Display the specified resource.
      *
@@ -190,6 +190,12 @@ class SettingController extends Controller
     {
         Settings::where('setting_id',$id)->delete();
          return redirect()->route('settings.index')->with('success','setting deleted successfully');
+
+    }
+    public function dashboard()
+    {
+        // dd('Sd');
+        return view('admin.settings.dashboard');
 
     }
 }

@@ -11,34 +11,20 @@
 				
 <article id="post-42" class="post-42 page type-page status-publish hentry">
 	<header class="entry-header">
-			</header><!-- .entry-header -->
-
-	<div class="entry-content">
-                     
-    	<h1><strong>Admission Process &amp; Policy</strong>
-    		<div class="app-title full-right">
-			     @if($message = Session::get('success'))   
-			      	<div class="alert alert-success">{{ $message }}</div>
-			     @endif
-			  </div></h1>
-			<ol>
-				<li>Applications for admissions are accepted.</li>
-				<li>Application forms can be obtained from the school office.</li>
-				<li>Admission will be given on the basis of the results of the interview/ Test and subject to the vacancies in each class.</li>
-				<li>Admissions are granted strictly on the merit of the candidate.</li>
-				<li>All documents once submitted become the property of the school and cannot be returned.</li>
-				<li>For the academic year 2020-2021 no child born later than 31st December 2015 for Nursery, Jr KG 31 Dec 2014 will be considered for admission.</li>
-				<li>Following documents are required during the admission process :
-			<ul>
-				<li>Proof of age (birth certificate).</li>
-				<li>Proof of residential address- Electricity Bill/Telephone( landline) bill/Latest Bank Account Statement/- lease deed made within six months prior to the submission of the application form along with an affidavit on stamp paper should be submitted in case of rental accommodation.</li>
-				<li>Four photographs of the child.</li>
-				<li>One photograph of each parent.</li>
-			</ul>
-				</li>
-			</ol>
-		<h1><strong><strong>Admission Inquiry Form</strong></strong>
-			</h1>
+		</header><!-- .entry-header -->
+			<div class="entry-content">
+			    @if($message = Session::get('success'))   
+				      	<div class="alert alert-success">{{ $message }}</div>
+				@endif
+				@foreach($adnFormDatas as $adnFormData)
+		    	<h1><strong>{{$adnFormData->adm_form_title}}</strong>
+		    		<div class="app-title full-right">
+					   
+					  </div></h1>
+					{!! $adnFormData->adm_form_des!!}
+					@endforeach
+				<h1><strong><strong>Admission Inquiry Form</strong></strong>
+				</h1>
 		<div role="form" {{-- class="wpcf7" id="wpcf7-f49-p42-o1" --}} lang="en-US" dir="ltr">
 		<div class="screen-reader-response"></div>
 		<form action="{{route('admission_inquiry_form')}}" method="post" class="wpcf7-form" novalidate="novalidate" id="example-form">
@@ -133,7 +119,7 @@
             </form>
             </div>
             <p>
-            <a class="button medium green brochure-button downloadbutton" href="http://lisnagda.org/wp-content/uploads/2016/11/LIS_Brochure_Curv.pdf" target="_blank" rel="noopener"><i class="icon-file icon-white"></i>Download E-Brochure</a></p>
+            <a class="button medium green brochure-button downloadbutton" href="{{ asset('LIS_Brochure_Curv.pdf') }}" target="_blank" rel="noopener"><i class="icon-file icon-white"></i>Download E-Brochure</a></p>
             </div><!-- .entry-content -->
            <footer class="entry-footer">
         </footer><!-- .entry-footer -->

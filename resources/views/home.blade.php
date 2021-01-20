@@ -126,7 +126,7 @@
             </div>
         </div>
     </div>
-    <div class="row mb-4">
+   {{--  <div class="row mb-4">
         <div class="col-xl-4 col-lg-5">
             <div class="card shadow mb-4">
                 <div class="card-header">
@@ -141,14 +141,142 @@
                                 {{$count++}}.Notice Title:- {{$getNotications->circular_title}} <br>
                                 &nbsp;&nbsp;Notice Description:- {{$getNotications->circular_description}} <br>
                                 &nbsp;&nbsp;Notice File:- <br><a href=""><img src="{{asset($getNotications->file !=null ? 'storage/'.$getNotications->file : 'img/student_demo.png')}}" style="width: 100px; height: 100px;"></a> <br><hr><hr>
-                                {{-- <a href="">Wishes</a> --}}
+                                <a href="">Wishes</a>
                             @endif
                         @endforeach
                     </marquee>    
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
+    <div class="row">
+      <div class="col-xl-4 col-lg-5">
+        <div class="card shadow mb-4">
+          <!-- Card Header - Dropdown -->
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Notice & Circular &nbsp; </h6>   
+    
+          </div>
+          <!-- Card Body -->
+        @role('students')
+           <div class="card-body">
+             <div class="chart-pie pt-4 pb-2">
+                <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
+                    @php $count = 1; @endphp
+                    @foreach($getNotication as $getNotications)
+                        @if(date("Y-m-d") >= $getNotications->date_to_display)
+
+                            {{$count++}}.Notice Title:- {{$getNotications->circular_title}} <br>
+                            &nbsp;&nbsp;Notice Description:- {{$getNotications->circular_description}} <br>
+                            &nbsp;&nbsp;Notice File:- <br><a href=""><img src="{{asset($getNotications->file !=null ? 'storage/'.$getNotications->file : 'img/student_demo.png')}}" style="width: 100px; height: 100px;"></a> <br><hr><hr>
+                            {{-- <a href="">Wishes</a> --}}
+                        @endif
+                    @endforeach
+                </marquee>    
+                </div>
+            </div>
+          @endrole
+          @role('superadmin')
+           <div class="card-body">
+             <div class="chart-pie pt-4 pb-2">
+                    <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
+                        @php $count = 1; @endphp
+                        @foreach($getNotication as $getNotications)
+                            @if(date("Y-m-d") >= $getNotications->date_to_display)
+
+                                {{$count++}}.Notice Title:- {{$getNotications->circular_title}} <br>
+                                &nbsp;&nbsp;Notice Description:- {{$getNotications->circular_description}} <br>
+                                &nbsp;&nbsp;Notice File:- <br><a href=""><img src="{{asset($getNotications->file !=null ? 'storage/'.$getNotications->file : 'img/student_demo.png')}}" style="width: 100px; height: 100px;"></a> <br><hr><hr>
+                                {{-- <a href="">Wishes</a> --}}
+                            @endif
+                        @endforeach
+                    </marquee>    
+                </div>
+            </div>
+          @endrole
+          @role('teachers')
+          <div class="card-body">
+             {{--  <div class="chart-pie pt-4 pb-2">
+                <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
+                  <?php $count = 1; ?>
+                  @foreach($getNotication as $getNotications)
+                    @if(date("Y-m-d") <= $getNotications->date_to_display && $getNotications->date_to_display == 'S')
+                      {{$count++}}.Notice Title:- {{$getNotications->circular_title}} <br>
+                      &nbsp;&nbsp;Notice Description:- {{$getNotications->circular_description}} <br>
+                      &nbsp;&nbsp;Notice File:- <br><a href=""><img src="{{asset($getNotications->file !=null ? 'storage/'.$getNotications->file : 'img/student_demo.png')}}" style="width: 100px; height: 100px;"></a> <br><hr><hr>
+                      <a href="">Wishes</a>
+                      @endif
+                  @endforeach
+                  </marquee>    
+              </div>         --}}
+                <div class="chart-pie pt-4 pb-2">
+                    <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
+                        @php $count = 1; @endphp
+                        @foreach($getNotication as $getNotications)
+                            @if(date("Y-m-d") >= $getNotications->date_to_display)
+
+                                {{$count++}}.Notice Title:- {{$getNotications->circular_title}} <br>
+                                &nbsp;&nbsp;Notice Description:- {{$getNotications->circular_description}} <br>
+                                &nbsp;&nbsp;Notice File:- <br><a href=""><img src="{{asset($getNotications->file !=null ? 'storage/'.$getNotications->file : 'img/student_demo.png')}}" style="width: 100px; height: 100px;"></a> <br><hr><hr>
+                                {{-- <a href="">Wishes</a> --}}
+                            @endif
+                        @endforeach
+                    </marquee>    
+                </div>
+          </div>
+          @endrole
+        </div>
+      </div> 
+       <div class="col-xl-4 col-lg-5">
+        <div class="card shadow mb-4">
+          <!-- Card Header - Dropdown -->
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Today's Birthday</h6>           
+          </div>
+          <!-- Card Body -->
+           <div class="card-body">
+              <div class="chart-pie pt-4 pb-2">
+                <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
+                @foreach($birthUsers as $birthUser)
+                    Name:- {{$birthUser->f_name. ' ' .$birthUser->l_name}} ({{date('d-M-Y',strtotime($birthUser->dob))}})<br><hr><hr>
+                    {{-- <a href="">Wishes</a> --}}
+                @endforeach
+                </marquee>
+              </div>              
+          </div>
+        </div>
+      </div>
+   @role('superadmin')
+
+      <div class="col-md-4 col-lg-4">
+        <div class="card shadow mb-4">
+          <!-- Card Header - Dropdown -->
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">  Transport Details  </h6>
+          </div>
+          <!-- Card Body -->
+          <div class="card-body">
+            <div class="chart-pie pt-4 pb-2">
+              <canvas id="myPieChart1"></canvas>
+            </div>
+          </div>
+        </div>
+      </div> 
+      @endrole 
+   </div>
+   <div class="row">
+     <div class="col-md-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Calendar</h6>
+            </div>
+            <div class="card-body">
+              <div id="calendar"></div>
+                <br>
+            </div>
+          </div>
+     </div>
+   </div>
 </div>
 <script src="{{asset("vendor/chart.js/Chart.min.js")}}"></script>
 <script src="{{asset("js/demo/chart-area-demo.js")}}"></script>

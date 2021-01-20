@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\ContactUsFrom;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactUsForm;
+use App\Models\setting\Contactus;
+
 class ContactUsController extends Controller
 {
 
@@ -24,5 +26,9 @@ class ContactUsController extends Controller
     		
     	}
     }
-   
+    public function settingContactus(){
+        $contactusDatas = Contactus::get();
+        // dd($contactusDatas);
+            return view('frontend.ContactUs.index',compact('contactusDatas'));
+    }
 }

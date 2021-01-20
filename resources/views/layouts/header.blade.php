@@ -13,8 +13,8 @@
   <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
 
     <script src="{{asset("vendor/jquery/jquery.min.js")}}"></script>
-  <title>Lakshya International School, Nagda &#8211; CBSE Affiliation No. 1031030</title>
-  <link rel="icon" href="{{ asset('frontend-logos/cropped-LIS_Logo-9-270x270.png')}}"/>
+    <title>Lakshya International School, Nagda &#8211; CBSE Affiliation No. 1031030</title>
+    <link rel="icon" href="{{ asset('frontend-logos/cropped-LIS_Logo-9-270x270.png')}}"/>
 
   {{-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"> --}}
 
@@ -392,6 +392,18 @@ p {
     <a class="nav-link" href="{{url('career-request')}}">
       <i class="fas fa-graduation-cap"></i>
       <span>Career</span></a>
+  </li>
+   <li class="nav-item">
+    <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#settings" aria-expanded="true" aria-controls="settings">
+      <i class="fas fa-fw fa-cogs"></i>
+      <span>Settings</span>
+    </a>
+    <div id="settings" class="collapse" aria-labelledby="headingTwo" data-parent="#settings">
+        <div class="bg-white py-2 collapse-inner rounded siderbar1">
+           {{-- <a class="collapse-item" href="{{route('employees.index')}}">Dashboard </a> --}}
+           <a class="collapse-item" href="{{route('settings.dasboard')}}">Dashboard</a>
+        </div>
+    </div>
   </li>
 @endrole
 @ability('teachers','superadmin')
