@@ -24,7 +24,7 @@
             -   PREPARE PLACEHOLDER FOR SLIDER  -
         ******************************************/
         var setREVStartSize = function() {
-              var coount = '<?php echo $count; ?>';
+            var coount = '<?php echo $count; ?>';
             var tpopt = new Object();
                 tpopt.startwidth = 960;
                 tpopt.startheight = 450;
